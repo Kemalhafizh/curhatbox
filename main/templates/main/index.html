@@ -1,0 +1,45 @@
+{% extends 'main/base.html' %}
+{% load static %} {% block title %}CurhatBox - Kirim Pesan Rahasia Secara Anonim{% endblock %}
+
+{% block content %}
+<div class="row justify-content-center align-items-center py-5">
+    <div class="col-md-7 text-center">
+        
+        <div class="mb-4">
+            <img src="{% static 'img/logo-web.png' %}" alt="CurhatBox Logo" class="img-fluid" style="max-width: 200px;">
+        </div>
+        <h1 class="display-4 fw-bold text-dark mb-3">Dapatkan Pesan Jujur dari Temanmu! 🤫</h1>
+        <p class="lead text-muted mb-4">Buat profil, bagikan link, dan terima pesan anonim yang jujur, seru, atau bahkan kritik yang membangun tanpa tahu siapa pengirimnya.</p>
+        
+        <div class="d-grid gap-3 d-sm-flex justify-content-sm-center">
+            {% if not user.is_authenticated %}
+                <a href="{% url 'register' %}" class="btn btn-primary btn-lg px-5 fw-bold rounded-pill shadow">Mulai Sekarang — Gratis!</a>
+                <a href="{% url 'login' %}" class="btn btn-outline-primary btn-lg px-5 rounded-pill">Masuk</a>
+            {% else %}
+                <a href="{% url 'dashboard' %}" class="btn btn-primary btn-lg px-5 fw-bold rounded-pill">Buka Dashboard Saya 🚀</a>
+            {% endif %}
+        </div>
+
+        <div class="row mt-5 pt-4">
+            <div class="col-md-4 mb-3">
+                <div class="p-3">
+                    <h3 class="fs-4">🔒 Aman</h3>
+                    <p class="small text-muted">Identitas pengirim benar-benar dirahasiakan oleh sistem.</p>
+                </div>
+            </div>
+            <div class="col-md-4 mb-3">
+                <div class="p-3">
+                    <h3 class="fs-4">⚡ Cepat</h3>
+                    <p class="small text-muted">Bagikan link ke IG Story atau Bio WA dalam hitungan detik.</p>
+                </div>
+            </div>
+            <div class="col-md-4 mb-3">
+                <div class="p-3">
+                    <h3 class="fs-4">🎯 Jujur</h3>
+                    <p class="small text-muted">Dapatkan masukan jujur yang selama ini sungkan diucapkan.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

@@ -1,0 +1,102 @@
+/* =========================================
+   1. GLOBAL & LAYOUT (Dari Base)
+   ========================================= */
+html, body {
+    height: 100%;
+}
+
+body {
+    display: flex;
+    flex-direction: column;
+}
+
+main {
+    flex: 1 0 auto;
+}
+
+/* =========================================
+   2. AUTHENTICATION (Login/Register Forms)
+   ========================================= */
+/* Membuat input Django terlihat konsisten & rapi */
+.auth-input input {
+    display: block;
+    width: 100%;
+    padding: 0.375rem 0.75rem;
+    font-size: 1rem;
+    font-weight: 400;
+    line-height: 1.5;
+    color: #212529;
+    background-color: #fff;
+    background-clip: padding-box;
+    border: 1px solid #ced4da;
+    border-radius: 0.375rem;
+    transition: border-color .15s ease-in-out, box-shadow .15s ease-in-out;
+}
+
+.auth-input input:focus {
+    border-color: #86b7fe;
+    outline: 0;
+    box-shadow: 0 0 0 0.25rem rgba(13, 110, 253, 0.25);
+}
+
+/* =========================================
+   3. DASHBOARD UTILITIES
+   ========================================= */
+.bg-light-purple {
+    background-color: #f3f0ff !important;
+}
+
+/* Animasi untuk badge "BARU" */
+.animate-pulse {
+    animation: pulse-animation 2s infinite;
+}
+
+@keyframes pulse-animation {
+    0% { box-shadow: 0 0 0 0px rgba(111, 66, 193, 0.4); }
+    70% { box-shadow: 0 0 0 10px rgba(111, 66, 193, 0); }
+    100% { box-shadow: 0 0 0 0px rgba(111, 66, 193, 0); }
+}
+
+/* =========================================
+   4. FITUR IG STORY (Ghost Canvas)
+   ========================================= */
+/* Disembunyikan dari layar user */
+#hidden-capture-area {
+    position: fixed;
+    top: -9999px;
+    left: -9999px;
+    width: 1080px; 
+    height: 1920px; 
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: 'Inter', sans-serif;
+    z-index: -1;
+}
+
+.ig-card {
+    background: rgba(255, 255, 255, 0.95);
+    width: 800px;
+    border-radius: 40px;
+    padding: 60px;
+    box-shadow: 0 20px 50px rgba(0,0,0,0.3);
+    text-align: center;
+}
+
+.ig-question-box {
+    background: #f3f0ff;
+    border-left: 15px solid #6f42c1;
+    padding: 40px;
+    border-radius: 20px;
+    margin-bottom: 40px;
+    text-align: left;
+}
+
+/* =========================================
+   5. PUBLIC PROFILE UTILITIES
+   ========================================= */
+.rounded-4 { border-radius: 1.2rem !important; }
+.rounded-tl-0 { border-top-left-radius: 0 !important; }
+.rounded-tr-0 { border-top-right-radius: 0 !important; }
+.bg-primary-custom { background-color: #6f42c1 !important; }

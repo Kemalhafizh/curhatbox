@@ -1,0 +1,134 @@
+{% extends 'main/base.html' %}
+{% load humanize %}
+
+{% block title %}Dashboard Pesan{% endblock %}
+
+{% block content %}
+<script src="https://html2canvas.hertzen.com/dist/html2canvas.min.js"></script>
+
+<div class="row">
+    <div class="col-md-4 mb-4">
+        <div class="card shadow-sm border-0">
+            <div class="card-body text-center">
+                <div class="bg-primary text-white rounded-circle d-inline-flex align-items-center justify-content-center mb-3" style="width: 60px; height: 60px; font-size: 1.5rem; font-weight: bold;">
+                    {{ user.username|slice:":1"|upper }}
+                </div>
+                <h5>Hallo, {{ user.username }}!</h5>
+                <p class="small text-muted mb-1 text-start">Link profil kamu:</p>
+                
+                <div class="input-group mb-1 shadow-sm"> 
+                    <input type="text" class="form-control form-control-sm bg-light" value="http://127.0.0.1:8000/{{ user.profile.slug }}" id="profileLink" readonly>
+                    <button class="btn btn-primary btn-sm" type="button" id="copyBtn" onclick="copyToClipboard()">Salin</button>
+                </div>
+                
+                <div class="mt-2 text-start">
+                    <small class="text-muted d-block" style="font-size: 0.75rem; line-height: 1.2;">
+                        🔒 Profil kamu tersembunyi. Hanya orang yang memiliki link ini yang bisa mengirim pesan.
+                    </small>
+                </div>
+                <hr>
+                <div class="d-grid">
+                    <a href="{% url 'edit_profile' %}" class="btn btn-outline-primary btn-sm">Edit Bio Profil</a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-md-8">
+        <h3 class="fw-bold mb-4">Pesan Masuk ({{ messages.count }})</h3>
+        
+        {% if not messages %}
+            <div class="alert alert-light border text-center py-5">
+                <p class="text-muted mb-0">Belum ada pesan masuk. Sebar link kamu di sosial media!</p>
+            </div>
+        {% else %}
+            {% for msg in messages %}
+                <div class="card shadow-sm border-0 mb-3 {% if not msg.is_read %}border-start border-primary border-4 bg-light-purple{% endif %}">
+                    <div class="card-body">
+                        <div class="d-flex justify-content-between align-items-center mb-2">
+                            <div>
+                                <span class="badge bg-light text-dark text-capitalize">{{ msg.created_at|naturaltime }}</span>
+                                {% if not msg.is_read %}
+                                    <span class="badge rounded-pill bg-primary shadow-sm animate-pulse">BARU</span>
+                                {% endif %}
+                            </div>
+                        </div>
+
+                        <p class="mb-3 text-dark fw-bold">"{{ msg.content }}"</p>
+                        
+                        {% if msg.reply_content %}
+                            <div class="bg-white p-2 rounded mb-3 small border-start border-3 shadow-sm text-dark">
+                                <strong class="text-primary">Balasan kamu:</strong><br>
+                                {{ msg.reply_content }}
+                            </div>
+                        {% endif %}
+
+                        <div class="d-flex gap-2 flex-wrap align-items-center">
+                            <button type="button" class="btn btn-sm btn-primary" data-bs-toggle="modal" data-bs-target="#replyModal{{ msg.id }}">
+                                {% if msg.reply_content %}Edit Balasan{% else %}Balas{% endif %}
+                            </button>
+                            
+                            {% if msg.reply_content %}
+                                <button onclick="generateStory('{{ msg.content|escapejs }}', '{{ msg.reply_content|escapejs }}', '{{ user.username }}')" class="btn btn-sm btn-success text-white">
+                                    📸 IG Story
+                                </button>
+                            {% endif %}
+
+                            <form action="{% url 'block_sender' msg.id %}" method="POST" onsubmit="return confirm('Yakin ingin memblokir pengirim ini? Mereka tidak akan bisa kirim pesan ke kamu lagi selamanya.')">
+                                {% csrf_token %}
+                                <button type="submit" class="btn btn-sm btn-outline-dark" title="Blokir Pengirim">
+                                    🚫 Blokir
+                                </button>
+                            </form>
+
+                            <form action="{% url 'delete_message' msg.id %}" method="POST" onsubmit="return confirm('Hapus pesan ini?')">
+                                {% csrf_token %}
+                                <button type="submit" class="btn btn-sm btn-outline-danger">Hapus</button>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="modal fade" id="replyModal{{ msg.id }}" tabindex="-1" aria-hidden="true">
+                    <div class="modal-dialog">
+                        <div class="modal-content">
+                            <div class="modal-header bg-light">
+                                <h5 class="modal-title fw-bold text-dark">Balas Pesan Rahasia</h5>
+                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                            </div>
+                            <form action="{% url 'reply_message' msg.id %}" method="POST">
+                                {% csrf_token %}
+                                <div class="modal-body text-start text-dark">
+                                    <label class="form-label small text-muted">Pesan masuk:</label>
+                                    <p class="p-3 bg-light rounded italic border">"{{ msg.content }}"</p>
+                                    
+                                    <label class="form-label fw-bold">Jawaban kamu:</label>
+                                    <textarea name="reply_content" class="form-control" rows="4" placeholder="Tulis jawabanmu..." required>{{ msg.reply_content|default:"" }}</textarea>
+                                </div>
+                                <div class="modal-footer">
+                                    <button type="submit" class="btn btn-primary px-4">Kirim & Publikasikan 🚀</button>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            {% endfor %}
+        {% endif %}
+    </div>
+</div>
+
+<div id="hidden-capture-area">
+    <div class="ig-card">
+        <h2 style="color: #6f42c1; font-weight: 800; margin-bottom: 30px; font-size: 3rem;">CurhatBox 💜</h2>
+        <div class="ig-question-box">
+            <p style="font-size: 1.5rem; color: #6c757d; margin-bottom: 10px;">Seseorang bertanya:</p>
+            <p id="capture-question" style="font-size: 2.2rem; font-weight: bold; color: #212529; line-height: 1.3;"></p>
+        </div>
+        <div style="text-align: left; padding: 10px;">
+            <p style="font-size: 1.5rem; color: #6c757d; margin-bottom: 10px;">@<span id="capture-username">Username</span> menjawab:</p>
+            <p id="capture-answer" style="font-size: 2.5rem; color: #212529; line-height: 1.4;"></p>
+        </div>
+        <div style="margin-top: 50px; font-size: 1.2rem; color: #aaa;">curhatbox.my.id</div>
+    </div>
+</div>
+{% endblock %}

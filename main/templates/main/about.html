@@ -1,0 +1,78 @@
+{% extends 'main/base.html' %}
+{% load static %}
+
+{% block title %}Tentang CurhatBox - Misi Kami{% endblock %}
+
+{% block content %}
+<div class="row justify-content-center py-5">
+    <div class="col-md-8">
+        <div class="text-center mb-5">
+            <img src="{% static 'img/logo-web.png' %}" alt="Logo CurhatBox" height="80" class="mb-3">
+            <h1 class="fw-bold text-dark">Tentang CurhatBox</h1>
+            <p class="lead text-muted">Membangun koneksi yang jujur tanpa penghakiman.</p>
+        </div>
+
+        <div class="card shadow-sm border-0 rounded-4 overflow-hidden">
+            <div class="card-body p-4 p-md-5">
+                
+                <div class="mb-5">
+                    <h3 class="fw-bold text-primary mb-3">Apa itu CurhatBox? 💜</h3>
+                    <p class="text-secondary" style="line-height: 1.8;">
+                        <strong>CurhatBox</strong> adalah platform pengiriman pesan anonim (rahasia) yang dirancang untuk memfasilitasi komunikasi yang jujur dan terbuka. 
+                        Kami percaya bahwa terkadang, seseorang butuh "topeng" untuk bisa berkata jujur. Di sini, Anda bisa menerima masukan, kritik membangun, atau sekadar curhatan seru dari teman-teman tanpa mereka merasa takut identitasnya ketahuan.
+                    </p>
+                </div>
+
+                <div class="row g-4 mb-5">
+                    <div class="col-md-6">
+                        <div class="p-3 bg-light rounded-4 h-100 border">
+                            <h5 class="fw-bold text-dark">🎯 Misi Kami</h5>
+                            <p class="small text-muted mb-0">
+                                Menciptakan ruang aman digital di mana setiap orang bisa berekspresi tanpa takut dihakimi (Judgment-Free Zone).
+                            </p>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="p-3 bg-light rounded-4 h-100 border">
+                            <h5 class="fw-bold text-dark">🔒 Komitmen Privasi</h5>
+                            <p class="small text-muted mb-0">
+                                Keamanan Anda adalah prioritas nomor satu. Kami menggunakan enkripsi standar industri dan tidak pernah membocorkan data pengirim ke penerima.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="mb-5">
+                    <h5 class="fw-bold text-dark mb-3">Kenapa Memilih Kami?</h5>
+                    <ul class="list-unstyled text-secondary">
+                        <li class="mb-2 d-flex align-items-center">
+                            <i class="bi bi-check-circle-fill text-primary me-2"></i> 
+                            ✨ <strong>100% Anonim:</strong> Tidak ada nama, tidak ada pelacakan yang terlihat user.
+                        </li>
+                        <li class="mb-2 d-flex align-items-center">
+                            <i class="bi bi-check-circle-fill text-primary me-2"></i> 
+                            🚀 <strong>Ringan & Cepat:</strong> Website dimuat dalam hitungan detik.
+                        </li>
+                        <li class="mb-2 d-flex align-items-center">
+                            <i class="bi bi-check-circle-fill text-primary me-2"></i> 
+                            📸 <strong>IG Story Ready:</strong> Ubah pesan jadi gambar cantik siap posting.
+                        </li>
+                        <li class="mb-2 d-flex align-items-center">
+                            <i class="bi bi-check-circle-fill text-primary me-2"></i> 
+                            🛡️ <strong>Anti-Bullying:</strong> Dilengkapi fitur sensor kata kasar dan blokir IP.
+                        </li>
+                    </ul>
+                </div>
+
+                <div class="text-center border-top pt-4">
+                    <p class="small text-muted mb-1">Dibuat dengan penuh cinta dan kopi ☕</p>
+                    <p class="fw-bold text-primary mb-3">Versi 1.0.0 (Beta)</p>
+                    
+                    <a href="{% url 'index' %}" class="btn btn-outline-primary rounded-pill px-4">Kembali ke Beranda</a>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

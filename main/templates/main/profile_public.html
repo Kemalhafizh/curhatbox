@@ -1,0 +1,81 @@
+{% extends 'main/base.html' %}
+
+{% block title %}Kirim pesan ke {{ target_user.username }}{% endblock %}
+
+{% block content %}
+<style>
+    .rounded-4 { border-radius: 1.2rem !important; }
+    .rounded-tl-0 { border-top-left-radius: 0 !important; }
+    .rounded-tr-0 { border-top-right-radius: 0 !important; }
+    .bg-primary { background-color: #6f42c1 !important; }
+</style>
+
+<div class="row justify-content-center">
+    <div class="col-md-6 text-center">
+        <div class="bg-primary text-white rounded-circle d-inline-flex align-items-center justify-content-center mb-3" style="width: 80px; height: 80px; font-size: 2rem; font-weight: bold;">
+            {{ target_user.username|slice:":1"|upper }}
+        </div>
+        
+        <h2 class="fw-bold">{{ target_user.username }}</h2>
+        <p class="text-muted">{{ target_user.profile.bio|default:"Kirimkan saya pesan rahasia!" }}</p>
+
+        {% if messages %}
+            {% for message in messages %}
+                <div class="alert alert-success shadow-sm">{{ message }}</div>
+            {% endfor %}
+        {% endif %}
+
+        <div class="card shadow-sm border-0 mt-4 rounded-4">
+            <div class="card-body p-4">
+                <form method="POST">
+                    {% csrf_token %}
+                    <label class="form-label fw-bold">Tulis pesan rahasiamu di sini:</label>
+                    <textarea name="pesan" class="form-control mb-3" rows="4" placeholder="Jangan ragu, saya tidak akan tahu siapa kamu..." required></textarea>
+                    <button type="submit" class="btn btn-primary w-100 py-2 fw-bold rounded-3">Kirim Pesan 🚀</button>
+                </form>
+            </div>
+        </div>
+        
+        <p class="mt-4 small text-muted mb-5">Aman & Anonim. Penerima tidak akan tahu siapa pengirimnya.</p>
+
+        <hr class="my-5">
+        <h4 class="fw-bold mb-4 text-start">💜 Cerita yang Terjawab</h4>
+
+        {% for msg in target_user.messages.all %}
+            {% if msg.is_public %}
+                <div class="card shadow-sm border-0 mb-4 bg-white rounded-4 overflow-hidden">
+                    <div class="card-body p-4 text-start">
+                        <div class="d-flex mb-3">
+                            <div class="flex-grow-1 bg-light p-3 rounded-4 rounded-tl-0 border-start border-primary border-4">
+                                <small class="text-primary fw-bold d-block mb-1">Seseorang bertanya:</small>
+                                <p class="mb-0 text-dark">"{{ msg.content }}"</p>
+                            </div>
+                        </div>
+
+                        <div class="d-flex justify-content-end">
+                            <div class="bg-primary text-white p-3 rounded-4 rounded-tr-0 shadow-sm" style="max-width: 85%;">
+                                <small class="text-white-50 fw-bold d-block mb-1 text-end">Jawaban {{ target_user.username }}:</small>
+                                <p class="mb-0">{{ msg.reply_content }}</p>
+                            </div>
+                        </div>
+
+                        <div class="d-flex justify-content-between align-items-center mt-3 pt-3 border-top">
+                            <small class="text-muted" style="font-size: 0.7rem;">{{ msg.replied_at|date:"d M Y" }}</small>
+                            <div class="btn-group">
+                                <a href="https://api.whatsapp.com/send?text=Lihat curhatan ini di CurhatBox: http://127.0.0.1:8000/{{ target_user.profile.slug }}" 
+                                   target="_blank" class="btn btn-sm btn-outline-success border-0">
+                                   Share ke WA 📲
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            {% endif %}
+        {% empty %}
+            <div class="text-center py-4 bg-light rounded-4">
+                <p class="text-muted mb-0">Belum ada curhatan yang dijawab. Yuk, kirim pesan pertama!</p>
+            </div>
+        {% endfor %}
+        </div>
+</div>
+{% endblock %}
