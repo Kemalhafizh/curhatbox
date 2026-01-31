@@ -70,9 +70,7 @@ main {
    5. FITUR IG STORY GENERATOR (Final)
    ========================================= */
 
-/* A. Container Tersembunyi
-   Disembunyikan jauh di luar layar agar user tidak melihatnya,
-   tapi tetap bisa dibaca oleh script html2canvas. */
+/* A. Container Tersembunyi. */
 #hidden-capture-area {
     position: fixed;
     top: -9999px;

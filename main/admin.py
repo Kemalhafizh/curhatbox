@@ -3,7 +3,7 @@ from .models import Profile, Message
 
 # 1. Modifikasi tampilan Tabel Pesan (IP Pengirim terlihat)
 @admin.register(Message)
-class MessageAdmin(admin.ModelAdmin):  # <--- INI YANG SAYA PERBAIKI
+class MessageAdmin(admin.ModelAdmin):
     # Kolom yang muncul di daftar
     list_display = ('penerima_pesan', 'cuplikan_pesan', 'sender_ip', 'created_at', 'is_read')
     

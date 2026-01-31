@@ -6,7 +6,7 @@ def sensor_kata(teks):
     Mendukung Case Insensitive (Huruf besar/kecil tetap kena).
     """
     
-    # Daftar Kata Kotor (Bisa kamu tambah sendiri sepuasnya)
+    # Daftar Kata Kotor
     BAD_WORDS = [
         # --- BAHASA INDONESIA & GAUL ---
         "anjing", "babi", "monyet", "kunyuk", "bajingan", "asu", "bangsat", "kampret",
@@ -29,12 +29,8 @@ def sensor_kata(teks):
 
     # Melakukan sensor
     for word in BAD_WORDS:
-        # Regex pattern untuk menangkap kata meskipun campur huruf besar kecil (AnJiNg)
-        # re.IGNORECASE membuat dia tidak peduli huruf kapital
         pattern = re.compile(re.escape(word), re.IGNORECASE)
         
-        # Ganti dengan tanda bintang seanjang kata tersebut
-        # Contoh: "anjing" (6 huruf) jadi "******"
         teks = pattern.sub("*" * len(word), teks)
 
     return teks
