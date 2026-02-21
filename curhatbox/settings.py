@@ -130,3 +130,10 @@ LOGOUT_REDIRECT_URL = '/'
 # Media files (Uploaded by user)
 MEDIA_URL = '/media/'
 MEDIA_ROOT = BASE_DIR / 'media'
+
+# reCAPTCHA v3 Test Keys (Always Returns Success Locally)
+RECAPTCHA_PUBLIC_KEY = '6LeIxAcTAAAAAJcZVRqyHh71UMIEGNQ_MXjiZKhI'
+RECAPTCHA_PRIVATE_KEY = '6LeIxAcTAAAAAGG-vFI1TnRWxMZNFuojJ4WifJWe'
+
+# Ratelimit exception handling
+RATELIMIT_EXCEPTION_CLASS = 'django.core.exceptions.PermissionDenied'

@@ -34,3 +34,30 @@ def sensor_kata(teks):
         teks = pattern.sub("*" * len(word), teks)
 
     return teks
+
+import json
+from urllib import request, parse
+from django.conf import settings
+
+def verify_recaptcha(token):
+    """
+    Verifikasi token reCAPTCHA v3 ke server Google.
+    Mengembalikan True jika sukses/skor aman, False jika gagal.
+    """
+    if not token:
+        return False
+
+    url = 'https://www.google.com/recaptcha/api/siteverify'
+    data = parse.urlencode({
+        'secret': settings.RECAPTCHA_PRIVATE_KEY,
+        'response': token
+    }).encode('utf-8')
+    
+    req = request.Request(url, data=data)
+    try:
+        with request.urlopen(req) as response:
+            result = json.loads(response.read().decode('utf-8'))
+            # success & score > 0.5 dihitung lolos v3
+            return result.get('success', False) and result.get('score', 0.0) >= 0.5
+    except Exception:
+        return False

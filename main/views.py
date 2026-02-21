@@ -8,7 +8,7 @@ from django.utils import timezone
 
 from .models import Message, BlockList
 from .forms import ProfileForm, ReplyForm
-from .utils import sensor_kata
+from .utils import sensor_kata, verify_recaptcha
 
 # --- PUBLIC VIEWS ---
 
@@ -37,6 +37,10 @@ def register(request):
     
     return render(request, 'main/register.html', {'form': form})
 
+from django_ratelimit.decorators import ratelimit
+from django.core.exceptions import PermissionDenied
+
+@ratelimit(key='ip', rate='3/m', method='POST', block=True)
 def public_profile(request, slug):
     receiver = get_object_or_404(User, profile__slug=slug)
     
@@ -47,12 +51,19 @@ def public_profile(request, slug):
         content = request.POST.get('pesan')
         client_ip = request.META.get('REMOTE_ADDR')
 
-        # Cek Block List
+        # 1. Cek Token reCAPTCHA v3
+        recaptcha_token = request.POST.get('g-recaptcha-response')
+        if not verify_recaptcha(recaptcha_token):
+            messages.error(request, "Gagal mengirim pesan. Sistem mendeteksi aktivitas mencurigakan (Bot).")
+            return redirect('public_profile', slug=slug)
+
+        # 2. Cek Block List
         is_blocked = BlockList.objects.filter(user=receiver, ip_address=client_ip).exists()
         if is_blocked:
             messages.error(request, "Akses ditolak. Anda tidak dapat mengirim pesan ke pengguna ini.")
             return redirect('public_profile', slug=slug)
 
+        # 3. Simpan Pesan Lengkap
         if content:
             clean_content = sensor_kata(content)
             Message.objects.create(
@@ -136,3 +147,17 @@ def edit_profile(request):
         form = ProfileForm(instance=profile)
         
     return render(request, 'main/edit_profile.html', {'form': form})
+
+# --- ERROR HANDLERS ---
+
+def ratelimit_error_handler(request, exception=None):
+    """
+    Menangkap error 403 PermissionDenied yang dilempar oleh @ratelimit.
+    Memberikan pesan yang lebih ramah ke user daripada halaman 403 bawaan Django.
+    """
+    
+    # Coba deteksi darimana user berasal untuk di-redirect balik
+    # Jika gagal ditebak, kembali ke halaman utama.
+    referer = request.META.get('HTTP_REFERER', '/')
+    messages.error(request, "Tunggu sebentar! Kamu mengirim pesan terlalu cepat. Silakan coba lagi dalam 1 menit.")
+    return redirect(referer)
