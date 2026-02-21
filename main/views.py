@@ -114,11 +114,20 @@ def block_sender(request, message_id):
     return redirect('dashboard')
 
 @login_required
+def toggle_favorite(request, message_id):
+    msg = get_object_or_404(Message, id=message_id, recipient=request.user)
+    msg.is_favorite = not msg.is_favorite
+    msg.save()
+    status = "dipin" if msg.is_favorite else "dilepas"
+    messages.success(request, f"Pesan berhasil {status}.")
+    return redirect('dashboard')
+
+@login_required
 def edit_profile(request):
     profile = request.user.profile
     
     if request.method == 'POST':
-        form = ProfileForm(request.POST, instance=profile)
+        form = ProfileForm(request.POST, request.FILES, instance=profile)
         if form.is_valid():
             form.save()
             messages.success(request, "Profil diperbarui.")

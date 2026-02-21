@@ -5,8 +5,8 @@
     <div class="col-md-5">
         <div class="card shadow-sm border-0">
             <div class="card-body p-4">
-                <h4 class="fw-bold mb-3">Edit Bio Profil</h4>
-                <form method="POST">
+                <h4 class="fw-bold mb-3">Edit Profil</h4>
+                <form method="POST" enctype="multipart/form-data">
                     {% csrf_token %}
                     <div class="mb-3">
                         {{ form.as_p }}

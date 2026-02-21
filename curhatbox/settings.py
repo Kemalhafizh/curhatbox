@@ -126,3 +126,7 @@ LOGIN_REDIRECT_URL = '/'
 
 # Ke mana user pergi setelah Logout
 LOGOUT_REDIRECT_URL = '/'
+
+# Media files (Uploaded by user)
+MEDIA_URL = '/media/'
+MEDIA_ROOT = BASE_DIR / 'media'

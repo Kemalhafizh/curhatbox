@@ -8,6 +8,9 @@ class Profile(models.Model):
     
     slug = models.SlugField(unique=True, blank=True)
     
+    avatar = models.ImageField(upload_to='avatars/', null=True, blank=True, help_text="Upload foto profilmu.")
+    theme_color = models.CharField(max_length=7, default='#f8f9fa', help_text="Warna tema profil (Hex Code)")
+
     bio = models.TextField(max_length=500, blank=True, help_text="Tulis sapaan untuk pengunjung profilmu.")
     
     created_at = models.DateTimeField(auto_now_add=True)
@@ -31,6 +34,7 @@ class Message(models.Model):
     
     is_read = models.BooleanField(default=False)
     is_public = models.BooleanField(default=False)
+    is_favorite = models.BooleanField(default=False)
 
     reply_content = models.TextField(blank=True, null=True, verbose_name="Balasan Kamu")
     replied_at = models.DateTimeField(blank=True, null=True)
@@ -38,7 +42,7 @@ class Message(models.Model):
     sender_ip = models.GenericIPAddressField(null=True, blank=True)
 
     class Meta:
-        ordering = ['-created_at']
+        ordering = ['-is_favorite', '-created_at']
 
     def __str__(self):
         return f"Pesan untuk {self.recipient.username} | {self.created_at.strftime('%d-%m-%Y %H:%M')}"
