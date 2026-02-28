@@ -4,37 +4,14 @@
 
 {% block content %}
 <style>
-    .rounded-4 {
-        border-radius: 1.2rem !important;
-    }
-
-    .rounded-tl-0 {
-        border-top-left-radius: 0 !important;
-    }
-
-    .rounded-tr-0 {
-        border-top-right-radius: 0 !important;
-    }
-
-    .bg-primary {
-        background-color: #6f42c1 !important;
-    }
-
     body {
         background-color: {
                 {
-                target_user.profile.theme_color
+                target_user.profile.theme_color|default: "#f8f9fa"
             }
         }
 
-        ;
-    }
-
-    .profile-card {
-        background: rgba(255, 255, 255, 0.9);
-        padding: 20px;
-        border-radius: 20px;
-        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+        !important;
     }
 </style>
 
@@ -53,17 +30,12 @@
         <h2 class="fw-bold">{{ target_user.username }}</h2>
         <p class="text-muted">{{ target_user.profile.bio|default:"Kirimkan saya pesan rahasia!" }}</p>
 
-        {% if messages %}
-        {% for message in messages %}
-        <div class="alert alert-success shadow-sm">{{ message }}</div>
-        {% endfor %}
-        {% endif %}
+
 
         <div class="card shadow-sm border-0 mt-4 rounded-4">
             <div class="card-body p-4">
                 <form id="curhatForm" method="POST">
                     {% csrf_token %}
-                    <!-- hidden input untuk menyimpan token recaptcha v3 -->
                     <input type="hidden" name="g-recaptcha-response" id="g-recaptcha-response">
 
                     <label class="form-label fw-bold">Tulis pesan rahasiamu di sini:</label>

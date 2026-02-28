@@ -5,11 +5,12 @@ from django.contrib.auth.decorators import login_required
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib import messages
 from django.utils import timezone
-
+from django.core.exceptions import PermissionDenied
+from django_ratelimit.decorators import ratelimit
+from user_agents import parse
 from .models import Message, BlockList
 from .forms import ProfileForm, ReplyForm
 from .utils import sensor_kata, verify_recaptcha
-
 # --- PUBLIC VIEWS ---
 
 def index(request):
@@ -36,10 +37,6 @@ def register(request):
         form = UserCreationForm()
     
     return render(request, 'main/register.html', {'form': form})
-
-from django_ratelimit.decorators import ratelimit
-from django.core.exceptions import PermissionDenied
-from user_agents import parse
 
 @ratelimit(key='ip', rate='3/m', method='POST', block=True)
 def public_profile(request, slug):
@@ -94,7 +91,12 @@ def public_profile(request, slug):
 
 @login_required
 def dashboard(request):
-    inbox = Message.objects.filter(recipient=request.user).select_related('recipient')
+    # Evaluasi queryset ke list agar status 'is_read=False' tetap bisa dirender sebagai "BARU" pada load pertama
+    inbox = list(Message.objects.filter(recipient=request.user).select_related('recipient'))
+    
+    # Update di database agar pada refresh selanjutnya statusnya sudah terbaca
+    Message.objects.filter(recipient=request.user, is_read=False).update(is_read=True)
+    
     return render(request, 'main/dashboard.html', {'messages': inbox})
 
 @login_required

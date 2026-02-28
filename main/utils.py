@@ -1,11 +1,18 @@
 import re
+import json
+from urllib import request, parse
+
+from django.conf import settings
+
 
 def sensor_kata(teks):
     """
     Mengganti kata-kata kasar dengan tanda bintang (*).
     Mendukung Case Insensitive (Huruf besar/kecil tetap kena).
     """
-    
+    if not teks:
+        return teks
+
     # Daftar Kata Kotor
     BAD_WORDS = [
         # --- BAHASA INDONESIA & GAUL ---
@@ -30,14 +37,10 @@ def sensor_kata(teks):
     # Melakukan sensor
     for word in BAD_WORDS:
         pattern = re.compile(re.escape(word), re.IGNORECASE)
-        
         teks = pattern.sub("*" * len(word), teks)
 
     return teks
 
-import json
-from urllib import request, parse
-from django.conf import settings
 
 def verify_recaptcha(token):
     """
@@ -46,10 +49,22 @@ def verify_recaptcha(token):
     """
     if not token:
         return False
+        
+    # --- BUG FIX: Bypass for Local Testing with Dummy Keys ---
+    # reCAPTCHA v3 doesn't have test keys that return scores.
+    # If using dummy keys in DEBUG mode, automatically pass.
+    public_key = getattr(settings, 'RECAPTCHA_PUBLIC_KEY', '')
+    if settings.DEBUG and public_key == '6LeIxAcTAAAAAJcZVRqyHh71UMIEGNQ_MXjiZKhI':
+        return True
 
     url = 'https://www.google.com/recaptcha/api/siteverify'
+    private_key = getattr(settings, 'RECAPTCHA_PRIVATE_KEY', '')
+    
+    if not private_key:
+        return False # Gagal jika key tidak disetting
+
     data = parse.urlencode({
-        'secret': settings.RECAPTCHA_PRIVATE_KEY,
+        'secret': private_key,
         'response': token
     }).encode('utf-8')
     
@@ -57,7 +72,7 @@ def verify_recaptcha(token):
     try:
         with request.urlopen(req) as response:
             result = json.loads(response.read().decode('utf-8'))
-            # success & score > 0.5 dihitung lolos v3
+            # success & score >= 0.5 dihitung lolos v3
             return result.get('success', False) and result.get('score', 0.0) >= 0.5
     except Exception:
         return False
