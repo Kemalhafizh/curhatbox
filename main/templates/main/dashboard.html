@@ -77,6 +77,29 @@
 
                 <p class="mb-3 text-dark fw-bold">"{{ msg.content }}"</p>
 
+                <!-- Quick Reactions -->
+                <div class="mb-3">
+                    <small class="text-muted d-block mb-1">⚡ Reaksi Cepat:</small>
+                    <div class="d-flex gap-2 flex-wrap">
+                        {% for emoji in "🔥 ❤️ 💀 🤡 😄"|slice:"::-1" %}
+                        {% if emoji != " " %}
+                        <a href="{% url 'set_reaction' msg.id emoji %}"
+                            class="btn btn-sm {% if msg.reaction == emoji %}btn-primary{% else %}btn-outline-primary{% endif %} rounded-circle px-2 py-1 shadow-sm"
+                            style="font-size: 1.2rem; transition: transform 0.2s;">
+                            {{ emoji }}
+                        </a>
+                        {% endif %}
+                        {% endfor %}
+                        
+                        <!-- Pilihan Emoji -->
+                        <a href="{% url 'set_reaction' msg.id '🔥' %}" class="btn btn-sm {% if msg.reaction == '🔥' %}btn-primary{% else %}btn-outline-secondary{% endif %} rounded-circle px-2 py-1 shadow-sm fs-5">🔥</a>
+                        <a href="{% url 'set_reaction' msg.id '❤️' %}" class="btn btn-sm {% if msg.reaction == '❤️' %}btn-primary{% else %}btn-outline-secondary{% endif %} rounded-circle px-2 py-1 shadow-sm fs-5">❤️</a>
+                        <a href="{% url 'set_reaction' msg.id '💀' %}" class="btn btn-sm {% if msg.reaction == '💀' %}btn-primary{% else %}btn-outline-secondary{% endif %} rounded-circle px-2 py-1 shadow-sm fs-5">💀</a>
+                        <a href="{% url 'set_reaction' msg.id '🤡' %}" class="btn btn-sm {% if msg.reaction == '🤡' %}btn-primary{% else %}btn-outline-secondary{% endif %} rounded-circle px-2 py-1 shadow-sm fs-5">🤡</a>
+                        <a href="{% url 'set_reaction' msg.id '😄' %}" class="btn btn-sm {% if msg.reaction == '😄' %}btn-primary{% else %}btn-outline-secondary{% endif %} rounded-circle px-2 py-1 shadow-sm fs-5">😄</a>
+                    </div>
+                </div>
+
                 {% if msg.reply_content %}
                 <div class="bg-white p-2 rounded mb-3 small border-start border-3 shadow-sm text-dark">
                     <strong class="text-primary">Balasan kamu:</strong><br>

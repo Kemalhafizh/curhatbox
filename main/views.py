@@ -149,6 +149,21 @@ def toggle_favorite(request, message_id):
     return redirect('dashboard')
 
 @login_required
+def set_reaction(request, message_id, emoji):
+    """
+    Menyimpan reaksi emoji singkat dari dashboard ke pesan,
+    membuat pesan tersebut otomatis terbaca dan dibagikan ke publik.
+    """
+    msg = get_object_or_404(Message, id=message_id, recipient=request.user)
+    msg.reaction = emoji
+    msg.is_public = True
+    msg.is_read = True
+    msg.save()
+    
+    messages.success(request, f"Kamu bereaksi {emoji} pada pesan rahasia.")
+    return redirect('dashboard')
+
+@login_required
 def edit_profile(request):
     profile = request.user.profile
     

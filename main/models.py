@@ -44,6 +44,9 @@ class Message(models.Model):
     # --- Hint Pengirim (Device Tracking) ---
     sender_device = models.CharField(max_length=50, blank=True, null=True, help_text="Sistem Operasi (Contoh: Android, iOS, Windows)")
     sender_browser = models.CharField(max_length=50, blank=True, null=True, help_text="Browser (Contoh: Chrome, Safari)")
+    
+    # --- Quick Reactions ---
+    reaction = models.CharField(max_length=10, blank=True, null=True, verbose_name="Reaksi Cepat")
 
     class Meta:
         ordering = ['-is_favorite', '-created_at']

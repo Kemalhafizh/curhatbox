@@ -74,25 +74,49 @@
 
         {% for msg in target_user.messages.all %}
         {% if msg.is_public %}
-        <div class="card shadow-sm border-0 mb-4 bg-white rounded-4 overflow-hidden">
+        <div
+            class="card shadow-sm border-0 mb-4 bg-white rounded-4 overflow-hidden position-relative {% if msg.reaction %}has-reaction{% endif %}">
             <div class="card-body p-4 text-start">
-                <div class="d-flex mb-3">
+
+                <!-- Quick Reaction Display -->
+                {% if msg.reaction %}
+                <div class="position-absolute z-0"
+                    style="top:-10px; right:-10px; font-size: 6rem; opacity: 0.15; transform: rotate(15deg); pointer-events:none;">
+                    {{ msg.reaction }}
+                </div>
+                <div class="position-absolute"
+                    style="top:15px; right:20px; font-size: 2rem; transform: rotate(10deg); text-shadow: 0 4px 6px rgba(0,0,0,0.1);">
+                    {{ msg.reaction }}
+                </div>
+                {% endif %}
+
+                <div class="d-flex mb-3 position-relative z-1">
                     <div class="flex-grow-1 bg-light p-3 rounded-4 rounded-tl-0 border-start border-primary border-4">
                         <small class="text-primary fw-bold d-block mb-1">Seseorang bertanya:</small>
                         <p class="mb-0 text-dark">"{{ msg.content }}"</p>
                     </div>
                 </div>
 
-                <div class="d-flex justify-content-end">
+                <div class="d-flex justify-content-end position-relative z-1">
+                    {% if msg.reply_content %}
                     <div class="bg-primary text-white p-3 rounded-4 rounded-tr-0 shadow-sm" style="max-width: 85%;">
                         <small class="text-white-50 fw-bold d-block mb-1 text-end">Jawaban {{ target_user.username
                             }}:</small>
                         <p class="mb-0">{{ msg.reply_content }}</p>
                     </div>
+                    {% else %}
+                    <div class="bg-primary text-white p-3 rounded-4 rounded-tr-0 shadow-sm text-center"
+                        style="max-width: 85%;">
+                        <small class="text-white-50 fw-bold d-block mb-0 text-center">Telah dibalas dengan
+                            reaksi</small>
+                    </div>
+                    {% endif %}
                 </div>
 
-                <div class="d-flex justify-content-between align-items-center mt-3 pt-3 border-top">
-                    <small class="text-muted" style="font-size: 0.7rem;">{{ msg.replied_at|date:"d M Y" }}</small>
+                <div
+                    class="d-flex justify-content-between align-items-center mt-3 pt-3 border-top position-relative z-1">
+                    <small class="text-muted" style="font-size: 0.7rem;">{{ msg.replied_at|date:"d M
+                        Y"|default:msg.created_at|date:"d M Y" }}</small>
                     <div class="btn-group">
                         <a href="https://api.whatsapp.com/send?text=Lihat curhatan ini di CurhatBox: http://127.0.0.1:8000/{{ target_user.profile.slug }}"
                             target="_blank" class="btn btn-sm btn-outline-success border-0">
@@ -110,4 +134,39 @@
         {% endfor %}
     </div>
 </div>
+
+<!-- Library Confetti -->
+<script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
+<script>
+    document.addEventListener("DOMContentLoaded", function () {
+        // Cek apakah ada pesan yang mengandung reaksi di halaman ini
+        const hasReaction = document.querySelector('.has-reaction');
+        if (hasReaction) {
+            // Ledakkan confetti
+            var duration = 3 * 1000;
+            var end = Date.now() + duration;
+
+            (function frame() {
+                confetti({
+                    particleCount: 5,
+                    angle: 60,
+                    spread: 55,
+                    origin: { x: 0 },
+                    colors: ['#6f42c1', '#f39c12', '#20c997']
+                });
+                confetti({
+                    particleCount: 5,
+                    angle: 120,
+                    spread: 55,
+                    origin: { x: 1 },
+                    colors: ['#e83e8c', '#0d6efd', '#fd7e14']
+                });
+
+                if (Date.now() < end) {
+                    requestAnimationFrame(frame);
+                }
+            }());
+        }
+    });
+</script>
 {% endblock %}
