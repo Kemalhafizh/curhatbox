@@ -1,0 +1,156 @@
+{% extends 'main/base.html' %}
+
+{% block title %}Analitik Penggemar - CurhatBox{% endblock %}
+
+{% block content %}
+<div class="row mb-4">
+    <div class="col-12 d-flex justify-content-between align-items-center">
+        <h2 class="fw-bold mb-0">📊 Analitik Penggemar Rahasia</h2>
+        <a href="{% url 'dashboard' %}" class="btn btn-outline-primary">⬅ Kembali ke Inbox</a>
+    </div>
+</div>
+
+<div class="row mb-4">
+    <!-- Stat Cards -->
+    <div class="col-md-6 mb-3">
+        <div class="card bg-primary text-white shadow-sm border-0 h-100 rounded-4">
+            <div class="card-body text-center d-flex flex-column justify-content-center">
+                <h6 class="text-white-50 text-uppercase fw-bold mb-2">Total Pesan Diterima</h6>
+                <h1 class="display-3 fw-bold mb-0">{{ total_messages }}</h1>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-6 mb-3">
+        <div class="card bg-white border-primary border-2 shadow-sm h-100 rounded-4">
+            <div class="card-body text-center d-flex flex-column justify-content-center">
+                <h6 class="text-primary text-uppercase fw-bold mb-2">Pesan Belum Dibaca</h6>
+                <h1 class="display-3 fw-bold text-primary mb-0">{{ unread_messages }}</h1>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- LINE CHART: Tren 7 Hari Terakhir -->
+<div class="row mb-4">
+    <div class="col-12">
+        <div class="card shadow-sm border-0 rounded-4">
+            <div class="card-body p-4">
+                <h5 class="fw-bold mb-4 text-center">📈 Tren Curhatan (7 Hari Terakhir)</h5>
+                <canvas id="trendChart" height="100"></canvas>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- DOUGHNUT & BAR CHARTS: OS & Browser -->
+<div class="row">
+    <div class="col-md-6 mb-4">
+        <div class="card shadow-sm border-0 rounded-4 h-100">
+            <div class="card-body p-4 d-flex flex-column">
+                <h5 class="fw-bold mb-4 text-center">📱 Perangkat Pengirim (OS)</h5>
+                <div class="flex-grow-1 d-flex justify-content-center align-items-center">
+                    <canvas id="osChart"></canvas>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-6 mb-4">
+        <div class="card shadow-sm border-0 rounded-4 h-100">
+            <div class="card-body p-4 d-flex flex-column">
+                <h5 class="fw-bold mb-4 text-center">🌐 Browser Favorit Pengirim</h5>
+                <div class="flex-grow-1 d-flex justify-content-center align-items-center">
+                    <canvas id="browserChart"></canvas>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Chart.js Library via CDN -->
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+<!-- Script inisiasi grafik -->
+<script>
+    // Menerima data JSON dari Django View safenya
+    const trendData = JSON.parse('{{ trend_data|escapejs }}');
+    const osData = JSON.parse('{{ os_data|escapejs }}');
+    const browserData = JSON.parse('{{ browser_data|escapejs }}');
+
+    // 1. Line Chart (Tren Waktu)
+    const trendCtx = document.getElementById('trendChart').getContext('2d');
+    new Chart(trendCtx, {
+        type: 'line',
+        data: {
+            labels: trendData.labels,
+            datasets: [{
+                label: 'Jumlah Pesan',
+                data: trendData.data,
+                borderColor: '#6f42c1',
+                backgroundColor: 'rgba(111, 66, 193, 0.2)',
+                borderWidth: 3,
+                tension: 0.4, // Membuat garis lebih melengkung/halus
+                fill: true
+            }]
+        },
+        options: {
+            responsive: true,
+            plugins: {
+                legend: { display: false }
+            },
+            scales: {
+                y: { beginAtZero: true, ticks: { stepSize: 1 } }
+            }
+        }
+    });
+
+    // Warna cantik custom untuk Chart 2 & 3
+    const modernColors = ['#6f42c1', '#f39c12', '#20c997', '#e83e8c', '#0d6efd', '#fd7e14'];
+
+    // 2. Doughnut Chart (OS Distribusi)
+    const osCtx = document.getElementById('osChart').getContext('2d');
+    new Chart(osCtx, {
+        type: 'doughnut',
+        data: {
+            labels: osData.labels,
+            datasets: [{
+                data: osData.data,
+                backgroundColor: modernColors,
+                borderWidth: 0,
+                hoverOffset: 4
+            }]
+        },
+        options: {
+            responsive: true,
+            cutout: '65%',
+            plugins: {
+                legend: { position: 'bottom' }
+            }
+        }
+    });
+
+    // 3. Bar Chart (Browser Distribusi)
+    const browserCtx = document.getElementById('browserChart').getContext('2d');
+    new Chart(browserCtx, {
+        type: 'bar',
+        data: {
+            labels: browserData.labels,
+            datasets: [{
+                label: 'Jumlah Pengguna',
+                data: browserData.data,
+                backgroundColor: modernColors[2], // Warna Teal
+                borderRadius: 5
+            }]
+        },
+        options: {
+            responsive: true,
+            plugins: {
+                legend: { display: false }
+            },
+            scales: {
+                y: { beginAtZero: true, ticks: { stepSize: 1 } }
+            }
+        }
+    });
+</script>
+
+{% endblock %}

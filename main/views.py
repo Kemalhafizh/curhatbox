@@ -5,12 +5,16 @@ from django.contrib.auth.decorators import login_required
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib import messages
 from django.utils import timezone
+from django.db.models import Count
+from django.db.models.functions import TruncDate
+import json
 from django.core.exceptions import PermissionDenied
 from django_ratelimit.decorators import ratelimit
 from user_agents import parse
 from .models import Message, BlockList
 from .forms import ProfileForm, ReplyForm
 from .utils import sensor_kata, verify_recaptcha
+
 # --- PUBLIC VIEWS ---
 
 def index(request):
@@ -158,6 +162,48 @@ def edit_profile(request):
         form = ProfileForm(instance=profile)
         
     return render(request, 'main/edit_profile.html', {'form': form})
+
+@login_required
+def analytics_dashboard(request):
+    user_id = request.user.id
+    
+    # 1. Total Pesan Keseluruhan & Belum Dibaca
+    total_messages = Message.objects.filter(recipient_id=user_id).count()
+    unread_messages = Message.objects.filter(recipient_id=user_id, is_read=False).count()
+    
+    # 2. Pesan 7 Hari Terakhir (Tren Waktu)
+    sevendays_ago = timezone.now() - timezone.timedelta(days=7)
+    daily_counts = Message.objects.filter(
+        recipient_id=user_id, 
+        created_at__gte=sevendays_ago
+    ).annotate(date=TruncDate('created_at')).values('date').annotate(count=Count('id')).order_by('date')
+    
+    dates = [item['date'].strftime('%d %b') for item in daily_counts]
+    counts = [item['count'] for item in daily_counts]
+    
+    trend_data = json.dumps({'labels': dates, 'data': counts})
+    
+    # 3. Distribusi OS
+    os_dist = Message.objects.filter(recipient_id=user_id).exclude(sender_device__exact='').exclude(sender_device__isnull=True).values('sender_device').annotate(count=Count('id')).order_by('-count')
+    os_labels = [item['sender_device'] for item in os_dist]
+    os_counts = [item['count'] for item in os_dist]
+    os_data = json.dumps({'labels': os_labels, 'data': os_counts})
+    
+    # 4. Distribusi Browser
+    browser_dist = Message.objects.filter(recipient_id=user_id).exclude(sender_browser__exact='').exclude(sender_browser__isnull=True).values('sender_browser').annotate(count=Count('id')).order_by('-count')
+    browser_labels = [item['sender_browser'] for item in browser_dist]
+    browser_counts = [item['count'] for item in browser_dist]
+    browser_data = json.dumps({'labels': browser_labels, 'data': browser_counts})
+
+    context = {
+        'total_messages': total_messages,
+        'unread_messages': unread_messages,
+        'trend_data': trend_data,
+        'os_data': os_data,
+        'browser_data': browser_data,
+    }
+    
+    return render(request, 'main/analytics.html', context)
 
 # --- ERROR HANDLERS ---
 
