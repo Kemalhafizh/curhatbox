@@ -64,6 +64,13 @@
                         <span class="badge rounded-pill bg-primary shadow-sm animate-pulse ms-1">BARU</span>
                         {% endif %}
                     </div>
+                    {% if msg.sender_device or msg.sender_browser %}
+                    <div>
+                        <span class="badge border border-primary text-primary" title="Hint Pengirim">
+                            🕵️ Mngkn dr {% if msg.sender_device %}{{ msg.sender_device }}{% endif %}{% if msg.sender_device and msg.sender_browser %}, {% endif %}{% if msg.sender_browser %}{{ msg.sender_browser }}{% endif %}
+                        </span>
+                    </div>
+                    {% endif %}
                 </div>
 
                 <p class="mb-3 text-dark fw-bold">"{{ msg.content }}"</p>

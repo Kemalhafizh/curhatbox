@@ -39,6 +39,7 @@ def register(request):
 
 from django_ratelimit.decorators import ratelimit
 from django.core.exceptions import PermissionDenied
+from user_agents import parse
 
 @ratelimit(key='ip', rate='3/m', method='POST', block=True)
 def public_profile(request, slug):
@@ -50,6 +51,12 @@ def public_profile(request, slug):
     if request.method == 'POST':
         content = request.POST.get('pesan')
         client_ip = request.META.get('REMOTE_ADDR')
+        
+        # Parse User-Agent untuk Device Tracking (Hint)
+        ua_string = request.META.get('HTTP_USER_AGENT', '')
+        user_agent = parse(ua_string)
+        device_os = user_agent.os.family
+        browser = user_agent.browser.family
 
         # 1. Cek Token reCAPTCHA v3
         recaptcha_token = request.POST.get('g-recaptcha-response')
@@ -69,7 +76,9 @@ def public_profile(request, slug):
             Message.objects.create(
                 recipient=receiver,
                 content=clean_content,
-                sender_ip=client_ip
+                sender_ip=client_ip,
+                sender_device=device_os,
+                sender_browser=browser
             )
             messages.success(request, "Pesan rahasia terkirim!")
             return redirect('public_profile', slug=slug)

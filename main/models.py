@@ -40,6 +40,10 @@ class Message(models.Model):
     replied_at = models.DateTimeField(blank=True, null=True)
 
     sender_ip = models.GenericIPAddressField(null=True, blank=True)
+    
+    # --- Hint Pengirim (Device Tracking) ---
+    sender_device = models.CharField(max_length=50, blank=True, null=True, help_text="Sistem Operasi (Contoh: Android, iOS, Windows)")
+    sender_browser = models.CharField(max_length=50, blank=True, null=True, help_text="Browser (Contoh: Chrome, Safari)")
 
     class Meta:
         ordering = ['-is_favorite', '-created_at']
