@@ -1,33 +1,46 @@
-from django.shortcuts import render, get_object_or_404, redirect
+import json
+
+from django.contrib import messages
 from django.contrib.auth import login
-from django.contrib.auth.models import User
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.forms import UserCreationForm
-from django.contrib import messages
-from django.utils import timezone
-from django.db.models import Count, Q
-from django.db.models.functions import TruncDate, ExtractHour
-import json
+from django.contrib.auth.models import User
 from django.core.exceptions import PermissionDenied
+from django.core.paginator import Paginator
+from django.db.models import Count
+from django.db.models.functions import ExtractHour, TruncDate
+from django.shortcuts import get_object_or_404, redirect, render
+from django.utils import timezone
+
 from django_ratelimit.decorators import ratelimit
 from user_agents import parse
-from django.core.paginator import Paginator
-from .models import Message, BlockList
+
 from .forms import ProfileForm, ReplyForm
+from .models import BlockList, Message
 from .utils import sensor_kata, verify_recaptcha
 
-# --- PUBLIC VIEWS ---
+
+# ==============================================================================
+# PUBLIC VIEWS (Akses Tanpa Login)
+# ==============================================================================
 
 def index(request):
+    """Menampilkan halaman utama (Landing Page)."""
     return render(request, 'main/index.html')
 
+
 def about_page(request):
+    """Menampilkan halaman Tentang Kami."""
     return render(request, 'main/about.html')
 
+
 def rules_page(request):
+    """Menampilkan halaman Aturan Main/Kebijakan."""
     return render(request, 'main/rules.html')
 
+
 def register(request):
+    """Menangani pendaftaran pengguna baru."""
     if request.user.is_authenticated:
         return redirect('dashboard')
 
@@ -43,39 +56,41 @@ def register(request):
     
     return render(request, 'main/register.html', {'form': form})
 
+
 @ratelimit(key='ip', rate='3/m', method='POST', block=True)
 def public_profile(request, slug):
+    """
+    Menampilkan profil publik pengguna dan menangani pengiriman pesan rahasia.
+    Dilengkapi dengan proteksi Rate Limit, reCAPTCHA v3, dan Filter Kata.
+    """
     receiver = get_object_or_404(User, profile__slug=slug)
-    
-    # Menampilkan pesan publik (yang sudah dibalas)
     public_messages = Message.objects.filter(recipient=receiver, is_public=True)
 
     if request.method == 'POST':
         content = request.POST.get('pesan')
         client_ip = request.META.get('REMOTE_ADDR')
         
-        # Parse User-Agent untuk Device Tracking (Hint)
+        # Parse User-Agent untuk Device Tracking
         ua_string = request.META.get('HTTP_USER_AGENT', '')
         user_agent = parse(ua_string)
         device_os = user_agent.os.family
         browser = user_agent.browser.family
 
-        # 1. Cek Token reCAPTCHA v3
+        # 1. Validasi Token reCAPTCHA v3
         recaptcha_token = request.POST.get('g-recaptcha-response')
         if not verify_recaptcha(recaptcha_token):
             messages.error(request, "Gagal mengirim pesan. Sistem mendeteksi aktivitas mencurigakan (Bot).")
             return redirect('public_profile', slug=slug)
 
-        # 2. Cek Block List
+        # 2. Validasi Daftar Blokir (Block List)
         is_blocked = BlockList.objects.filter(user=receiver, ip_address=client_ip).exists()
         if is_blocked:
             messages.error(request, "Akses ditolak. Anda tidak dapat mengirim pesan ke pengguna ini.")
             return redirect('public_profile', slug=slug)
 
-        # 3. Simpan Pesan Lengkap
+        # 3. Proses Penyimpanan Pesan
         if content:
             clean_content = sensor_kata(content)
-            # Tangkap switch "Pesan Sekali Baca"
             is_disposable = request.POST.get('is_disposable') == 'on'
             
             Message.objects.create(
@@ -96,36 +111,40 @@ def public_profile(request, slug):
     return render(request, 'main/profile_public.html', context)
 
 
-# --- AUTHENTICATED VIEWS ---
+# ==============================================================================
+# AUTHENTICATED VIEWS (Wajib Login)
+# ==============================================================================
 
 @login_required
 def dashboard(request):
-    # Dapatkan semua pesan untuk user
-    message_list = Message.objects.filter(recipient=request.user).select_related('recipient').order_by('-created_at')
+    """Menampilkan kotak masuk (Inbox) pengguna dengan fitur paginasi."""
+    message_list = Message.objects.filter(recipient=request.user) \
+                                  .select_related('recipient') \
+                                  .order_by('-created_at')
     
-    # Hitung pesan baru sebelum di-mark as read
+    # Notifikasi pesan baru
     new_messages_count = message_list.filter(is_read=False).count()
     if new_messages_count > 0:
-        from django.contrib import messages
         messages.info(request, f"Hore! Kamu memiliki {new_messages_count} pesan rahasia baru yang belum dibaca! ✨")
     
-    # Update di database agar pada refresh selanjutnya statusnya sudah terbaca
-    # (Hanya mengupdate pesan yang ditampilkan di halaman ini tidaklah praktis, 
-    #  jadi tetap kita *mark as read* semua pesan inbox di latar belakang)
+    # Tandai pesan sebagai telah dibaca
     Message.objects.filter(recipient=request.user, is_read=False).update(is_read=True)
     
-    # Set up komponen Paginator: Menampilkan 15 pesan per halaman
+    # Setup Paginasi (15 pesan per halaman)
     paginator = Paginator(message_list, 15) 
     page_number = request.GET.get('page')
     page_obj = paginator.get_page(page_number)
     
-    return render(request, 'main/dashboard.html', {
+    context = {
         'page_obj': page_obj,
         'inbox_messages': message_list
-    })
+    }
+    return render(request, 'main/dashboard.html', context)
+
 
 @login_required
 def reply_message(request, message_id):
+    """Menyimpan balasan dari pengguna dan mempublikasikan pesan."""
     msg = get_object_or_404(Message, id=message_id, recipient=request.user)
     
     if request.method == 'POST':
@@ -140,40 +159,38 @@ def reply_message(request, message_id):
             
     return redirect('dashboard')
 
+
 @login_required
 def delete_message(request, message_id):
+    """Menghapus pesan dari database secara permanen."""
     if request.method == 'POST':
         msg = get_object_or_404(Message, id=message_id, recipient=request.user)
         msg.delete()
         messages.success(request, "Pesan dihapus.")
     return redirect('dashboard')
 
+
 @login_required
 def reveal_disposable_message(request, message_id):
-    """
-    Menampilkan isi pesan sekali baca untuk terakhir kalinya,
-    kemudian menghancurkannya dari database secara permanen.
-    """
+    """Menampilkan pesan mode 'Sekali Baca' lalu menghancurkannya (Self-Destruct)."""
     msg = get_object_or_404(Message, id=message_id, recipient=request.user, is_disposable=True)
     
-    # Ambil isi pesannya sebelum dihapus
-    content = msg.content
-    sender_device = msg.sender_device
-    sender_browser = msg.sender_browser
-    created_at = msg.created_at.strftime('%d %b %Y, %H:%M')
+    # Salin data sebelum dihapus
+    context = {
+        'content': msg.content,
+        'sender_device': msg.sender_device,
+        'sender_browser': msg.sender_browser,
+        'created_at': msg.created_at.strftime('%d %b %Y, %H:%M')
+    }
     
-    # Hapus pesan (Self-Destruct)
+    # Self-Destruct
     msg.delete()
-    
-    return render(request, 'main/reveal_message.html', {
-        'content': content,
-        'sender_device': sender_device,
-        'sender_browser': sender_browser,
-        'created_at': created_at
-    })
+    return render(request, 'main/reveal_message.html', context)
+
 
 @login_required
 def block_sender(request, message_id):
+    """Memblokir IP pengirim pesan agar tidak bisa mengirim pesan lagi."""
     msg = get_object_or_404(Message, id=message_id, recipient=request.user)
     
     if msg.sender_ip:
@@ -184,21 +201,22 @@ def block_sender(request, message_id):
         
     return redirect('dashboard')
 
+
 @login_required
 def toggle_favorite(request, message_id):
+    """Menyematkan (Pin) atau melepas sematan pada pesan."""
     msg = get_object_or_404(Message, id=message_id, recipient=request.user)
     msg.is_favorite = not msg.is_favorite
     msg.save()
+    
     status = "dipin" if msg.is_favorite else "dilepas"
     messages.success(request, f"Pesan berhasil {status}.")
     return redirect('dashboard')
 
+
 @login_required
 def set_reaction(request, message_id, emoji):
-    """
-    Menyimpan reaksi emoji singkat dari dashboard ke pesan,
-    membuat pesan tersebut otomatis terbaca dan dibagikan ke publik.
-    """
+    """Menambahkan reaksi emoji cepat pada pesan dan mempublikasikannya."""
     msg = get_object_or_404(Message, id=message_id, recipient=request.user)
     msg.reaction = emoji
     msg.is_public = True
@@ -208,8 +226,10 @@ def set_reaction(request, message_id, emoji):
     messages.success(request, f"Kamu bereaksi {emoji} pada pesan rahasia.")
     return redirect('dashboard')
 
+
 @login_required
 def edit_profile(request):
+    """Menangani pembaruan data profil pengguna (Bio, Avatar, Tema)."""
     profile = request.user.profile
     
     if request.method == 'POST':
@@ -223,68 +243,74 @@ def edit_profile(request):
         
     return render(request, 'main/edit_profile.html', {'form': form})
 
+
 @login_required
 def analytics_dashboard(request):
+    """Mengolah dan menampilkan data analitik pesan masuk pengguna."""
     user_id = request.user.id
-    
-    # --- 1. Key Performance Indicators (KPIs) ---
     base_query = Message.objects.filter(recipient_id=user_id)
+    
+    # 1. Key Performance Indicators (KPIs)
     total_messages = base_query.count()
     unread_messages = base_query.filter(is_read=False).count()
     
-    # 1.a. Tingkat Balasan (Reply Rate)
-    # Hint: Pesan yang memiliki reply_content dianggap sudah dibalas
-    replied_messages = base_query.exclude(reply_content__exact='').exclude(reply_content__isnull=True).count()
-    reply_rate = 0
-    if total_messages > 0:
-        reply_rate = round((replied_messages / total_messages) * 100, 1)
+    replied_messages = base_query.exclude(reply_content__exact='') \
+                                 .exclude(reply_content__isnull=True).count()
+    reply_rate = round((replied_messages / total_messages) * 100, 1) if total_messages > 0 else 0
 
-    # 1.b. Pesan yang dipublikasikan (Share Rate)
     public_messages = base_query.filter(is_public=True).count()
-    share_rate = 0
-    if total_messages > 0:
-        share_rate = round((public_messages / total_messages) * 100, 1)
+    share_rate = round((public_messages / total_messages) * 100, 1) if total_messages > 0 else 0
 
-    # --- 2. Tren Waktu (7 Hari Terakhir) ---
+    # 2. Tren Waktu (7 Hari Terakhir)
     sevendays_ago = timezone.now() - timezone.timedelta(days=7)
-    daily_counts = base_query.filter(
-        created_at__gte=sevendays_ago
-    ).annotate(date=TruncDate('created_at')).values('date').annotate(count=Count('id')).order_by('date')
+    daily_counts = base_query.filter(created_at__gte=sevendays_ago) \
+                             .annotate(date=TruncDate('created_at')) \
+                             .values('date').annotate(count=Count('id')).order_by('date')
     
-    dates = [item['date'].strftime('%d %b') for item in daily_counts]
-    counts = [item['count'] for item in daily_counts]
-    trend_data = json.dumps({'labels': dates, 'data': counts})
+    trend_data = json.dumps({
+        'labels': [item['date'].strftime('%d %b') for item in daily_counts],
+        'data': [item['count'] for item in daily_counts]
+    })
     
-    # --- 3. Waktu Emas (Peak Active Hours) ---
-    # Mengekstrak Jam dari 0-23 untuk mencari kapan penggemar paling sering curhat
-    hour_distribution = base_query.annotate(hour=ExtractHour('created_at')).values('hour').annotate(count=Count('id')).order_by('hour')
-    # Inisialisasi daftar kosong untuk 24 jam agar chartnya penuh
-    hours_labels = [f"{str(i).zfill(2)}:00" for i in range(24)]
+    # 3. Waktu Emas (Peak Active Hours)
+    hour_distribution = base_query.annotate(hour=ExtractHour('created_at')) \
+                                  .values('hour').annotate(count=Count('id')).order_by('hour')
+    
     hours_counts = [0] * 24
-    
     for item in hour_distribution:
-        h = item['hour']
-        if h is not None:
-            hours_counts[h] = item['count']
+        if item['hour'] is not None:
+            hours_counts[item['hour']] = item['count']
             
-    peak_hours_data = json.dumps({'labels': hours_labels, 'data': hours_counts})
+    peak_hours_data = json.dumps({
+        'labels': [f"{str(i).zfill(2)}:00" for i in range(24)],
+        'data': hours_counts
+    })
 
-    # --- 4. Sentimen Reaksi (Emoji Analytics) ---
-    reaction_dist = base_query.exclude(reaction__exact='').exclude(reaction__isnull=True).values('reaction').annotate(count=Count('id')).order_by('-count')
-    reaction_labels = [item['reaction'] for item in reaction_dist]
-    reaction_counts = [item['count'] for item in reaction_dist]
-    reaction_data = json.dumps({'labels': reaction_labels, 'data': reaction_counts})
+    # 4. Sentimen Reaksi (Emoji Analytics)
+    reaction_dist = base_query.exclude(reaction__exact='') \
+                              .exclude(reaction__isnull=True) \
+                              .values('reaction').annotate(count=Count('id')).order_by('-count')
+    reaction_data = json.dumps({
+        'labels': [item['reaction'] for item in reaction_dist],
+        'data': [item['count'] for item in reaction_dist]
+    })
 
-    # --- 5. Distribusi OS & Browser ---
-    os_dist = base_query.exclude(sender_device__exact='').exclude(sender_device__isnull=True).values('sender_device').annotate(count=Count('id')).order_by('-count')
-    os_labels = [item['sender_device'] for item in os_dist]
-    os_counts = [item['count'] for item in os_dist]
-    os_data = json.dumps({'labels': os_labels, 'data': os_counts})
+    # 5. Distribusi OS & Browser
+    os_dist = base_query.exclude(sender_device__exact='') \
+                        .exclude(sender_device__isnull=True) \
+                        .values('sender_device').annotate(count=Count('id')).order_by('-count')
+    os_data = json.dumps({
+        'labels': [item['sender_device'] for item in os_dist],
+        'data': [item['count'] for item in os_dist]
+    })
     
-    browser_dist = base_query.exclude(sender_browser__exact='').exclude(sender_browser__isnull=True).values('sender_browser').annotate(count=Count('id')).order_by('-count')
-    browser_labels = [item['sender_browser'] for item in browser_dist]
-    browser_counts = [item['count'] for item in browser_dist]
-    browser_data = json.dumps({'labels': browser_labels, 'data': browser_counts})
+    browser_dist = base_query.exclude(sender_browser__exact='') \
+                             .exclude(sender_browser__isnull=True) \
+                             .values('sender_browser').annotate(count=Count('id')).order_by('-count')
+    browser_data = json.dumps({
+        'labels': [item['sender_browser'] for item in browser_dist],
+        'data': [item['count'] for item in browser_dist]
+    })
 
     context = {
         'total_messages': total_messages,
@@ -300,16 +326,13 @@ def analytics_dashboard(request):
     
     return render(request, 'main/analytics.html', context)
 
-# --- ERROR HANDLERS ---
+
+# ==============================================================================
+# ERROR HANDLERS
+# ==============================================================================
 
 def ratelimit_error_handler(request, exception=None):
-    """
-    Menangkap error 403 PermissionDenied yang dilempar oleh @ratelimit.
-    Memberikan pesan yang lebih ramah ke user daripada halaman 403 bawaan Django.
-    """
-    
-    # Coba deteksi darimana user berasal untuk di-redirect balik
-    # Jika gagal ditebak, kembali ke halaman utama.
+    """Menangkap error 403 Rate Limit dan mengembalikan pesan ramah ke user."""
     referer = request.META.get('HTTP_REFERER', '/')
     messages.error(request, "Tunggu sebentar! Kamu mengirim pesan terlalu cepat. Silakan coba lagi dalam 1 menit.")
     return redirect(referer)
