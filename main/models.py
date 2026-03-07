@@ -41,6 +41,9 @@ class Message(models.Model):
 
     sender_ip = models.GenericIPAddressField(null=True, blank=True)
     
+    # --- Self Destruct ---
+    is_disposable = models.BooleanField(default=False, verbose_name="Pesan Sekali Baca")
+    
     # --- Hint Pengirim (Device Tracking) ---
     sender_device = models.CharField(max_length=50, blank=True, null=True, help_text="Sistem Operasi (Contoh: Android, iOS, Windows)")
     sender_browser = models.CharField(max_length=50, blank=True, null=True, help_text="Browser (Contoh: Chrome, Safari)")

@@ -42,6 +42,15 @@
                     <textarea name="pesan" class="form-control mb-3" rows="4"
                         placeholder="Jangan ragu, saya tidak akan tahu siapa kamu..." required></textarea>
 
+                    <div class="form-check form-switch text-start mb-4">
+                        <input class="form-check-input bg-danger border-danger" type="checkbox" role="switch"
+                            id="is_disposable" name="is_disposable">
+                        <label class="form-check-label text-muted small ms-2" for="is_disposable">
+                            🔥 <strong>Kirim sebagai Pesan Sekali Baca</strong> <br>
+                            <span style="font-size: 0.75rem;">(Hancur otomatis setelah penerima membukanya)</span>
+                        </label>
+                    </div>
+
                     <button type="button" onclick="submitForm(event)"
                         class="btn btn-primary w-100 py-2 fw-bold rounded-3">Kirim Pesan 🚀</button>
                 </form>
@@ -115,8 +124,13 @@
 
                 <div
                     class="d-flex justify-content-between align-items-center mt-3 pt-3 border-top position-relative z-1">
-                    <small class="text-muted" style="font-size: 0.7rem;">{{ msg.replied_at|date:"d M
-                        Y"|default:msg.created_at|date:"d M Y" }}</small>
+                    <small class="text-muted" style="font-size: 0.75rem;">
+                        {% if msg.replied_at %}
+                        {{ msg.replied_at|date:"d M Y" }}
+                        {% else %}
+                        {{ msg.created_at|date:"d M Y" }}
+                        {% endif %}
+                    </small>
                     <div class="btn-group">
                         <a href="https://api.whatsapp.com/send?text=Lihat curhatan ini di CurhatBox: http://127.0.0.1:8000/{{ target_user.profile.slug }}"
                             target="_blank" class="btn btn-sm btn-outline-success border-0">

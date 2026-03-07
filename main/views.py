@@ -11,6 +11,7 @@ import json
 from django.core.exceptions import PermissionDenied
 from django_ratelimit.decorators import ratelimit
 from user_agents import parse
+from django.core.paginator import Paginator
 from .models import Message, BlockList
 from .forms import ProfileForm, ReplyForm
 from .utils import sensor_kata, verify_recaptcha
@@ -74,14 +75,18 @@ def public_profile(request, slug):
         # 3. Simpan Pesan Lengkap
         if content:
             clean_content = sensor_kata(content)
+            # Tangkap switch "Pesan Sekali Baca"
+            is_disposable = request.POST.get('is_disposable') == 'on'
+            
             Message.objects.create(
-                recipient=receiver,
+                recipient=receiver, 
                 content=clean_content,
                 sender_ip=client_ip,
                 sender_device=device_os,
-                sender_browser=browser
+                sender_browser=browser,
+                is_disposable=is_disposable
             )
-            messages.success(request, "Pesan rahasia terkirim!")
+            messages.success(request, "Pesan rahasiamu terkirim! 🚀")
             return redirect('public_profile', slug=slug)
 
     context = {
@@ -95,13 +100,23 @@ def public_profile(request, slug):
 
 @login_required
 def dashboard(request):
-    # Evaluasi queryset ke list agar status 'is_read=False' tetap bisa dirender sebagai "BARU" pada load pertama
-    inbox = list(Message.objects.filter(recipient=request.user).select_related('recipient'))
+    # Dapatkan semua pesan untuk user
+    message_list = Message.objects.filter(recipient=request.user).select_related('recipient')
     
     # Update di database agar pada refresh selanjutnya statusnya sudah terbaca
+    # (Hanya mengupdate pesan yang ditampilkan di halaman ini tidaklah praktis, 
+    #  jadi tetap kita *mark as read* semua pesan inbox di latar belakang)
     Message.objects.filter(recipient=request.user, is_read=False).update(is_read=True)
     
-    return render(request, 'main/dashboard.html', {'messages': inbox})
+    # Set up kompenen Paginator: Menampilkan 15 pesan per halaman
+    paginator = Paginator(message_list, 15) 
+    page_number = request.GET.get('page')
+    page_obj = paginator.get_page(page_number)
+    
+    return render(request, 'main/dashboard.html', {
+        'page_obj': page_obj,
+        'messages': message_list
+    })
 
 @login_required
 def reply_message(request, message_id):
@@ -126,6 +141,30 @@ def delete_message(request, message_id):
         msg.delete()
         messages.success(request, "Pesan dihapus.")
     return redirect('dashboard')
+
+@login_required
+def reveal_disposable_message(request, message_id):
+    """
+    Menampilkan isi pesan sekali baca untuk terakhir kalinya,
+    kemudian menghancurkannya dari database secara permanen.
+    """
+    msg = get_object_or_404(Message, id=message_id, recipient=request.user, is_disposable=True)
+    
+    # Ambil isi pesannya sebelum dihapus
+    content = msg.content
+    sender_device = msg.sender_device
+    sender_browser = msg.sender_browser
+    created_at = msg.created_at.strftime('%d %b %Y, %H:%M')
+    
+    # Hapus pesan (Self-Destruct)
+    msg.delete()
+    
+    return render(request, 'main/reveal_message.html', {
+        'content': content,
+        'sender_device': sender_device,
+        'sender_browser': sender_browser,
+        'created_at': created_at
+    })
 
 @login_required
 def block_sender(request, message_id):

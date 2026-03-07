@@ -12,6 +12,7 @@ urlpatterns = [
     path('block/<int:message_id>/', views.block_sender, name='block_sender'),
     path('message/favorite/<int:message_id>/', views.toggle_favorite, name='toggle_favorite'),
     path('message/react/<int:message_id>/<str:emoji>/', views.set_reaction, name='set_reaction'),
+    path('message/reveal/<int:message_id>/', views.reveal_disposable_message, name='reveal_message'),
     path('message/delete/<int:message_id>/', views.delete_message, name='delete_message'),
     path('message/reply/<int:message_id>/', views.reply_message, name='reply_message'),
     path('<slug:slug>/', views.public_profile, name='public_profile'),
