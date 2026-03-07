@@ -45,9 +45,9 @@
     </div>
 
     <div class="col-md-8">
-        <h3 class="fw-bold mb-4">Pesan Masuk ({{ messages.count }})</h3>
+        <h3 class="fw-bold mb-4">Pesan Masuk ({{ inbox_messages.count }})</h3>
 
-        {% if not messages %}
+        {% if not inbox_messages %}
         <div class="alert alert-light border text-center py-5">
             <p class="text-muted mb-0">Belum ada pesan masuk. Sebar link kamu di sosial media!</p>
         </div>

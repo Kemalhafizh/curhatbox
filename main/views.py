@@ -101,21 +101,27 @@ def public_profile(request, slug):
 @login_required
 def dashboard(request):
     # Dapatkan semua pesan untuk user
-    message_list = Message.objects.filter(recipient=request.user).select_related('recipient')
+    message_list = Message.objects.filter(recipient=request.user).select_related('recipient').order_by('-created_at')
+    
+    # Hitung pesan baru sebelum di-mark as read
+    new_messages_count = message_list.filter(is_read=False).count()
+    if new_messages_count > 0:
+        from django.contrib import messages
+        messages.info(request, f"Hore! Kamu memiliki {new_messages_count} pesan rahasia baru yang belum dibaca! ✨")
     
     # Update di database agar pada refresh selanjutnya statusnya sudah terbaca
     # (Hanya mengupdate pesan yang ditampilkan di halaman ini tidaklah praktis, 
     #  jadi tetap kita *mark as read* semua pesan inbox di latar belakang)
     Message.objects.filter(recipient=request.user, is_read=False).update(is_read=True)
     
-    # Set up kompenen Paginator: Menampilkan 15 pesan per halaman
+    # Set up komponen Paginator: Menampilkan 15 pesan per halaman
     paginator = Paginator(message_list, 15) 
     page_number = request.GET.get('page')
     page_obj = paginator.get_page(page_number)
     
     return render(request, 'main/dashboard.html', {
         'page_obj': page_obj,
-        'messages': message_list
+        'inbox_messages': message_list
     })
 
 @login_required
