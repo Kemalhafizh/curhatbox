@@ -7,8 +7,8 @@
 <script src="https://html2canvas.hertzen.com/dist/html2canvas.min.js"></script>
 
 <div class="row">
-    <div class="col-md-4 mb-4">
-        <div class="card shadow-sm border-0">
+    <div class="col-md-4 mb-4" data-aos="fade-right">
+        <div class="card shadow-sm border-0 card-hover rounded-4">
             <div class="card-body text-center">
                 <div class="bg-primary text-white rounded-circle d-inline-flex align-items-center justify-content-center mb-3 overflow-hidden shadow-sm"
                     style="width: 80px; height: 80px; font-size: 2rem; font-weight: bold;">
@@ -53,8 +53,8 @@
         </div>
         {% else %}
         {% for msg in page_obj %}
-        <div
-            class="card shadow-sm border-0 mb-4 bg-white rounded-4 overflow-hidden position-relative {% if not msg.is_read %}border-start border-primary border-4 bg-light-purple{% endif %}">
+        <div data-aos="fade-up"
+            class="card card-hover shadow-sm border-0 mb-4 bg-white rounded-4 overflow-hidden position-relative {% if not msg.is_read %}border-start border-primary border-4 bg-light-purple{% endif %}">
             {% if msg.is_disposable %}
             <!-- Pita merah untuk pesan sekali baca -->
             <div class="position-absolute z-1"
