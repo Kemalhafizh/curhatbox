@@ -11,7 +11,8 @@ body {
     display: flex;
     flex-direction: column;
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-    background-color: #f8f9fa; /* Bootstrap light bg */
+    background-color: #f8f9fa;
+    /* Bootstrap light bg */
 }
 
 main {
@@ -191,7 +192,63 @@ main {
 }
 
 @keyframes float {
-    0% { transform: translateY(0px); }
-    50% { transform: translateY(-10px); }
-    100% { transform: translateY(0px); }
+    0% {
+        transform: translateY(0px);
+    }
+
+    50% {
+        transform: translateY(-10px);
+    }
+
+    100% {
+        transform: translateY(0px);
+    }
+}
+
+/* =========================================
+   8. MOBILE & TABLET OPTIMIZATION (Responsive)
+   ========================================= */
+@media (max-width: 768px) {
+
+    /* Mencegah auto-zoom menjengkelkan di Safari iOS saat fokus ke input */
+    input.form-control,
+    textarea.form-control,
+    select.form-control {
+        font-size: 16px !important;
+    }
+
+    /* Memaksimalkan lebar kartu pesan agar tidak buang-buang margin */
+    .card-body {
+        padding: 1.25rem;
+    }
+
+    /* Ukuran font responsif (mengecilkan hero text yang terlalu raksasa) */
+    .display-4 {
+        font-size: 2.2rem;
+    }
+
+    /* Fat-finger friendly touch targets: Tombol lebih tinggi untuk diketuk jari */
+    .btn-sm,
+    .btn-group-sm>.btn {
+        padding-top: 0.5rem;
+        padding-bottom: 0.5rem;
+        font-size: 0.9rem;
+    }
+
+    /* Mengecilkan IG Story Card agak pas di layar HP saat dirender */
+    .ig-card {
+        transform: scale(0.6);
+        transform-origin: top left;
+    }
+
+    /* Menjaga jarak profil dan dashboard agar tidak menempel */
+    .col-md-4.mb-4 {
+        margin-bottom: 2.5rem !important;
+    }
+
+    /* Menyebarkan tombol aksi agar mudah diraih jari */
+    .d-flex.gap-2.flex-wrap.align-items-center {
+        gap: 0.75rem !important;
+        justify-content: flex-start;
+    }
 }

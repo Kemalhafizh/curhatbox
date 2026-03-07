@@ -134,9 +134,10 @@
                 {% endif %}
                 {% endif %}
 
-                <div class="d-flex gap-2 flex-wrap align-items-center">
+                <hr class="text-muted opacity-25">
+                <div class="d-flex gap-2 flex-wrap align-items-center mt-3">
                     {% if not msg.is_disposable %}
-                    <button type="button" class="btn btn-sm btn-primary" data-bs-toggle="modal"
+                    <button type="button" class="btn btn-sm btn-primary flex-fill" data-bs-toggle="modal"
                         data-bs-target="#replyModal{{ msg.id }}">
                         {% if msg.reply_content %}Edit Balasan{% else %}Balas{% endif %}
                     </button>
@@ -144,31 +145,31 @@
                     {% if msg.reply_content %}
                     <button
                         onclick="generateStory('{{ msg.content|escapejs }}', '{{ msg.reply_content|escapejs }}', '{{ user.username }}')"
-                        class="btn btn-sm btn-success text-white">
+                        class="btn btn-sm btn-success text-white flex-fill">
                         📸 IG Story
                     </button>
                     {% endif %}
                     {% endif %}
 
-                    <form action="{% url 'block_sender' msg.id %}" method="POST"
+                    <form action="{% url 'block_sender' msg.id %}" method="POST" class="flex-fill m-0"
                         onsubmit="return confirm('Yakin ingin memblokir pengirim ini? Mereka tidak akan bisa kirim pesan ke kamu lagi selamanya.')">
                         {% csrf_token %}
-                        <button type="submit" class="btn btn-sm btn-outline-dark" title="Blokir Pengirim">
+                        <button type="submit" class="btn btn-sm btn-outline-dark w-100" title="Blokir Pengirim">
                             🚫 Blokir
                         </button>
                     </form>
 
-                    <form action="{% url 'delete_message' msg.id %}" method="POST"
+                    <form action="{% url 'delete_message' msg.id %}" method="POST" class="flex-fill m-0"
                         onsubmit="return confirm('Hapus pesan ini?')">
                         {% csrf_token %}
-                        <button type="submit" class="btn btn-sm btn-outline-danger">Hapus</button>
+                        <button type="submit" class="btn btn-sm btn-outline-danger w-100">Hapus</button>
                     </form>
 
                     {% if not msg.is_disposable %}
-                    <form action="{% url 'toggle_favorite' msg.id %}" method="POST">
+                    <form action="{% url 'toggle_favorite' msg.id %}" method="POST" class="flex-fill m-0">
                         {% csrf_token %}
                         <button type="submit"
-                            class="btn btn-sm {% if msg.is_favorite %}btn-warning{% else %}btn-outline-warning text-dark{% endif %}"
+                            class="btn btn-sm w-100 {% if msg.is_favorite %}btn-warning{% else %}btn-outline-warning text-dark{% endif %}"
                             title="Pin Pesan">
                             {% if msg.is_favorite %}⭐ Unpin{% else %}☆ Pin{% endif %}
                         </button>
