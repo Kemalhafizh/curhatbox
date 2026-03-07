@@ -1,64 +1,131 @@
 {% extends 'main/base.html' %}
 
-{% block title %}Analitik Penggemar - CurhatBox{% endblock %}
+{% block title %}Studio Analitik - CurhatBox{% endblock %}
 
 {% block content %}
-<div class="row mb-4">
-    <div class="col-12 d-flex justify-content-between align-items-center">
-        <h2 class="fw-bold mb-0">📊 Analitik Penggemar Rahasia</h2>
-        <a href="{% url 'dashboard' %}" class="btn btn-outline-primary">⬅ Kembali ke Inbox</a>
+<div class="row mb-5 align-items-center" data-aos="fade-down">
+    <div class="col-md-8">
+        <h1 class="fw-bold text-dark mb-1">📊 Studio Analitik Penggemar</h1>
+        <p class="text-muted">Pantau interaksi, waktu terbaik, dan sentimen dari penggemar rahasiamu.</p>
+    </div>
+    <div class="col-md-4 text-md-end mt-3 mt-md-0">
+        <a href="{% url 'dashboard' %}" class="btn btn-outline-primary rounded-pill px-4 shadow-sm">⬅ Kembali ke
+            Dasbor</a>
     </div>
 </div>
 
-<div class="row mb-4">
-    <!-- Stat Cards -->
-    <div class="col-md-6 mb-3">
-        <div class="card bg-primary text-white shadow-sm border-0 h-100 rounded-4">
-            <div class="card-body text-center d-flex flex-column justify-content-center">
-                <h6 class="text-white-50 text-uppercase fw-bold mb-2">Total Pesan Diterima</h6>
-                <h1 class="display-3 fw-bold mb-0">{{ total_messages }}</h1>
+<!-- KPI Cards Grid -->
+<div class="row row-cols-1 row-cols-sm-2 row-cols-lg-4 g-4 mb-5">
+    <!-- KPI 1 -->
+    <div class="col" data-aos="zoom-in" data-aos-delay="50">
+        <div class="card h-100 border-0 shadow-sm rounded-4 bg-primary text-white card-hover">
+            <div class="card-body p-4 text-center d-flex flex-column justify-content-center">
+                <i class="bi bi-envelope-paper fs-3 mb-2 opacity-75"></i>
+                <h6 class="text-uppercase fw-bold text-white-50 mb-1">Total Pesan</h6>
+                <h2 class="display-5 fw-bold mb-0">{{ total_messages }}</h2>
             </div>
         </div>
     </div>
-    <div class="col-md-6 mb-3">
-        <div class="card bg-white border-primary border-2 shadow-sm h-100 rounded-4">
-            <div class="card-body text-center d-flex flex-column justify-content-center">
-                <h6 class="text-primary text-uppercase fw-bold mb-2">Pesan Belum Dibaca</h6>
-                <h1 class="display-3 fw-bold text-primary mb-0">{{ unread_messages }}</h1>
+    <!-- KPI 2 -->
+    <div class="col" data-aos="zoom-in" data-aos-delay="100">
+        <div class="card h-100 border-0 shadow-sm rounded-4 card-hover border-start border-warning border-5">
+            <div class="card-body p-4 text-center d-flex flex-column justify-content-center">
+                <i class="bi bi-envelope-exclamation text-warning fs-3 mb-2"></i>
+                <h6 class="text-uppercase fw-bold text-muted mb-1">Belum Dibaca</h6>
+                <h2 class="display-5 fw-bold text-dark mb-0">{{ unread_messages }}</h2>
+            </div>
+        </div>
+    </div>
+    <!-- KPI 3 -->
+    <div class="col" data-aos="zoom-in" data-aos-delay="150">
+        <div class="card h-100 border-0 shadow-sm rounded-4 card-hover border-start border-success border-5">
+            <div class="card-body p-4 text-center d-flex flex-column justify-content-center">
+                <i class="bi bi-chat-dots text-success fs-3 mb-2"></i>
+                <h6 class="text-uppercase fw-bold text-muted mb-1">Tingkat Balasan</h6>
+                <h2 class="display-5 fw-bold text-dark mb-0">{{ reply_rate }}<small class="fs-4 text-muted">%</small>
+                </h2>
+            </div>
+        </div>
+    </div>
+    <!-- KPI 4 -->
+    <div class="col" data-aos="zoom-in" data-aos-delay="200">
+        <div class="card h-100 border-0 shadow-sm rounded-4 card-hover border-start border-danger border-5">
+            <div class="card-body p-4 text-center d-flex flex-column justify-content-center">
+                <i class="bi bi-share text-danger fs-3 mb-2"></i>
+                <h6 class="text-uppercase fw-bold text-muted mb-1">Tingkat Share (Publik)</h6>
+                <h2 class="display-5 fw-bold text-dark mb-0">{{ share_rate }}<small class="fs-4 text-muted">%</small>
+                </h2>
             </div>
         </div>
     </div>
 </div>
 
-<!-- LINE CHART: Tren 7 Hari Terakhir -->
-<div class="row mb-4">
+<!-- Utama: Tren Waktu -->
+<div class="row mb-5" data-aos="fade-up" data-aos-delay="200">
     <div class="col-12">
         <div class="card shadow-sm border-0 rounded-4">
-            <div class="card-body p-4">
-                <h5 class="fw-bold mb-4 text-center">📈 Tren Curhatan (7 Hari Terakhir)</h5>
-                <canvas id="trendChart" height="100"></canvas>
+            <div class="card-body p-4 p-md-5">
+                <div class="d-flex justify-content-between align-items-center mb-4">
+                    <h5 class="fw-bold mb-0">📈 Tren Lalu Lintas Pesan (7 Hari Terakhir)</h5>
+                    <span class="badge bg-light text-dark border">Harian</span>
+                </div>
+                <!-- Wrapper relative untuk Canvas agar responsif di Bootstrap -->
+                <div style="position: relative; height:40vh; width:100%">
+                    <canvas id="trendChart"></canvas>
+                </div>
             </div>
         </div>
     </div>
 </div>
 
-<!-- DOUGHNUT & BAR CHARTS: OS & Browser -->
-<div class="row">
-    <div class="col-md-6 mb-4">
+<!-- Insight Lanjutan: Peak Hours & Sentimen -->
+<div class="row g-4 mb-5">
+    <div class="col-lg-6" data-aos="fade-right" data-aos-delay="300">
+        <div class="card shadow-sm border-0 rounded-4 h-100">
+            <div class="card-body p-4 p-md-5 d-flex flex-column">
+                <h5 class="fw-bold mb-1 text-center">⏱ Jam Emas (Peak Hours)</h5>
+                <p class="small text-muted text-center mb-4">Waktu paling aktif penggemar mengirim pesan (00:00 - 23:00)
+                </p>
+                <div class="flex-grow-1 d-flex justify-content-center align-items-center"
+                    style="position: relative; height:30vh; width:100%">
+                    <canvas id="peakHoursChart"></canvas>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col-lg-6" data-aos="fade-left" data-aos-delay="400">
+        <div class="card shadow-sm border-0 rounded-4 h-100">
+            <div class="card-body p-4 p-md-5 d-flex flex-column">
+                <h5 class="fw-bold mb-1 text-center">🎭 Analisis Sentimen Emoji</h5>
+                <p class="small text-muted text-center mb-4">Distribusi emosi dari fitur Reaksi Cepat</p>
+                <div class="flex-grow-1 d-flex justify-content-center align-items-center"
+                    style="position: relative; height:30vh; width:100%">
+                    <canvas id="sentimentChart"></canvas>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Metrik Perangkat Dasar -->
+<div class="row g-4 mb-5" data-aos="fade-up" data-aos-delay="500">
+    <div class="col-md-6">
         <div class="card shadow-sm border-0 rounded-4 h-100">
             <div class="card-body p-4 d-flex flex-column">
-                <h5 class="fw-bold mb-4 text-center">📱 Perangkat Pengirim (OS)</h5>
-                <div class="flex-grow-1 d-flex justify-content-center align-items-center">
+                <h6 class="fw-bold text-muted mb-4 text-center">📱 Perangkat Pengirim (OS)</h6>
+                <div class="flex-grow-1 d-flex justify-content-center align-items-center"
+                    style="position: relative; height:25vh; width:100%">
                     <canvas id="osChart"></canvas>
                 </div>
             </div>
         </div>
     </div>
-    <div class="col-md-6 mb-4">
+    <div class="col-md-6">
         <div class="card shadow-sm border-0 rounded-4 h-100">
             <div class="card-body p-4 d-flex flex-column">
-                <h5 class="fw-bold mb-4 text-center">🌐 Browser Favorit Pengirim</h5>
-                <div class="flex-grow-1 d-flex justify-content-center align-items-center">
+                <h6 class="fw-bold text-muted mb-4 text-center">🌐 Browser Favorit</h6>
+                <div class="flex-grow-1 d-flex justify-content-center align-items-center"
+                    style="position: relative; height:25vh; width:100%">
                     <canvas id="browserChart"></canvas>
                 </div>
             </div>
@@ -66,15 +133,28 @@
     </div>
 </div>
 
+<!-- Batas Konten -->
+
 <!-- Chart.js Library via CDN -->
 <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 
 <!-- Script inisiasi grafik -->
 <script>
-    // Menerima data JSON dari Django View safenya
+    // Konfigurasi Standar Font Chart.js
+    Chart.defaults.font.family = "'Inter', 'Segoe UI', Roboto, Helvetica, Arial, sans-serif";
+    Chart.defaults.color = '#6c757d';
+
+    // Parse Data JSON dari Django View
     const trendData = JSON.parse('{{ trend_data|escapejs }}');
+    const peakData = JSON.parse('{{ peak_hours_data|escapejs }}');
+    const reactionData = JSON.parse('{{ reaction_data|escapejs }}');
     const osData = JSON.parse('{{ os_data|escapejs }}');
     const browserData = JSON.parse('{{ browser_data|escapejs }}');
+
+    // Palet Warna Premium
+    const primaryColor = '#6f42c1';
+    const primaryGlow = 'rgba(111, 66, 193, 0.15)';
+    const sentimentColors = ['#ff6b6b', '#fca311', '#20c997', '#0d6efd', '#6f42c1', '#adb5bd'];
 
     // 1. Line Chart (Tren Waktu)
     const trendCtx = document.getElementById('trendChart').getContext('2d');
@@ -83,74 +163,147 @@
         data: {
             labels: trendData.labels,
             datasets: [{
-                label: 'Jumlah Pesan',
+                label: 'Interaksi Pesan',
                 data: trendData.data,
-                borderColor: '#6f42c1',
-                backgroundColor: 'rgba(111, 66, 193, 0.2)',
+                borderColor: primaryColor,
+                backgroundColor: primaryGlow,
                 borderWidth: 3,
-                tension: 0.4, // Membuat garis lebih melengkung/halus
+                pointBackgroundColor: '#fff',
+                pointBorderColor: primaryColor,
+                pointBorderWidth: 2,
+                pointRadius: 4,
+                pointHoverRadius: 6,
+                tension: 0.4, // Kurva Melengkung Smooth
                 fill: true
             }]
         },
         options: {
             responsive: true,
+            maintainAspectRatio: false,
+            interaction: {
+                mode: 'index',
+                intersect: false,
+            },
             plugins: {
-                legend: { display: false }
+                legend: { display: false },
+                tooltip: {
+                    backgroundColor: 'rgba(0,0,0,0.8)',
+                    padding: 12,
+                    cornerRadius: 8,
+                }
             },
             scales: {
-                y: { beginAtZero: true, ticks: { stepSize: 1 } }
+                y: {
+                    beginAtZero: true,
+                    ticks: { stepSize: 1, precision: 0 },
+                    grid: { borderDash: [5, 5] },
+                    border: { display: false }
+                },
+                x: {
+                    grid: { display: false },
+                    border: { display: false }
+                }
             }
         }
     });
 
-    // Warna cantik custom untuk Chart 2 & 3
-    const modernColors = ['#6f42c1', '#f39c12', '#20c997', '#e83e8c', '#0d6efd', '#fd7e14'];
-
-    // 2. Doughnut Chart (OS Distribusi)
-    const osCtx = document.getElementById('osChart').getContext('2d');
-    new Chart(osCtx, {
-        type: 'doughnut',
+    // 2. Radar Chart (Peak Hours)
+    const peakCtx = document.getElementById('peakHoursChart').getContext('2d');
+    new Chart(peakCtx, {
+        type: 'radar',
         data: {
-            labels: osData.labels,
+            labels: peakData.labels,
             datasets: [{
-                data: osData.data,
-                backgroundColor: modernColors,
-                borderWidth: 0,
-                hoverOffset: 4
+                label: 'Aktivitas Penggemar',
+                data: peakData.data,
+                backgroundColor: 'rgba(13, 110, 253, 0.2)',
+                borderColor: '#0d6efd',
+                pointBackgroundColor: '#0d6efd',
+                pointBorderColor: '#fff',
+                pointHoverBackgroundColor: '#fff',
+                pointHoverBorderColor: '#0d6efd'
             }]
         },
         options: {
             responsive: true,
-            cutout: '65%',
-            plugins: {
-                legend: { position: 'bottom' }
+            maintainAspectRatio: false,
+            plugins: { legend: { display: false } },
+            scales: {
+                r: {
+                    angleLines: { color: 'rgba(0,0,0,0.05)' },
+                    grid: { color: 'rgba(0,0,0,0.05)' },
+                    pointLabels: { font: { size: 10 } },
+                    ticks: { display: false, beginAtZero: true } // Sembunyikan angka agar lebih bersih
+                }
             }
         }
     });
 
-    // 3. Bar Chart (Browser Distribusi)
+    // 3. Polar Area / Doughnut (Sentimen Emoji)
+    const sentimentCtx = document.getElementById('sentimentChart').getContext('2d');
+    // Jika tidak ada data reaksi, tampilkan text kosong
+    if (reactionData.labels.length === 0) {
+        document.getElementById('sentimentChart').outerHTML = "<p class='text-muted text-center my-auto'>Belum ada grafik reaksi yang tercatat. Kumpulkan lebih banyak reaksi dari dasbormu!</p>";
+    } else {
+        new Chart(sentimentCtx, {
+            type: 'doughnut',
+            data: {
+                labels: reactionData.labels,
+                datasets: [{
+                    data: reactionData.data,
+                    backgroundColor: sentimentColors,
+                    borderWidth: 0,
+                    hoverOffset: 10
+                }]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                cutout: '60%',
+                plugins: {
+                    legend: { position: 'right', labels: { font: { size: 14 } } }
+                }
+            }
+        });
+    }
+
+    // 4. Bar Chart OS & Browser Kecil Lanjutan
+    const osCtx = document.getElementById('osChart').getContext('2d');
+    new Chart(osCtx, {
+        type: 'bar',
+        data: {
+            labels: osData.labels.slice(0, 5), // Ambil Top 5 saja agar rapi
+            datasets: [{
+                data: osData.data.slice(0, 5),
+                backgroundColor: 'rgba(111, 66, 193, 0.6)',
+                borderRadius: 4
+            }]
+        },
+        options: {
+            responsive: true, maintainAspectRatio: false,
+            plugins: { legend: { display: false } },
+            scales: { y: { beginAtZero: true, display: false }, x: { grid: { display: false } } }
+        }
+    });
+
     const browserCtx = document.getElementById('browserChart').getContext('2d');
     new Chart(browserCtx, {
         type: 'bar',
         data: {
-            labels: browserData.labels,
+            labels: browserData.labels.slice(0, 5),
             datasets: [{
-                label: 'Jumlah Pengguna',
-                data: browserData.data,
-                backgroundColor: modernColors[2], // Warna Teal
-                borderRadius: 5
+                data: browserData.data.slice(0, 5),
+                backgroundColor: 'rgba(32, 201, 151, 0.6)',
+                borderRadius: 4
             }]
         },
         options: {
-            responsive: true,
-            plugins: {
-                legend: { display: false }
-            },
-            scales: {
-                y: { beginAtZero: true, ticks: { stepSize: 1 } }
-            }
+            responsive: true, maintainAspectRatio: false,
+            plugins: { legend: { display: false } },
+            scales: { y: { beginAtZero: true, display: false }, x: { grid: { display: false } } }
         }
     });
+
 </script>
 
 {% endblock %}

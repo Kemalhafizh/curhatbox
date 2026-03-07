@@ -5,74 +5,103 @@
 
 {% block content %}
 <div class="row justify-content-center py-5">
-    <div class="col-md-8">
-        <div class="text-center mb-5">
-            <img src="{% static 'img/logo-web.png' %}" alt="Logo CurhatBox" height="80" class="mb-3">
-            <h1 class="fw-bold text-dark">Tentang CurhatBox</h1>
-            <p class="lead text-muted">Membangun koneksi yang jujur tanpa penghakiman.</p>
+    <div class="col-md-10">
+
+        <!-- Header Section -->
+        <div class="text-center mb-5" data-aos="fade-down">
+            <img src="{% static 'img/logo-web.png' %}" alt="Logo CurhatBox" height="90" class="mb-4 float-animation">
+            <h1 class="display-6 fw-bold text-dark mb-3">Lebih dari Sekadar Pesan Anonim</h1>
+            <p class="lead text-muted mx-auto" style="max-width: 600px;">
+                CurhatBox dirancang menggunakan teknologi Web terkini untuk menghadirkan pengalaman komunikasi jujur
+                yang <strong>Aman</strong>, <strong>Estetik</strong>, dan <strong>Penuh Kendali</strong>.
+            </p>
         </div>
 
-        <div class="card shadow-sm border-0 rounded-4 overflow-hidden">
-            <div class="card-body p-4 p-md-5">
-                
-                <div class="mb-5">
-                    <h3 class="fw-bold text-primary mb-3">Apa itu CurhatBox? 💜</h3>
-                    <p class="text-secondary" style="line-height: 1.8;">
-                        <strong>CurhatBox</strong> adalah platform pengiriman pesan anonim (rahasia) yang dirancang untuk memfasilitasi komunikasi yang jujur dan terbuka. 
-                        Kami percaya bahwa terkadang, seseorang butuh "topeng" untuk bisa berkata jujur. Di sini, Anda bisa menerima masukan, kritik membangun, atau sekadar curhatan seru dari teman-teman tanpa mereka merasa takut identitasnya ketahuan.
-                    </p>
-                </div>
-
-                <div class="row g-4 mb-5">
-                    <div class="col-md-6">
-                        <div class="p-3 bg-light rounded-4 h-100 border">
-                            <h5 class="fw-bold text-dark">🎯 Misi Kami</h5>
-                            <p class="small text-muted mb-0">
-                                Menciptakan ruang aman digital di mana setiap orang bisa berekspresi tanpa takut dihakimi (Judgment-Free Zone).
-                            </p>
+        <!-- Fitur Premium Grid -->
+        <div class="row g-4 mb-5">
+            <!-- Feature 1 -->
+            <div class="col-md-6 col-lg-4" data-aos="zoom-in-up" data-aos-delay="100">
+                <div class="card h-100 border-0 shadow-sm rounded-4 card-hover overflow-hidden">
+                    <div class="card-body p-4">
+                        <div class="bg-primary bg-opacity-10 text-primary rounded-circle d-inline-flex align-items-center justify-content-center mb-3"
+                            style="width: 60px; height: 60px;">
+                            <h3 class="mb-0">📸</h3>
                         </div>
-                    </div>
-                    <div class="col-md-6">
-                        <div class="p-3 bg-light rounded-4 h-100 border">
-                            <h5 class="fw-bold text-dark">🔒 Komitmen Privasi</h5>
-                            <p class="small text-muted mb-0">
-                                Keamanan Anda adalah prioritas nomor satu. Kami menggunakan enkripsi standar industri dan tidak pernah membocorkan data pengirim ke penerima.
-                            </p>
-                        </div>
+                        <h5 class="fw-bold">Format IG Story Instan</h5>
+                        <p class="text-muted small mb-0">Ubah pesan jujur dan balasanmu menjadi gambar estetik
+                            beresolusi tinggi yang siap dipamerkan di Instagram Story hanya dengan satu klik.</p>
                     </div>
                 </div>
+            </div>
 
-                <div class="mb-5">
-                    <h5 class="fw-bold text-dark mb-3">Kenapa Memilih Kami?</h5>
-                    <ul class="list-unstyled text-secondary">
-                        <li class="mb-2 d-flex align-items-center">
-                            <i class="bi bi-check-circle-fill text-primary me-2"></i> 
-                            ✨ <strong>100% Anonim:</strong> Tidak ada nama, tidak ada pelacakan yang terlihat user.
-                        </li>
-                        <li class="mb-2 d-flex align-items-center">
-                            <i class="bi bi-check-circle-fill text-primary me-2"></i> 
-                            🚀 <strong>Ringan & Cepat:</strong> Website dimuat dalam hitungan detik.
-                        </li>
-                        <li class="mb-2 d-flex align-items-center">
-                            <i class="bi bi-check-circle-fill text-primary me-2"></i> 
-                            📸 <strong>IG Story Ready:</strong> Ubah pesan jadi gambar cantik siap posting.
-                        </li>
-                        <li class="mb-2 d-flex align-items-center">
-                            <i class="bi bi-check-circle-fill text-primary me-2"></i> 
-                            🛡️ <strong>Anti-Bullying:</strong> Dilengkapi fitur sensor kata kasar dan blokir IP.
-                        </li>
-                    </ul>
+            <!-- Feature 2 -->
+            <div class="col-md-6 col-lg-4" data-aos="zoom-in-up" data-aos-delay="200">
+                <div class="card h-100 border-0 shadow-sm rounded-4 card-hover overflow-hidden">
+                    <div class="card-body p-4">
+                        <div class="bg-success bg-opacity-10 text-success rounded-circle d-inline-flex align-items-center justify-content-center mb-3"
+                            style="width: 60px; height: 60px;">
+                            <h3 class="mb-0">📊</h3>
+                        </div>
+                        <h5 class="fw-bold">Analitik Penggemar</h5>
+                        <p class="text-muted small mb-0">Pantau performa profilmu dengan dasbor analitik visual. Lihat
+                            grafik tren pesan harian, jam sibuk, dan analisis sentimen emoji dari penggemarmu.</p>
+                    </div>
                 </div>
+            </div>
 
-                <div class="text-center border-top pt-4">
-                    <p class="small text-muted mb-1">Dibuat dengan penuh cinta dan kopi ☕</p>
-                    <p class="fw-bold text-primary mb-3">Versi 1.0.0 (Beta)</p>
-                    
-                    <a href="{% url 'index' %}" class="btn btn-outline-primary rounded-pill px-4">Kembali ke Beranda</a>
+            <!-- Feature 3 -->
+            <div class="col-md-6 col-lg-4" data-aos="zoom-in-up" data-aos-delay="300">
+                <div class="card h-100 border-0 shadow-sm rounded-4 card-hover overflow-hidden">
+                    <div class="card-body p-4">
+                        <div class="bg-warning bg-opacity-10 text-warning rounded-circle d-inline-flex align-items-center justify-content-center mb-3"
+                            style="width: 60px; height: 60px;">
+                            <h3 class="mb-0">🎨</h3>
+                        </div>
+                        <h5 class="fw-bold">Kustomisasi Premium</h5>
+                        <p class="text-muted small mb-0">Ekspresikan dirimu sesungguhnya! Unggah foto Avatar dan pilih
+                            warna Tema (Kuning, Ungu, Merah Muda, dll) untuk menghiasi halaman publikmu.</p>
+                    </div>
                 </div>
+            </div>
 
+            <!-- Feature 4 -->
+            <div class="col-md-6" data-aos="fade-right" data-aos-delay="400">
+                <div class="card h-100 border-0 shadow-sm rounded-4 card-hover overflow-hidden bg-dark text-white">
+                    <div class="card-body p-4 p-md-5">
+                        <h3 class="mb-3">💣</h3>
+                        <h4 class="fw-bold text-warning mb-3">Mode Anti-Jejak (Self-Destruct)</h4>
+                        <p class="text-light text-opacity-75 mb-0">
+                            Takut rahasia terbongkar? Kirim pesan dengan Mode Sekali Baca. Pesan akan dihapus secara
+                            permanen dari server sesaat setelah penerima membukanya. Bebas jejak digital seutuhnya.
+                        </p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Feature 5 -->
+            <div class="col-md-6" data-aos="fade-left" data-aos-delay="500">
+                <div
+                    class="card h-100 border-0 shadow-sm rounded-4 card-hover overflow-hidden border-start border-danger border-5">
+                    <div class="card-body p-4 p-md-5">
+                        <h3 class="mb-3">🛡️</h3>
+                        <h4 class="fw-bold text-danger mb-3">Keamanan Siber Proaktif</h4>
+                        <p class="text-muted mb-0">
+                            Anti perundungan! CurhatBox mendeteksi kata-kata kasar dan mencatat Petunjuk Lingkungan
+                            Pengirim (Browser/OS). Sebagai penerima, Anda memiliki kendali penuh untuk memblokir
+                            penyerang selamanya.
+                        </p>
+                    </div>
+                </div>
             </div>
         </div>
+
+        <div class="text-center mt-5 pt-4 border-top" data-aos="fade-up">
+            <p class="small text-muted mb-4">Diciptakan dengan visi memberantas <em>Cyberbullying</em> tanpa membunuh
+                kebebasan berekspresi.</p>
+            <a href="{% url 'index' %}" class="btn btn-primary btn-lg px-5 rounded-pill shadow">Mulai Perjalananmu
+                Secara Gratis</a>
+        </div>
+
     </div>
 </div>
 {% endblock %}

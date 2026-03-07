@@ -5,8 +5,8 @@ from django.contrib.auth.decorators import login_required
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib import messages
 from django.utils import timezone
-from django.db.models import Count
-from django.db.models.functions import TruncDate
+from django.db.models import Count, Q
+from django.db.models.functions import TruncDate, ExtractHour
 import json
 from django.core.exceptions import PermissionDenied
 from django_ratelimit.decorators import ratelimit
@@ -227,30 +227,61 @@ def edit_profile(request):
 def analytics_dashboard(request):
     user_id = request.user.id
     
-    # 1. Total Pesan Keseluruhan & Belum Dibaca
-    total_messages = Message.objects.filter(recipient_id=user_id).count()
-    unread_messages = Message.objects.filter(recipient_id=user_id, is_read=False).count()
+    # --- 1. Key Performance Indicators (KPIs) ---
+    base_query = Message.objects.filter(recipient_id=user_id)
+    total_messages = base_query.count()
+    unread_messages = base_query.filter(is_read=False).count()
     
-    # 2. Pesan 7 Hari Terakhir (Tren Waktu)
+    # 1.a. Tingkat Balasan (Reply Rate)
+    # Hint: Pesan yang memiliki reply_content dianggap sudah dibalas
+    replied_messages = base_query.exclude(reply_content__exact='').exclude(reply_content__isnull=True).count()
+    reply_rate = 0
+    if total_messages > 0:
+        reply_rate = round((replied_messages / total_messages) * 100, 1)
+
+    # 1.b. Pesan yang dipublikasikan (Share Rate)
+    public_messages = base_query.filter(is_public=True).count()
+    share_rate = 0
+    if total_messages > 0:
+        share_rate = round((public_messages / total_messages) * 100, 1)
+
+    # --- 2. Tren Waktu (7 Hari Terakhir) ---
     sevendays_ago = timezone.now() - timezone.timedelta(days=7)
-    daily_counts = Message.objects.filter(
-        recipient_id=user_id, 
+    daily_counts = base_query.filter(
         created_at__gte=sevendays_ago
     ).annotate(date=TruncDate('created_at')).values('date').annotate(count=Count('id')).order_by('date')
     
     dates = [item['date'].strftime('%d %b') for item in daily_counts]
     counts = [item['count'] for item in daily_counts]
-    
     trend_data = json.dumps({'labels': dates, 'data': counts})
     
-    # 3. Distribusi OS
-    os_dist = Message.objects.filter(recipient_id=user_id).exclude(sender_device__exact='').exclude(sender_device__isnull=True).values('sender_device').annotate(count=Count('id')).order_by('-count')
+    # --- 3. Waktu Emas (Peak Active Hours) ---
+    # Mengekstrak Jam dari 0-23 untuk mencari kapan penggemar paling sering curhat
+    hour_distribution = base_query.annotate(hour=ExtractHour('created_at')).values('hour').annotate(count=Count('id')).order_by('hour')
+    # Inisialisasi daftar kosong untuk 24 jam agar chartnya penuh
+    hours_labels = [f"{str(i).zfill(2)}:00" for i in range(24)]
+    hours_counts = [0] * 24
+    
+    for item in hour_distribution:
+        h = item['hour']
+        if h is not None:
+            hours_counts[h] = item['count']
+            
+    peak_hours_data = json.dumps({'labels': hours_labels, 'data': hours_counts})
+
+    # --- 4. Sentimen Reaksi (Emoji Analytics) ---
+    reaction_dist = base_query.exclude(reaction__exact='').exclude(reaction__isnull=True).values('reaction').annotate(count=Count('id')).order_by('-count')
+    reaction_labels = [item['reaction'] for item in reaction_dist]
+    reaction_counts = [item['count'] for item in reaction_dist]
+    reaction_data = json.dumps({'labels': reaction_labels, 'data': reaction_counts})
+
+    # --- 5. Distribusi OS & Browser ---
+    os_dist = base_query.exclude(sender_device__exact='').exclude(sender_device__isnull=True).values('sender_device').annotate(count=Count('id')).order_by('-count')
     os_labels = [item['sender_device'] for item in os_dist]
     os_counts = [item['count'] for item in os_dist]
     os_data = json.dumps({'labels': os_labels, 'data': os_counts})
     
-    # 4. Distribusi Browser
-    browser_dist = Message.objects.filter(recipient_id=user_id).exclude(sender_browser__exact='').exclude(sender_browser__isnull=True).values('sender_browser').annotate(count=Count('id')).order_by('-count')
+    browser_dist = base_query.exclude(sender_browser__exact='').exclude(sender_browser__isnull=True).values('sender_browser').annotate(count=Count('id')).order_by('-count')
     browser_labels = [item['sender_browser'] for item in browser_dist]
     browser_counts = [item['count'] for item in browser_dist]
     browser_data = json.dumps({'labels': browser_labels, 'data': browser_counts})
@@ -258,7 +289,11 @@ def analytics_dashboard(request):
     context = {
         'total_messages': total_messages,
         'unread_messages': unread_messages,
+        'reply_rate': reply_rate,
+        'share_rate': share_rate,
         'trend_data': trend_data,
+        'peak_hours_data': peak_hours_data,
+        'reaction_data': reaction_data,
         'os_data': os_data,
         'browser_data': browser_data,
     }
