@@ -1,22 +1,76 @@
 {% extends 'main/base.html' %}
 
+{% block title %}Edit Profil - CurhatBox{% endblock %}
+
 {% block content %}
-<div class="row justify-content-center">
-    <div class="col-md-5">
-        <div class="card shadow-sm border-0">
-            <div class="card-body p-4">
-                <h4 class="fw-bold mb-3">Edit Profil</h4>
+<div class="container-fluid position-relative py-5 z-1">
+    
+    <div class="row justify-content-center" data-aos="fade-up">
+        <div class="col-md-6 col-lg-5">
+            
+            <div class="text-center mb-4">
+                <h2 class="fw-bold text-white" style="font-family: 'Outfit', sans-serif; text-shadow: 0 4px 15px rgba(0,0,0,0.3);">
+                    ⚙️ Pengaturan Profil
+                </h2>
+                <p class="text-white-50">Kustomisasi identitas publikmu di CurhatBox</p>
+            </div>
+
+            <div class="glass-card p-4 p-md-5">
                 <form method="POST" enctype="multipart/form-data">
                     {% csrf_token %}
-                    <div class="mb-3">
-                        {{ form.as_p }}
+                    
+                    <!-- Bio Field -->
+                    <div class="mb-4">
+                        <label for="{{ form.bio.id_for_label }}" class="form-label fw-bold text-dark mb-2">
+                            <i class="bi bi-chat-quote-fill text-primary me-2"></i>Sapaan Pengunjung (Bio)
+                        </label>
+                        {{ form.bio }}
+                        {% if form.bio.help_text %}
+                            <div class="form-text mt-2">{{ form.bio.help_text }}</div>
+                        {% endif %}
+                        {% if form.bio.errors %}
+                            <div class="text-danger small mt-1">{{ form.bio.errors }}</div>
+                        {% endif %}
                     </div>
-                    <div class="d-grid gap-2">
-                        <button type="submit" class="btn btn-primary">Simpan Perubahan</button>
-                        <a href="{% url 'dashboard' %}" class="btn btn-light border">Batal</a>
+
+                    <!-- Avatar Field -->
+                    <div class="mb-4">
+                        <label for="{{ form.avatar.id_for_label }}" class="form-label fw-bold text-dark mb-2">
+                            <i class="bi bi-person-circle text-primary me-2"></i>Foto Avatar
+                        </label>
+                        {{ form.avatar }}
+                        <div class="form-text mt-2"><i class="bi bi-info-circle me-1"></i>Format: JPG, PNG, GIF (Maks. 2MB)</div>
+                        {% if form.avatar.errors %}
+                            <div class="text-danger small mt-1">{{ form.avatar.errors }}</div>
+                        {% endif %}
+                    </div>
+
+                    <!-- Theme Color Field -->
+                    <div class="mb-5">
+                        <label for="{{ form.theme_color.id_for_label }}" class="form-label fw-bold text-dark mb-2 d-block">
+                            <i class="bi bi-palette-fill text-primary me-2"></i>Warna Tema Publik
+                        </label>
+                        <div class="d-flex align-items-center gap-3 bg-white bg-opacity-50 p-3 rounded-4 border">
+                            {{ form.theme_color }}
+                            <span class="small text-muted">Klik kotak untuk memilih warna dominan profilmu.</span>
+                        </div>
+                        {% if form.theme_color.errors %}
+                            <div class="text-danger small mt-1">{{ form.theme_color.errors }}</div>
+                        {% endif %}
+                    </div>
+
+                    <!-- Action Buttons -->
+                    <div class="d-grid gap-3 pt-2">
+                        <button type="submit" class="btn btn-primary btn-lg rounded-pill shadow hover-lift fw-bold">
+                            Terapkan Perubahan ✨
+                        </button>
+                        <a href="{% url 'dashboard' %}" class="btn btn-light btn-lg rounded-pill border hover-lift fw-bold text-muted">
+                            Batalkan
+                        </a>
                     </div>
                 </form>
             </div>
+            
         </div>
     </div>
 </div>
