@@ -109,20 +109,27 @@
                 <p class="mb-3 text-dark fw-bold">"{{ msg.content }}"</p>
 
                 <!-- Quick Reactions -->
-                <div class="mb-3">
-                    <small class="text-muted d-block mb-1">⚡ Reaksi Cepat:</small>
-                    <div class="d-flex flex-wrap gap-2" style="max-width: 100%;">
-                        {% for emoji in "🔥 ❤️ 💀 🤡 😄 😂 😭 🥺 😡 🤯 🤮 🤫 👍 👎 ✨"|slice:""|join:""|make_list %}
-                        {% if emoji != " " %}
+                <div class="mb-4">
+                    <small class="text-muted d-block mb-2 fw-bold"><i class="bi bi-lightning-charge-fill text-warning"></i> Reaksi Cepat:</small>
+                    <div class="d-flex flex-wrap gap-2 p-2 bg-light rounded-4 border shadow-sm align-items-center">
+                        {% for emoji in quick_reactions %}
                         <a href="{% url 'set_reaction' msg.id emoji %}"
-                            class="btn btn-sm {% if msg.reaction == emoji %}btn-primary shadow{% else %}btn-outline-secondary{% endif %} rounded-circle p-0 d-inline-flex align-items-center justify-content-center"
-                            style="width: 35px; height: 35px; font-size: 1.1rem; transition: all 0.2s cubic-bezier(0.175, 0.885, 0.32, 1.275);"
-                            onmouseover="this.style.transform='scale(1.2)';"
-                            onmouseout="this.style.transform='scale(1)';" title="Reaksi {{ emoji }}">
+                            class="btn btn-sm {% if msg.reaction == emoji %}btn-primary shadow-lg scale-110 border-primary{% else %}btn-white border hover-lift{% endif %} rounded-circle p-0 d-inline-flex align-items-center justify-content-center bg-white"
+                            style="width: 38px; height: 38px; font-size: 1.2rem; transition: all 0.2s cubic-bezier(0.175, 0.885, 0.32, 1.275);"
+                            title="Reaksi {{ emoji }}">
                             {{ emoji }}
                         </a>
-                        {% endif %}
                         {% endfor %}
+                        
+                        {% if msg.reaction %}
+                        <div class="mx-1" style="height: 30px; width: 2px; background-color: #dee2e6;"></div>
+                        <a href="{% url 'set_reaction' msg.id 'remove' %}" 
+                           class="btn btn-sm btn-outline-danger rounded-circle p-0 d-inline-flex align-items-center justify-content-center hover-lift" 
+                           style="width: 38px; height: 38px; font-size: 1.2rem;" 
+                           title="Hapus Reaksi">
+                           ❌
+                        </a>
+                        {% endif %}
                     </div>
                 </div>
 

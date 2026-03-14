@@ -19,6 +19,8 @@ from .forms import ProfileForm, ReplyForm
 from .models import BlockList, Message
 from .utils import sensor_kata, verify_recaptcha
 
+# Daftar emoji lengkap yang anti terpecah (hindari pemecahan byte Unicode di Template HTML)
+QUICK_REACTIONS = ["🔥", "❤️", "💀", "🤡", "😄", "😂", "😭", "🥺", "😡", "🤯", "🤮", "🤫", "👍", "👎", "✨", "🙏", "👀", "💯"]
 
 # ==============================================================================
 # PUBLIC VIEWS (Akses Tanpa Login)
@@ -137,7 +139,8 @@ def dashboard(request):
     
     context = {
         'page_obj': page_obj,
-        'inbox_messages': message_list
+        'inbox_messages': message_list,
+        'quick_reactions': QUICK_REACTIONS
     }
     return render(request, 'main/dashboard.html', context)
 
@@ -218,12 +221,18 @@ def toggle_favorite(request, message_id):
 def set_reaction(request, message_id, emoji):
     """Menambahkan reaksi emoji cepat pada pesan dan mempublikasikannya."""
     msg = get_object_or_404(Message, id=message_id, recipient=request.user)
-    msg.reaction = emoji
-    msg.is_public = True
-    msg.is_read = True
-    msg.save()
     
-    messages.success(request, f"Kamu bereaksi {emoji} pada pesan rahasia.")
+    if emoji == 'remove':
+        msg.reaction = ''
+        msg.save()
+        messages.success(request, "Reaksi dihapus.")
+    else:
+        msg.reaction = emoji
+        msg.is_public = True
+        msg.is_read = True
+        msg.save()
+        messages.success(request, f"Kamu bereaksi {emoji} pada pesan rahasia.")
+        
     return redirect('dashboard')
 
 
