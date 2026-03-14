@@ -3,137 +3,151 @@
 {% block title %}Studio Analitik - CurhatBox{% endblock %}
 
 {% block content %}
-<div class="row mb-5 align-items-center" data-aos="fade-down">
-    <div class="col-md-8">
-        <h1 class="fw-bold text-dark mb-1">📊 Studio Analitik Penggemar</h1>
-        <p class="text-muted">Pantau interaksi, waktu terbaik, dan sentimen dari penggemar rahasiamu.</p>
+<div class="container-fluid position-relative py-4 z-1">
+    
+    <!-- Header Section -->
+    <div class="row mb-5 align-items-center" data-aos="fade-down">
+        <div class="col-md-8">
+            <h1 class="fw-bold mb-2 text-white" style="font-family: 'Outfit', sans-serif; text-shadow: 0 4px 15px rgba(0,0,0,0.3);">
+                <i class="bi bi-bar-chart-line-fill text-warning me-2"></i> Studio Analitik Penggemar
+            </h1>
+            <p class="text-white-50 fs-5 mb-0" style="text-shadow: 0 2px 10px rgba(0,0,0,0.2);">Pantau metrik interaksi, waktu terbaik, dan sentimen dari penggemar rahasiamu dalam satu layar.</p>
+        </div>
+        <div class="col-md-4 text-md-end mt-4 mt-md-0">
+            <a href="{% url 'dashboard' %}" class="btn btn-light rounded-pill px-4 py-2 shadow hover-lift fw-bold text-primary">
+                ⬅ Kembali ke Dasbor
+            </a>
+        </div>
     </div>
-    <div class="col-md-4 text-md-end mt-3 mt-md-0">
-        <a href="{% url 'dashboard' %}" class="btn btn-outline-primary rounded-pill px-4 shadow-sm">⬅ Kembali ke
-            Dasbor</a>
-    </div>
-</div>
 
-<!-- KPI Cards Grid -->
-<div class="row row-cols-1 row-cols-sm-2 row-cols-lg-4 g-4 mb-5">
-    <!-- KPI 1 -->
-    <div class="col" data-aos="zoom-in" data-aos-delay="50">
-        <div class="card h-100 border-0 shadow-sm rounded-4 bg-primary text-white card-hover">
-            <div class="card-body p-4 text-center d-flex flex-column justify-content-center">
-                <i class="bi bi-envelope-paper fs-3 mb-2 opacity-75"></i>
-                <h6 class="text-uppercase fw-bold text-white-50 mb-1">Total Pesan</h6>
-                <h2 class="display-5 fw-bold mb-0">{{ total_messages }}</h2>
+    <!-- KPI Cards Grid (Glassmorphism) -->
+    <div class="row row-cols-1 row-cols-sm-2 row-cols-lg-4 g-4 mb-5">
+        <!-- KPI 1 -->
+        <div class="col" data-aos="zoom-in" data-aos-delay="0">
+            <div class="glass-card h-100 hover-lift text-white p-1 position-relative overflow-hidden" style="background: linear-gradient(135deg, #00c6ff 0%, #0072ff 100%);">
+                <div class="position-absolute top-0 end-0 p-3 opacity-25">
+                    <i class="bi bi-envelope-paper display-1"></i>
+                </div>
+                <div class="card-body p-4 text-start position-relative z-1">
+                    <h6 class="text-uppercase fw-bolder text-white-50 mb-2" style="letter-spacing: 1px;">Total Pesan</h6>
+                    <h2 class="display-4 fw-bold mb-0 text-white">{{ total_messages }}</h2>
+                </div>
+            </div>
+        </div>
+        <!-- KPI 2 -->
+        <div class="col" data-aos="zoom-in" data-aos-delay="100">
+            <div class="glass-card h-100 hover-lift p-1 position-relative overflow-hidden" style="border-left: 6px solid #fca311;">
+                <div class="position-absolute top-0 end-0 p-3 opacity-10">
+                    <i class="bi bi-eye-slash display-1 text-warning"></i>
+                </div>
+                <div class="card-body p-4 text-start position-relative z-1">
+                    <h6 class="text-uppercase fw-bolder text-muted mb-2" style="letter-spacing: 1px;">Belum Dibaca</h6>
+                    <h2 class="display-4 fw-bold text-dark mb-0 d-flex align-items-center gap-2">
+                        {{ unread_messages }} 
+                        {% if unread_messages > 0 %}<span class="spinner-grow spinner-grow-sm text-warning" role="status"></span>{% endif %}
+                    </h2>
+                </div>
+            </div>
+        </div>
+        <!-- KPI 3 -->
+        <div class="col" data-aos="zoom-in" data-aos-delay="200">
+            <div class="glass-card h-100 hover-lift p-1 position-relative overflow-hidden" style="border-left: 6px solid #20c997;">
+                <div class="position-absolute top-0 end-0 p-3 opacity-10">
+                    <i class="bi bi-chat-heart display-1 text-success"></i>
+                </div>
+                <div class="card-body p-4 text-start position-relative z-1">
+                    <h6 class="text-uppercase fw-bolder text-muted mb-2" style="letter-spacing: 1px;">Tingkat Balasan</h6>
+                    <h2 class="display-4 fw-bold text-dark mb-0">{{ reply_rate }}<small class="fs-4 text-muted">%</small></h2>
+                </div>
+            </div>
+        </div>
+        <!-- KPI 4 -->
+        <div class="col" data-aos="zoom-in" data-aos-delay="300">
+            <div class="glass-card h-100 hover-lift p-1 position-relative overflow-hidden" style="border-left: 6px solid #ff6b6b;">
+                <div class="position-absolute top-0 end-0 p-3 opacity-10">
+                    <i class="bi bi-share-fill display-1 text-danger"></i>
+                </div>
+                <div class="card-body p-4 text-start position-relative z-1">
+                    <h6 class="text-uppercase fw-bolder text-muted mb-2" style="letter-spacing: 1px;">Tingkat Share (Publik)</h6>
+                    <h2 class="display-4 fw-bold text-dark mb-0">{{ share_rate }}<small class="fs-4 text-muted">%</small></h2>
+                </div>
             </div>
         </div>
     </div>
-    <!-- KPI 2 -->
-    <div class="col" data-aos="zoom-in" data-aos-delay="100">
-        <div class="card h-100 border-0 shadow-sm rounded-4 card-hover border-start border-warning border-5">
-            <div class="card-body p-4 text-center d-flex flex-column justify-content-center">
-                <i class="bi bi-envelope-exclamation text-warning fs-3 mb-2"></i>
-                <h6 class="text-uppercase fw-bold text-muted mb-1">Belum Dibaca</h6>
-                <h2 class="display-5 fw-bold text-dark mb-0">{{ unread_messages }}</h2>
-            </div>
-        </div>
-    </div>
-    <!-- KPI 3 -->
-    <div class="col" data-aos="zoom-in" data-aos-delay="150">
-        <div class="card h-100 border-0 shadow-sm rounded-4 card-hover border-start border-success border-5">
-            <div class="card-body p-4 text-center d-flex flex-column justify-content-center">
-                <i class="bi bi-chat-dots text-success fs-3 mb-2"></i>
-                <h6 class="text-uppercase fw-bold text-muted mb-1">Tingkat Balasan</h6>
-                <h2 class="display-5 fw-bold text-dark mb-0">{{ reply_rate }}<small class="fs-4 text-muted">%</small>
-                </h2>
-            </div>
-        </div>
-    </div>
-    <!-- KPI 4 -->
-    <div class="col" data-aos="zoom-in" data-aos-delay="200">
-        <div class="card h-100 border-0 shadow-sm rounded-4 card-hover border-start border-danger border-5">
-            <div class="card-body p-4 text-center d-flex flex-column justify-content-center">
-                <i class="bi bi-share text-danger fs-3 mb-2"></i>
-                <h6 class="text-uppercase fw-bold text-muted mb-1">Tingkat Share (Publik)</h6>
-                <h2 class="display-5 fw-bold text-dark mb-0">{{ share_rate }}<small class="fs-4 text-muted">%</small>
-                </h2>
-            </div>
-        </div>
-    </div>
-</div>
 
-<!-- Utama: Tren Waktu -->
-<div class="row mb-5" data-aos="fade-up" data-aos-delay="200">
-    <div class="col-12">
-        <div class="card shadow-sm border-0 rounded-4">
-            <div class="card-body p-4 p-md-5">
-                <div class="d-flex justify-content-between align-items-center mb-4">
-                    <h5 class="fw-bold mb-0">📈 Tren Lalu Lintas Pesan (7 Hari Terakhir)</h5>
-                    <span class="badge bg-light text-dark border">Harian</span>
-                </div>
-                <!-- Wrapper relative untuk Canvas agar responsif di Bootstrap -->
-                <div style="position: relative; height:40vh; width:100%">
-                    <canvas id="trendChart"></canvas>
+    <!-- Utama: Tren Waktu -->
+    <div class="row mb-5" data-aos="fade-up" data-aos-delay="400">
+        <div class="col-12">
+            <div class="glass-card hover-lift">
+                <div class="card-body p-4 p-md-5">
+                    <div class="d-flex justify-content-between align-items-center mb-4">
+                        <h5 class="fw-bold mb-0 text-dark" style="font-family: 'Outfit', sans-serif;">📈 Tren Lalu Lintas Pesan (7 Hari Terakhir)</h5>
+                        <span class="badge bg-white text-dark shadow-sm border rounded-pill px-3 py-2">Rekap Harian</span>
+                    </div>
+                    <!-- Wrapper relative untuk Canvas agar responsif di Bootstrap -->
+                    <div style="position: relative; height:45vh; width:100%">
+                        <canvas id="trendChart"></canvas>
+                    </div>
                 </div>
             </div>
         </div>
     </div>
-</div>
 
-<!-- Insight Lanjutan: Peak Hours & Sentimen -->
-<div class="row g-4 mb-5">
-    <div class="col-lg-6" data-aos="fade-right" data-aos-delay="300">
-        <div class="card shadow-sm border-0 rounded-4 h-100">
-            <div class="card-body p-4 p-md-5 d-flex flex-column">
-                <h5 class="fw-bold mb-1 text-center">⏱ Jam Emas (Peak Hours)</h5>
-                <p class="small text-muted text-center mb-4">Waktu paling aktif penggemar mengirim pesan (00:00 - 23:00)
-                </p>
-                <div class="flex-grow-1 d-flex justify-content-center align-items-center"
-                    style="position: relative; height:30vh; width:100%">
-                    <canvas id="peakHoursChart"></canvas>
+    <!-- Insight Lanjutan: Peak Hours & Sentimen -->
+    <div class="row g-4 mb-5">
+        <div class="col-lg-6" data-aos="fade-right" data-aos-delay="500">
+            <div class="glass-card h-100 hover-lift">
+                <div class="card-body p-4 p-md-5 d-flex flex-column">
+                    <h5 class="fw-bold mb-1 text-center text-dark" style="font-family: 'Outfit', sans-serif;">⏱ Jam Emas (Peak Hours)</h5>
+                    <p class="small text-muted text-center mb-4">Waktu paling sering layar pengguna aktif (00:00 - 23:00)</p>
+                    <div class="flex-grow-1 d-flex justify-content-center align-items-center"
+                        style="position: relative; height:35vh; width:100%">
+                        <canvas id="peakHoursChart"></canvas>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-lg-6" data-aos="fade-left" data-aos-delay="600">
+            <div class="glass-card h-100 hover-lift">
+                <div class="card-body p-4 p-md-5 d-flex flex-column">
+                    <h5 class="fw-bold mb-1 text-center text-dark" style="font-family: 'Outfit', sans-serif;">🎭 Analisis Sentimen Emoji</h5>
+                    <p class="small text-muted text-center mb-4">Distribusi emosi dari reaksi cepat pengunjung</p>
+                    <div class="flex-grow-1 d-flex justify-content-center align-items-center"
+                        style="position: relative; height:35vh; width:100%" id="sentimentContainer">
+                        <canvas id="sentimentChart"></canvas>
+                    </div>
                 </div>
             </div>
         </div>
     </div>
-    <div class="col-lg-6" data-aos="fade-left" data-aos-delay="400">
-        <div class="card shadow-sm border-0 rounded-4 h-100">
-            <div class="card-body p-4 p-md-5 d-flex flex-column">
-                <h5 class="fw-bold mb-1 text-center">🎭 Analisis Sentimen Emoji</h5>
-                <p class="small text-muted text-center mb-4">Distribusi emosi dari fitur Reaksi Cepat</p>
-                <div class="flex-grow-1 d-flex justify-content-center align-items-center"
-                    style="position: relative; height:30vh; width:100%">
-                    <canvas id="sentimentChart"></canvas>
-                </div>
-            </div>
-        </div>
-    </div>
-</div>
 
-<!-- Metrik Perangkat Dasar -->
-<div class="row g-4 mb-5" data-aos="fade-up" data-aos-delay="500">
-    <div class="col-md-6">
-        <div class="card shadow-sm border-0 rounded-4 h-100">
-            <div class="card-body p-4 d-flex flex-column">
-                <h6 class="fw-bold text-muted mb-4 text-center">📱 Perangkat Pengirim (OS)</h6>
-                <div class="flex-grow-1 d-flex justify-content-center align-items-center"
-                    style="position: relative; height:25vh; width:100%">
-                    <canvas id="osChart"></canvas>
+    <!-- Metrik Perangkat Dasar -->
+    <div class="row g-4 mb-5" data-aos="fade-up" data-aos-delay="700">
+        <div class="col-md-6">
+            <div class="glass-card h-100 hover-lift">
+                <div class="card-body p-4 p-md-5 d-flex flex-column">
+                    <h6 class="fw-bold text-muted mb-4 text-center text-uppercase" style="letter-spacing: 1px;">📱 Perangkat Pengirim (OS)</h6>
+                    <div class="flex-grow-1 d-flex justify-content-center align-items-center"
+                        style="position: relative; height:25vh; width:100%">
+                        <canvas id="osChart"></canvas>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-6">
+            <div class="glass-card h-100 hover-lift">
+                <div class="card-body p-4 p-md-5 d-flex flex-column">
+                    <h6 class="fw-bold text-muted mb-4 text-center text-uppercase" style="letter-spacing: 1px;">🌐 Browser Favorit</h6>
+                    <div class="flex-grow-1 d-flex justify-content-center align-items-center"
+                        style="position: relative; height:25vh; width:100%">
+                        <canvas id="browserChart"></canvas>
+                    </div>
                 </div>
             </div>
         </div>
     </div>
-    <div class="col-md-6">
-        <div class="card shadow-sm border-0 rounded-4 h-100">
-            <div class="card-body p-4 d-flex flex-column">
-                <h6 class="fw-bold text-muted mb-4 text-center">🌐 Browser Favorit</h6>
-                <div class="flex-grow-1 d-flex justify-content-center align-items-center"
-                    style="position: relative; height:25vh; width:100%">
-                    <canvas id="browserChart"></canvas>
-                </div>
-            </div>
-        </div>
-    </div>
-</div>
 
-<!-- Batas Konten -->
+</div> <!-- Tutup Container -->
 
 <!-- Chart.js Library via CDN -->
 <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
@@ -243,7 +257,12 @@
     const sentimentCtx = document.getElementById('sentimentChart').getContext('2d');
     // Jika tidak ada data reaksi, tampilkan text kosong
     if (reactionData.labels.length === 0) {
-        document.getElementById('sentimentChart').outerHTML = "<p class='text-muted text-center my-auto'>Belum ada grafik reaksi yang tercatat. Kumpulkan lebih banyak reaksi dari dasbormu!</p>";
+        document.getElementById('sentimentContainer').innerHTML = `
+            <div class="text-center my-auto p-4 bg-light rounded-4 border border-dashed text-muted" style="border-style: dashed !important; border-width: 2px !important;">
+                <i class="bi bi-emoji-smile fs-1 mb-3 d-block opacity-50"></i>
+                <p class="mb-0">Belum ada grafik reaksi yang tercatat.<br>Kumpulkan lebih banyak reaksi dari dasbormu!</p>
+            </div>
+        `;
     } else {
         new Chart(sentimentCtx, {
             type: 'doughnut',
@@ -251,17 +270,33 @@
                 labels: reactionData.labels,
                 datasets: [{
                     data: reactionData.data,
-                    backgroundColor: sentimentColors,
-                    borderWidth: 0,
-                    hoverOffset: 10
+                    backgroundColor: ['#ff6b6b', '#fca311', '#20c997', '#007bff', '#6f42c1', '#17a2b8', '#e83e8c', '#fd7e14'],
+                    borderWidth: 2,
+                    borderColor: '#ffffff',
+                    hoverOffset: 15
                 }]
             },
             options: {
                 responsive: true,
                 maintainAspectRatio: false,
-                cutout: '60%',
+                cutout: '70%',
                 plugins: {
-                    legend: { position: 'right', labels: { font: { size: 14 } } }
+                    legend: { position: 'right', labels: { font: { size: 14, family: "'Outfit', sans-serif" }, padding: 20 } },
+                    tooltip: {
+                        backgroundColor: 'rgba(255, 255, 255, 0.95)',
+                        titleColor: '#000',
+                        bodyColor: '#6c757d',
+                        borderColor: 'rgba(0,0,0,0.1)',
+                        borderWidth: 1,
+                        padding: 12,
+                        boxPadding: 6,
+                        cornerRadius: 12,
+                        callbacks: {
+                            label: function(context) {
+                                return ' ' + context.label + ' : ' + context.raw + ' reaksi';
+                            }
+                        }
+                    }
                 }
             }
         });
