@@ -3,34 +3,42 @@
 {% block title %}Daftar Akun Baru{% endblock %}
 
 {% block content %}
-<div class="row justify-content-center">
+<div class="row justify-content-center align-items-center min-vh-75 py-5 my-md-5" data-aos="zoom-in-up">
     <div class="col-md-5">
-        <div class="card shadow-sm border-0">
-            <div class="card-body p-4">
-                <h3 class="fw-bold mb-3 text-center">Daftar Akun</h3>
+        <div class="glass-card border-0 shadow-lg">
+            <div class="card-body p-4 p-md-5">
+                <div class="text-center mb-4">
+                    <div class="d-inline-flex align-items-center justify-content-center bg-white bg-opacity-25 rounded-circle mb-3" style="width: 60px; height: 60px;">
+                        <i class="bi bi-person-fill-add fs-2 text-primary"></i>
+                    </div>
+                    <h2 class="fw-bold mb-2 text-dark">Daftar Akun Baru</h2>
+                    <p class="text-dark opacity-75 small">Bergabunglah dan terima pesan rahasia hari ini.</p>
+                </div>
                 
                 <form method="POST" class="auth-input">
                     {% csrf_token %}
                     {% for field in form %}
                         <div class="mb-3 text-start">
-                            <label class="form-label fw-bold small text-muted">{{ field.label }}</label>
+                            <label class="form-label fw-bold small text-dark opacity-75">{{ field.label }}</label>
                             
                             {{ field }}
                             
                             {% if field.help_text %}
-                                <div class="form-text small" style="font-size: 0.75rem;">{{ field.help_text|safe }}</div>
+                                <div class="form-text small text-dark opacity-75 mt-1" style="font-size: 0.75rem;">{{ field.help_text|safe }}</div>
                             {% endif %}
                             
                             {% for error in field.errors %}
-                                <div class="text-danger small">{{ error }}</div>
+                                <div class="text-danger small mt-1 fw-bold">{{ error }}</div>
                             {% endfor %}
                         </div>
                     {% endfor %}
-                    <button type="submit" class="btn btn-primary w-100 py-2 fw-bold shadow-sm">Buat Akun Sekarang</button>
+                    <button type="submit" class="btn btn-primary w-100 py-3 mt-3 fw-bold rounded-pill shadow-sm hover-lift">
+                        Buat Akun Sekarang <i class="bi bi-rocket-takeoff ms-1"></i>
+                    </button>
                 </form>
 
-                <div class="text-center mt-3">
-                    <p class="small text-muted">Sudah punya akun? <a href="{% url 'login' %}" class="text-decoration-none">Masuk di sini</a></p>
+                <div class="text-center mt-4">
+                    <p class="small text-dark opacity-75 mb-0">Sudah punya akun? <a href="{% url 'login' %}" class="fw-bold text-primary text-decoration-none">Masuk di sini</a></p>
                 </div>
             </div>
         </div>
