@@ -1,0 +1,7 @@
+Memulai Uji Backend Endpoints (QC) di http://127.0.0.1:8000...
+[PASS] GET / -> Status: 200
+[PASS] GET /about/ -> Status: 200
+[PASS] GET /rules/ -> Status: 200
+[PASS] GET /register/ -> Status: 200
+[FAIL] GET /login/ -> Status: 404
+QC Backend: Ditemukan masalah pada beberapa rute.
