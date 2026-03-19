@@ -10,6 +10,8 @@ from django.core.paginator import Paginator
 from django.db.models import Count
 from django.db.models.functions import ExtractHour, TruncDate
 from django.shortcuts import get_object_or_404, redirect, render
+from django.http import JsonResponse
+from django.template.loader import render_to_string
 from django.utils import timezone
 
 from django_ratelimit.decorators import ratelimit
@@ -334,6 +336,45 @@ def analytics_dashboard(request):
     }
     
     return render(request, 'main/analytics.html', context)
+
+
+@login_required
+def api_check_new_messages(request):
+    """API Endpoint untuk mengecek pesan baru via AJAX Polling."""
+    last_id = request.GET.get('last_id', 0)
+    try:
+        last_id = int(last_id)
+    except ValueError:
+        last_id = 0
+
+    new_messages = Message.objects.filter(
+        recipient=request.user, 
+        id__gt=last_id
+    ).order_by('created_at')
+
+    if not new_messages.exists():
+        return JsonResponse({'status': 'no_new_messages'})
+
+    # Render HTML untuk setiap pesan baru
+    # Urutan ascending (created_at), jadi pesan paling baru dirender terakhir, 
+    # dan ditambahkan ke depan string (prepend) agar di HTML muncul paling atas.
+    html_content = ""
+    for msg in new_messages:
+        rendered_html = render_to_string(
+            'main/partials/message_card.html', 
+            {'msg': msg, 'quick_reactions': QUICK_REACTIONS, 'user': request.user},
+            request=request
+        )
+        html_content = rendered_html + html_content
+
+    latest_id = new_messages.last().id
+
+    return JsonResponse({
+        'status': 'success',
+        'html': html_content,
+        'latest_id': latest_id,
+        'count': new_messages.count()
+    })
 
 
 # ==============================================================================
