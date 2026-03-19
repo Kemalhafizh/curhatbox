@@ -8,12 +8,12 @@
         <div class="glass-card border-0 shadow-lg">
             <div class="card-body p-4 p-md-5 text-center">
                 <div class="mb-4">
-                    <div class="d-inline-flex align-items-center justify-content-center bg-white bg-opacity-25 rounded-circle mb-3" style="width: 60px; height: 60px;">
+                    <div class="d-inline-flex align-items-center justify-content-center bg-body bg-opacity-25 rounded-circle mb-3" style="width: 60px; height: 60px;">
                         <i class="bi bi-person-fill-lock fs-2 text-primary"></i>
                     </div>
                 </div>
-                <h2 class="fw-bold mb-3 text-dark">Selamat Datang Lagi!</h2>
-                <p class="text-dark opacity-75 small mb-4">Silakan masuk untuk melihat pesan rahasiamu.</p>
+                <h2 class="fw-bold mb-3 text-body">Selamat Datang Lagi!</h2>
+                <p class="text-body opacity-75 small mb-4">Silakan masuk untuk melihat pesan rahasiamu.</p>
 
                 {% if form.errors %}
                     <div class="alert alert-danger small border-0 shadow-sm rounded-3">Username atau password salah.</div>
@@ -22,11 +22,11 @@
                 <form method="POST" class="auth-input">
                     {% csrf_token %}
                     <div class="mb-3 text-start">
-                        <label class="form-label fw-bold small text-dark opacity-75">Username</label>
+                        <label class="form-label fw-bold small text-body opacity-75">Username</label>
                         {{ form.username }}
                     </div>
                     <div class="mb-4 text-start">
-                        <label class="form-label fw-bold small text-dark opacity-75">Password</label>
+                        <label class="form-label fw-bold small text-body opacity-75">Password</label>
                         {{ form.password }}
                     </div>
                     <button type="submit" class="btn btn-primary w-100 py-3 fw-bold rounded-pill shadow-sm hover-lift">
@@ -35,7 +35,7 @@
                 </form>
 
                 <div class="text-center mt-4">
-                    <p class="small text-dark opacity-75 mb-0">Belum punya akun? <a href="{% url 'register' %}" class="fw-bold text-primary text-decoration-none">Daftar di sini</a></p>
+                    <p class="small text-body opacity-75 mb-0">Belum punya akun? <a href="{% url 'register' %}" class="fw-bold text-primary text-decoration-none">Daftar di sini</a></p>
                 </div>
             </div>
         </div>
