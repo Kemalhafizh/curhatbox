@@ -274,8 +274,7 @@ main {
     border-radius: 50px; 
     font-size: 2.2rem; 
     font-weight: 800; 
-    box-shadow: 0 20px 40px rgba(0,0,0,0.4); 
-    letter-spacing: 1px;
+    box-shadow: 0 20px 40px rgba(0,0,0,0.4);
     display: flex;
     align-items: center;
     gap: 15px;
@@ -289,7 +288,6 @@ main {
     line-height: 1.3; 
     margin-top: 40px; 
     word-wrap: break-word; 
-    letter-spacing: -1px;
 }
 
 /* F. Kotak Jawaban (Dark Glass Mode) */
@@ -314,7 +312,7 @@ main {
 }
 
 #capture-username {
-    color: #fff; font-weight: 800; letter-spacing: 1px;
+    color: #fff; font-weight: 800;
 }
 
 #capture-answer {
@@ -331,7 +329,7 @@ main {
     position: absolute; bottom: 80px; text-align: center; width: 100%;
 }
 .ig-watermark-footer h2 {
-    font-size: 4rem; font-weight: 900; color: #ffffff; text-shadow: 0 10px 30px rgba(0,0,0,0.5); letter-spacing: 2px; margin: 0;
+    font-size: 4rem; font-weight: 900; color: #ffffff; text-shadow: 0 10px 30px rgba(0,0,0,0.5); margin: 0;
 }
 .ig-watermark-footer p {
     font-size: 2rem; color: rgba(255,255,255,0.8); margin-top: 15px; font-weight: 500;
