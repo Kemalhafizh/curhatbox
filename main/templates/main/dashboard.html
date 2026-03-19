@@ -8,13 +8,13 @@
 
 <div class="row">
     <div class="col-md-4 mb-4" data-aos="fade-right">
-        <div class="card shadow-lg border-0 rounded-5 overflow-hidden" style="background: rgba(255,255,255,0.9); backdrop-filter: blur(20px);">
+        <div class="glass-card shadow-lg border-0 rounded-5 overflow-hidden">
             <div class="card-body text-center p-4">
                 
                 <!-- Avatar with glowing gradient ring -->
                 <div class="rounded-circle d-inline-flex align-items-center justify-content-center mb-3 shadow-lg position-relative float-animation"
                     style="width: 100px; height: 100px; font-size: 2.5rem; font-weight: bold; background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: white; padding: 4px;">
-                    <div class="rounded-circle w-100 h-100 overflow-hidden bg-white d-flex align-items-center justify-content-center {% if user.profile.avatar %}bg-transparent-avatar{% endif %}">
+                    <div class="rounded-circle w-100 h-100 overflow-hidden bg-body d-flex align-items-center justify-content-center {% if user.profile.avatar %}bg-transparent-avatar{% endif %}">
                         {% if user.profile.avatar %}
                         <img src="{{ user.profile.avatar.url }}" alt="Avatar" style="width: 100%; height: 100%; object-fit: cover;">
                         {% else %}
@@ -24,11 +24,11 @@
                 </div>
                 
                 <h4 class="fw-bold mb-1" style="font-family: 'Outfit', sans-serif;">Hallo, {{ user.username }}!</h4>
-                <p class="text-muted small mb-4">Bagikan link ini untuk menerima pesan anonim</p>
+                <p class="text-body-secondary small mb-4">Bagikan link ini untuk menerima pesan anonim</p>
 
                 <!-- Aesthetic Input Group -->
-                <div class="d-flex align-items-center bg-light rounded-pill p-1 shadow-sm mb-3 border border-light">
-                    <input type="text" class="form-control bg-transparent border-0 text-muted px-3"
+                <div class="d-flex align-items-center bg-body-tertiary rounded-pill p-1 shadow-sm mb-3 border border-light">
+                    <input type="text" class="form-control bg-transparent border-0 text-body-secondary px-3"
                         value="http://127.0.0.1:8000/{{ user.profile.slug }}" id="profileLink" readonly style="font-size: 0.85rem; box-shadow: none;">
                     <button class="btn btn-primary rounded-pill px-4 hover-lift shadow-sm fw-bold" type="button" id="copyBtn"
                         onclick="copyToClipboard()" style="background: linear-gradient(135deg, #6f42c1 0%, #007bff 100%); border: none;">Salin</button>
@@ -42,10 +42,10 @@
                 </div>
                 
                 <div class="d-grid gap-3">
-                    <a href="{% url 'analytics_dashboard' %}" class="btn rounded-pill text-dark hover-lift shadow border-0" style="background: linear-gradient(135deg, #0cebeb 0%, #20e3b2 50%, #29ffc6 100%); font-weight: 700;">
+                    <a href="{% url 'analytics_dashboard' %}" class="btn rounded-pill text-body hover-lift shadow border-0" style="background: linear-gradient(135deg, #0cebeb 0%, #20e3b2 50%, #29ffc6 100%); font-weight: 700;">
                         📊 Buka Analitik Studio
                     </a>
-                    <a href="{% url 'edit_profile' %}" class="btn btn-white rounded-pill border hover-lift fw-bold text-secondary shadow-sm">
+                    <a href="{% url 'edit_profile' %}" class="btn btn-secondary bg-transparent rounded-pill border hover-lift fw-bold text-body shadow-sm">
                         ⚙️ Pengaturan Profil
                     </a>
                 </div>
@@ -57,8 +57,8 @@
         <h3 class="fw-bold mb-4">Pesan Masuk ({{ inbox_messages.count }})</h3>
 
         {% if not inbox_messages %}
-        <div class="alert alert-light border text-center py-5">
-            <p class="text-muted mb-0">Belum ada pesan masuk. Sebar link kamu di sosial media!</p>
+        <div class="alert alert-secondary border border-secondary text-center py-5 rounded-4">
+            <p class="text-body-secondary mb-0">Belum ada pesan masuk. Sebar link kamu di sosial media!</p>
         </div>
         {% else %}
         <div id="message-feed-container">
@@ -157,7 +157,7 @@
             <small class="text-white-50">Baru Saja</small>
             <button type="button" class="btn-close btn-close-white" data-bs-dismiss="toast" aria-label="Close"></button>
         </div>
-        <div class="toast-body fs-5 text-dark">
+        <div class="toast-body fs-5 text-body">
             🎉 Hore! Seseorang baru saja mengirimkanmu pesan rahasia!
         </div>
     </div>

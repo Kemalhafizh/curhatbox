@@ -6,6 +6,36 @@
 :root {
     --font-heading: 'Outfit', sans-serif;
     --font-body: 'Inter', sans-serif;
+    
+    /* VIBRANT LIGHT MODE (Pink/Purple) */
+    --bg-mesh-1: #1e003c;
+    --bg-mesh-2: #4c0070;
+    --bg-mesh-3: #8A2387;
+    --bg-mesh-4: #E94057;
+    --bg-mesh-5: #F27121;
+    
+    --glass-bg: rgba(255, 255, 255, 0.85);
+    --glass-border: rgba(255, 255, 255, 0.4);
+    --glass-nav-footer: rgba(255, 255, 255, 0.05);
+    --glass-shadow: rgba(0, 0, 0, 0.1);
+    
+    --bg-light-purple: #f3f0ff;
+}
+
+[data-bs-theme="dark"] {
+    /* MIDNIGHT DARK MODE (Dark Space) */
+    --bg-mesh-1: #050505;
+    --bg-mesh-2: #0f0c29;
+    --bg-mesh-3: #1a1738;
+    --bg-mesh-4: #302b63;
+    --bg-mesh-5: #24243e;
+    
+    --glass-bg: rgba(20, 20, 25, 0.75);
+    --glass-border: rgba(255, 255, 255, 0.08);
+    --glass-nav-footer: rgba(0, 0, 0, 0.4);
+    --glass-shadow: rgba(0, 0, 0, 0.4);
+    
+    --bg-light-purple: rgba(111, 66, 193, 0.15);
 }
 
 html, body {
@@ -19,7 +49,6 @@ body {
     flex-direction: column;
     font-family: var(--font-body);
     font-size: 1rem;
-    color: #495057;
     position: relative;
     overflow-x: hidden;
 }
@@ -32,9 +61,10 @@ h1, h2, h3, h4, h5, h6, .display-1, .display-2, .display-3, .display-4, .display
 
 /* --- ANIMATED MESH GRADIENT --- */
 .mesh-gradient-bg {
-    background: linear-gradient(-45deg, #1e003c, #4c0070, #8A2387, #E94057, #F27121);
+    background: linear-gradient(-45deg, var(--bg-mesh-1), var(--bg-mesh-2), var(--bg-mesh-3), var(--bg-mesh-4), var(--bg-mesh-5));
     background-size: 400% 400%;
     animation: gradientBG 15s ease infinite;
+    transition: background 1.5s ease-in-out;
 }
 
 @keyframes gradientBG {
@@ -45,26 +75,30 @@ h1, h2, h3, h4, h5, h6, .display-1, .display-2, .display-3, .display-4, .display
 
 /* --- GLASSMORPHISM UTILITIES --- */
 .glass-navbar {
-    background: rgba(255, 255, 255, 0.05) !important;
+    background: var(--glass-nav-footer) !important;
     backdrop-filter: blur(12px);
     -webkit-backdrop-filter: blur(12px);
-    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    border-bottom: 1px solid var(--glass-border);
+    transition: background 0.3s ease, border-color 0.3s ease;
 }
 
 .glass-card {
-    background: rgba(255, 255, 255, 0.85);
+    background: var(--glass-bg);
     backdrop-filter: blur(10px);
     -webkit-backdrop-filter: blur(10px);
-    border: 1px solid rgba(255, 255, 255, 0.4);
-    box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.1);
+    border: 1px solid var(--glass-border);
+    box-shadow: 0 8px 32px 0 var(--glass-shadow);
     border-radius: 1.5rem;
+    color: var(--bs-body-color);
+    transition: background 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease;
 }
 
 .glass-footer {
-    background: rgba(255, 255, 255, 0.05) !important;
+    background: var(--glass-nav-footer) !important;
     backdrop-filter: blur(10px);
     -webkit-backdrop-filter: blur(10px);
-    border-top: 1px solid rgba(255, 255, 255, 0.1);
+    border-top: 1px solid var(--glass-border);
+    transition: background 0.3s ease, border-color 0.3s ease;
 }
 
 /* --- GRADIENT TEXT --- */
@@ -137,7 +171,7 @@ main {
    3. DASHBOARD UTILITIES
    ========================================= */
 .bg-light-purple {
-    background-color: #f3f0ff !important;
+    background-color: var(--bg-light-purple) !important;
 }
 
 /* Animasi untuk badge "BARU" */
@@ -402,10 +436,7 @@ main {
     background: transparent !important;
 }
 
-.msg-card-base {
-    background: rgba(255, 255, 255, 0.95);
-    backdrop-filter: blur(10px);
-}
+
 
 .msg-card-unread {
     box-shadow: 0 0 0 3px #6f42c1 !important;

@@ -28,7 +28,7 @@
         </div>
 
         <h2 class="fw-bold">{{ target_user.username }}</h2>
-        <p class="text-muted">{{ target_user.profile.bio|default:"Kirimkan saya pesan rahasia!" }}</p>
+        <p class="text-body-secondary">{{ target_user.profile.bio|default:"Kirimkan saya pesan rahasia!" }}</p>
 
         <div class="card card-hover shadow-sm border-0 mt-4 rounded-4" data-aos="zoom-in-up" data-aos-delay="200">
             <div class="card-body p-4">
@@ -43,7 +43,7 @@
                     <div class="form-check form-switch text-start mb-4">
                         <input class="form-check-input bg-danger border-danger" type="checkbox" role="switch"
                             id="is_disposable" name="is_disposable">
-                        <label class="form-check-label text-muted small ms-2" for="is_disposable">
+                        <label class="form-check-label text-body-secondary small ms-2" for="is_disposable">
                             🔥 <strong>Kirim sebagai Pesan Sekali Baca</strong> <br>
                             <span style="font-size: 0.75rem;">(Hancur otomatis setelah penerima membukanya)</span>
                         </label>
@@ -74,7 +74,7 @@
             </div>
         </div>
 
-        <p class="mt-4 small text-muted mb-5">Aman & Anonim. Penerima tidak akan tahu siapa pengirimnya.</p>
+        <p class="mt-4 small text-body-secondary mb-5">Aman & Anonim. Penerima tidak akan tahu siapa pengirimnya.</p>
 
         <hr class="my-5">
         <h4 class="fw-bold mb-4 text-start">💜 Cerita yang Terjawab</h4>
@@ -82,7 +82,7 @@
         {% for msg in target_user.messages.all %}
         {% if msg.is_public %}
         <div
-            class="card shadow-sm border-0 mb-4 bg-white rounded-4 overflow-hidden position-relative {% if msg.reaction %}has-reaction{% endif %}">
+            class="card shadow-sm border-0 mb-4 bg-body rounded-4 overflow-hidden position-relative {% if msg.reaction %}has-reaction{% endif %}">
             <div class="card-body p-4 text-start">
 
                 <!-- Quick Reaction Display -->
@@ -98,9 +98,9 @@
                 {% endif %}
 
                 <div class="d-flex mb-3 position-relative z-1">
-                    <div class="flex-grow-1 bg-light p-3 rounded-4 rounded-tl-0 border-start border-primary border-4">
+                    <div class="flex-grow-1 bg-body-tertiary p-3 rounded-4 rounded-tl-0 border-start border-primary border-4">
                         <small class="text-primary fw-bold d-block mb-1">Seseorang bertanya:</small>
-                        <p class="mb-0 text-dark">"{{ msg.content }}"</p>
+                        <p class="mb-0 text-body">"{{ msg.content }}"</p>
                     </div>
                 </div>
 
@@ -122,7 +122,7 @@
 
                 <div
                     class="d-flex justify-content-between align-items-center mt-3 pt-3 border-top position-relative z-1">
-                    <small class="text-muted" style="font-size: 0.75rem;">
+                    <small class="text-body-secondary" style="font-size: 0.75rem;">
                         {% if msg.replied_at %}
                         {{ msg.replied_at|date:"d M Y" }}
                         {% else %}
@@ -140,8 +140,8 @@
         </div>
         {% endif %}
         {% empty %}
-        <div class="text-center py-4 bg-light rounded-4">
-            <p class="text-muted mb-0">Belum ada curhatan yang dijawab. Yuk, kirim pesan pertama!</p>
+        <div class="text-center py-4 bg-body-tertiary rounded-4">
+            <p class="text-body-secondary mb-0">Belum ada curhatan yang dijawab. Yuk, kirim pesan pertama!</p>
         </div>
         {% endfor %}
     </div>

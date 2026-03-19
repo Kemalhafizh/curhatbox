@@ -6,18 +6,18 @@
     <div class="col-md-6 text-center">
 
         <h2 class="fw-bold mt-3 text-danger">BOM WAKTU AKTIF 💣</h2>
-        <p class="text-muted">Ini adalah satu-satunya kesempatanmu membaca pesan ini.<br>Setelah layar ini ditutup,
+        <p class="text-body-secondary">Ini adalah satu-satunya kesempatanmu membaca pesan ini.<br>Setelah layar ini ditutup,
             sistem telah menghapusnya secara permanen.</p>
 
-        <div class="card shadow mt-4 border-danger border-3 bg-light-purple text-start">
+        <div class="card shadow mt-4 border-danger border-3 bg-body-tertiary-purple text-start">
             <div class="card-body p-4">
                 <small class="text-secondary d-block mb-3">Dikirim pada: {{ created_at }}</small>
 
-                <h4 class="mb-4 text-dark fst-italic">"{{ content }}"</h4>
+                <h4 class="mb-4 text-body fst-italic">"{{ content }}"</h4>
 
                 <hr>
-                <span class="text-muted">📱 {{ sender_device|default:"Unknown Device" }}</span>
-                <span class="text-muted">🌐 {{ sender_browser|default:"Unknown Browser" }}</span>
+                <span class="text-body-secondary">📱 {{ sender_device|default:"Unknown Device" }}</span>
+                <span class="text-body-secondary">🌐 {{ sender_browser|default:"Unknown Browser" }}</span>
             </div>
         </div>
     </div>

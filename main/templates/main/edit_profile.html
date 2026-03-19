@@ -21,7 +21,7 @@
                     
                     <!-- Bio Field -->
                     <div class="mb-4">
-                        <label for="{{ form.bio.id_for_label }}" class="form-label fw-bold text-dark mb-2">
+                        <label for="{{ form.bio.id_for_label }}" class="form-label fw-bold text-body mb-2">
                             <i class="bi bi-chat-quote-fill text-primary me-2"></i>Sapaan Pengunjung (Bio)
                         </label>
                         {{ form.bio }}
@@ -35,7 +35,7 @@
 
                     <!-- Avatar Field -->
                     <div class="mb-4">
-                        <label for="{{ form.avatar.id_for_label }}" class="form-label fw-bold text-dark mb-2">
+                        <label for="{{ form.avatar.id_for_label }}" class="form-label fw-bold text-body mb-2">
                             <i class="bi bi-person-circle text-primary me-2"></i>Foto Avatar
                         </label>
                         {{ form.avatar }}
@@ -47,12 +47,12 @@
 
                     <!-- Theme Color Field -->
                     <div class="mb-5">
-                        <label for="{{ form.theme_color.id_for_label }}" class="form-label fw-bold text-dark mb-2 d-block">
+                        <label for="{{ form.theme_color.id_for_label }}" class="form-label fw-bold text-body mb-2 d-block">
                             <i class="bi bi-palette-fill text-primary me-2"></i>Warna Tema Publik
                         </label>
-                        <div class="d-flex align-items-center gap-3 bg-white bg-opacity-50 p-3 rounded-4 border">
+                        <div class="d-flex align-items-center gap-3 bg-body bg-opacity-50 p-3 rounded-4 border">
                             {{ form.theme_color }}
-                            <span class="small text-muted">Klik kotak untuk memilih warna dominan profilmu.</span>
+                            <span class="small text-body-secondary">Klik kotak untuk memilih warna dominan profilmu.</span>
                         </div>
                         {% if form.theme_color.errors %}
                             <div class="text-danger small mt-1">{{ form.theme_color.errors }}</div>
@@ -64,7 +64,7 @@
                         <button type="submit" class="btn btn-primary btn-lg rounded-pill shadow hover-lift fw-bold">
                             Terapkan Perubahan ✨
                         </button>
-                        <a href="{% url 'dashboard' %}" class="btn btn-light btn-lg rounded-pill border hover-lift fw-bold text-muted">
+                        <a href="{% url 'dashboard' %}" class="btn btn-light btn-lg rounded-pill border hover-lift fw-bold text-body-secondary">
                             Batalkan
                         </a>
                     </div>
