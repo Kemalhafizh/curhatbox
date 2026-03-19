@@ -14,7 +14,7 @@
                 <!-- Avatar with glowing gradient ring -->
                 <div class="rounded-circle d-inline-flex align-items-center justify-content-center mb-3 shadow-lg position-relative float-animation"
                     style="width: 100px; height: 100px; font-size: 2.5rem; font-weight: bold; background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: white; padding: 4px;">
-                    <div class="rounded-circle w-100 h-100 overflow-hidden bg-white d-flex align-items-center justify-content-center" style="{% if user.profile.avatar %}background: transparent;{% endif %}">
+                    <div class="rounded-circle w-100 h-100 overflow-hidden bg-white d-flex align-items-center justify-content-center {% if user.profile.avatar %}bg-transparent-avatar{% endif %}">
                         {% if user.profile.avatar %}
                         <img src="{{ user.profile.avatar.url }}" alt="Avatar" style="width: 100%; height: 100%; object-fit: cover;">
                         {% else %}
@@ -63,8 +63,7 @@
         {% else %}
         {% for msg in page_obj %}
         <div data-aos="fade-up"
-            class="card hover-lift shadow-sm mb-4 rounded-5 overflow-hidden position-relative smooth-transition border-0" 
-            style="background: rgba(255,255,255,0.95); backdrop-filter: blur(10px); {% if not msg.is_read %}box-shadow: 0 0 0 3px #6f42c1 !important;{% endif %}">
+            class="card hover-lift shadow-sm mb-4 rounded-5 overflow-hidden position-relative smooth-transition border-0 msg-card-base {% if not msg.is_read %}msg-card-unread{% endif %}">
             
             {% if msg.is_disposable %}
             <!-- Pita merah untuk pesan sekali baca -->
@@ -124,10 +123,8 @@
                     <div class="d-flex flex-wrap gap-2 p-3 rounded-4" style="background: rgba(248, 249, 250, 0.5); border: 1px dashed rgba(0,0,0,0.1);">
                         {% for emoji in quick_reactions %}
                         <a href="{% url 'set_reaction' msg.id emoji %}"
-                            class="btn btn-sm rounded-circle p-0 d-inline-flex align-items-center justify-content-center smooth-transition {% if msg.reaction == emoji %}shadow-lg bg-white border border-primary z-3{% else %}btn-link text-decoration-none border-0{% endif %}"
-                            style="width: 42px; height: 42px; font-size: 1.5rem; {% if msg.reaction == emoji %}transform: scale(1.1) translateY(-2px);{% endif %}"
-                            onmouseover="this.style.transform='scale(1.25) translateY(-3px)';"
-                            onmouseout="this.style.transform='{% if msg.reaction == emoji %}scale(1.1) translateY(-2px){% else %}scale(1){% endif %}';" 
+                            class="btn btn-sm rounded-circle p-0 d-inline-flex align-items-center justify-content-center smooth-transition reaction-btn {% if msg.reaction == emoji %}shadow-lg bg-white border border-primary z-3 reaction-btn-active{% else %}btn-link text-decoration-none border-0{% endif %}"
+                            style="width: 42px; height: 42px; font-size: 1.5rem;"
                             title="Reaksi {{ emoji }}">
                             {{ emoji }}
                         </a>
@@ -180,8 +177,8 @@
                         <form action="{% url 'toggle_favorite' msg.id %}" method="POST" class="m-0">
                             {% csrf_token %}
                             <button type="submit"
-                                class="btn rounded-circle d-flex align-items-center justify-content-center hover-lift smooth-transition {% if msg.is_favorite %}text-dark shadow-sm{% else %}btn-light text-muted{% endif %}"
-                                style="width: 44px; height: 44px; font-size: 1.2rem; border: none; background: {% if msg.is_favorite %}#ffcd39{% else %}rgba(0,0,0,0.05){% endif %};"
+                                class="btn rounded-circle d-flex align-items-center justify-content-center hover-lift smooth-transition {% if msg.is_favorite %}text-dark shadow-sm btn-favorite-active{% else %}btn-light text-muted btn-favorite-inactive{% endif %}"
+                                style="width: 44px; height: 44px; font-size: 1.2rem; border: none;"
                                 title="Pin Pesan">
                                 {% if msg.is_favorite %}⭐{% else %}⭐{% endif %}
                             </button>
@@ -191,8 +188,8 @@
                         <form action="{% url 'block_sender' msg.id %}" method="POST" class="m-0"
                             onsubmit="return confirm('Yakin ingin memblokir IP pengirim ini secara permanen?')">
                             {% csrf_token %}
-                            <button type="submit" class="btn btn-light rounded-circle text-danger hover-lift d-flex align-items-center justify-content-center smooth-transition" 
-                                style="width: 44px; height: 44px; font-size: 1.1rem; border: none; background: rgba(220, 53, 69, 0.08);" title="Blokir IP Pengirim">
+                            <button type="submit" class="btn btn-light rounded-circle text-danger hover-lift d-flex align-items-center justify-content-center smooth-transition btn-danger-glass" 
+                                style="width: 44px; height: 44px; font-size: 1.1rem; border: none;" title="Blokir IP Pengirim">
                                 🚫
                             </button>
                         </form>
@@ -200,8 +197,8 @@
                         <form action="{% url 'delete_message' msg.id %}" method="POST" class="m-0"
                             onsubmit="return confirm('Anda yakin menghapus pesan ini selamanya?')">
                             {% csrf_token %}
-                            <button type="submit" class="btn btn-light rounded-circle text-danger hover-lift d-flex align-items-center justify-content-center smooth-transition" 
-                                style="width: 44px; height: 44px; font-size: 1.3rem; border: none; background: rgba(220, 53, 69, 0.08);" title="Hapus Pesan">
+                            <button type="submit" class="btn btn-light rounded-circle text-danger hover-lift d-flex align-items-center justify-content-center smooth-transition btn-danger-glass" 
+                                style="width: 44px; height: 44px; font-size: 1.3rem; border: none;" title="Hapus Pesan">
                                 🗑️
                             </button>
                         </form>
@@ -272,111 +269,43 @@
 </div>
 
 <div id="hidden-capture-area">
-    <div class="ig-card" style="
-        width: 1080px; 
-        height: 1920px; 
-        background: radial-gradient(circle at top left, #4A00E0, #8E2DE2, #FF3D77); 
-        position: relative; 
-        display: flex; 
-        flex-direction: column; 
-        justify-content: center; 
-        align-items: center; 
-        font-family: 'Outfit', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
-        overflow: hidden;
-        z-index: 1;">
+    <div class="ig-card">
         
         <!-- Premium Abstract Background Shapes -->
-        <div style="position: absolute; top: -100px; right: -150px; width: 600px; height: 600px; background: rgba(255, 61, 119, 0.4); filter: blur(100px); border-radius: 50%; z-index: -1;"></div>
-        <div style="position: absolute; bottom: 0; left: -200px; width: 800px; height: 800px; background: rgba(74, 0, 224, 0.5); filter: blur(120px); border-radius: 50%; z-index: -1;"></div>
+        <div class="ig-premium-bg-shape1"></div>
+        <div class="ig-premium-bg-shape2"></div>
 
         <!-- Sender's Secret Message Box (iOS Notification Style) -->
-        <div style="
-            width: 880px; 
-            background: #ffffff; 
-            border-radius: 60px; 
-            padding: 80px 70px 70px 70px; 
-            margin-bottom: 60px; 
-            box-shadow: 0 50px 100px rgba(0,0,0,0.3), inset 0 0 0 2px rgba(255,255,255,0.5); 
-            position: relative;
-            text-align: center;">
+        <div class="ig-question-bubble">
             
             <!-- Context Badge -->
-            <div style="
-                position: absolute; 
-                top: -45px; 
-                left: 50%; 
-                transform: translateX(-50%); 
-                background: linear-gradient(135deg, #111, #333); 
-                color: #fff; 
-                padding: 20px 50px; 
-                border-radius: 50px; 
-                font-size: 2.2rem; 
-                font-weight: 800; 
-                box-shadow: 0 20px 40px rgba(0,0,0,0.4); 
-                letter-spacing: 1px;
-                display: flex;
-                align-items: center;
-                gap: 15px;
-                white-space: nowrap;">
+            <div class="ig-context-badge">
                 🕵️‍♀️ Pesan Anonim
             </div>
             
-            <p id="capture-question" style="
-                font-size: 4.8rem; 
-                font-weight: 800; 
-                color: #111; 
-                line-height: 1.3; 
-                margin-top: 40px; 
-                word-wrap: break-word; 
-                letter-spacing: -1px;">
-            </p>
+            <p id="capture-question"></p>
         </div>
 
         <!-- Receiver's Reply Box (Dark Glass Mode) -->
-        <div style="
-            width: 880px; 
-            background: rgba(15, 15, 20, 0.6); 
-            border: 3px solid rgba(255,255,255,0.15); 
-            border-radius: 60px; 
-            padding: 70px; 
-            box-shadow: 0 40px 80px rgba(0,0,0,0.4);
-            text-align: left;">
+        <div class="ig-answer-glass">
             
             <div style="display: flex; align-items: center; margin-bottom: 40px;">
                 <!-- Avatar Placeholder Ring -->
-                <div style="
-                    width: 90px; 
-                    height: 90px; 
-                    background: linear-gradient(45deg, #f09433 0%, #e6683c 25%, #dc2743 50%, #cc2366 75%, #bc1888 100%); 
-                    border-radius: 50%; 
-                    border: 5px solid #fff; 
-                    box-shadow: 0 10px 20px rgba(0,0,0,0.3);
-                    margin-right: 30px;">
-                </div>
+                <div class="ig-avatar-ring"></div>
                 <div>
                     <p style="font-size: 2.5rem; color: #bbb; margin: 0; font-weight: 600;">
-                        <span id="capture-username" style="color: #fff; font-weight: 800; letter-spacing: 1px;">Username</span> membalas:
+                        @<span id="capture-username">Username</span> membalas:
                     </p>
                 </div>
             </div>
 
-            <p id="capture-answer" style="
-                font-size: 4rem; 
-                color: #ffffff; 
-                font-weight: 700; 
-                line-height: 1.4; 
-                margin: 0; 
-                word-wrap: break-word;"></p>
+            <p id="capture-answer"></p>
         </div>
 
         <!-- Footer / Branding watermark -->
-        <div style="position: absolute; bottom: 80px; text-align: center; width: 100%;">
-            <h2 style="font-size: 4rem; font-weight: 900; color: #ffffff; text-shadow: 0 10px 30px rgba(0,0,0,0.5); letter-spacing: 2px; margin: 0;">
-                CurhatBox <span style="font-size: 3.5rem;">✨</span>
-            </h2>
-            <p style="font-size: 2rem; color: rgba(255,255,255,0.8); margin-top: 15px; font-weight: 500;">
-                Kirim pesan rahasia di <span style="font-weight: 800; color: #FF3D77;">curhatbox.my.id</span>
-            </p>
+        <div class="ig-watermark-footer">
+            <h2>CurhatBox <span style="font-size: 3.5rem;">✨</span></h2>
+            <p>Kirim pesan rahasia di <span style="font-weight: 800; color: #FF3D77;">curhatbox.my.id</span></p>
         </div>
     </div>
 </div>
