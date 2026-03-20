@@ -4,21 +4,43 @@
 
 {% block content %}
 <style>
-    body {
-        background-color: {
-                {
-                target_user.profile.theme_color|default: "#f8f9fa"
-            }
-        }
 
-        !important;
+    .form-control-glass {
+        background: var(--bs-body-bg);
+        border: 2px solid var(--glass-border);
+        color: var(--bs-body-color);
+        border-radius: 16px;
+        transition: all 0.3s ease;
+    }
+    .form-control-glass:focus {
+        background: var(--bs-body-bg);
+        border-color: var(--bs-primary);
+        box-shadow: 0 0 0 4px rgba(111, 66, 193, 0.15);
+        color: var(--bs-body-color);
+    }
+    .form-control-glass::placeholder {
+        color: var(--bs-secondary-color);
+        opacity: 0.7;
+    }
+
+    .chat-bubble-sender {
+        background: var(--bs-tertiary-bg);
+        border: 1px solid var(--glass-border);
+        border-radius: 20px 20px 20px 4px;
+        box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+    }
+    .chat-bubble-receiver {
+        background: var(--bs-primary);
+        color: white;
+        border-radius: 20px 20px 4px 20px;
+        box-shadow: 0 8px 20px rgba(0,0,0,0.1);
     }
 </style>
 
 <div class="row justify-content-center mt-4">
     <div class="col-md-6 text-center profile-card" data-aos="fade-down">
-        <div class="bg-primary text-white rounded-circle d-inline-flex align-items-center justify-content-center mb-3 overflow-hidden shadow float-animation"
-            style="width: 100px; height: 100px; font-size: 2.5rem; font-weight: bold; border: 4px solid white;">
+        <div class="rounded-circle d-inline-flex align-items-center justify-content-center mb-3 overflow-hidden float-animation position-relative"
+            style="width: 120px; height: 120px; font-size: 3rem; font-weight: bold; border: 4px solid var(--glass-border); box-shadow: 0 10px 30px rgba(0,0,0,0.1); background: {{ target_user.profile.theme_color|default:'var(--bs-primary)' }}; color: white;">
             {% if target_user.profile.avatar %}
             <img src="{{ target_user.profile.avatar.url }}" alt="Avatar"
                 style="width: 100%; height: 100%; object-fit: cover;">
@@ -30,15 +52,17 @@
         <h2 class="fw-bold">{{ target_user.username }}</h2>
         <p class="text-body-secondary">{{ target_user.profile.bio|default:"Kirimkan saya pesan rahasia!" }}</p>
 
-        <div class="card card-hover shadow-sm border-0 mt-4 rounded-4" data-aos="zoom-in-up" data-aos-delay="200">
-            <div class="card-body p-4">
+        <div class="glass-card shadow-lg border-0 mt-4 rounded-4" data-aos="zoom-in-up" data-aos-delay="200" style="backdrop-filter: blur(20px);">
+            <div class="card-body p-4 p-md-5 text-start">
                 <form id="curhatForm" method="POST">
                     {% csrf_token %}
                     <input type="hidden" name="g-recaptcha-response" id="g-recaptcha-response">
 
-                    <label class="form-label fw-bold">Tulis pesan rahasiamu di sini:</label>
-                    <textarea name="pesan" class="form-control mb-3" rows="4"
-                        placeholder="Jangan ragu, saya tidak akan tahu siapa kamu..." required></textarea>
+                    <h4 class="fw-bold mb-4 text-body">Tulis pesan rahasiamu di sini:</h4>
+                    
+                    <textarea name="pesan" class="form-control-glass mb-4 p-4 w-100" rows="4"
+                        style="min-height: 140px; font-size: 1.15rem; resize: none;" 
+                        placeholder="Jangan ragu, sampaikan apa yang ada di pikiranmu. Saya tidak akan pernah tahu siapa kamu..." required></textarea>
 
                     <div class="form-check form-switch text-start mb-4">
                         <input class="form-check-input bg-danger border-danger" type="checkbox" role="switch"
@@ -50,7 +74,10 @@
                     </div>
 
                     <button type="button" onclick="submitForm(event)"
-                        class="btn btn-primary w-100 py-2 fw-bold rounded-3 smooth-transition">Kirim Pesan 🚀</button>
+                        class="btn w-100 py-3 fw-bold rounded-4 smooth-transition shadow hover-lift" 
+                        style="background: {{ target_user.profile.theme_color|default:'var(--bs-primary)' }}; color: white; border: none; font-size: 1.1rem; letter-spacing: 0.5px;">
+                        Kirim Pesan Rahasia 🚀
+                    </button>
                 </form>
 
                 <script
@@ -82,40 +109,42 @@
         {% for msg in target_user.messages.all %}
         {% if msg.is_public %}
         <div
-            class="card shadow-sm border-0 mb-4 bg-body rounded-4 overflow-hidden position-relative {% if msg.reaction %}has-reaction{% endif %}">
-            <div class="card-body p-4 text-start">
+            class="glass-card shadow-sm border-0 mb-4 rounded-4 overflow-hidden position-relative {% if msg.reaction %}has-reaction{% endif %}">
+            <div class="card-body p-4 p-md-5 text-start">
 
                 <!-- Quick Reaction Display -->
                 {% if msg.reaction %}
                 <div class="position-absolute z-0"
-                    style="top:-10px; right:-10px; font-size: 6rem; opacity: 0.15; transform: rotate(15deg); pointer-events:none;">
+                    style="top:-10px; right:-10px; font-size: 7rem; opacity: 0.1; transform: rotate(15deg); pointer-events:none;">
                     {{ msg.reaction }}
                 </div>
                 <div class="position-absolute"
-                    style="top:15px; right:20px; font-size: 2rem; transform: rotate(10deg); text-shadow: 0 4px 6px rgba(0,0,0,0.1);">
+                    style="top:25px; right:30px; font-size: 2.5rem; transform: rotate(10deg); text-shadow: 0 4px 10px rgba(0,0,0,0.15);">
                     {{ msg.reaction }}
                 </div>
                 {% endif %}
 
-                <div class="d-flex mb-3 position-relative z-1">
-                    <div class="flex-grow-1 bg-body-tertiary p-3 rounded-4 rounded-tl-0 border-start border-primary border-4">
-                        <small class="text-primary fw-bold d-block mb-1">Seseorang bertanya:</small>
-                        <p class="mb-0 text-body">"{{ msg.content }}"</p>
+                <!-- Sender Chat Bubble (Anonim) -->
+                <div class="d-flex mb-4 position-relative z-1">
+                    <div class="chat-bubble-sender p-3 p-md-4" style="max-width: 85%;">
+                        <small class="fw-bold d-block mb-2 text-primary" style="letter-spacing: 0.5px;">Seseorang anonim bertanya:</small>
+                        <p class="mb-0 text-body fs-5" style="line-height: 1.6;">"{{ msg.content }}"</p>
                     </div>
                 </div>
 
+                <!-- Receiver Chat Bubble (Owner) -->
                 <div class="d-flex justify-content-end position-relative z-1">
                     {% if msg.reply_content %}
-                    <div class="bg-primary text-white p-3 rounded-4 rounded-tr-0 shadow-sm" style="max-width: 85%;">
-                        <small class="text-white-50 fw-bold d-block mb-1 text-end">Jawaban {{ target_user.username
-                            }}:</small>
-                        <p class="mb-0">{{ msg.reply_content }}</p>
+                    <div class="chat-bubble-receiver p-3 p-md-4 text-white" style="max-width: 85%;">
+                        <small class="text-white-50 fw-bold d-block mb-2 text-end" style="letter-spacing: 0.5px;">
+                            @{{ target_user.username }} membalas:
+                        </small>
+                        <p class="mb-0 fs-5" style="line-height: 1.6;">{{ msg.reply_content }}</p>
                     </div>
                     {% else %}
-                    <div class="bg-primary text-white p-3 rounded-4 rounded-tr-0 shadow-sm text-center"
-                        style="max-width: 85%;">
-                        <small class="text-white-50 fw-bold d-block mb-0 text-center">Telah dibalas dengan
-                            reaksi</small>
+                    <div class="chat-bubble-receiver p-3 text-white text-center"
+                        style="max-width: 85%; background: var(--bs-secondary); opacity: 0.8;">
+                        <small class="text-white fw-bold d-block mb-0 text-center">Telah dibalas dengan sebuah reaksi</small>
                     </div>
                     {% endif %}
                 </div>
@@ -140,8 +169,10 @@
         </div>
         {% endif %}
         {% empty %}
-        <div class="text-center py-4 bg-body-tertiary rounded-4">
-            <p class="text-body-secondary mb-0">Belum ada curhatan yang dijawab. Yuk, kirim pesan pertama!</p>
+        <div class="glass-card text-center py-5 rounded-4 border-0 shadow-sm">
+            <h1 class="display-3 mb-3">👻</h1>
+            <h5 class="fw-bold">Belum Ada Cerita Terjawab</h5>
+            <p class="text-body-secondary mb-0">Jadilah yang pertama mengirim pesan rahasia!</p>
         </div>
         {% endfor %}
     </div>
