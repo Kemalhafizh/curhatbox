@@ -1,6 +1,7 @@
 {% extends 'main/base.html' %}
+{% load i18n %}
 
-{% block title %}Edit Profil - CurhatBox{% endblock %}
+{% block title %}{% translate "Edit Profil" %} - CurhatBox{% endblock %}
 
 {% block content %}
 <div class="container-fluid position-relative py-5 z-1">
@@ -10,9 +11,9 @@
             
             <div class="text-center mb-4">
                 <h2 class="fw-bold text-white" style="font-family: 'Outfit', sans-serif; text-shadow: 0 4px 15px rgba(0,0,0,0.3);">
-                    ⚙️ Pengaturan Profil
+                    {% translate "⚙️ Pengaturan Profil" %}
                 </h2>
-                <p class="text-white-50">Kustomisasi identitas publikmu di CurhatBox</p>
+                <p class="text-white-50">{% translate "Kustomisasi identitas publikmu di CurhatBox" %}</p>
             </div>
 
             <div class="glass-card p-4 p-md-5">
@@ -22,7 +23,7 @@
                     <!-- Bio Field -->
                     <div class="mb-4">
                         <label for="{{ form.bio.id_for_label }}" class="form-label fw-bold text-body mb-2">
-                            <i class="bi bi-chat-quote-fill text-primary me-2"></i>Sapaan Pengunjung (Bio)
+                            <i class="bi bi-chat-quote-fill text-primary me-2"></i>{% translate "Sapaan Pengunjung (Bio)" %}
                         </label>
                         {{ form.bio }}
                         {% if form.bio.help_text %}
@@ -36,36 +37,48 @@
                     <!-- Avatar Field -->
                     <div class="mb-4">
                         <label for="{{ form.avatar.id_for_label }}" class="form-label fw-bold text-body mb-2">
-                            <i class="bi bi-person-circle text-primary me-2"></i>Foto Avatar
+                            <i class="bi bi-person-circle text-primary me-2"></i>{% translate "Foto Avatar" %}
                         </label>
                         {{ form.avatar }}
-                        <div class="form-text mt-2"><i class="bi bi-info-circle me-1"></i>Format: JPG, PNG, GIF (Maks. 2MB)</div>
+                        <div class="form-text mt-2"><i class="bi bi-info-circle me-1"></i>{% translate "Format: JPG, PNG, GIF (Maks. 2MB)" %}</div>
                         {% if form.avatar.errors %}
                             <div class="text-danger small mt-1">{{ form.avatar.errors }}</div>
                         {% endif %}
                     </div>
 
                     <!-- Theme Color Field -->
-                    <div class="mb-5">
+                    <div class="mb-4">
                         <label for="{{ form.theme_color.id_for_label }}" class="form-label fw-bold text-body mb-2 d-block">
-                            <i class="bi bi-palette-fill text-primary me-2"></i>Warna Tema Publik
+                            <i class="bi bi-palette-fill text-primary me-2"></i>{% translate "Warna Tema Publik" %}
                         </label>
                         <div class="d-flex align-items-center gap-3 bg-body bg-opacity-50 p-3 rounded-4 border">
                             {{ form.theme_color }}
-                            <span class="small text-body-secondary">Klik kotak untuk memilih warna dominan profilmu.</span>
+                            <span class="small text-body-secondary">{% translate "Klik kotak untuk memilih warna dominan profilmu." %}</span>
                         </div>
                         {% if form.theme_color.errors %}
                             <div class="text-danger small mt-1">{{ form.theme_color.errors }}</div>
                         {% endif %}
                     </div>
 
+                    <!-- Language Selection Field -->
+                    <div class="mb-5">
+                        <label for="{{ form.preferred_language.id_for_label }}" class="form-label fw-bold text-body mb-2">
+                            <i class="bi bi-translate text-primary me-2"></i>{% translate "Bahasa Antarmuka" %}
+                        </label>
+                        {{ form.preferred_language }}
+                        <div class="form-text mt-2">{% translate "Pilih bahasa utama yang ingin kamu gunakan di CurhatBox." %}</div>
+                        {% if form.preferred_language.errors %}
+                            <div class="text-danger small mt-1">{{ form.preferred_language.errors }}</div>
+                        {% endif %}
+                    </div>
+
                     <!-- Action Buttons -->
                     <div class="d-grid gap-3 pt-2">
                         <button type="submit" class="btn btn-primary btn-lg rounded-pill shadow hover-lift fw-bold">
-                            Terapkan Perubahan ✨
+                            {% translate "Terapkan Perubahan ✨" %}
                         </button>
                         <a href="{% url 'dashboard' %}" class="btn btn-light btn-lg rounded-pill border hover-lift fw-bold text-body-secondary">
-                            Batalkan
+                            {% translate "Batalkan" %}
                         </a>
                     </div>
                 </form>

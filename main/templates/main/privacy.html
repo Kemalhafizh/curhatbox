@@ -1,0 +1,58 @@
+{% extends 'main/base.html' %}
+{% load i18n %}
+
+{% block title %}{% translate "Kebijakan Privasi - CurhatBox" %}{% endblock %}
+
+{% block content %}
+<div class="row justify-content-center">
+    <div class="col-lg-10" data-aos="fade-up">
+        <div class="glass-card shadow-lg p-4 p-md-5">
+            <h1 class="fw-bold mb-4 text-center display-5" style="font-family: 'Outfit', sans-serif;">{% translate "Kebijakan Privasi" %}</h1>
+            
+            <p class="text-body-secondary text-center mb-5">{% translate "Terakhir Diperbarui: 21 Maret 2026" %}</p>
+
+            <div class="privacy-content lh-lg" style="font-size: 1.1rem; text-align: justify;">
+                {% blocktranslate %}<p>Di <strong>CurhatBox</strong> (selanjutnya disebut sebagai "Situs", "Kami", atau "Layanan"), dapat diakses dari curhatbox.my.id, salah satu prioritas utama kami adalah privasi pengunjung kami. Dokumen Kebijakan Privasi ini berisi jenis informasi yang dikumpulkan dan dicatat oleh CurhatBox dan bagaimana kami menggunakannya.</p>{% endblocktranslate %}
+
+                <p>{% translate "Jika Anda memiliki pertanyaan tambahan atau memerlukan informasi lebih lanjut tentang Kebijakan Privasi kami, jangan ragu untuk menghubungi kami." %}</p>
+
+                <hr class="my-5 opacity-25">
+
+                <h3 class="fw-bold mb-3" style="font-family: 'Outfit', sans-serif;">{% translate "1. File Log" %}</h3>
+                {% blocktranslate %}<p>CurhatBox mengikuti prosedur standar menggunakan file log. File-file ini mencatat pengunjung ketika mereka mengunjungi situs web. Semua perusahaan hosting melakukan ini dan merupakan bagian dari analitik layanan hosting. Informasi yang dikumpulkan oleh file log termasuk alamat protokol internet (IP), jenis browser, Internet Service Provider (ISP), tanggal dan waktu, halaman yang merujuk/keluar, dan mungkin jumlah klik. Ini tidak terkait dengan informasi apa pun yang dapat diidentifikasi secara pribadi. Tujuan informasi ini adalah untuk menganalisis tren, mengelola situs, melacak pergerakan pengguna di situs web, dan mengumpulkan informasi demografis.</p>{% endblocktranslate %}
+
+                <h3 class="fw-bold mb-3 mt-4" style="font-family: 'Outfit', sans-serif;">{% translate "2. Cookies dan Web Beacons" %}</h3>
+                {% blocktranslate %}<p>Seperti situs web lainnya, CurhatBox menggunakan 'cookies'. Cookies ini digunakan untuk menyimpan informasi termasuk preferensi pengunjung, dan halaman-halaman di situs web yang pengunjung akses atau kunjungi. Informasi tersebut digunakan untuk mengoptimalkan pengalaman pengguna dengan menyesuaikan konten halaman web kami berdasarkan jenis browser pengunjung dan/atau informasi lainnya.</p>{% endblocktranslate %}
+                {% blocktranslate %}<p>Anda dapat memilih untuk menonaktifkan cookie melalui pengaturan browser individual Anda. Mengetahui informasi lebih rinci tentang manajemen cookie dengan browser web tertentu dapat ditemukan di situs web masing-masing browser.</p>{% endblocktranslate %}
+
+                <h3 class="fw-bold mb-3 mt-4" style="font-family: 'Outfit', sans-serif;">{% translate "3. Google DoubleClick DART Cookie" %}</h3>
+                {% blocktranslate %}<p>Google adalah salah satu vendor pihak ketiga di situs kami. Google juga menggunakan cookie, yang dikenal as DART cookie, untuk menayangkan iklan kepada pengunjung situs kami berdasarkan kunjungan mereka ke www.curhatbox.my.id dan situs lain di internet.</p>{% endblocktranslate %}
+                {% blocktranslate %}<p>Namun, pengunjung dapat memilih untuk menolak penggunaan DART cookie dengan mengunjungi Kebijakan Privasi jaringan iklan dan konten Google di URL berikut: <br><a href="https://policies.google.com/technologies/ads" target="_blank" rel="noopener noreferrer" class="text-primary fw-bold text-decoration-none hover-lift">https://policies.google.com/technologies/ads</a></p>{% endblocktranslate %}
+
+                <h3 class="fw-bold mb-3 mt-4" style="font-family: 'Outfit', sans-serif;">{% translate "4. Mitra Periklanan Kami (Google AdSense)" %}</h3>
+                {% blocktranslate %}<p>Beberapa pengiklan di situs kami mungkin menggunakan cookie dan web beacon. Mitra periklanan kami tercantum di bawah ini. Masing-masing mitra periklanan kami memiliki Kebijakan Privasi mereka sendiri untuk kebijakan mereka tentang data pengguna. Untuk akses yang lebih mudah, kami menautkan ke Kebijakan Privasi mereka di atas.</p>{% endblocktranslate %}
+                {% blocktranslate %}<p>Server iklan atau jaringan iklan pihak ketiga menggunakan teknologi seperti cookies, JavaScript, atau Web Beacons yang digunakan dalam iklan dan tautan mereka masing-masing yang muncul di CurhatBox, yang dikirim langsung ke browser pengguna. Mereka secara otomatis menerima alamat IP Anda saat ini terjadi. Teknologi ini digunakan untuk mengukur efektivitas kampanye periklanan mereka dan/atau untuk mempersonalisasi konten iklan yang Anda lihat di situs web yang Anda kunjungi.</p>{% endblocktranslate %}
+                {% blocktranslate %}<p>Situs kami <strong>CurhatBox</strong> tidak memiliki akses ke atau kontrol atas cookie ini yang digunakan oleh pengiklan pihak ketiga.</p>{% endblocktranslate %}
+
+                <h3 class="fw-bold mb-3 mt-4" style="font-family: 'Outfit', sans-serif;">{% translate "5. Informasi Anak" %}</h3>
+                {% blocktranslate %}<p>Bagian lain dari prioritas kami adalah menambahkan perlindungan untuk anak-anak saat menggunakan internet. Kami mendorong orang tua dan wali untuk mengamati, berpartisipasi dalam, dan/atau memantau serta membimbing aktivitas online mereka.</p>{% endblocktranslate %}
+                {% blocktranslate %}<p>CurhatBox tidak secara sadar mengumpulkan Informasi Identifikasi Pribadi apa pun dari anak-anak di bawah usia 13 tahun. Jika Anda merasa bahwa anak Anda memberikan informasi semacam ini di situs web kami, kami sangat menganjurkan Anda untuk segera menghubungi kami dan kami akan melakukan upaya terbaik kami untuk segera menghapus informasi tersebut dari catatan kami.</p>{% endblocktranslate %}
+
+                <h3 class="fw-bold mb-3 mt-4" style="font-family: 'Outfit', sans-serif;">{% translate "6. Kebijakan Privasi Online Saja" %}</h3>
+                {% blocktranslate %}<p>Kebijakan Privasi ini hanya berlaku untuk aktivitas online kami dan berlaku bagi pengunjung halaman situs web kami sehubungan dengan informasi yang mereka bagikan dan/atau kumpulkan di CurhatBox. Kebijakan ini tidak berlaku untuk informasi apa pun yang dikumpulkan secara offline atau melalui saluran selain situs web ini.</p>{% endblocktranslate %}
+
+                <h3 class="fw-bold mb-3 mt-4" style="font-family: 'Outfit', sans-serif;">{% translate "7. Persetujuan" %}</h3>
+                {% blocktranslate %}<p>Dengan menggunakan situs web kami, Anda dengan ini menyetujui Kebijakan Privasi kami dan menyetujui Syarat dan Ketentuannya.</p>{% endblocktranslate %}
+
+            </div>
+
+            <div class="text-center mt-5">
+                <a href="{% url 'index' %}" class="btn btn-primary btn-lg rounded-pill px-5 fw-bold hover-lift shadow">
+                    {% translate "Kembali ke Beranda" %}
+                </a>
+            </div>
+            
+        </div>
+    </div>
+</div>
+{% endblock %}

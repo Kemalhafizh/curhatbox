@@ -1,31 +1,30 @@
 {% extends 'main/base.html' %}
-{% block title %}Pesan Terbuka | CurhatBox{% endblock %}
+{% load i18n %}
+{% block title %}{% translate "Pesan Terbuka | CurhatBox" %}{% endblock %}
 
 {% block content %}
 <div class="row justify-content-center">
     <div class="col-md-6 text-center">
 
-        <h2 class="fw-bold mt-3 text-danger">BOM WAKTU AKTIF 💣</h2>
-        <p class="text-body-secondary">Ini adalah satu-satunya kesempatanmu membaca pesan ini.<br>Setelah layar ini ditutup,
-            sistem telah menghapusnya secara permanen.</p>
+        <h2 class="fw-bold mt-3 text-danger">{% translate "BOM WAKTU AKTIF 💣" %}</h2>
+        <p class="text-body-secondary">{% translate "Ini adalah satu-satunya kesempatanmu membaca pesan ini.<br>Setelah layar ini ditutup, sistem telah menghapusnya secara permanen." %}</p>
 
         <div class="card shadow mt-4 border-danger border-3 bg-body-tertiary-purple text-start">
             <div class="card-body p-4">
-                <small class="text-secondary d-block mb-3">Dikirim pada: {{ created_at }}</small>
+                <small class="text-secondary d-block mb-3">{% translate "Dikirim pada:" %} {{ created_at }}</small>
 
                 <h4 class="mb-4 text-body fst-italic">"{{ content }}"</h4>
 
                 <hr>
-                <span class="text-body-secondary">📱 {{ sender_device|default:"Unknown Device" }}</span>
-                <span class="text-body-secondary">🌐 {{ sender_browser|default:"Unknown Browser" }}</span>
+                <span class="text-body-secondary">📱 {{ sender_device|default:"Perangkat Tidak Dikenal" }}</span>
+                <span class="text-body-secondary">🌐 {{ sender_browser|default:"Browser Tidak Dikenal" }}</span>
             </div>
         </div>
     </div>
 
     <a href="{% url 'dashboard' %}" class="btn btn-dark w-100 fw-bold mt-4 py-3 rounded-4 shadow-sm">
-        Tutup & Hancurkan Selamanya 🧨
+        {% translate "Tutup & Hancurkan Selamanya 🧨" %}
     </a>
 
-</div>
 </div>
 {% endblock %}
