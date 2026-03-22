@@ -13,11 +13,12 @@ from django.shortcuts import get_object_or_404, redirect, render
 from django.http import JsonResponse
 from django.template.loader import render_to_string
 from django.utils import timezone
+from django.utils.translation import gettext as _
 
 from django_ratelimit.decorators import ratelimit
 from user_agents import parse
 
-from .forms import ProfileForm, ReplyForm
+from .forms import ProfileForm, ReplyForm, CustomUserCreationForm
 from .models import BlockList, Message
 from .utils import sensor_kata, verify_recaptcha
 
@@ -49,14 +50,14 @@ def register(request):
         return redirect('dashboard')
 
     if request.method == 'POST':
-        form = UserCreationForm(request.POST)
+        form = CustomUserCreationForm(request.POST)
         if form.is_valid():
             user = form.save()
             login(request, user)
-            messages.success(request, "Selamat datang! Akun berhasil dibuat.")
+            messages.success(request, _("Selamat datang! Akun berhasil dibuat."))
             return redirect('dashboard')
     else:
-        form = UserCreationForm()
+        form = CustomUserCreationForm()
     
     return render(request, 'main/register.html', {'form': form})
 
@@ -83,13 +84,13 @@ def public_profile(request, slug):
         # 1. Validasi Token reCAPTCHA v3
         recaptcha_token = request.POST.get('g-recaptcha-response')
         if not verify_recaptcha(recaptcha_token):
-            messages.error(request, "Gagal mengirim pesan. Sistem mendeteksi aktivitas mencurigakan (Bot).")
+            messages.error(request, _("Gagal mengirim pesan. Sistem mendeteksi aktivitas mencurigakan (Bot)."))
             return redirect('public_profile', slug=slug)
 
         # 2. Validasi Daftar Blokir (Block List)
         is_blocked = BlockList.objects.filter(user=receiver, ip_address=client_ip).exists()
         if is_blocked:
-            messages.error(request, "Akses ditolak. Anda tidak dapat mengirim pesan ke pengguna ini.")
+            messages.error(request, _("Akses ditolak. Anda tidak dapat mengirim pesan ke pengguna ini."))
             return redirect('public_profile', slug=slug)
 
         # 3. Proses Penyimpanan Pesan
@@ -97,7 +98,7 @@ def public_profile(request, slug):
             clean_content = sensor_kata(content)
             is_disposable = request.POST.get('is_disposable') == 'on'
             
-            Message.objects.create(
+            new_msg = Message.objects.create(
                 recipient=receiver, 
                 content=clean_content,
                 sender_ip=client_ip,
@@ -105,7 +106,27 @@ def public_profile(request, slug):
                 sender_browser=browser,
                 is_disposable=is_disposable
             )
-            messages.success(request, "Pesan rahasiamu terkirim! 🚀")
+
+            # --- BROADCAST WEBSOCKET (REAL-TIME) ---
+            from channels.layers import get_channel_layer
+            from asgiref.sync import async_to_sync
+            from django.template.loader import render_to_string
+            
+            channel_layer = get_channel_layer()
+            html_content = render_to_string(
+                'main/partials/message_card.html',
+                {'msg': new_msg, 'quick_reactions': QUICK_REACTIONS, 'user': receiver},
+                request=request
+            )
+            async_to_sync(channel_layer.group_send)(
+                f'user_dashboard_{receiver.id}',
+                {
+                    'type': 'new_message',
+                    'message': html_content
+                }
+            )
+
+            messages.success(request, _("Pesan rahasiamu terkirim! 🚀"))
             return redirect('public_profile', slug=slug)
 
     context = {
@@ -129,7 +150,7 @@ def dashboard(request):
     # Notifikasi pesan baru
     new_messages_count = message_list.filter(is_read=False).count()
     if new_messages_count > 0:
-        messages.info(request, f"Hore! Kamu memiliki {new_messages_count} pesan rahasia baru yang belum dibaca! ✨")
+        messages.info(request, _("Hore! Kamu memiliki %(count)d pesan rahasia baru yang belum dibaca! ✨") % {'count': new_messages_count})
     
     # Tandai pesan sebagai telah dibaca
     Message.objects.filter(recipient=request.user, is_read=False).update(is_read=True)
@@ -160,7 +181,7 @@ def reply_message(request, message_id):
             reply.is_public = True
             reply.is_read = True
             reply.save()
-            messages.success(request, "Balasan terkirim.")
+            messages.success(request, _("Balasan terkirim."))
             
     return redirect('dashboard')
 
@@ -171,13 +192,18 @@ def delete_message(request, message_id):
     if request.method == 'POST':
         msg = get_object_or_404(Message, id=message_id, recipient=request.user)
         msg.delete()
-        messages.success(request, "Pesan dihapus.")
+        messages.success(request, _("Pesan dihapus."))
     return redirect('dashboard')
 
 
 @login_required
 def reveal_disposable_message(request, message_id):
     """Menampilkan pesan mode 'Sekali Baca' lalu menghancurkannya (Self-Destruct)."""
+    # Wajibkan POST agar bot/crawler tidak menghapus pesan secara otomatis
+    if request.method != 'POST':
+        messages.warning(request, _("Gunakan tombol resmi untuk membuka pesan sekali baca."))
+        return redirect('dashboard')
+
     msg = get_object_or_404(Message, id=message_id, recipient=request.user, is_disposable=True)
     
     # Salin data sebelum dihapus
@@ -188,7 +214,7 @@ def reveal_disposable_message(request, message_id):
         'created_at': msg.created_at.strftime('%d %b %Y, %H:%M')
     }
     
-    # Self-Destruct
+    # Self-Destruct sekarang aman dari intipan Bot
     msg.delete()
     return render(request, 'main/reveal_message.html', context)
 
@@ -200,9 +226,9 @@ def block_sender(request, message_id):
     
     if msg.sender_ip:
         BlockList.objects.get_or_create(user=request.user, ip_address=msg.sender_ip)
-        messages.warning(request, "Pengirim telah diblokir.")
+        messages.warning(request, _("Pengirim telah diblokir."))
     else:
-        messages.error(request, "Gagal memblokir: IP tidak ditemukan.")
+        messages.error(request, _("Gagal memblokir: IP tidak ditemukan."))
         
     return redirect('dashboard')
 
@@ -215,7 +241,8 @@ def toggle_favorite(request, message_id):
     msg.save()
     
     status = "dipin" if msg.is_favorite else "dilepas"
-    messages.success(request, f"Pesan berhasil {status}.")
+    status_translated = _("dipin") if msg.is_favorite else _("dilepas")
+    messages.success(request, _("Pesan berhasil %(status)s.") % {'status': status_translated})
     return redirect('dashboard')
 
 
@@ -227,13 +254,13 @@ def set_reaction(request, message_id, emoji):
     if emoji == 'remove':
         msg.reaction = ''
         msg.save()
-        messages.success(request, "Reaksi dihapus.")
+        messages.success(request, _("Reaksi dihapus."))
     else:
         msg.reaction = emoji
         msg.is_public = True
         msg.is_read = True
         msg.save()
-        messages.success(request, f"Kamu bereaksi {emoji} pada pesan rahasia.")
+        messages.success(request, _("Kamu bereaksi %(emoji)s pada pesan rahasia.") % {'emoji': emoji})
         
     return redirect('dashboard')
 
@@ -247,7 +274,14 @@ def edit_profile(request):
         form = ProfileForm(request.POST, request.FILES, instance=profile)
         if form.is_valid():
             form.save()
-            messages.success(request, "Profil diperbarui.")
+            
+            # --- UPDATE LANGUAGE SESSION ---
+            from django.utils import translation
+            user_language = profile.preferred_language
+            translation.activate(user_language)
+            request.session[translation.LANGUAGE_SESSION_KEY] = user_language
+            
+            messages.success(request, _("Profil diperbarui."))
             return redirect('dashboard')
     else:
         form = ProfileForm(instance=profile)
@@ -384,5 +418,13 @@ def api_check_new_messages(request):
 def ratelimit_error_handler(request, exception=None):
     """Menangkap error 403 Rate Limit dan mengembalikan pesan ramah ke user."""
     referer = request.META.get('HTTP_REFERER', '/')
-    messages.error(request, "Tunggu sebentar! Kamu mengirim pesan terlalu cepat. Silakan coba lagi dalam 1 menit.")
+    messages.error(request, _("Tunggu sebentar! Kamu mengirim pesan terlalu cepat. Silakan coba lagi dalam 1 menit."))
     return redirect(referer)
+
+def csrf_failure(request, reason=""):
+    """Menangkap error 403 CSRF dan menampilkan desain halaman error khusus."""
+    return render(request, 'main/403_csrf.html', status=403)
+
+def privacy_page(request):
+    """Menampilkan halaman statis Kebijakan Privasi (Syarat AdSense)."""
+    return render(request, 'main/privacy.html')

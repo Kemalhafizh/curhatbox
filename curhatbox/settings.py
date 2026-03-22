@@ -31,10 +31,21 @@ DEBUG = os.environ.get('DEBUG', 'False') == 'True'
 
 ALLOWED_HOSTS = os.environ.get('ALLOWED_HOSTS', '127.0.0.1,localhost').split(',')
 
+# CSRF Trusted Origins (Wajib untuk HTTPS / Custom Domain)
+CSRF_TRUSTED_ORIGINS = [
+    'https://curhatbox.my.id',
+    'https://www.curhatbox.my.id',
+]
+
+# Custom Error Page untuk CSRF Failure (403 Forbidden)
+CSRF_FAILURE_VIEW = 'main.views.csrf_failure'
+
 
 # Application definition
 
 INSTALLED_APPS = [
+    'daphne',
+    'channels',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -49,6 +60,7 @@ MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
     'whitenoise.middleware.WhiteNoiseMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
+    'django.middleware.locale.LocaleMiddleware',  # Wajib untuk i18n
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
@@ -74,6 +86,7 @@ TEMPLATES = [
 ]
 
 WSGI_APPLICATION = 'curhatbox.wsgi.application'
+ASGI_APPLICATION = 'curhatbox.asgi.application'
 
 
 # Database
@@ -81,8 +94,12 @@ WSGI_APPLICATION = 'curhatbox.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
+        'ENGINE': 'django.db.backends.postgresql',
+        'NAME': os.environ.get('DB_NAME', 'curhatbox_db'),
+        'USER': os.environ.get('DB_USER', 'kemal'),
+        'PASSWORD': os.environ.get('DB_PASSWORD', 'Kemal_DB_Secure_2026!'),
+        'HOST': os.environ.get('DB_HOST', 'localhost'),
+        'PORT': os.environ.get('DB_PORT', '5432'),
     }
 }
 
@@ -117,11 +134,24 @@ USE_I18N = True
 
 USE_TZ = True
 
+# Definisi Bahasa yang didukung
+from django.utils.translation import gettext_lazy as _
+LANGUAGES = [
+    ('id', _('Indonesian')),
+    ('en', _('English')),
+]
+
+# Lokasi file terjemahan
+LOCALE_PATHS = [
+    BASE_DIR / 'locale',
+]
+
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/6.0/howto/static-files/
 
 STATIC_URL = 'static/'
+STATICFILES_DIRS = [BASE_DIR / 'main/static']
 STATIC_ROOT = BASE_DIR / 'staticfiles'
 STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
 
@@ -141,3 +171,12 @@ RECAPTCHA_PRIVATE_KEY = '6LeIxAcTAAAAAGG-vFI1TnRWxMZNFuojJ4WifJWe'
 
 # Ratelimit exception handling
 RATELIMIT_EXCEPTION_CLASS = 'django.core.exceptions.PermissionDenied'
+
+CHANNEL_LAYERS = {
+    "default": {
+        "BACKEND": "channels_redis.core.RedisChannelLayer",
+        "CONFIG": {
+            "hosts": [("127.0.0.1", 6379)],
+        },
+    },
+}

@@ -8,6 +8,7 @@ urlpatterns = [
     path('api/messages/new/', views.api_check_new_messages, name='api_new_messages'),
     path('dashboard/analytics/', views.analytics_dashboard, name='analytics_dashboard'),
     path('rules/', views.rules_page, name='rules'),
+    path('privacy/', views.privacy_page, name='privacy'),
     path('about/', views.about_page, name='about'),
     path('edit-profile/', views.edit_profile, name='edit_profile'),
     path('block/<int:message_id>/', views.block_sender, name='block_sender'),

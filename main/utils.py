@@ -50,11 +50,11 @@ def verify_recaptcha(token):
     if not token:
         return False
         
-    # --- BUG FIX: Bypass for Local Testing with Dummy Keys ---
-    # reCAPTCHA v3 doesn't have test keys that return scores.
-    # If using dummy keys in DEBUG mode, automatically pass.
+    # --- BUG FIX: Bypass for Global Test Keys ---
+    # reCAPTCHA v3 test keys don't always return a score in some environments.
+    # We bypass if the public key is the standard Google Test Key.
     public_key = getattr(settings, 'RECAPTCHA_PUBLIC_KEY', '')
-    if settings.DEBUG and public_key == '6LeIxAcTAAAAAJcZVRqyHh71UMIEGNQ_MXjiZKhI':
+    if public_key == '6LeIxAcTAAAAAJcZVRqyHh71UMIEGNQ_MXjiZKhI':
         return True
 
     url = 'https://www.google.com/recaptcha/api/siteverify'

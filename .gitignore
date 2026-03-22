@@ -16,3 +16,6 @@ env/
 
 # Environment variables (PENTING BUAT KEAMANAN)
 .env
+staticfiles/
+
+staticfiles/

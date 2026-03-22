@@ -1,0 +1,22 @@
+{% extends 'main/base.html' %}
+
+{% block title %}Peringatan Keamanan (403){% endblock %}
+
+{% block content %}
+<div class="row justify-content-center align-items-center min-vh-75 py-5 my-md-5" data-aos="zoom-in">
+    <div class="col-md-6 text-center">
+        <div class="glass-card border-0 shadow-lg p-5">
+            <h1 class="display-1 fw-bold text-danger mb-0" style="font-family: 'Outfit', sans-serif;"><i class="bi bi-shield-lock-fill"></i></h1>
+            <h2 class="fw-bold mb-3">Sesi Kedaluwarsa (403)</h2>
+            <p class="text-body-secondary mb-4">Verifikasi data (CSRF) gagal karena pergantian jaringan atau karena kamu membiarkan halaman ini terbuka terlalu lama. Sistem kami memblokir permintaan ini untuk melindungimu dari peretas.</p>
+            
+            <a href="javascript:history.back()" class="btn btn-primary rounded-pill px-5 py-3 fw-bold shadow-sm hover-lift">
+                <i class="bi bi-arrow-left me-2"></i>Kembali & Muat Ulang
+            </a>
+            <a href="{% url 'index' %}" class="btn btn-outline-secondary rounded-pill px-4 py-3 fw-bold ms-2 hover-lift">
+                Beranda
+            </a>
+        </div>
+    </div>
+</div>
+{% endblock %}

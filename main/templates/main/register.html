@@ -1,6 +1,7 @@
 {% extends 'main/base.html' %}
+{% load i18n %}
 
-{% block title %}Daftar Akun Baru{% endblock %}
+{% block title %}{% translate "Daftar Akun Baru" %}{% endblock %}
 
 {% block content %}
 <div class="row justify-content-center align-items-center min-vh-75 py-5 my-md-5" data-aos="zoom-in-up">
@@ -11,8 +12,8 @@
                     <div class="d-inline-flex align-items-center justify-content-center bg-body bg-opacity-25 rounded-circle mb-3" style="width: 60px; height: 60px;">
                         <i class="bi bi-person-fill-add fs-2 text-primary"></i>
                     </div>
-                    <h2 class="fw-bold mb-2 text-body">Daftar Akun Baru</h2>
-                    <p class="text-body opacity-75 small">Bergabunglah dan terima pesan rahasia hari ini.</p>
+                    <h2 class="fw-bold mb-2 text-body">{% translate "Daftar Akun Baru" %}</h2>
+                    <p class="text-body opacity-75 small">{% translate "Bergabunglah dan terima pesan rahasia hari ini." %}</p>
                 </div>
                 
                 <form method="POST" class="auth-input">
@@ -33,12 +34,12 @@
                         </div>
                     {% endfor %}
                     <button type="submit" class="btn btn-primary w-100 py-3 mt-3 fw-bold rounded-pill shadow-sm hover-lift">
-                        Buat Akun Sekarang <i class="bi bi-rocket-takeoff ms-1"></i>
+                        {% translate "Buat Akun Sekarang" %} <i class="bi bi-rocket-takeoff ms-1"></i>
                     </button>
                 </form>
 
                 <div class="text-center mt-4">
-                    <p class="small text-body opacity-75 mb-0">Sudah punya akun? <a href="{% url 'login' %}" class="fw-bold text-primary text-decoration-none">Masuk di sini</a></p>
+                    <p class="small text-body opacity-75 mb-0">{% url 'login' as login_url %}{% blocktranslate %}Sudah punya akun? <a href="{{ login_url }}" class="fw-bold text-primary text-decoration-none">Masuk di sini</a>{% endblocktranslate %}</p>
                 </div>
             </div>
         </div>

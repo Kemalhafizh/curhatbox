@@ -1,6 +1,7 @@
 {% extends 'main/base.html' %}
+{% load i18n %}
 
-{% block title %}Kirim pesan ke {{ target_user.username }}{% endblock %}
+{% block title %}{% blocktranslate %}Kirim pesan ke {{ target_user.username }}{% endblocktranslate %}{% endblock %}
 
 {% block content %}
 <style>
@@ -40,7 +41,7 @@
 <div class="row justify-content-center mt-4">
     <div class="col-md-6 text-center profile-card" data-aos="fade-down">
         <div class="rounded-circle d-inline-flex align-items-center justify-content-center mb-3 overflow-hidden float-animation position-relative"
-            style="width: 120px; height: 120px; font-size: 3rem; font-weight: bold; border: 4px solid var(--glass-border); box-shadow: 0 10px 30px rgba(0,0,0,0.1); background: {{ target_user.profile.theme_color|default:'var(--bs-primary)' }}; color: white;">
+            style="width: 120px; height: 120px; font-size: 3rem; font-weight: bold; border: 4px solid var(--glass-border); box-shadow: 0 10px 30px rgba(0,0,0,0.1); background: {{ target_user.profile.theme_color|default:'#6f42c1' }}; color: white;">
             {% if target_user.profile.avatar %}
             <img src="{{ target_user.profile.avatar.url }}" alt="Avatar"
                 style="width: 100%; height: 100%; object-fit: cover;">
@@ -49,8 +50,14 @@
             {% endif %}
         </div>
 
-        <h2 class="fw-bold">{{ target_user.username }}</h2>
-        <p class="text-body-secondary">{{ target_user.profile.bio|default:"Kirimkan saya pesan rahasia!" }}</p>
+        <h1 class="fw-bold text-white">{{ target_user.username }}</h1>
+        <p class="text-white-50">
+            {% if target_user.profile.bio %}
+                {{ target_user.profile.bio }}
+            {% else %}
+                {% translate "Kirimkan saya pesan rahasia!" %}
+            {% endif %}
+        </p>
 
         <div class="glass-card shadow-lg border-0 mt-4 rounded-4" data-aos="zoom-in-up" data-aos-delay="200" style="backdrop-filter: blur(20px);">
             <div class="card-body p-4 p-md-5 text-start">
@@ -58,25 +65,25 @@
                     {% csrf_token %}
                     <input type="hidden" name="g-recaptcha-response" id="g-recaptcha-response">
 
-                    <h4 class="fw-bold mb-4 text-body">Tulis pesan rahasiamu di sini:</h4>
+                    <h4 class="fw-bold mb-4 text-body">{% translate "Tulis pesan rahasiamu di sini:" %}</h4>
                     
                     <textarea name="pesan" class="form-control-glass mb-4 p-4 w-100" rows="4"
                         style="min-height: 140px; font-size: 1.15rem; resize: none;" 
-                        placeholder="Jangan ragu, sampaikan apa yang ada di pikiranmu. Saya tidak akan pernah tahu siapa kamu..." required></textarea>
+                        placeholder="{% translate 'Jangan ragu, sampaikan apa yang ada di pikiranmu. Saya tidak akan pernah tahu siapa kamu...' %}" required></textarea>
 
                     <div class="form-check form-switch text-start mb-4">
                         <input class="form-check-input bg-danger border-danger" type="checkbox" role="switch"
                             id="is_disposable" name="is_disposable">
                         <label class="form-check-label text-body-secondary small ms-2" for="is_disposable">
-                            🔥 <strong>Kirim sebagai Pesan Sekali Baca</strong> <br>
-                            <span style="font-size: 0.75rem;">(Hancur otomatis setelah penerima membukanya)</span>
+                            🔥 <strong>{% translate "Kirim sebagai Pesan Sekali Baca" %}</strong> <br>
+                            <span style="font-size: 0.75rem;">{% translate "(Hancur otomatis setelah penerima membukanya)" %}</span>
                         </label>
                     </div>
 
                     <button type="button" onclick="submitForm(event)"
                         class="btn w-100 py-3 fw-bold rounded-4 smooth-transition shadow hover-lift" 
-                        style="background: {{ target_user.profile.theme_color|default:'var(--bs-primary)' }}; color: white; border: none; font-size: 1.1rem; letter-spacing: 0.5px;">
-                        Kirim Pesan Rahasia 🚀
+                        style="background: {{ target_user.profile.theme_color|default:'#6f42c1' }}; color: white; border: none; font-size: 1.1rem; letter-spacing: 0.5px;">
+                        {% translate "Kirim Pesan Rahasia 🚀" %}
                     </button>
                 </form>
 
@@ -101,10 +108,26 @@
             </div>
         </div>
 
-        <p class="mt-4 small text-body-secondary mb-5">Aman & Anonim. Penerima tidak akan tahu siapa pengirimnya.</p>
+        <p class="mt-4 small text-body-secondary mb-4">Aman & Anonim. Penerima tidak akan tahu siapa pengirimnya.</p>
 
-        <hr class="my-5">
-        <h4 class="fw-bold mb-4 text-start">💜 Cerita yang Terjawab</h4>
+        <!-- AdSense Display Ad (Responsive) -->
+        <div class="ad-container-public my-4 mx-auto overflow-hidden" style="max-width: 100%;">
+            <div class="glass-card p-2 text-center" style="border: 1px dashed rgba(255, 255, 255, 0.15); min-height: 100px;">
+                <small class="text-white-50 d-block mb-2" style="font-size: 0.7rem;">ADVERTISEMENT</small>
+                <ins class="adsbygoogle"
+                     style="display:block"
+                     data-ad-client="ca-pub-5674300095923366"
+                     data-ad-slot="TARUH_ID_SLOT_DISPLAY_DISINI"
+                     data-ad-format="auto"
+                     data-full-width-responsive="true"></ins>
+                <script>
+                     (adsbygoogle = window.adsbygoogle || []).push({});
+                </script>
+            </div>
+        </div>
+
+        <hr class="my-5 border-white border-opacity-25">
+        <h4 class="fw-bold mb-4 text-start text-white">💜 Cerita yang Terjawab</h4>
 
         {% for msg in target_user.messages.all %}
         {% if msg.is_public %}
@@ -159,7 +182,7 @@
                         {% endif %}
                     </small>
                     <div class="btn-group">
-                        <a href="https://api.whatsapp.com/send?text=Lihat curhatan ini di CurhatBox: http://127.0.0.1:8000/{{ target_user.profile.slug }}"
+                        <a href="https://api.whatsapp.com/send?text=Lihat curhatan ini di CurhatBox: {{ request.scheme }}://{{ request.get_host }}/{{ target_user.profile.slug }}"
                             target="_blank" class="btn btn-sm btn-outline-success border-0">
                             Share ke WA 📲
                         </a>
@@ -169,12 +192,43 @@
         </div>
         {% endif %}
         {% empty %}
-        <div class="glass-card text-center py-5 rounded-4 border-0 shadow-sm">
-            <h1 class="display-3 mb-3">👻</h1>
-            <h5 class="fw-bold">Belum Ada Cerita Terjawab</h5>
-            <p class="text-body-secondary mb-0">Jadilah yang pertama mengirim pesan rahasia!</p>
+        <div class="glass-card text-center py-5 px-4 rounded-4 border-0 shadow-sm">
+            <h1 class="display-3 mb-3">💜</h1>
+            <h5 class="fw-bold">Belum Ada Cerita yang Dibagikan</h5>
+            <p class="text-secondary mb-4 mx-auto" style="max-width: 450px;">Pemilik profil ini belum membagikan jawaban pesan anonim ke publik. Kamu bisa menjadi orang pertama yang memulai percakapan jujur dan seru di sini!</p>
+            <div class="d-flex justify-content-center gap-2">
+                <span class="badge bg-primary bg-opacity-10 text-primary px-3 py-2 rounded-pill">100% Anonim</span>
+                <span class="badge bg-success bg-opacity-10 text-success px-3 py-2 rounded-pill">Aman & Terenkripsi</span>
+            </div>
         </div>
         {% endfor %}
+
+        <!-- PUBLIC PROFILE CONTENT BOOST (FOR ADSENSE) -->
+        <div class="mt-5 pt-5 text-start" data-aos="fade-up">
+            <div class="glass-card p-5 rounded-5 border-0 shadow-lg text-center position-relative overflow-hidden" data-aos="fade-up">
+            <h2 class="fw-bold mb-3" style="font-family: 'Outfit', sans-serif;">{% translate "Tentang Komunitas CurhatBox" %}</h2>
+            <p class="text-body-secondary mb-5 mx-auto" style="max-width: 600px;">
+                {% translate "Bergabunglah dengan ribuan pengguna yang saling berbagi kejujuran setiap hari." %}
+            </p>
+                <div class="row g-3">
+                    <div class="col-sm-6">
+                        <div class="bg-primary bg-opacity-10 p-4 rounded-4 h-100 border border-primary border-opacity-25 shadow-sm">
+                            <div class="fs-1 mb-3">💜</div>
+                            <h4 class="fw-bold text-primary">{% translate "Bebas Berekspresi" %}</h4>
+                            <p class="small text-body-secondary mb-0">{% translate "Sampaikan apresiasi, kritik membangun, atau rahasia yang terpendam tanpa takut dihakimi." %}</p>
+                        </div>
+                    </div>
+                    <div class="col-sm-6">
+                        <div class="bg-success bg-opacity-10 p-4 rounded-4 h-100 border border-success border-opacity-25 shadow-sm">
+                            <div class="fs-1 mb-3">🛡️</div>
+                            <h4 class="fw-bold text-success">{% translate "Keamanan Utama" %}</h4>
+                            <p class="small text-body-secondary mb-0">{% translate "Kami menggunakan filter kata otomatis dan perlindungan IP untuk menjaga komunitas tetap sehat." %}</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
     </div>
 </div>
 
