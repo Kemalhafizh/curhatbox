@@ -36,9 +36,9 @@
             {% endif %}
         </div>
         
-        <!-- Lapak Iklan: Hero Banner -->
+        <!-- Lapak Iklan: Hero Banner (High Visibility) -->
         <div class="mt-5 mx-auto px-2" style="max-width: 600px;">
-            {% include 'main/partials/adsense_slot.html' with ad_slot='INDEX_HERO_SLOT' %}
+            {% include 'main/partials/adsense_slot.html' with ad_slot='INDEX_HERO_BANNER' min_height='100px' %}
         </div>
     </div>
 
@@ -75,6 +75,11 @@
             <div class="bg-info rounded-circle blur-glow" style="width: 200px; height: 200px; filter: blur(50px); opacity: 0.5;"></div>
         </div>
     </div>
+</div>
+
+<!-- Lapak Iklan: Middle Section Banner -->
+<div class="container my-5 py-2">
+    {% include 'main/partials/adsense_slot.html' with ad_slot='INDEX_MIDDLE_BANNER' %}
 </div>
 
 <!-- PREMIUM FEATURE GRID -->
@@ -282,6 +287,11 @@
             </div>
         </div>
     </div>
+</div>
+
+<!-- Lapak Iklan: Pre-FAQ Banner -->
+<div class="container my-5 py-4">
+    {% include 'main/partials/adsense_slot.html' with ad_slot='INDEX_FOOTER_BANNER' %}
 </div>
 
 <!-- SAFETY & ETHICS GUIDE (HIGH VALUE CONTENT FOR ADSENSE) -->

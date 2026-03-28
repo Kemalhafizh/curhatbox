@@ -1,31 +1,36 @@
-<!-- Google AdSense Manual Slot Component -->
+<!-- Google AdSense Manual Slot Component (Premium Glass-Ad) -->
 {% load i18n %}
 
-<div class="adsense-manual-wrapper mb-4" data-aos="fade-up">
-    <!-- Sponsor Label (Indicates to Google and Users this is an Ad area) -->
-    <div class="text-center opacity-50 mb-1" style="font-size: 0.65rem; letter-spacing: 1px; text-transform: uppercase; font-weight: 700; color: var(--text-muted-custom);">
-        <i class="bi bi-badge-ad me-1"></i>{% translate "Sponsor CurhatBox" %}
+<div class="adsense-manual-wrapper my-4" data-aos="fade-up">
+    <!-- Premium Sponsor Label -->
+    <div class="d-flex align-items-center justify-content-center gap-2 opacity-75 mb-2">
+        <div style="height: 1px; width: 40px; background: var(--glass-border);"></div>
+        <div class="text-center" style="font-size: 0.6rem; letter-spacing: 2px; text-transform: uppercase; font-weight: 800; color: var(--text-muted-custom);">
+            <i class="bi bi-badge-ad me-1 text-primary"></i>{% translate "Sponsor CurhatBox" %}
+        </div>
+        <div style="height: 1px; width: 40px; background: var(--glass-border);"></div>
     </div>
 
-    <div class="glass-card adsense-placeholder d-flex align-items-center justify-content-center overflow-hidden" 
-         style="min-height: 100px; background: rgba(0,0,0,0.02); border: 1px dashed var(--glass-border); border-radius: 12px;">
+    <!-- Glassmorphism Container with Dynamic Min-Height -->
+    <div class="glass-card adsense-placeholder d-flex align-items-center justify-content-center overflow-hidden position-relative" 
+         style="min-height: {{ min_height|default:'280px' }}; background: rgba(255,255,255,0.02); border: 1px solid var(--glass-border); border-radius: 20px;">
         
         <!-- Google AdSense Code -->
         <ins class="adsbygoogle"
-             style="display:block; width: 100%;"
+             style="display:block; width: 100%; border-radius: 12px; overflow: hidden;"
              data-ad-client="ca-pub-5674300095923366"
              data-ad-slot="{{ ad_slot|default:'1234567890' }}"
-             data-ad-format="auto"
+             data-ad-format="{{ ad_format|default:'auto' }}"
              data-full-width-responsive="true"></ins>
         
         <script>
              (adsbygoogle = window.adsbygoogle || []).push({});
         </script>
 
-        <!-- Fallback if no Ad is served (Optional) -->
-        <div class="ads-empty-fallback position-absolute text-center text-body-secondary opacity-10" style="pointer-events: none;">
-            <i class="bi bi-graph-up-arrow fs-1"></i><br>
-            <small>{% translate "Placement Ready" %}</small>
+        <!-- Aesthetic Empty Fallback (Visible only if AD doesn't load/blocked) -->
+        <div class="ads-empty-fallback position-absolute text-center text-body-secondary opacity-10" style="pointer-events: none; z-index: -1;">
+            <i class="bi bi-stars fs-1 mb-2"></i><br>
+            <span style="letter-spacing: 1px; font-weight: 600; font-size: 0.7rem;">CurhatBox Premium Ads</span>
         </div>
     </div>
 </div>

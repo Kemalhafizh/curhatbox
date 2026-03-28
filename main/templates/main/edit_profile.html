@@ -4,7 +4,70 @@
 {% block title %}{% translate "Edit Profil" %} - CurhatBox{% endblock %}
 
 {% block content %}
-<div class="container-fluid position-relative py-5 z-1">
+<style>
+    .form-group-glass {
+        background: rgba(255, 255, 255, 0.03);
+        border: 1px solid var(--glass-border);
+        border-radius: 16px;
+        padding: 1.5rem;
+        transition: all 0.3s ease;
+    }
+    .form-group-glass:hover {
+        background: rgba(255, 255, 255, 0.08);
+        transform: translateY(-2px);
+        box-shadow: 0 8px 24px rgba(0,0,0,0.05);
+    }
+    
+    .avatar-preview-wrapper {
+        width: 120px;
+        height: 120px;
+        border-radius: 50%;
+        border: 4px solid var(--user-theme-primary, #6f42c1);
+        overflow: hidden;
+        position: relative;
+        box-shadow: 0 10px 20px rgba(0,0,0,0.15);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        background: rgba(255, 255, 255, 0.1);
+        margin: 0 auto 1rem auto;
+    }
+    .avatar-preview-wrapper img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+    }
+    .avatar-placeholder {
+        font-size: 3rem;
+        font-weight: bold;
+        color: var(--user-theme-primary, #6f42c1);
+    }
+    
+    /* Safely hide native django widget */
+    .django-file-widget {
+        position: absolute;
+        width: 1px;
+        height: 1px;
+        padding: 0;
+        margin: -1px;
+        overflow: hidden;
+        clip: rect(0,0,0,0);
+        border: 0;
+    }
+    
+    .user-theme-btn {
+        background: var(--user-theme-primary, #6f42c1) !important;
+        color: white !important;
+        transition: all 0.3s ease;
+    }
+    .user-theme-btn:hover {
+        filter: brightness(1.1);
+        transform: translateY(-2px);
+        box-shadow: 0 8px 15px rgba(0,0,0,0.2) !important;
+    }
+</style>
+
+<div class="container-fluid position-relative py-5 z-1" style="--user-theme-primary: {{ request.user.profile.theme_color|default:'#6f42c1' }};">
     
     <div class="row justify-content-center" data-aos="fade-up">
         <div class="col-md-6 col-lg-5">
@@ -21,7 +84,7 @@
                     {% csrf_token %}
                     
                     <!-- Bio Field -->
-                    <div class="mb-4">
+                    <div class="form-group-glass mb-4">
                         <label for="{{ form.bio.id_for_label }}" class="form-label fw-bold text-body mb-2">
                             <i class="bi bi-chat-quote-fill text-primary me-2"></i>{% translate "Sapaan Pengunjung (Bio)" %}
                         </label>
@@ -35,19 +98,39 @@
                     </div>
 
                     <!-- Avatar Field -->
-                    <div class="mb-4">
-                        <label for="{{ form.avatar.id_for_label }}" class="form-label fw-bold text-body mb-2">
+                    <div class="form-group-glass mb-4 text-center">
+                        <label class="form-label fw-bold text-body d-block mb-3 text-start">
                             <i class="bi bi-person-circle text-primary me-2"></i>{% translate "Foto Avatar" %}
                         </label>
-                        {{ form.avatar }}
-                        <div class="form-text mt-2"><i class="bi bi-info-circle me-1"></i>{% translate "Format: JPG, PNG, GIF (Maks. 2MB)" %}</div>
+                        
+                        <!-- Live Preview Display -->
+                        <div class="avatar-preview-wrapper">
+                            {% if request.user.profile.avatar %}
+                                <img id="img-preview" src="{{ request.user.profile.avatar.url }}" alt="Preview">
+                            {% else %}
+                                <img id="img-preview" src="" alt="Preview" style="display: none;">
+                                <div id="avatar-placeholder" class="avatar-placeholder">{{ request.user.username|slice:":1"|upper }}</div>
+                            {% endif %}
+                        </div>
+
+                        <!-- Safely hidden native input -->
+                        <div class="django-file-widget">
+                            {{ form.avatar }}
+                        </div>
+                        
+                        <!-- Premium Custom Button -->
+                        <label for="{{ form.avatar.id_for_label }}" class="btn btn-outline-primary rounded-pill px-4 py-2 mt-2 hover-lift fw-bold" style="cursor: pointer;">
+                            <i class="bi bi-camera me-2"></i>{% translate "Ganti Foto Profil" %}
+                        </label>
+                        
+                        <div class="form-text mt-3"><i class="bi bi-info-circle me-1"></i>{% translate "Format: JPG, PNG, GIF (Maks. 2MB)" %}</div>
                         {% if form.avatar.errors %}
-                            <div class="text-danger small mt-1">{{ form.avatar.errors }}</div>
+                            <div class="text-danger small mt-2 fw-bold">{{ form.avatar.errors }}</div>
                         {% endif %}
                     </div>
 
                     <!-- Theme Color Field -->
-                    <div class="mb-4">
+                    <div class="form-group-glass mb-4">
                         <label for="{{ form.theme_color.id_for_label }}" class="form-label fw-bold text-body mb-2 d-block">
                             <i class="bi bi-palette-fill text-primary me-2"></i>{% translate "Warna Tema Publik" %}
                         </label>
@@ -61,7 +144,7 @@
                     </div>
 
                     <!-- Language Selection Field -->
-                    <div class="mb-5">
+                    <div class="form-group-glass mb-5">
                         <label for="{{ form.preferred_language.id_for_label }}" class="form-label fw-bold text-body mb-2">
                             <i class="bi bi-translate text-primary me-2"></i>{% translate "Bahasa Antarmuka" %}
                         </label>
@@ -74,7 +157,7 @@
 
                     <!-- Action Buttons -->
                     <div class="d-grid gap-3 pt-2">
-                        <button type="submit" class="btn btn-primary btn-lg rounded-pill shadow hover-lift fw-bold">
+                        <button type="submit" class="btn user-theme-btn btn-lg rounded-pill shadow-lg hover-lift fw-bold border-0">
                             {% translate "Terapkan Perubahan ✨" %}
                         </button>
                         <a href="{% url 'dashboard' %}" class="btn btn-light btn-lg rounded-pill border hover-lift fw-bold text-body-secondary">
@@ -87,4 +170,30 @@
         </div>
     </div>
 </div>
+
+<!-- Script for Avatar Live Preview -->
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    const fileInput = document.querySelector('.django-file-widget input[type="file"]');
+    const imgPreview = document.getElementById('img-preview');
+    const placeholder = document.getElementById('avatar-placeholder');
+
+    if (fileInput) {
+        fileInput.addEventListener('change', function(e) {
+            const file = e.target.files[0];
+            if (file) {
+                const reader = new FileReader();
+                reader.onload = function(event) {
+                    imgPreview.src = event.target.result;
+                    imgPreview.style.display = 'block';
+                    if (placeholder) {
+                        placeholder.style.display = 'none';
+                    }
+                }
+                reader.readAsDataURL(file);
+            }
+        });
+    }
+});
+</script>
 {% endblock %}

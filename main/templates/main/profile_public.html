@@ -95,7 +95,7 @@
                     
                     <!-- Lapak Iklan: Post-Action Banner -->
                     <div class="mt-2">
-                        {% include 'main/partials/adsense_slot.html' with ad_slot='PROFILE_PUBLIC_SLOT' %}
+                        {% include 'main/partials/adsense_slot.html' with ad_slot='PROFILE_PUBLIC_HERO' min_height='100px' %}
                     </div>
                 </form>
 
@@ -122,20 +122,8 @@
 
         <p class="mt-4 small text-body-secondary mb-4">Aman & Anonim. Penerima tidak akan tahu siapa pengirimnya.</p>
 
-        <!-- AdSense Display Ad (Responsive) -->
-        <div class="ad-container-public my-4 mx-auto overflow-hidden" style="max-width: 100%;">
-            <div class="glass-card p-2 text-center" style="border: 1px dashed rgba(255, 255, 255, 0.15); min-height: 100px;">
-                <small class="text-white-50 d-block mb-2" style="font-size: 0.7rem;">ADVERTISEMENT</small>
-                <ins class="adsbygoogle"
-                     style="display:block"
-                     data-ad-client="ca-pub-5674300095923366"
-                     data-ad-slot="TARUH_ID_SLOT_DISPLAY_DISINI"
-                     data-ad-format="auto"
-                     data-full-width-responsive="true"></ins>
-                <script>
-                     (adsbygoogle = window.adsbygoogle || []).push({});
-                </script>
-            </div>
+        <div class="ad-container-public my-5">
+            {% include 'main/partials/adsense_slot.html' with ad_slot='PROFILE_PUBLIC_FEED' ad_format='rectangle' %}
         </div>
 
         <hr class="my-5 border-white border-opacity-25">

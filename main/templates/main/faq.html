@@ -49,9 +49,9 @@
                         </div>
                     </div>
 
-                    <!-- Lapak Iklan: FAQ Mid -->
-                    <div class="my-4">
-                        {% include 'main/partials/adsense_slot.html' with ad_slot='FAQ_MID_SLOT' %}
+                    <!-- Lapak Iklan: FAQ Mid (High Engagement) -->
+                    <div class="my-5">
+                        {% include 'main/partials/adsense_slot.html' with ad_slot='FAQ_MID_BANNER' min_height='100px' %}
                     </div>
 
                     <!-- KATEGORI 2: FITUR SELF-DESTRUCT -->
@@ -86,8 +86,8 @@
                     </div>
 
                     <!-- Lapak Iklan: FAQ Lower -->
-                    <div class="my-4">
-                        {% include 'main/partials/adsense_slot.html' with ad_slot='FAQ_LOWER_SLOT' %}
+                    <div class="my-5">
+                        {% include 'main/partials/adsense_slot.html' with ad_slot='FAQ_LOWER_BANNER' min_height='100px' %}
                     </div>
 
                     <!-- KATEGORI 3: LAYANAN & AKUN -->
@@ -135,6 +135,9 @@
                 </div>
             </div>
 
+            <div class="ad-container-faq-footer mt-5 pt-4">
+                {% include 'main/partials/adsense_slot.html' with ad_slot='FAQ_FOOTER_BANNER' %}
+            </div>
         </div>
     </div>
 </div>
