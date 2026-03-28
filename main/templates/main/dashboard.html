@@ -159,9 +159,9 @@
                 <div class="ig-avatar-ring" id="capture-avatar-ring" 
                      style="background-image: url('{% if user.profile.avatar %}{{ user.profile.avatar.url }}{% else %}https://ui-avatars.com/api/?name={{ user.username }}&background=6f42c1&color=fff{% endif %}');">
                 </div>
-                <div>
-                    <h3 id="capture-username">@{{ user.username }}</h3>
-                    <p style="font-size: 2rem; color: rgba(255,255,255,0.6); margin: 0; font-weight: 500;">{% translate "membalas:" %}</p>
+                <div style="display: flex; flex-direction: column; justify-content: center;">
+                    <h3 id="capture-username">@<span id="capture-username-inner">{{ user.username }}</span></h3>
+                    <p class="ig-membalas-text">{% translate "membalas:" %}</p>
                 </div>
             </div>
 

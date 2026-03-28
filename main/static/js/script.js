@@ -23,7 +23,7 @@ function generateStory(question, answer, username) {
     // 1. Masukkan data ke template tersembunyi
     var qElem = document.getElementById('capture-question');
     var aElem = document.getElementById('capture-answer');
-    var uElem = document.getElementById('capture-username');
+    var uElem = document.getElementById('capture-username-inner');
 
     if(qElem && aElem && uElem) {
         qElem.innerText = '"' + question + '"';
@@ -33,25 +33,27 @@ function generateStory(question, answer, username) {
         // 2. Proses html2canvas (High Definition 1080p Optimization)
         const captureElement = document.getElementById('hidden-capture-area');
 
-        // Gunakan timeout sebentar agar browser sempat me-render perubahan teks/gambar
+        // Gunakan timeout sedikit lebih lama agar browser sempat me-render perubahan teks/gambar
         setTimeout(() => {
             html2canvas(captureElement, {
-                scale: 2, // Meningkatkan ketajaman gambar (HD+)
+                scale: 2, // HD 1080p+ Quality
                 useCORS: true,
                 allowTaint: false,
                 backgroundColor: null,
-                logging: false
+                logging: false,
+                width: 1080,
+                height: 1920
             }).then(canvas => {
                 const link = document.createElement('a');
                 link.download = 'CurhatBox-Story-' + Date.now() + '.png';
                 link.href = canvas.toDataURL('image/png', 1.0);
                 link.click();
-                console.log("Story generated successfully at 2x scale.");
+                console.log("Story generated at 2x scale successfully.");
             }).catch(err => {
                 console.error("Gagal membuat gambar:", err);
                 alert("Gagal membuat gambar :( Coba lagi.");
             });
-        }, 100);
+        }, 250);
     } else {
         console.error("Elemen template IG Story tidak ditemukan.");
     }
