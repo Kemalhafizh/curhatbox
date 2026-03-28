@@ -104,7 +104,7 @@
 
                     {% if msg.reply_content %}
                     <button
-                        onclick="generateStory('{{ msg.content|escapejs }}', '{{ msg.reply_content|escapejs }}', '{{ user.username }}')"
+                        onclick="startHdUnlockProcess('{{ msg.content|escapejs }}', '{{ msg.reply_content|escapejs }}', '{{ user.username }}')"
                         class="btn rounded-pill px-3 py-2 fw-bold hover-lift text-white border-0 shadow-sm" style="background: linear-gradient(45deg, #f09433 0%, #e6683c 25%, #dc2743 50%, #cc2366 75%, #bc1888 100%); font-size: 0.85rem;">
                         {% translate "📸 Share" %}
                     </button>
