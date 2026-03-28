@@ -20,6 +20,12 @@
     --glass-shadow: rgba(0, 0, 0, 0.1);
     
     --bg-light-purple: #f3f0ff;
+
+    /* PREMIUM TEXT TOKENS (LIGHT MODE) */
+    --text-heading: #1a1a2e;       /* Deep Indigo */
+    --text-body-custom: #2d3436;   /* Dark Slate */
+    --text-muted-custom: #636e72;  /* Muted Grey */
+    --accent-glow: #6f42c1;
 }
 
 [data-bs-theme="dark"] {
@@ -36,6 +42,12 @@
     --glass-shadow: rgba(0, 0, 0, 0.4);
     
     --bg-light-purple: rgba(111, 66, 193, 0.15);
+
+    /* PREMIUM TEXT TOKENS (DARK MODE) */
+    --text-heading: #efebff;       /* Soft Lavender White */
+    --text-body-custom: #dfe6e9;   /* Light Grey */
+    --text-muted-custom: #b2bec3;  /* Muted Silver */
+    --accent-glow: #a29bfe;
 }
 
 html, body {
@@ -58,6 +70,21 @@ body {
 h1, h2, h3, h4, h5, h6, .display-1, .display-2, .display-3, .display-4, .display-5, .display-6, .navbar-brand {
     font-family: var(--font-heading);
     letter-spacing: -0.5px;
+    color: var(--text-heading);
+    transition: color 0.3s ease;
+}
+
+p, span:not(.badge), li {
+    color: var(--text-body-custom);
+    transition: color 0.3s ease;
+}
+
+.text-muted-premium {
+    color: var(--text-muted-custom) !important;
+}
+
+.text-accent-premium {
+    color: var(--accent-glow) !important;
 }
 
 /* --- ANIMATED MESH GRADIENT --- */
@@ -94,6 +121,26 @@ h1, h2, h3, h4, h5, h6, .display-1, .display-2, .display-3, .display-4, .display
     transition: background 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease;
 }
 
+/* Sistem Pencegahan Kontras Rendah Otomatis (Smart Color Safeguard) */
+/* Di Mode Terang: Larang penggunaan teks putih (text-white) di dalam kartu glass, ganti ke gelap. */
+[data-bs-theme="light"] .glass-card .text-white,
+[data-bs-theme="light"] .glass-card .text-white-50 {
+    color: var(--bs-body-color) !important;
+}
+
+[data-bs-theme="light"] .glass-card .text-white-50 {
+    opacity: 0.7;
+}
+
+/* Di Mode Gelap: Larang penggunaan teks hitam/gelap (text-dark) di dalam kartu glass, ganti ke terang. */
+[data-bs-theme="dark"] .glass-card .text-dark,
+[data-bs-theme="dark"] .glass-card .text-black,
+[data-bs-theme="dark"] .glass-card .text-body {
+    color: #f8f9fa !important;
+}
+
+/* Biarkan warna dekoratif (warning, primary, info) tetap bekerja sebagaimana mestinya */
+
 .glass-footer {
     background: var(--glass-nav-footer) !important;
     backdrop-filter: blur(10px);
@@ -117,6 +164,20 @@ h1, h2, h3, h4, h5, h6, .display-1, .display-2, .display-3, .display-4, .display
     -webkit-text-fill-color: transparent;
     background-clip: text;
     color: transparent;
+}
+
+.gradient-text-vibrant {
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    color: transparent;
+}
+
+[data-bs-theme="dark"] .gradient-text-vibrant {
+    background: linear-gradient(135deg, #a29bfe 0%, #6c5ce7 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
 }
 
 /* --- BUTTON & HOVER EFFECTS --- */
@@ -380,49 +441,85 @@ main {
 /* =========================================
    8. MOBILE & TABLET OPTIMIZATION (Responsive)
    ========================================= */
-@media (max-width: 768px) {
+@media (max-width: 576px) {
+    /* HIGH CONTENT DENSITY (COMPACT OVERHAUL) */
+    html {
+        font-size: 13.5px !important; /* Global Scaling Down */
+    }
+
+    .container {
+        padding-left: 1rem !important;
+        padding-right: 1rem !important;
+    }
+
+    .glass-card {
+        padding: 1.25rem !important;
+        border-radius: 1.2rem !important;
+    }
+
+    /* Scaling Headlines for Mobile */
+    h1, .display-1, .display-2, .display-3 { font-size: 1.8rem !important; }
+    h2, .display-4, .display-5 { font-size: 1.5rem !important; }
+    h3, .display-6 { font-size: 1.3rem !important; }
+    h4 { font-size: 1.15rem !important; }
+    h5 { font-size: 1.05rem !important; }
+    
+    p, li { line-height: 1.5; }
 
     /* Mencegah auto-zoom menjengkelkan di Safari iOS saat fokus ke input */
     input.form-control,
     textarea.form-control,
     select.form-control {
         font-size: 16px !important;
+        padding: 0.6rem 1rem !important;
     }
 
-    /* Memaksimalkan lebar kartu pesan agar tidak buang-buang margin */
-    .card-body {
-        padding: 1.25rem;
+    /* Compact Buttons */
+    .btn:not(.btn-lg) {
+        padding: 0.5rem 1rem !important;
+        font-size: 0.85rem !important;
     }
 
-    /* Ukuran font responsif (mengecilkan hero text yang terlalu raksasa) */
-    .display-4 {
-        font-size: 2.2rem;
-    }
-
-    /* Fat-finger friendly touch targets: Tombol lebih tinggi untuk diketuk jari */
-    .btn-sm,
-    .btn-group-sm>.btn {
-        padding-top: 0.5rem;
-        padding-bottom: 0.5rem;
-        font-size: 0.9rem;
-    }
-
-    /* Mengecilkan IG Story Card agak pas di layar HP saat dirender */
-    .ig-card {
-        transform: scale(0.6);
-        transform-origin: top left;
-    }
-
-    /* Menjaga jarak profil dan dashboard agar tidak menempel */
-    .col-md-4.mb-4 {
-        margin-bottom: 2.5rem !important;
-    }
-
-    /* Menyebarkan tombol aksi agar mudah diraih jari */
+    /* Tighter Action Buttons in Cards */
     .d-flex.gap-2.flex-wrap.align-items-center {
-        gap: 0.75rem !important;
-        justify-content: flex-start;
+        gap: 0.5rem !important;
     }
+
+    .btn-favorite-active, .btn-favorite-inactive, .btn-danger-glass, .btn-primary-glass {
+        padding: 0.4rem 0.8rem !important;
+    }
+
+    /* Navbar Compression */
+    .navbar {
+        padding-top: 0.5rem !important;
+        padding-bottom: 0.5rem !important;
+    }
+
+    /* Use Cases Icons Scaling */
+    .bi-instagram, .bi-briefcase-fill, .bi-backpack-fill {
+        font-size: 1.5rem !important;
+    }
+
+    /* Reaction Buttons Compression */
+    .reaction-btn {
+        width: 34px !important;
+        height: 34px !important;
+        font-size: 1.2rem !important;
+    }
+
+    /* Footer Compression */
+    .glass-footer {
+        padding: 1.5rem 0 !important;
+    }
+    .glass-footer p {
+        font-size: 0.8rem !important;
+        margin-bottom: 0.5rem !important;
+    }
+}
+
+@media (min-width: 577px) and (max-width: 768px) {
+    html { font-size: 15px; }
+    .glass-card { padding: 1.5rem !important; }
 }
 
 /* =========================================

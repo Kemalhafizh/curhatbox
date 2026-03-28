@@ -39,6 +39,11 @@ def about_page(request):
     return render(request, 'main/about.html')
 
 
+def faq_page(request):
+    """Menampilkan halaman Pusat Bantuan/FAQ."""
+    return render(request, 'main/faq.html')
+
+
 def rules_page(request):
     """Menampilkan halaman Aturan Main/Kebijakan."""
     return render(request, 'main/rules.html')
@@ -73,7 +78,10 @@ def public_profile(request, slug):
 
     if request.method == 'POST':
         content = request.POST.get('pesan')
-        client_ip = request.META.get('REMOTE_ADDR')
+        
+        # --- IP SPOOFING FIX: Dukungan Reverse Proxy ---
+        # Tarik IP Asli pengunjung yang diteruskan Nginx, fallback ke localhost jika akses langsung
+        client_ip = request.META.get('HTTP_X_REAL_IP', request.META.get('REMOTE_ADDR'))
         
         # Parse User-Agent untuk Device Tracking
         ua_string = request.META.get('HTTP_USER_AGENT', '')

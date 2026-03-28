@@ -24,10 +24,19 @@ load_dotenv(os.path.join(BASE_DIR, '.env'))
 # See https://docs.djangoproject.com/en/6.0/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = os.environ.get('SECRET_KEY', 'django-insecure-fallback-key-do-not-use-in-production')
+SECRET_KEY = os.environ.get('SECRET_KEY', '')
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = os.environ.get('DEBUG', 'False') == 'True'
+
+# SECURITY SETTINGS FOR PRODUCTION
+if not DEBUG:
+    SECURE_SSL_REDIRECT = False
+    SESSION_COOKIE_SECURE = True
+    CSRF_COOKIE_SECURE = True
+    SECURE_HSTS_SECONDS = 31536000
+    SECURE_HSTS_INCLUDE_SUBDOMAINS = True
+    SECURE_HSTS_PRELOAD = True
 
 ALLOWED_HOSTS = os.environ.get('ALLOWED_HOSTS', '127.0.0.1,localhost').split(',')
 
@@ -39,6 +48,13 @@ CSRF_TRUSTED_ORIGINS = [
 
 # Custom Error Page untuk CSRF Failure (403 Forbidden)
 CSRF_FAILURE_VIEW = 'main.views.csrf_failure'
+
+# --- REVERSE PROXY SECURITY (NGINX -> DAPHNE) ---
+# Beritahu Django bahwa koneksi awalnya adalah HTTPS (dari Nginx)
+SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
+
+# Beritahu library django-ratelimit agar menggunakan IP asli pengunjung (bukan IP lokal Nginx)
+RATELIMIT_IP_META_KEY = 'HTTP_X_REAL_IP'
 
 
 # Application definition
@@ -97,7 +113,7 @@ DATABASES = {
         'ENGINE': 'django.db.backends.postgresql',
         'NAME': os.environ.get('DB_NAME', 'curhatbox_db'),
         'USER': os.environ.get('DB_USER', 'kemal'),
-        'PASSWORD': os.environ.get('DB_PASSWORD', 'Kemal_DB_Secure_2026!'),
+        'PASSWORD': os.environ.get('DB_PASSWORD', ''),
         'HOST': os.environ.get('DB_HOST', 'localhost'),
         'PORT': os.environ.get('DB_PORT', '5432'),
     }
@@ -150,7 +166,7 @@ LOCALE_PATHS = [
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/6.0/howto/static-files/
 
-STATIC_URL = 'static/'
+STATIC_URL = '/static/'
 STATICFILES_DIRS = [BASE_DIR / 'main/static']
 STATIC_ROOT = BASE_DIR / 'staticfiles'
 STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'

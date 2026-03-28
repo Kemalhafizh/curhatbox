@@ -1,0 +1,31 @@
+<!-- Google AdSense Manual Slot Component -->
+{% load i18n %}
+
+<div class="adsense-manual-wrapper mb-4" data-aos="fade-up">
+    <!-- Sponsor Label (Indicates to Google and Users this is an Ad area) -->
+    <div class="text-center opacity-50 mb-1" style="font-size: 0.65rem; letter-spacing: 1px; text-transform: uppercase; font-weight: 700; color: var(--text-muted-custom);">
+        <i class="bi bi-badge-ad me-1"></i>{% translate "Sponsor CurhatBox" %}
+    </div>
+
+    <div class="glass-card adsense-placeholder d-flex align-items-center justify-content-center overflow-hidden" 
+         style="min-height: 100px; background: rgba(0,0,0,0.02); border: 1px dashed var(--glass-border); border-radius: 12px;">
+        
+        <!-- Google AdSense Code -->
+        <ins class="adsbygoogle"
+             style="display:block; width: 100%;"
+             data-ad-client="ca-pub-5674300095923366"
+             data-ad-slot="{{ ad_slot|default:'1234567890' }}"
+             data-ad-format="auto"
+             data-full-width-responsive="true"></ins>
+        
+        <script>
+             (adsbygoogle = window.adsbygoogle || []).push({});
+        </script>
+
+        <!-- Fallback if no Ad is served (Optional) -->
+        <div class="ads-empty-fallback position-absolute text-center text-body-secondary opacity-10" style="pointer-events: none;">
+            <i class="bi bi-graph-up-arrow fs-1"></i><br>
+            <small>{% translate "Placement Ready" %}</small>
+        </div>
+    </div>
+</div>

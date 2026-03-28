@@ -1,0 +1,158 @@
+{% extends 'main/base.html' %}
+{% load i18n %}
+
+{% block title %}{% translate "Pusat Bantuan & FAQ - CurhatBox" %}{% endblock %}
+
+{% block content %}
+<div class="container py-5">
+    <div class="row justify-content-center">
+        <div class="col-lg-10">
+            <!-- Header FAQ -->
+            <div class="text-center mb-5" data-aos="fade-down">
+                <i class="bi bi-patch-question-fill text-primary display-1 mb-4"></i>
+                <h1 class="display-5 fw-bold gradient-text-vibrant mb-3" style="font-family: 'Outfit', sans-serif;">{% translate "Pusat Bantuan & FAQ" %}</h1>
+                <p class="lead text-muted-premium">{% translate "Semua hal yang perlu Anda ketahui tentang keamanan, privasi, dan fitur-fitur di CurhatBox." %}</p>
+            </div>
+
+            <!-- FAQ Content -->
+            <div class="glass-card p-4 p-md-5 rounded-4 shadow-lg mb-5" data-aos="fade-up">
+                <div class="accordion custom-accordion" id="faqAccordion">
+                    
+                    <!-- KATEGORI 1: KEAMANAN & PRIVASI -->
+                    <div class="mb-5">
+                        <h4 class="fw-bold mb-4 gradient-text-vibrant border-bottom pb-2" style="--bs-border-color: rgba(111, 66, 193, 0.2);">{% translate "I. Keamanan & Privasi" %}</h4>
+                        
+                        <div class="accordion-item bg-transparent border-0 mb-3 shadow-sm">
+                            <h2 class="accordion-header">
+                                <button class="accordion-button rounded-4 fw-bold text-body" type="button" data-bs-toggle="collapse" data-bs-target="#q1">
+                                    {% translate "Apakah data saya benar-benar aman dan terenkripsi?" %}
+                                </button>
+                            </h2>
+                            <div id="q1" class="accordion-collapse collapse show" data-bs-parent="#faqAccordion">
+                                <div class="accordion-body text-body-secondary lh-lg">
+                                    {% translate "Keamanan adalah fondasi utama CurhatBox. Kami menggunakan protokol enkripsi tingkat lanjut untuk memastikan bahwa pesan Anda hanya bisa dibaca oleh penerima yang dituju. Kami tidak menyimpan informasi identitas pribadi (PII) pengirim di database kami. Alamat IP hanya dicatat secara terenkripsi untuk mencegah penyalahgunaan sistem (spam) dan akan dihapus secara otomatis dalam periode tertentu." %}
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="accordion-item bg-transparent border-0 mb-3 shadow-sm">
+                            <h2 class="accordion-header">
+                                <button class="accordion-button collapsed rounded-4 fw-bold text-body" type="button" data-bs-toggle="collapse" data-bs-target="#q2">
+                                    {% translate "Bisakah penerima mengetahui lokasi atau identitas saya?" %}
+                                </button>
+                            </h2>
+                            <div id="q2" class="accordion-collapse collapse" data-bs-parent="#faqAccordion">
+                                <div class="accordion-body text-body-secondary lh-lg">
+                                    {% translate "Tidak. Lokasi geografis presisi Anda tidak akan pernah dibagikan. Penerima hanya akan melihat 'Sender Hints' berupa tipe perangkat dan browser (misal: iPhone, Safari) untuk memberikan konteks dasar tanpa membahayakan privasi Anda. Identitas asli Anda terkunci rapat di sistem internal kami." %}
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Lapak Iklan: FAQ Mid -->
+                    <div class="my-4">
+                        {% include 'main/partials/adsense_slot.html' with ad_slot='FAQ_MID_SLOT' %}
+                    </div>
+
+                    <!-- KATEGORI 2: FITUR SELF-DESTRUCT -->
+                    <div class="mb-5">
+                        <h4 class="fw-bold mb-4 text-warning border-bottom pb-2">{% translate "II. Fitur Pesan Sekali Baca (Self-Destruct)" %}</h4>
+                        
+                        <div class="accordion-item bg-transparent border-0 mb-3 shadow-sm">
+                            <h2 class="accordion-header">
+                                <button class="accordion-button collapsed rounded-4 fw-bold text-body" type="button" data-bs-toggle="collapse" data-bs-target="#q3">
+                                    {% translate "Apa itu mode Self-Destruct?" %}
+                                </button>
+                            </h2>
+                            <div id="q3" class="accordion-collapse collapse" data-bs-parent="#faqAccordion">
+                                <div class="accordion-body text-body-secondary lh-lg">
+                                    {% translate "Mode Self-Destruct atau 'Bom Waktu' adalah fitur premium yang memungkinkan Anda mengirim pesan rahasia yang akan langsung terhapus dari database kami sesaat setelah penerima mengeklik tombol untuk membukanya. Setelah pesan tersebut hancur, tidak ada cara apapun (bahkan oleh tim teknis kami) untuk memulihkannya kembali. Ini adalah jaminan privasi mutlak bagi Anda." %}
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="accordion-item bg-transparent border-0 mb-3 shadow-sm">
+                            <h2 class="accordion-header">
+                                <button class="accordion-button collapsed rounded-4 fw-bold text-body" type="button" data-bs-toggle="collapse" data-bs-target="#q4">
+                                    {% translate "Apakah penerima masih bisa melakukan screenshot pesan?" %}
+                                </button>
+                            </h2>
+                            <div id="q4" class="accordion-collapse collapse" data-bs-parent="#faqAccordion">
+                                <div class="accordion-body text-body-secondary lh-lg">
+                                    {% translate "Meskipun kami mencegah perekaman layar melalui sistem web di beberapa browser, fungsi screenshot bawaan perangkat masih dimungkinkan. Oleh karena itu, kami menyarankan Anda tetap bijak dalam mengirimkan informasi yang sangat sensitif meskipun menggunakan mode sekali baca." %}
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Lapak Iklan: FAQ Lower -->
+                    <div class="my-4">
+                        {% include 'main/partials/adsense_slot.html' with ad_slot='FAQ_LOWER_SLOT' %}
+                    </div>
+
+                    <!-- KATEGORI 3: LAYANAN & AKUN -->
+                    <div class="mb-5">
+                        <h4 class="fw-bold mb-4 text-success border-bottom pb-2">{% translate "III. Layanan & Pengelolaan Akun" %}</h4>
+                        
+                        <div class="accordion-item bg-transparent border-0 mb-3 shadow-sm">
+                            <h2 class="accordion-header">
+                                <button class="accordion-button collapsed rounded-4 fw-bold text-body" type="button" data-bs-toggle="collapse" data-bs-target="#q5">
+                                    {% translate "Berapa biaya penggunaan CurhatBox?" %}
+                                </button>
+                            </h2>
+                            <div id="q5" class="accordion-collapse collapse" data-bs-parent="#faqAccordion">
+                                <div class="accordion-body text-body-secondary lh-lg">
+                                    {% translate "Layanan dasar CurhatBox adalah GRATIS selamanya. Kami didukung oleh iklan untuk menjaga server tetap menyala. Di masa depan, kami mungkin akan memperkenalkan fitur berlangganan opsional untuk kustomisasi tingkat lanjut, namun fitur utama pengiriman pesan akan selalu gratis bagi semua orang." %}
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="accordion-item bg-transparent border-0 mb-3 shadow-sm">
+                            <h2 class="accordion-header">
+                                <button class="accordion-button collapsed rounded-4 fw-bold text-body" type="button" data-bs-toggle="collapse" data-bs-target="#q6">
+                                    {% translate "Bagaimana jika saya lupa password?" %}
+                                </button>
+                            </h2>
+                            <div id="q6" class="accordion-collapse collapse" data-bs-parent="#faqAccordion">
+                                <div class="accordion-body text-body-secondary lh-lg">
+                                    {% translate "Kami menyediakan fitur pemulihan akun melalui alamat email yang Anda daftarkan. Pastikan untuk selalu menggunakan email yang aktif agar Anda tidak kehilangan akses ke dasbor pesan Anda." %}
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+
+            <!-- CTA & Kontak -->
+            <div class="text-center mt-5" data-aos="fade-up">
+                <div class="glass-card d-inline-block p-4 p-md-5 rounded-5 border-0 shadow">
+                    <h3 class="fw-bold mb-3">{% translate "Punya pertanyaan lain?" %}</h3>
+                    <p class="text-body-secondary mb-4">{% translate "Jika Anda tidak menemukan jawaban yang dicari, tim kami siap membantu melalui email resmi." %}</p>
+                    <a href="mailto:kemalhafizh0308@gmail.com" class="btn btn-primary btn-lg rounded-pill px-5 fw-bold hover-lift">
+                        <i class="bi bi-envelope-heart me-2"></i>{% translate "Hubungi Tim Support" %}
+                    </a>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</div>
+
+<style>
+/* Custom Accordion overrides for FAQ */
+.custom-accordion .accordion-button:not(.collapsed) {
+    color: #6f42c1 !important;
+    background-color: var(--bs-body-bg) !important;
+    box-shadow: none;
+}
+.custom-accordion .accordion-button:focus {
+    border-color: rgba(111, 66, 193, 0.4);
+    box-shadow: 0 0 0 0.25rem rgba(111, 66, 193, 0.1);
+}
+.custom-accordion .accordion-item {
+    background: var(--bs-body-bg) !important;
+    border: 1px solid var(--glass-border) !important;
+}
+</style>
+{% endblock %}

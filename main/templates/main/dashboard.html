@@ -10,11 +10,11 @@
 <div class="row">
     <div class="col-md-4 mb-4" data-aos="fade-right">
         <div class="glass-card shadow-lg border-0 rounded-5 overflow-hidden">
-            <div class="card-body text-center p-4">
+            <div class="card-body text-center p-3 p-md-4">
                 
-                <!-- Avatar with glowing gradient ring -->
-                <div class="rounded-circle d-inline-flex align-items-center justify-content-center mb-3 shadow-lg position-relative float-animation"
-                    style="width: 100px; height: 100px; font-size: 2.5rem; font-weight: bold; background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: white; padding: 4px;">
+                <!-- Avatar (Compact on Mobile) -->
+                <div class="rounded-circle d-inline-flex align-items-center justify-content-center mb-2 shadow-lg position-relative float-animation avatar-mobile"
+                    style="width: 80px; height: 80px; font-size: 2rem; font-weight: bold; background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: white; padding: 3px;">
                     <div class="rounded-circle w-100 h-100 overflow-hidden bg-body d-flex align-items-center justify-content-center {% if user.profile.avatar %}bg-transparent-avatar{% endif %}">
                         {% if user.profile.avatar %}
                         <img src="{{ user.profile.avatar.url }}" alt="Avatar" style="width: 100%; height: 100%; object-fit: cover;">
@@ -24,30 +24,30 @@
                     </div>
                 </div>
                 
-                <h4 class="fw-bold mb-1" style="font-family: 'Outfit', sans-serif;">{% blocktranslate %}Hallo, {{ user.username }}!{% endblocktranslate %}</h4>
-                <p class="text-body-secondary small mb-4">{% translate "Bagikan link ini untuk menerima pesan anonim" %}</p>
+                <h5 class="fw-bold mb-1" style="font-family: 'Outfit', sans-serif;">{% blocktranslate %}Hallo, {{ user.username }}!{% endblocktranslate %}</h5>
+                <p class="text-body-secondary small mb-3" style="font-size: 0.75rem;">{% translate "Bagikan link ini untuk menerima pesan anonim" %}</p>
 
                 <!-- Aesthetic Input Group -->
-                <div class="d-flex align-items-center bg-body-tertiary rounded-pill p-1 shadow-sm mb-3 border border-light">
-                    <input type="text" class="form-control bg-transparent border-0 text-body-secondary px-3"
-                        value="{{ request.scheme }}://{{ request.get_host }}/{{ user.profile.slug }}" id="profileLink" readonly style="font-size: 0.85rem; box-shadow: none;">
-                    <button class="btn btn-primary rounded-pill px-4 hover-lift shadow-sm fw-bold" type="button" id="copyBtn"
-                        onclick="copyToClipboard()" style="background: linear-gradient(135deg, #6f42c1 0%, #007bff 100%); border: none;">{% translate "Salin" %}</button>
+                <div class="d-flex align-items-center bg-body-tertiary rounded-pill p-1 shadow-sm mb-2 border border-light">
+                    <input type="text" class="form-control bg-transparent border-0 text-body-secondary px-2"
+                        value="{{ request.scheme }}://{{ request.get_host }}/{{ user.profile.slug }}" id="profileLink" readonly style="font-size: 0.8rem; box-shadow: none;">
+                    <button class="btn btn-primary rounded-pill px-3 hover-lift shadow-sm fw-bold" type="button" id="copyBtn"
+                        onclick="copyToClipboard()" style="background: linear-gradient(135deg, #6f42c1 0%, #007bff 100%); border: none; font-size: 0.8rem;">{% translate "Salin" %}</button>
                 </div>
 
-                <div class="text-start mb-4 bg-light-purple p-3 rounded-4">
+                <div class="text-start mb-3 bg-light-purple p-2 rounded-4">
                     <div class="d-flex align-items-center text-secondary small">
-                        <span class="fs-4 me-3">🔒</span>
-                        <span style="font-size: 0.75rem; line-height: 1.4;">{% translate "Profil ini bersifat privat. Hanya pemilik URL yang berhak mengakses dan mengirim pesan anonim kepada Anda." %}</span>
+                        <span class="fs-5 me-2">🔒</span>
+                        <span style="font-size: 0.65rem; line-height: 1.3;">{% translate "Profil ini privat. Hanya yang punya URL bisa kirim pesan." %}</span>
                     </div>
                 </div>
                 
-                <div class="d-grid gap-3">
-                    <a href="{% url 'analytics_dashboard' %}" class="btn rounded-pill text-body hover-lift shadow border-0" style="background: linear-gradient(135deg, #0cebeb 0%, #20e3b2 50%, #29ffc6 100%); font-weight: 700;">
-                        {% translate "📊 Buka Analitik Studio" %}
+                <div class="d-grid gap-2">
+                    <a href="{% url 'analytics_dashboard' %}" class="btn rounded-pill text-body hover-lift shadow border-0 py-2" style="background: linear-gradient(135deg, #0cebeb 0%, #20e3b2 50%, #29ffc6 100%); font-weight: 700; font-size: 0.85rem;">
+                        📊 {% translate "Buka Analitik" %}
                     </a>
-                    <a href="{% url 'edit_profile' %}" class="btn btn-secondary bg-transparent rounded-pill border hover-lift fw-bold text-body shadow-sm">
-                        {% translate "⚙️ Pengaturan Profil" %}
+                    <a href="{% url 'edit_profile' %}" class="btn btn-secondary bg-transparent rounded-pill border hover-lift fw-bold text-body shadow-sm py-2" style="font-size: 0.85rem;">
+                        ⚙️ {% translate "Pengaturan" %}
                     </a>
                 </div>
             </div>
@@ -66,25 +66,10 @@
         {% for msg in page_obj %}
         {% include 'main/partials/message_card.html' with msg=msg quick_reactions=quick_reactions %}
                     
-        <!-- AdSense In-Feed Ad Placeholder (Responsif) -->
+        <!-- AdSense In-Feed Ad Slot (Every 4 messages) -->
         {% if forloop.counter|divisibleby:4 and not forloop.last %}
-        <div class="col-12" data-aos="fade-up">
-            <div class="glass-card shadow-sm p-3 p-md-4 text-center d-flex flex-column justify-content-center align-items-center w-100 overflow-hidden" 
-                    style="min-height: 120px; border: 1px dashed rgba(255, 255, 255, 0.2);">
-                <span class="text-white-50 small mb-2"><i class="bi bi-badge-ad-fill me-1"></i>{% translate "Sponsor CurhatBox" %}</span>
-                <div class="ad-container w-100" style="max-width: 100%; overflow: hidden;">
-                    <!-- Snippet In-Feed AdSense nantinya ditempel di bawah ini -->
-                    <ins class="adsbygoogle"
-                            style="display:block"
-                            data-ad-format="fluid"
-                            data-ad-layout-key="-fb+5w+4e-db+86"
-                            data-ad-client="ca-pub-5674300095923366"
-                            data-ad-slot="TARUH_ID_SLOT_DISINI"></ins>
-                    <script>
-                            (adsbygoogle = window.adsbygoogle || []).push({});
-                    </script>
-                </div>
-            </div>
+        <div class="col-12">
+            {% include 'main/partials/adsense_slot.html' with ad_slot='DASHBOARD_FEED_SLOT' %}
         </div>
         {% endif %}
         {% endfor %}

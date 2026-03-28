@@ -9,9 +9,9 @@
 <div class="row align-items-center min-vh-75 py-5 my-md-5">
     <!-- Left Column: Copywriting -->
     <div class="col-lg-6 text-center text-lg-start mb-5 mb-lg-0" data-aos="fade-right">
-        <div class="d-inline-flex align-items-center gap-2 px-3 py-1 rounded-pill glass-card text-white mb-4 border border-light border-opacity-25" style="backdrop-filter: blur(5px);">
+        <div class="d-inline-flex align-items-center gap-2 px-3 py-1 rounded-pill glass-card mb-4 border border-light border-opacity-25" style="backdrop-filter: blur(5px);">
             <i class="bi bi-stars text-warning"></i>
-            <span class="small fw-semibold">{% translate "Pesan Rahasia Generasi Baru 🎉" %}</span>
+            <span class="small fw-semibold text-body">{% translate "Pesan Rahasia Generasi Baru 🎉" %}</span>
         </div>
         
         <h1 class="display-3 fw-bold text-white mb-4 lh-base">
@@ -34,6 +34,11 @@
                 {% translate "Buka Dasbor Saya ✨" %}
             </a>
             {% endif %}
+        </div>
+        
+        <!-- Lapak Iklan: Hero Banner -->
+        <div class="mt-5 mx-auto px-2" style="max-width: 600px;">
+            {% include 'main/partials/adsense_slot.html' with ad_slot='INDEX_HERO_SLOT' %}
         </div>
     </div>
 
@@ -80,8 +85,8 @@
             <div class="d-inline-flex align-items-center justify-content-center bg-body bg-opacity-25 rounded-circle mb-4" style="width: 80px; height: 80px;">
                 <i class="bi bi-shield-lock-fill display-4 text-white"></i>
             </div>
-            <h3 class="fs-4 text-white fw-bold mb-3">{% translate "100% Aman" %}</h3>
-            <p class="text-white opacity-75 mb-0">{% translate "Sistem mendeteksi spam & IP bermasalah. Identitas pengirim dikunci rapat dengan lapisan enkripsi solid." %}</p>
+            <h3 class="fs-4 text-body fw-bold mb-3">{% translate "100% Aman" %}</h3>
+            <p class="text-body-secondary opacity-75 mb-0">{% translate "Sistem mendeteksi spam & IP bermasalah. Identitas pengirim dikunci rapat dengan lapisan enkripsi solid." %}</p>
         </div>
     </div>
     <!-- Feature 2 -->
@@ -90,8 +95,8 @@
             <div class="d-inline-flex align-items-center justify-content-center bg-body bg-opacity-25 rounded-circle mb-4" style="width: 80px; height: 80px;">
                 <i class="bi bi-lightning-charge-fill display-4 text-warning"></i>
             </div>
-            <h3 class="fs-4 text-white fw-bold mb-3">{% translate "Sangat Cepat" %}</h3>
-            <p class="text-white opacity-75 mb-0">{% translate "Cukup salin link pribadimu, tempel di Instagram Story atau Bio TikTok, dan rasakan keajaibannya seketika." %}</p>
+            <h3 class="fs-4 text-body fw-bold mb-3">{% translate "Sangat Cepat" %}</h3>
+            <p class="text-body-secondary opacity-75 mb-0">{% translate "Cukup salin link pribadimu, tempel di Instagram Story atau Bio TikTok, dan rasakan keajaibannya seketika." %}</p>
         </div>
     </div>
     <!-- Feature 3 -->
@@ -100,8 +105,31 @@
             <div class="d-inline-flex align-items-center justify-content-center bg-body bg-opacity-25 rounded-circle mb-4" style="width: 80px; height: 80px;">
                 <i class="bi bi-chat-quote-fill display-4 text-info"></i>
             </div>
-            <h3 class="fs-4 text-white fw-bold mb-3">{% translate "Respons Real-time" %}</h3>
-            <p class="text-white opacity-75 mb-0">{% translate "Dapatkan notifikasi instan begitu pesan rahasia masuk. Balas dan bagikan ke media sosial dengan desain estetik." %}</p>
+            <h3 class="fs-4 text-body fw-bold mb-3">{% translate "Respons Real-time" %}</h3>
+            <p class="text-body-secondary opacity-75 mb-0">{% translate "Dapatkan notifikasi instan begitu pesan rahasia masuk. Balas dan bagikan ke media sosial dengan desain estetik." %}</p>
+        </div>
+    </div>
+</div>
+
+<!-- THE PSYCHOLOGY BEHIND ANONYMITY (LONG FORM CONTENT) -->
+<div class="container py-5 mt-5">
+    <div class="row align-items-center g-5">
+        <div class="col-lg-6" data-aos="fade-right">
+            <h2 class="display-6 fw-bold mb-4 text-body" style="font-family: 'Outfit', sans-serif;">{% translate "Mengapa Kita Membutuhkan Anonimitas di Era Digital?" %}</h2>
+            <div class="text-body-secondary lead fs-6 lh-lg">
+                <p>{% blocktranslate %}Di era media sosial yang serba terbuka, di mana setiap unggahan dan komentar selalu dihakimi berdasarkan nama dan identitas fisik, manusia seringkali kehilangan keberanian untuk menyuarakan pikiran atau pujian yang paling murni. Fenomena ini menciptakan budaya ketakutan akan penilaian sosial (<em>Social Judgment Fear</em>).{% endblocktranslate %}</p>
+                <p>{% blocktranslate %}CurhatBox hadir sebagai antitesis terhadap tekanan tersebut. Dengan menghilangkan identitas pengirim, kita menormalisasi pertukaran kritik yang membangun, permintaan maaf yang selama ini terpendam, serta apresiasi tulus tanpa tendensi mencari muka. Psikologi anonimitas membantu melepaskan beban citra diri, sehingga komunikasi yang terjadi jauh lebih autentik, jujur, dan tidak berdasar pada bias status sosial sang pengirim.{% endblocktranslate %}</p>
+                <p>{% blocktranslate %}Namun, kebebasan tanpa batas dapat memicu toksisitas. Itulah sebabnya CurhatBox secara eksklusif menggabungkan sistem perlindungan identitas mutlak dengan algoritma filter perundungan siber (<em>Cyberbullying Filter</em>) untuk menciptakan ruang aman (<em>Safe Space</em>) yang memberdayakan, bukan menjatuhkan.{% endblocktranslate %}</p>
+            </div>
+        </div>
+        <div class="col-lg-6" data-aos="zoom-in-left">
+            <div class="glass-card p-4 rounded-4 shadow-lg border border-light border-opacity-25" style="background: linear-gradient(135deg, rgba(255,255,255,0.05), rgba(255,255,255,0));">
+                 <div class="d-flex justify-content-center py-5">
+                     <i class="bi bi-brain text-body opacity-50 pe-3" style="font-size: 6rem;"></i>
+                     <i class="bi bi-person-fill-lock text-info opacity-75" style="font-size: 6rem;"></i>
+                 </div>
+                 <p class="text-center text-body-secondary fst-italic mt-3 mb-0">{% translate "Ekspresi jujur bebas dari validasi eksternal." %}</p>
+            </div>
         </div>
     </div>
 </div>
@@ -109,43 +137,182 @@
 <!-- DETAILED HOW IT WORKS (ADSENSE BOOST) -->
 <div class="container py-5 mt-5">
     <div class="text-center mb-5" data-aos="fade-up">
-        <h2 class="display-5 fw-bold mb-3 text-white" style="font-family: 'Outfit', sans-serif;">{% translate "Bagaimana CurhatBox Bekerja?" %}</h2>
-        <p class="text-white-50 lead mx-auto" style="max-width: 700px;">{% translate "Kami membangun sistem perpesanan anonim yang paling transparan dan aman di Indonesia." %}</p>
+        <h2 class="display-5 fw-bold mb-3 text-body" style="font-family: 'Outfit', sans-serif;">{% translate "Bagaimana CurhatBox Bekerja?" %}</h2>
+        <p class="text-body-secondary lead mx-auto" style="max-width: 700px;">{% translate "Kami membangun sistem perpesanan anonim yang paling transparan dan aman di Indonesia." %}</p>
     </div>
 
     <div class="row g-5 align-items-center">
         <div class="col-lg-6" data-aos="fade-right">
-            <div class="d-flex gap-4 mb-5">
-                <div class="flex-shrink-0 bg-primary text-white rounded-circle d-flex align-items-center justify-content-center fw-bold shadow" style="width: 60px; height: 60px; font-size: 1.5rem;">1</div>
+            <div class="d-flex gap-3 mb-4">
+                <div class="flex-shrink-0 bg-primary text-white rounded-circle d-flex align-items-center justify-content-center fw-bold shadow step-number-mobile" style="width: 50px; height: 50px; font-size: 1.2rem;">1</div>
                 <div>
-                    <h4 class="fw-bold text-white">{% translate "Registrasi Akun Cepat" %}</h4>
-                    <p class="text-white-50">{% translate "Daftarkan dirimu hanya dalam hitungan detik. Kami hanya membutuhkan username unik dan email valid untuk memastikan kamu memiliki kendali penuh atas kotak masukmu." %}</p>
+                    <h4 class="fw-bold text-white mb-1">{% translate "Registrasi Akun Cepat" %}</h4>
+                    <p class="text-white-50 small mb-0">{% translate "Daftarkan dirimu hanya dalam hitungan detik. Kami hanya membutuhkan username unik untuk kendali penuh." %}</p>
                 </div>
             </div>
-            <div class="d-flex gap-4 mb-5">
-                <div class="flex-shrink-0 bg-warning text-dark rounded-circle d-flex align-items-center justify-content-center fw-bold shadow" style="width: 60px; height: 60px; font-size: 1.5rem;">2</div>
+            <div class="d-flex gap-3 mb-4">
+                <div class="flex-shrink-0 bg-warning text-dark rounded-circle d-flex align-items-center justify-content-center fw-bold shadow step-number-mobile" style="width: 50px; height: 50px; font-size: 1.2rem;">2</div>
                 <div>
-                    <h4 class="fw-bold text-white">{% translate "Bagikan Link Kustom" %}</h4>
-                    <p class="text-white-50">{% blocktranslate %}Dapatkan tautan unik seperti <code>curhatbox.my.id/username</code>. Bagikan tautan ini ke Instagram Story, Bio TikTok, atau status WhatsApp untuk mengundang teman-temanmu memberikan opini jujur.{% endblocktranslate %}</p>
+                    <h4 class="fw-bold text-white mb-1">{% translate "Bagikan Link Kustom" %}</h4>
+                    <p class="text-white-50 small mb-0">{% blocktranslate %}Dapatkan tautan unik. Bagikan ke Instagram Story, Bio TikTok, atau WhatsApp untuk mengundang opini jujur.{% endblocktranslate %}</p>
                 </div>
             </div>
-            <div class="d-flex gap-4 mb-5">
-                <div class="flex-shrink-0 bg-info text-dark rounded-circle d-flex align-items-center justify-content-center fw-bold shadow" style="width: 60px; height: 60px; font-size: 1.5rem;">3</div>
+            <div class="d-flex gap-3 mb-4">
+                <div class="flex-shrink-0 bg-info text-dark rounded-circle d-flex align-items-center justify-content-center fw-bold shadow step-number-mobile" style="width: 50px; height: 50px; font-size: 1.2rem;">3</div>
                 <div>
-                    <h4 class="fw-bold text-white">{% translate "Terima Pesan Anonim" %}</h4>
-                    <p class="text-white-50">{% translate "Terima pesan secara real-time. Kamu bisa membalasnya, memberikan reaksi emoji, atau membagikan screenshot jawabanmu ke media sosial dengan desain yang sudah kami siapkan agar tetap estetik." %}</p>
+                    <h4 class="fw-bold text-white mb-1">{% translate "Terima Pesan Anonim" %}</h4>
+                    <p class="text-white-50 small mb-0">{% translate "Terima pesan real-time. Balas dengan emoji, atau bagikan screenshot estetik ke media sosial." %}</p>
                 </div>
             </div>
         </div>
         <div class="col-lg-6" data-aos="fade-left">
-            <div class="glass-card p-4 p-md-5 border border-light border-opacity-10">
-                <h3 class="fw-bold mb-4">{% translate "Misi Keamanan Kami" %}</h3>
-                <p class="text-body-secondary mb-4 lh-lg">
-                    {% translate "Di CurhatBox, kami percaya bahwa kebebasan berpendapat tidak boleh mengorbankan kesehatan mental. Itulah sebabnya kami menerapkan algoritma penyaringan kata-kata kasar secara otomatis. Setiap pesan yang masuk melewati filter ketat untuk memastikan tidak ada perundungan (cyberbullying) yang terjadi di platform kami." %}
+            <div class="glass-card p-3 p-md-5 border border-light border-opacity-10">
+                <h3 class="fw-bold mb-3">{% translate "Misi Keamanan Kami" %}</h3>
+                <p class="text-body-secondary mb-3 lh-base small">
+                    {% translate "Di CurhatBox, kami percaya bahwa kebebasan berpendapat tidak boleh mengorbankan kesehatan mental. Itulah sebabnya kami menerapkan algoritma penyaringan otomatis untuk mencegah perundungan (cyberbullying)." %}
                 </p>
-                <p class="text-body-secondary mb-0 lh-lg">
-                    {% blocktranslate %}Selain itu, kami memberikan fitur <strong>Blokir IP</strong>. Jika ada oknum yang menyalahgunakan anonimitas untuk menyerangmu, kamu bisa memblokir mereka secara permanen agar mereka tidak bisa lagi mengirim pesan ke profilmu selamanya.{% endblocktranslate %}
+                <p class="text-body-secondary mb-0 lh-base small">
+                    {% blocktranslate %}Gunakan fitur <strong>Blokir IP</strong> untuk menghentikan oknum yang menyalahgunakan anonimitas secara permanen.{% endblocktranslate %}
                 </p>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- USE CASES SECTION -->
+<div class="container py-5 mt-4">
+    <div class="text-center mb-5" data-aos="fade-up">
+        <h2 class="display-5 fw-bold gradient-text-vibrant pb-2" style="font-family: 'Outfit', sans-serif;">{% translate "1 Platform, Ribuan Skenario" %}</h2>
+        <p class="text-body-secondary mx-auto" style="max-width: 800px;">
+            {% blocktranslate %}Dari konten hiburan di media sosial hingga instrumen evaluasi kinerja profesional. Temukan bagaimana berbagai kalangan di seluruh dunia memanfaatkan kotak pesan anonim ini.{% endblocktranslate %}
+        </p>
+    </div>
+
+    <div class="row g-3 mt-1">
+        <div class="col-md-4" data-aos="fade-up" data-aos-delay="100">
+            <div class="glass-card p-3 h-100 rounded-4 border-top border-warning border-4">
+                <div class="d-flex align-items-center mb-2">
+                    <i class="bi bi-instagram fs-4 text-warning me-2"></i>
+                    <h4 class="fw-bold mb-0 text-body fs-6">{% translate "Kreator Konten" %}</h4>
+                </div>
+                <p class="text-body-secondary lh-base mb-0" style="font-size: 0.85rem;">
+                    {% blocktranslate %}Sempurna untuk sesi Q&A di <em>IG Stories</em> atau <em>TikTok</em>. Memungkinkan audiens bertanya hal-hal pribadi atau memberikan pujian secara rahasia untuk meningkatkan interaksi.{% endblocktranslate %}
+                </p>
+            </div>
+        </div>
+        <div class="col-md-4" data-aos="fade-up" data-aos-delay="200">
+            <div class="glass-card p-3 h-100 rounded-4 border-top border-info border-4">
+                <div class="d-flex align-items-center mb-2">
+                    <i class="bi bi-briefcase-fill fs-4 text-info me-2"></i>
+                    <h4 class="fw-bold mb-0 text-body fs-6">{% translate "Dunia Kerja" %}</h4>
+                </div>
+                <p class="text-body-secondary lh-base mb-0" style="font-size: 0.85rem;">
+                    {% blocktranslate %}Gunakan untuk <em>Peer Review</em> jujur tanpa rasa sungkan. HRD bisa menyerap umpan balik radikal terkait kepemimpinan atau kritik produk secara aman.{% endblocktranslate %}
+                </p>
+            </div>
+        </div>
+        <div class="col-md-4" data-aos="fade-up" data-aos-delay="300">
+            <div class="glass-card p-3 h-100 rounded-4 border-top border-success border-4">
+                <div class="d-flex align-items-center mb-2">
+                    <i class="bi bi-backpack-fill fs-4 text-success me-2"></i>
+                    <h4 class="fw-bold mb-0 text-body fs-6">{% translate "Lingkup Sosial" %}</h4>
+                </div>
+                <p class="text-body-secondary lh-base mb-0" style="font-size: 0.85rem;">
+                    {% blocktranslate %}Kirim surat cinta rahasia, ledek gaya pakaian teman secara cerdas, atau sampaikan keluhan tanpa merusak ikatan silaturahmi sosial.{% endblocktranslate %}
+                </p>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- TESTIMONIALS SECTION -->
+<div class="container py-5 mb-5">
+    <div class="text-center mb-5" data-aos="fade-up">
+        <h2 class="display-5 fw-bold gradient-text-vibrant pb-2" style="font-family: 'Outfit', sans-serif;">{% translate "Apa Kata Fakta di Lapangan?" %}</h2>
+        <p class="text-body-secondary mx-auto" style="max-width: 600px;">{% translate "Efek langsung yang dirasakan oleh pengguna setelah mengadopsi transparansi komunikasi secara rahasia." %}</p>
+    </div>
+    
+    <div class="row g-4">
+        <!-- Testimoni 1 -->
+        <div class="col-lg-4" data-aos="fade-up" data-aos-delay="100">
+            <div class="glass-card p-4 p-md-5 rounded-4 position-relative h-100 d-flex flex-column">
+                <i class="bi bi-quote fs-1 text-primary opacity-25 position-absolute top-0 start-0 ms-3 mt-2"></i>
+                <p class="text-body-secondary fst-italic lh-lg position-relative z-1 mb-4 pt-3 flex-grow-1" style="font-size: 0.95rem;">
+                    {% blocktranslate %}"Sungguh pengalaman sosial eksperimental yang memukau. Awalnya kepanitiaan bem kami itu super kaku karena anggota sungkan kepada angkatan yang lebih tua. Tapi pas ditaruh link kotak umpan balik di grup utama, evaluasinya langsung meledak! Semua mengeluhkan in-efisiensi acara secara blak-blakan namun ajaibnya bahasanya tetap sopan berkat filter kata kasarnya."{% endblocktranslate %}
+                </p>
+                <div class="d-flex align-items-center mt-auto">
+                    <div class="bg-primary text-white rounded-circle d-flex align-items-center justify-content-center fw-bold fs-5 me-3" style="width: 45px; height: 45px;">D</div>
+                    <div>
+                        <h6 class="fw-bold text-body mb-0">Dimas Pratama</h6>
+                        <small class="text-primary fw-semibold">{% translate "Presiden Eksekutif BEM" %}</small>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- Testimoni 2 -->
+        <div class="col-lg-4" data-aos="fade-up" data-aos-delay="200">
+            <div class="glass-card p-4 p-md-5 rounded-4 position-relative h-100 d-flex flex-column">
+                <i class="bi bi-quote fs-1 text-warning opacity-25 position-absolute top-0 start-0 ms-3 mt-2"></i>
+                <p class="text-body-secondary fst-italic lh-lg position-relative z-1 mb-4 pt-3 flex-grow-1" style="font-size: 0.95rem;">
+                    {% blocktranslate %}"Dari segi keamanan aplikasi ini harus diacungi jempol. Gue pernah dapet spam hatespeech norak bertubi-tubi jam dua pagi saat lagi rilis laguku. Hebatnya, sekali gue klik 'Blokir IP', malam itu juga serangan berhenti total dari titik manapun di bumi. Rasanya pegang kendali mutlak atas ruang privasi sendiri itu membebaskan."{% endblocktranslate %}
+                </p>
+                <div class="d-flex align-items-center mt-auto">
+                    <div class="bg-warning text-dark rounded-circle d-flex align-items-center justify-content-center fw-bold fs-5 me-3" style="width: 45px; height: 45px;">S</div>
+                    <div>
+                        <h6 class="fw-bold text-body mb-0">Sarah Salsabila</h6>
+                        <small class="text-warning fw-semibold">{% translate "Musisi Indie & Influencer" %}</small>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- Testimoni 3 -->
+        <div class="col-lg-4" data-aos="fade-up" data-aos-delay="300">
+            <div class="glass-card p-4 p-md-5 rounded-4 position-relative h-100 d-flex flex-column">
+                <i class="bi bi-quote fs-1 text-info opacity-25 position-absolute top-0 start-0 ms-3 mt-2"></i>
+                <p class="text-body-secondary fst-italic lh-lg position-relative z-1 mb-4 pt-3 flex-grow-1" style="font-size: 0.95rem;">
+                    {% blocktranslate %}"Awalnya iseng masang link beginian di Bio IG pribadi cuma buat seru-seruan bareng lingkar pertemanan warkop. Eh malah suatu hari ada yang ngasih tahu rahasia kelam mantan lewat kotak ini dong. Fitur paling favorit adalah Pesan Sekali Baca (Self Destruct) yang lenyap begitu ditutup. Bener-bener anti bocor."{% endblocktranslate %}
+                </p>
+                <div class="d-flex align-items-center mt-auto">
+                    <div class="bg-info text-dark rounded-circle d-flex align-items-center justify-content-center fw-bold fs-5 me-3" style="width: 45px; height: 45px;">B</div>
+                    <div>
+                        <h6 class="fw-bold text-body mb-0">Bagus Wicaksono</h6>
+                        <small class="text-info fw-semibold">{% translate "Gamer Esports Amatir" %}</small>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- SAFETY & ETHICS GUIDE (HIGH VALUE CONTENT FOR ADSENSE) -->
+<div class="container py-5 mt-5">
+    <div class="glass-card p-4 p-md-5 rounded-4 border border-light border-opacity-10 shadow-lg" data-aos="fade-up">
+        <div class="row align-items-center">
+            <div class="col-lg-7 text-start">
+                <h2 class="fw-bold mb-4 gradient-text-vibrant" style="font-family: 'Outfit', sans-serif;"><i class="bi bi-shield-check text-success me-2"></i>{% translate "Keamanan & Etika Digital" %}</h2>
+                <div class="text-body-secondary lh-lg" style="font-size: 1.05rem;">
+                    <p>{% blocktranslate %}Di CurhatBox, kami berkomitmen untuk menciptakan ruang yang aman bagi ekspresi diri yang jujur. Namun, kebebasan berekspresi secara anonim seringkali disalahgunakan untuk tindakan yang merugikan. Itulah sebabnya kami menyusun panduan ini untuk memastikan setiap interaksi tetap positif dan memberdayakan.{% endblocktranslate %}</p>
+                    
+                    <h5 class="fw-bold text-body mt-4">{% translate "1. Menghargai Batasan Pribadi" %}</h5>
+                    <p>{% translate "Gunakan anonimitas untuk memberikan apresiasi, kritik membangun, atau pertanyaan menarik. Jangan gunakan fitur ini untuk mengintimidasi, merundung (cyberbullying), atau melakukan pelecehan seksual secara verbal. Ingatlah bahwa di balik setiap profil ada manusia dengan perasaan yang nyata." %}</p>
+
+                    <h5 class="fw-bold text-body mt-4">{% translate "2. Melindungi Privasi Anda Sendiri" %}</h5>
+                    <p>{% translate "Meskipun kami menjamin kerahasiaan identitas pengirim, kami menyarankan Anda untuk tidak membagikan informasi pribadi yang sensitif seperti alamat rumah, nomor rekening, atau password dalam pesan anonim. Keamanan digital dimulai dari kesadaran pribadi dalam berbagi informasi." %}</p>
+
+                    <h5 class="fw-bold text-body mt-4">{% translate "3. Melawan Toksisitas" %}</h5>
+                    <p>{% translate "Kami telah menyediakan fitur Blokir IP yang sangat mudah diakses. Jika Anda adalah pemilik profil dan menerima pesan yang tidak pantas, jangan ragu untuk melakukan pemblokiran secara permanen. Tindakan tegas Anda membantu menjaga komunitas CurhatBox tetap bersih dari oknum tidak bertanggung jawab." %}</p>
+
+                    <h5 class="fw-bold text-body mt-4">{% translate "4. Transparansi Algoritma" %}</h5>
+                    <p>{% translate "Sistem kami secara otomatis memfilter kata-kata kasar dan diskriminatif. Pesan yang terdeteksi mengandung unsur SARA atau ujaran kebencian mungkin tidak akan sampai ke kotak masuk penerima. Kami terus memperbarui basis data kata terlarang kami untuk mengikuti tren bahasa terkini." %}</p>
+                </div>
+            </div>
+            <div class="col-lg-5 d-none d-lg-block">
+                <div class="p-4 bg-body bg-opacity-25 rounded-5 border border-dashed border-primary text-center">
+                    <i class="bi bi-shield-lock-fill text-primary" style="font-size: 10rem; opacity: 0.1;"></i>
+                    <p class="mt-0 fw-bold text-primary">{% translate "Keamanan Anda adalah prioritas nomor satu kami." %}</p>
+                    <hr>
+                    <p class="small text-body-secondary">{% translate "Data Anda dienkripsi dan kami mematuhi standar privasi data internasional untuk menjaga anonimitas mutlak." %}</p>
+                </div>
             </div>
         </div>
     </div>

@@ -18,11 +18,15 @@ from django.contrib import admin
 from django.urls import path, include
 from django.conf import settings
 from django.conf.urls.static import static
+from django.views.generic import RedirectView
+from django.http import HttpResponse
 
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('accounts/', include('django.contrib.auth.urls')),
+    path('login/', RedirectView.as_view(url='/accounts/login/', permanent=True)),
     path('i18n/', include('django.conf.urls.i18n')),  # Endpoint peranti bahasa
+    path('ads.txt', lambda r: HttpResponse("google.com, pub-5674300095923366, DIRECT, f08c47fec0942fa0", content_type="text/plain")),
     path('', include('main.urls')),
 ]
 

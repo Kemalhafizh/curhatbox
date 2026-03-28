@@ -10,6 +10,7 @@ urlpatterns = [
     path('rules/', views.rules_page, name='rules'),
     path('privacy/', views.privacy_page, name='privacy'),
     path('about/', views.about_page, name='about'),
+    path('faq/', views.faq_page, name='faq'),
     path('edit-profile/', views.edit_profile, name='edit_profile'),
     path('block/<int:message_id>/', views.block_sender, name='block_sender'),
     path('message/favorite/<int:message_id>/', views.toggle_favorite, name='toggle_favorite'),

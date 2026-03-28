@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-03-22 10:06+0700\n"
+"POT-Creation-Date: 2026-03-28 09:38+0700\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -18,11 +18,11 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
-#: curhatbox/settings.py:140 main/models.py:14
+#: curhatbox/settings.py:147 main/models.py:14
 msgid "Indonesian"
 msgstr "Indonesian"
 
-#: curhatbox/settings.py:141 main/models.py:14
+#: curhatbox/settings.py:148 main/models.py:14
 msgid "English"
 msgstr "English"
 
@@ -696,11 +696,59 @@ msgstr ""
 "Get instant notifications as soon as secret messages arrive. Reply and share "
 "to social media with aesthetic designs."
 
-#: main/templates/main/index.html:112
+#: main/templates/main/index.html:113
+msgid "Mengapa Kita Membutuhkan Anonimitas di Era Digital?"
+msgstr "Why Do We Need Anonymity in the Digital Era?"
+
+#: main/templates/main/index.html:115
+msgid ""
+"Di era media sosial yang serba terbuka, di mana setiap unggahan dan komentar "
+"selalu dihakimi berdasarkan nama dan identitas fisik, manusia seringkali "
+"kehilangan keberanian untuk menyuarakan pikiran atau pujian yang paling "
+"murni. Fenomena ini menciptakan budaya ketakutan akan penilaian sosial "
+"(<em>Social Judgment Fear</em>)."
+msgstr ""
+"In an era of open social media, where every post and comment is always "
+"judged by name and physical identity, people often lose the courage to voice "
+"their purest thoughts or praises. This phenomenon creates a culture of fear of "
+"social judgment (<em>Social Judgment Fear</em>)."
+
+#: main/templates/main/index.html:116
+msgid ""
+"CurhatBox hadir sebagai antitesis terhadap tekanan tersebut. Dengan "
+"menghilangkan identitas pengirim, kita menormalisasi pertukaran kritik yang "
+"membangun, permintaan maaf yang selama ini terpendam, serta apresiasi tulus "
+"tanpa tendensi mencari muka. Psikologi anonimitas membantu melepaskan beban "
+"citra diri, sehingga komunikasi yang terjadi jauh lebih autentik, jujur, dan "
+"tidak berdasar pada bias status sosial sang pengirim."
+msgstr ""
+"CurhatBox arrives as an antithesis to that pressure. By removing the sender's "
+"identity, we normalize constructive criticism, long-buried apologies, and "
+"sincere appreciation without the tendency of seeking approval. The psychology "
+"of anonymity helps release the burden of self-image, making communication "
+"much more authentic, honest, and not based on the sender's social status bias."
+
+#: main/templates/main/index.html:117
+msgid ""
+"Namun, kebebasan tanpa batas dapat memicu toksisitas. Itulah sebabnya "
+"CurhatBox secara eksklusif menggabungkan sistem perlindungan identitas "
+"mutlak dengan algoritma filter perundungan siber (<em>Cyberbullying Filter</"
+"em>) untuk menciptakan ruang aman (<em>Safe Space</em>) yang memberdayakan, "
+"bukan menjatuhkan."
+msgstr ""
+"However, limitless freedom can trigger toxicity. That is why CurhatBox "
+"exclusively combines absolute identity protection with a <em>Cyberbullying Filter</em> "
+"algorithm to create an empowering, not degrading, <em>Safe Space</em>."
+
+#: main/templates/main/index.html:126
+msgid "Ekspresi jujur bebas dari validasi eksternal."
+msgstr "Honest expression free from external validation."
+
+#: main/templates/main/index.html:135
 msgid "Bagaimana CurhatBox Bekerja?"
 msgstr "How CurhatBox Works?"
 
-#: main/templates/main/index.html:113
+#: main/templates/main/index.html:136
 msgid ""
 "Kami membangun sistem perpesanan anonim yang paling transparan dan aman di "
 "Indonesia."
@@ -708,11 +756,11 @@ msgstr ""
 "We build the most transparent and secure anonymous messaging system in "
 "Indonesia."
 
-#: main/templates/main/index.html:121
+#: main/templates/main/index.html:144
 msgid "Registrasi Akun Cepat"
 msgstr "Fast Account Registration"
 
-#: main/templates/main/index.html:122
+#: main/templates/main/index.html:145
 msgid ""
 "Daftarkan dirimu hanya dalam hitungan detik. Kami hanya membutuhkan username "
 "unik dan email valid untuk memastikan kamu memiliki kendali penuh atas kotak "
@@ -721,11 +769,11 @@ msgstr ""
 "Register yourself in just seconds. We only need a unique username and a "
 "valid email to ensure you have full control over your inbox."
 
-#: main/templates/main/index.html:128
+#: main/templates/main/index.html:151
 msgid "Bagikan Link Kustom"
 msgstr "Share Custom Link"
 
-#: main/templates/main/index.html:129
+#: main/templates/main/index.html:152
 msgid ""
 "Dapatkan tautan unik seperti <code>curhatbox.my.id/username</code>. Bagikan "
 "tautan ini ke Instagram Story, Bio TikTok, atau status WhatsApp untuk "
@@ -735,11 +783,11 @@ msgstr ""
 "link to Instagram Stories, TikTok Bio, or WhatsApp status to invite your "
 "friends to give honest opinions."
 
-#: main/templates/main/index.html:135
+#: main/templates/main/index.html:158
 msgid "Terima Pesan Anonim"
 msgstr "Receive Anonymous Messages"
 
-#: main/templates/main/index.html:136
+#: main/templates/main/index.html:159
 msgid ""
 "Terima pesan secara real-time. Kamu bisa membalasnya, memberikan reaksi "
 "emoji, atau membagikan screenshot jawabanmu ke media sosial dengan desain "
@@ -749,11 +797,11 @@ msgstr ""
 "or share screenshots of your answers to social media with designs we have "
 "prepared to stay aesthetic."
 
-#: main/templates/main/index.html:142
+#: main/templates/main/index.html:165
 msgid "Misi Keamanan Kami"
 msgstr "Our Safety Mission"
 
-#: main/templates/main/index.html:144
+#: main/templates/main/index.html:167
 msgid ""
 "Di CurhatBox, kami percaya bahwa kebebasan berpendapat tidak boleh "
 "mengorbankan kesehatan mental. Itulah sebabnya kami menerapkan algoritma "
@@ -766,7 +814,7 @@ msgstr ""
 "algorithm. Every incoming message passes through strict filters to ensure no "
 "cyberbullying occurs on our platform."
 
-#: main/templates/main/index.html:147
+#: main/templates/main/index.html:170
 msgid ""
 "Selain itu, kami memberikan fitur <strong>Blokir IP</strong>. Jika ada oknum "
 "yang menyalahgunakan anonimitas untuk menyerangmu, kamu bisa memblokir "
@@ -777,15 +825,151 @@ msgstr ""
 "abuses anonymity to attack you, you can block them permanently so they can "
 "no longer send messages to your profile forever."
 
-#: main/templates/main/index.html:157
+#: main/templates/main/index.html:180
+msgid "1 Platform, Ribuan Skenario Penggunaan"
+msgstr "1 Platform, Thousands of Use Case Scenarios"
+
+#: main/templates/main/index.html:182
+msgid ""
+"Dari konten hiburan di media sosial hingga instrumen evaluasi kinerja "
+"profesional. Temukan bagaimana berbagai kalangan di seluruh dunia "
+"memanfaatkan kotak pesan anonim ini."
+msgstr ""
+"From social media entertainment content to professional performance evaluation "
+"instruments. Discover how various circles around the world utilize this "
+"anonymous message box."
+
+#: main/templates/main/index.html:191
+msgid "Kreator Konten (Sesi Q&A)"
+msgstr "Content Creators (Q&A Sessions)"
+
+#: main/templates/main/index.html:194
+msgid ""
+"Para selebgram dan inovator konten web secara teratur menempelkan tautan "
+"rahasia ini di <em>Instagram Stories</em> atau <em>Bio TikTok</em> mereka. "
+"Ini adalah taktik psikologis teruji untuk mengadakan sesi 'Tanya Jawab "
+"Ekstrem' tanpa menuntut rasa malu pengikutnya. Audiens dapat menanyakan "
+"konspirasi pribadi, mengomentari gaya rambut, atau menumpahkan pujian "
+"simpati secara terselubung—memancing interaksi massal yang mustahil diraih "
+"di kolom komentar biasa."
+msgstr ""
+"Web influencers and content innovators regularly pin this secret link on their "
+"<em>Instagram Stories</em> or <em>TikTok Bios</em>. It is a proven psychological "
+"tactic to hold 'Extreme Q&A' sessions without demanding the follower's shame. "
+"Audiences can ask personal conspiracies, comment on hairstyles, or spill "
+"sympathetic praises covertly—triggering mass interactions that are impossible "
+"to achieve in ordinary comment sections."
+
+#: main/templates/main/index.html:202
+msgid "Dunia Kerja & StartUp"
+msgstr "Corporate World & StartUps"
+
+#: main/templates/main/index.html:205
+msgid ""
+"Dalam tata kelola korporat konvensional, sesi tinjauan rekan kerja sejawat "
+"(<em>Peer Review</em>) seringkali diselimuti kepalsuan emosional demi "
+"menghindari pertikaian di jam makan siang. Keistimewaan infrastruktur anonim "
+"CurhatBox sering digunakan tim SDM (HRD) untuk menyerap umpan balik radikal "
+"terkait pola kepemimpinan manajer, indikasi <em>micro-managing</em>, atau "
+"kritik produk tanpa ada figur otoritas yang menuntut dendam struktural."
+msgstr ""
+"In conventional corporate governance, <em>Peer Review</em> sessions are often "
+"shrouded in emotional falsity to avoid lunchtime disputes. The privilege of "
+"CurhatBox's anonymous infrastructure is often used by HR teams to absorb radical "
+"feedback regarding manager leadership patterns, indications of <em>micro-managing</em>, "
+"or product reviews without authority figures demanding structural revenge."
+
+#: main/templates/main/index.html:213
+msgid "Lingkup Universitas & Teman"
+msgstr "University & Friends Circle"
+
+#: main/templates/main/index.html:216
+msgid ""
+"Bagi para mahasiswa dan lingkungan pergaulan terdekat, wadah ini berfungsi "
+"layaknya portal kapsul waktu berteknologi tinggi. Aplikasi perpesanan tanpa "
+"jejak ini sangat populer dipakai menyarangkan surat cinta tanpa nama "
+"(<em>secret admirer message</em>) di hari pendaftaran kuliah, meledek cerdas "
+"gaya pakaian teman kencan, atau melabrak halus kelakuan merugikan tanpa "
+"perlu mengoyak ikatan silaturahmi sosial yang telah terjalin bertahun-tahun."
+msgstr ""
+"For college students and the closest social circles, this container functions "
+"like a high-tech time capsule portal. This untraceable messaging app is very "
+"popular to slip <em>secret admirer messages</em> on college registration days, "
+"smartly mock a date's clothing style, or smoothly confront detrimental behavior "
+"without tearing apart the social ties that have been built for years."
+
+#: main/templates/main/index.html:226
+msgid "Apa Kata Fakta di Lapangan?"
+msgstr "What Are the Facts on the Ground?"
+
+#: main/templates/main/index.html:227
+msgid ""
+"Efek langsung yang dirasakan oleh pengguna setelah mengadopsi transparansi "
+"komunikasi secara rahasia."
+msgstr "The direct effect felt by users after adopting transparent communication secretly."
+
+#: main/templates/main/index.html:236
+msgid ""
+"\"Sungguh pengalaman sosial eksperimental yang memukau. Awalnya kepanitiaan "
+"bem kami itu super kaku karena anggota sungkan kepada angkatan yang lebih "
+"tua. Tapi pas ditaruh link kotak umpan balik di grup utama, evaluasinya "
+"langsung meledak! Semua mengeluhkan in-efisiensi acara secara blak-blakan "
+"namun ajaibnya bahasanya tetap sopan berkat filter kata kasarnya.\""
+msgstr ""
+"\"Truly a fascinating experimental social experience. Initially, our student "
+"council committee was super rigid because members were reluctant to older "
+"cohorts. But when the feedback box link was put in the main group, the "
+"evaluation exploded! Everyone complained about the event's inefficiency bluntly, "
+"but magically the language remained polite thanks to the harsh word filter.\""
+
+#: main/templates/main/index.html:242
+msgid "Presiden Eksekutif BEM"
+msgstr "Executive President of Student Council"
+
+#: main/templates/main/index.html:252
+msgid ""
+"\"Dari segi keamanan aplikasi ini harus diacungi jempol. Gue pernah dapet "
+"spam hatespeech norak bertubi-tubi jam dua pagi saat lagi rilis laguku. "
+"Hebatnya, sekali gue klik 'Blokir IP', malam itu juga serangan berhenti "
+"total dari titik manapun di bumi. Rasanya pegang kendali mutlak atas ruang "
+"privasi sendiri itu membebaskan.\""
+msgstr ""
+"\"In terms of security, this app deserves a thumbs up. I once got bombarded "
+"with tacky hatespeech spam at two in the morning while releasing my song. "
+"Amazingly, once I clicked 'Block IP', the attack stopped completely that night "
+"from any point on earth. The feeling of holding absolute control over your own "
+"privacy room is liberating.\""
+
+#: main/templates/main/index.html:258
+msgid "Musisi Indie & Influencer"
+msgstr "Indie Musician & Influencer"
+
+#: main/templates/main/index.html:268
+msgid ""
+"\"Awalnya iseng masang link beginian di Bio IG pribadi cuma buat seru-seruan "
+"bareng lingkar pertemanan warkop. Eh malah suatu hari ada yang ngasih tahu "
+"rahasia kelam mantan lewat kotak ini dong. Fitur paling favorit adalah Pesan "
+"Sekali Baca (Self Destruct) yang lenyap begitu ditutup. Bener-bener anti "
+"bocor.\""
+msgstr ""
+"\"Initially, I just put this link in my private IG Bio just for fun with my "
+"coffee shop circle of friends. But one day someone actually told me my ex's "
+"dark secret through this box. My favorite feature is the One-Time Read Message "
+"(Self Destruct) which vanishes as soon as it's closed. Truly leak-proof.\""
+
+#: main/templates/main/index.html:274
+msgid "Gamer Esports Amatir"
+msgstr "Amateur Esports Gamer"
+
+#: main/templates/main/index.html:285
 msgid "Pertanyaan yang Sering Diajukan (FAQ)"
 msgstr "Frequently Asked Questions (FAQ)"
 
-#: main/templates/main/index.html:162
+#: main/templates/main/index.html:290
 msgid "Apakah CurhatBox benar-benar anonim?"
 msgstr "Is CurhatBox really anonymous?"
 
-#: main/templates/main/index.html:163
+#: main/templates/main/index.html:291
 #, python-format
 msgid ""
 "Ya, 100%%. Kami tidak menyimpan data pribadi pengirim selain alamat IP untuk "
@@ -796,11 +980,11 @@ msgstr ""
 "IP address for security purposes (anti-spam). The recipient will never know "
 "who the sender is unless the sender tells them."
 
-#: main/templates/main/index.html:166
+#: main/templates/main/index.html:294
 msgid "Bagaimana cara kerja fitur Pesan Sekali Baca?"
 msgstr "How does the One-Time Read Message feature work?"
 
-#: main/templates/main/index.html:167
+#: main/templates/main/index.html:295
 msgid ""
 "Mode <em>Self-Destruct</em> memastikan pesan akan terhapus dari server "
 "segera setelah penerima membukanya untuk pertama kalinya. Ini adalah "
@@ -810,11 +994,11 @@ msgstr ""
 "server as soon as the recipient opens it for the first time. This is high-"
 "level privacy protection from us."
 
-#: main/templates/main/index.html:172
+#: main/templates/main/index.html:300
 msgid "Bagaimana cara membagikan link ke Instagram?"
 msgstr "How to share the link to Instagram?"
 
-#: main/templates/main/index.html:173
+#: main/templates/main/index.html:301
 msgid ""
 "Buka dasbor Anda, salin link profil, lalu gunakan fitur 'Stiker Tautan' di "
 "Instagram Story. Tempelkan link Anda di sana dan tunggu pesan masuk!"
@@ -823,11 +1007,11 @@ msgstr ""
 "feature on Instagram Stories. Paste your link there and wait for messages to "
 "come in!"
 
-#: main/templates/main/index.html:176
+#: main/templates/main/index.html:304
 msgid "Bagaimana jika saya menerima pesan kasar?"
 msgstr "What if I receive harsh messages?"
 
-#: main/templates/main/index.html:177
+#: main/templates/main/index.html:305
 msgid ""
 "Anda bisa langsung memblokir pengirim tersebut menggunakan fitur 'Blokir IP' "
 "yang ada di bawah setiap pesan yang Anda terima."
@@ -1450,70 +1634,70 @@ msgstr "Legal Team or Questions? Contact Service Desk:"
 msgid "Selamat datang! Akun berhasil dibuat."
 msgstr "Welcome! Account successfully created."
 
-#: main/views.py:87
+#: main/views.py:90
 msgid "Gagal mengirim pesan. Sistem mendeteksi aktivitas mencurigakan (Bot)."
 msgstr "Failed to send message. System detected suspicious activity (Bot)."
 
-#: main/views.py:93
+#: main/views.py:96
 msgid "Akses ditolak. Anda tidak dapat mengirim pesan ke pengguna ini."
 msgstr "Access denied. You cannot send messages to this user."
 
-#: main/views.py:129
+#: main/views.py:132
 msgid "Pesan rahasiamu terkirim! 🚀"
 msgstr "Your secret message has been sent! 🚀"
 
-#: main/views.py:153
+#: main/views.py:156
 #, python-format
 msgid "Hore! Kamu memiliki %(count)d pesan rahasia baru yang belum dibaca! ✨"
 msgstr "Hooray! You have %(count)d new unread secret messages! ✨"
 
-#: main/views.py:184
+#: main/views.py:187
 msgid "Balasan terkirim."
 msgstr "Reply sent."
 
-#: main/views.py:195
+#: main/views.py:198
 msgid "Pesan dihapus."
 msgstr "Message deleted."
 
-#: main/views.py:204
+#: main/views.py:207
 msgid "Gunakan tombol resmi untuk membuka pesan sekali baca."
 msgstr "Use the official button to open a one-time read message."
 
-#: main/views.py:229
+#: main/views.py:232
 msgid "Pengirim telah diblokir."
 msgstr "Sender has been blocked."
 
-#: main/views.py:231
+#: main/views.py:234
 msgid "Gagal memblokir: IP tidak ditemukan."
 msgstr "Failed to block: IP not found."
 
-#: main/views.py:244
+#: main/views.py:247
 msgid "dipin"
 msgstr "pinned"
 
-#: main/views.py:244
+#: main/views.py:247
 msgid "dilepas"
 msgstr "unpinned"
 
-#: main/views.py:245
+#: main/views.py:248
 #, python-format
 msgid "Pesan berhasil %(status)s."
 msgstr "Message successfully %(status)s."
 
-#: main/views.py:257
+#: main/views.py:260
 msgid "Reaksi dihapus."
 msgstr "Reaction removed."
 
-#: main/views.py:263
+#: main/views.py:266
 #, python-format
 msgid "Kamu bereaksi %(emoji)s pada pesan rahasia."
 msgstr "You reacted %(emoji)s to a secret message."
 
-#: main/views.py:284
+#: main/views.py:287
 msgid "Profil diperbarui."
 msgstr "Profile updated."
 
-#: main/views.py:421
+#: main/views.py:424
 msgid ""
 "Tunggu sebentar! Kamu mengirim pesan terlalu cepat. Silakan coba lagi dalam "
 "1 menit."
