@@ -287,7 +287,7 @@ def edit_profile(request):
             from django.utils import translation
             user_language = profile.preferred_language
             translation.activate(user_language)
-            request.session[translation.LANGUAGE_SESSION_KEY] = user_language
+            request.session['_language'] = user_language
             
             messages.success(request, _("Profil diperbarui."))
             return redirect('dashboard')
