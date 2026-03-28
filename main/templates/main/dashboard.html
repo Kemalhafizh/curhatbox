@@ -136,43 +136,42 @@
 </div>
 
 <div id="hidden-capture-area">
-    <div class="ig-card">
+    <!-- Inject theme color dynamically via CSS Variable -->
+    <div class="ig-card" style="--story-theme: {{ user.profile.theme_color|default:'#6f42c1' }};">
         
-        <!-- Premium Abstract Background Shapes -->
+        <!-- Premium Abstract Background Blobs -->
         <div class="ig-premium-bg-shape1"></div>
         <div class="ig-premium-bg-shape2"></div>
 
-        <!-- Sender's Secret Message Box (iOS Notification Style) -->
+        <!-- Sender's Secret Message Box (Premium iOS Style) -->
         <div class="ig-question-bubble">
-            
             <!-- Context Badge -->
             <div class="ig-context-badge">
-                <span>🕵️‍♀️</span> <span style="margin-left: 10px;">{% translate "Pesan Anonim" %}</span>
+                <span>🕵️‍♀️</span> <span>{% translate "Pesan Anonim" %}</span>
             </div>
-            
-            <p id="capture-question"></p>
+            <p id="capture-question">Pesan rahasia di sini...</p>
         </div>
 
-        <!-- Receiver's Reply Box (Dark Glass Mode) -->
+        <!-- Receiver's Reply Box (Elite Glass Mode) -->
         <div class="ig-answer-glass">
-            
-            <div style="display: flex; align-items: center; margin-bottom: 40px;">
-                <!-- Avatar Placeholder Ring -->
-                <div class="ig-avatar-ring"></div>
+            <div class="ig-reply-header">
+                <!-- Real Avatar Integration -->
+                <div class="ig-avatar-ring" id="capture-avatar-ring" 
+                     style="background-image: url('{% if user.profile.avatar %}{{ user.profile.avatar.url }}{% else %}https://ui-avatars.com/api/?name={{ user.username }}&background=6f42c1&color=fff{% endif %}');">
+                </div>
                 <div>
-                    <p style="font-size: 2.5rem; color: #bbb; margin: 0; font-weight: 600;">
-                        @<span id="capture-username">Username</span> {% translate "membalas:" %}
-                    </p>
+                    <h3 id="capture-username">@{{ user.username }}</h3>
+                    <p style="font-size: 2rem; color: rgba(255,255,255,0.6); margin: 0; font-weight: 500;">{% translate "membalas:" %}</p>
                 </div>
             </div>
 
-            <p id="capture-answer"></p>
+            <p id="capture-answer">Balasan kamu di sini...</p>
         </div>
 
-        <!-- Footer / Branding watermark -->
+        <!-- Elite Watermark Footer -->
         <div class="ig-watermark-footer">
-            <h2>CurhatBox <span style="font-size: 3.5rem;">✨</span></h2>
-            <p>{% translate "Kirim pesan rahasia di" %} <span style="font-weight: 800; color: #FF3D77;">curhatbox.my.id</span></p>
+            <h2>CurhatBox ✨</h2>
+            <p>{% translate "Kirim pesan rahasia di" %} <span style="font-weight: 800; color: #ffeb3b;">curhatbox.my.id</span></p>
         </div>
     </div>
 </div>
