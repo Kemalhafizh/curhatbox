@@ -32,11 +32,11 @@ class Message(models.Model):
     
     content = models.TextField(verbose_name=_("Isi Curhatan"))
     
-    created_at = models.DateTimeField(auto_now_add=True)
+    created_at = models.DateTimeField(auto_now_add=True, db_index=True)
     
     is_read = models.BooleanField(default=False)
-    is_public = models.BooleanField(default=False)
-    is_favorite = models.BooleanField(default=False)
+    is_public = models.BooleanField(default=False, db_index=True)
+    is_favorite = models.BooleanField(default=False, db_index=True)
 
     reply_content = models.TextField(blank=True, null=True, verbose_name=_("Balasan Kamu"))
     replied_at = models.DateTimeField(blank=True, null=True)
