@@ -626,3 +626,84 @@ main {
     justify-content: center;
     overflow: hidden;
 }
+
+/* =========================================
+   11. PREMIUM GLASS REPLY MODAL
+   ========================================= */
+.glass-modal-content {
+    background: rgba(var(--bs-body-bg-rgb), 0.7) !important;
+    backdrop-filter: blur(25px) saturate(160%) !important;
+    border: 1px solid var(--glass-border) !important;
+    border-radius: 2rem !important;
+    box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25) !important;
+}
+
+.glass-modal-header {
+    border-bottom: 1px solid rgba(0, 0, 0, 0.05) !important;
+    padding: 1.5rem 1.5rem 1rem !important;
+}
+
+[data-bs-theme="dark"] .glass-modal-header {
+    border-bottom: 1px solid rgba(255, 255, 255, 0.05) !important;
+}
+
+.reply-bubble {
+    background: white !important;
+    border-radius: 1.2rem !important;
+    border-bottom-left-radius: 0.2rem !important;
+    padding: 1.25rem !important;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.03) !important;
+    border: 1px solid rgba(0,0,0,0.05) !important;
+    position: relative;
+    font-style: italic;
+    color: var(--bs-body-color);
+}
+
+[data-bs-theme="dark"] .reply-bubble {
+    background: rgba(255, 255, 255, 0.05) !important;
+    border: 1px solid rgba(255, 255, 255, 0.1) !important;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.2) !important;
+}
+
+.modal-label-elite {
+    font-family: 'Outfit', sans-serif;
+    font-weight: 700;
+    color: var(--bs-body-color);
+    letter-spacing: 0.3px;
+    font-size: 0.95rem;
+}
+
+.vibrant-submit-btn {
+    background: linear-gradient(135deg, #6610f2, #0d6efd) !important;
+    border: none !important;
+    border-radius: 1rem !important;
+    padding: 0.8rem 2rem !important;
+    font-weight: 700 !important;
+    letter-spacing: 0.5px !important;
+    box-shadow: 0 10px 20px -5px rgba(13, 110, 253, 0.4) !important;
+    transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275) !important;
+}
+
+.vibrant-submit-btn:hover {
+    transform: scale(1.03) translateY(-3px) !important;
+    box-shadow: 0 15px 25px -5px rgba(13, 110, 253, 0.5) !important;
+}
+
+.reply-textarea-elite {
+    background: rgba(0, 0, 0, 0.02) !important;
+    border: 1px solid rgba(0, 0, 0, 0.05) !important;
+    border-radius: 1.2rem !important;
+    padding: 1rem !important;
+    transition: all 0.3s ease !important;
+}
+
+[data-bs-theme="dark"] .reply-textarea-elite {
+    background: rgba(255, 255, 255, 0.02) !important;
+    border: 1px solid rgba(255, 255, 255, 0.1) !important;
+}
+
+.reply-textarea-elite:focus {
+    background: transparent !important;
+    border-color: #0d6efd !important;
+    box-shadow: 0 0 0 0.25rem rgba(13, 110, 253, 0.15) !important;
+}

@@ -148,24 +148,42 @@
         </div>
 
         <div class="modal fade" id="replyModal{{ msg.id }}" tabindex="-1" aria-hidden="true">
-            <div class="modal-dialog">
-                <div class="modal-content">
-                    <div class="modal-header bg-body-tertiary">
-                        <h5 class="modal-title fw-bold text-body">{% translate "Balas Pesan Rahasia" %}</h5>
+            <div class="modal-dialog modal-dialog-centered">
+                <div class="modal-content glass-modal-content">
+                    <div class="modal-header glass-modal-header border-0">
+                        <h5 class="modal-title modal-label-elite">
+                            <i class="bi bi-chat-dots-fill text-primary me-2"></i>
+                            {% translate "Balas Pesan Rahasia" %}
+                        </h5>
                         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                     </div>
                     <form action="{% url 'reply_message' msg.id %}" method="POST">
                         {% csrf_token %}
-                        <div class="modal-body text-start text-body">
-                            <label class="form-label small text-body-secondary">{% translate "Pesan masuk:" %}</label>
-                            <p class="p-3 bg-body-tertiary rounded italic border">"{{ msg.content }}"</p>
+                        <div class="modal-body text-start px-4">
+                            <div class="mb-4">
+                                <label class="modal-label-elite small text-body-secondary mb-2 d-block">
+                                    <i class="bi bi-quote small text-primary"></i> {% translate "Pesan masuk:" %}
+                                </label>
+                                <div class="reply-bubble">
+                                    "{{ msg.content }}"
+                                </div>
+                            </div>
 
-                            <label class="form-label fw-bold">{% translate "Jawaban kamu:" %}</label>
-                            <textarea name="reply_content" class="form-control" rows="4"
-                                placeholder="{% translate 'Tulis jawabanmu...' %}" required>{{ msg.reply_content|default:"" }}</textarea>
+                            <div class="mb-2">
+                                <label class="modal-label-elite mb-2 d-block">
+                                    <i class="bi bi-pencil-square small text-primary"></i> {% translate "Jawaban kamu:" %}
+                                </label>
+                                <textarea name="reply_content" class="form-control reply-textarea-elite" rows="5"
+                                    placeholder="{% translate 'Tulis jawaban terbaikmu di sini...' %}" required>{{ msg.reply_content|default:"" }}</textarea>
+                                <div class="text-end mt-2">
+                                    <small class="text-body-secondary opacity-50 fw-bold" style="font-size: 0.7rem;">{% translate "Publikasikan agar bisa di-share ke IG" %} 📸</small>
+                                </div>
+                            </div>
                         </div>
-                        <div class="modal-footer">
-                            <button type="submit" class="btn btn-primary px-4">{% translate "Kirim & Publikasikan 🚀" %}</button>
+                        <div class="modal-footer border-0 pb-4 px-4 justify-content-center">
+                            <button type="submit" class="btn btn-primary vibrant-submit-btn w-100 py-3">
+                                {% translate "Kirim & Publikasikan" %} <i class="bi bi-rocket-takeoff-fill ms-1"></i>
+                            </button>
                         </div>
                     </form>
                 </div>
