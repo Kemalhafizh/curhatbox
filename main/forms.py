@@ -1,6 +1,6 @@
 from django import forms
 from django.utils.translation import gettext_lazy as _
-from django.contrib.auth.forms import UserCreationForm
+from django.contrib.auth.forms import UserCreationForm, AuthenticationForm
 from django.contrib.auth.models import User
 
 from .models import Message, Profile
@@ -17,6 +17,16 @@ class CustomUserCreationForm(UserCreationForm):
         if User.objects.filter(email=email).exists():
             raise forms.ValidationError(_("Email ini sudah terdaftar. Silakan gunakan email lain."))
         return email
+
+class CustomAuthenticationForm(AuthenticationForm):
+    username = forms.CharField(label=_("Email / Username"), widget=forms.TextInput(attrs={
+        'class': 'form-control form-control-lg rounded-pill glass-input',
+        'placeholder': _('Email atau Username')
+    }))
+    password = forms.CharField(label=_("Password"), widget=forms.PasswordInput(attrs={
+        'class': 'form-control form-control-lg rounded-pill glass-input',
+        'placeholder': '••••••••'
+    }))
 
 class ReplyForm(forms.ModelForm):
     class Meta:

@@ -22,11 +22,14 @@
                 <form method="POST" class="auth-input">
                     {% csrf_token %}
                     <div class="mb-3 text-start">
-                        <label class="form-label fw-bold small text-body opacity-75">Username</label>
+                        <label class="form-label fw-bold small text-body opacity-75">Email / Username</label>
                         {{ form.username }}
                     </div>
                     <div class="mb-4 text-start">
-                        <label class="form-label fw-bold small text-body opacity-75">Password</label>
+                        <label class="form-label fw-bold small text-body opacity-75 d-flex justify-content-between">
+                            <span>Password</span>
+                            <a href="{% url 'password_reset' %}" class="small fw-bold text-primary text-decoration-none">Lupa Password?</a>
+                        </label>
                         {{ form.password }}
                     </div>
                     <button type="submit" class="btn btn-primary w-100 py-3 fw-bold rounded-pill shadow-sm hover-lift">

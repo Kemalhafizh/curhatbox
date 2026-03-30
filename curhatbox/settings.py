@@ -203,6 +203,12 @@ DEFAULT_FROM_EMAIL = os.environ.get('DEFAULT_FROM_EMAIL', 'CurhatBox Admin <admi
 PASSWORD_RESET_TIMEOUT = 172800  # 48 Jam (dalam detik)
 EMAIL_SUBJECT_PREFIX = '[CurhatBox] '
 
+# --- AUTHENTICATION BACKENDS ---
+AUTHENTICATION_BACKENDS = [
+    'curhatbox.backends.EmailBackend',
+    'django.contrib.auth.backends.ModelBackend',
+]
+
 CHANNEL_LAYERS = {
     "default": {
         "BACKEND": "channels_redis.core.RedisChannelLayer",
