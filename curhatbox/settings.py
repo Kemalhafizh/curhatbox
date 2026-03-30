@@ -60,6 +60,7 @@ RATELIMIT_IP_META_KEY = 'HTTP_X_REAL_IP'
 # Application definition
 
 INSTALLED_APPS = [
+    'main',
     'daphne',
     'channels',
     'django.contrib.admin',
@@ -69,7 +70,6 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'django.contrib.humanize',
-    'main',
 ]
 
 MIDDLEWARE = [
@@ -89,10 +89,11 @@ ROOT_URLCONF = 'curhatbox.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [],
+        'DIRS': [os.path.join(BASE_DIR, 'main', 'templates')],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
+                'django.template.context_processors.debug',
                 'django.template.context_processors.request',
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
@@ -188,14 +189,19 @@ RECAPTCHA_PRIVATE_KEY = '6LeIxAcTAAAAAGG-vFI1TnRWxMZNFuojJ4WifJWe'
 # Ratelimit exception handling
 RATELIMIT_EXCEPTION_CLASS = 'django.core.exceptions.PermissionDenied'
 
-# --- EMail CONFIGURATION (SMTP Hostinger) ---
+# --- EMAIL CONFIGURATION (SMTP Hostinger) ---
 EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
 EMAIL_HOST = os.environ.get('EMAIL_HOST')
-EMAIL_PORT = int(os.environ.get('EMAIL_PORT', 465))
+EMAIL_PORT = int(os.environ.get('EMAIL_PORT', 587))
 EMAIL_HOST_USER = os.environ.get('EMAIL_HOST_USER')
 EMAIL_HOST_PASSWORD = os.environ.get('EMAIL_HOST_PASSWORD')
-EMAIL_USE_SSL = os.environ.get('EMAIL_USE_SSL', 'True') == 'True'
+EMAIL_USE_TLS = os.environ.get('EMAIL_USE_TLS', 'True') == 'True'
+EMAIL_USE_SSL = os.environ.get('EMAIL_USE_SSL', 'False') == 'True'
 DEFAULT_FROM_EMAIL = os.environ.get('DEFAULT_FROM_EMAIL', 'CurhatBox Admin <admin@curhatbox.my.id>')
+
+# --- PASSWORD RESET SETTINGS ---
+PASSWORD_RESET_TIMEOUT = 172800  # 48 Jam (dalam detik)
+EMAIL_SUBJECT_PREFIX = '[CurhatBox] '
 
 CHANNEL_LAYERS = {
     "default": {
