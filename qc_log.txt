@@ -1,7 +1,0 @@
-Memulai Uji Backend Endpoints (QC) di https://curhatbox.my.id...
-[PASS] GET / -> Status: 200
-[PASS] GET /about/ -> Status: 200
-[PASS] GET /rules/ -> Status: 200
-[PASS] GET /register/ -> Status: 200
-[PASS] GET /login/ -> Status: 200
-QC Backend: Semua rute publik merespons dengan sehat (200/Redirect).
