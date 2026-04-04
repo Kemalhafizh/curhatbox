@@ -37,12 +37,19 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Outfit:wght@400;700;800&display=swap" rel="stylesheet">
 
+    {% block extra_meta %}
+    <!-- Default Meta Tags & OpenGraph (Can be overridden by child templates) -->
     <meta property="og:type" content="website">
     <meta property="og:url" content="{{ request.build_absolute_uri }}">
-    <meta property="og:title" content="{% blocktranslate %}Kirim Pesan Rahasia ke {{ target_user.username|default:'Seseorang' }}! 💜{% endblocktranslate %}">
-    <meta property="og:description"
-        content="{% translate 'Sampaikan curhatan, kritik, atau pesan rahasiamu secara anonim di CurhatBox. Aman & Jujur.' %}">
+    <meta property="og:title" content="{% block title_meta %}{% translate 'CurhatBox - Pesan Rahasia Anonim' %}{% endblock %}">
+    <meta property="og:description" content="{% translate 'Sampaikan curhatan, kritik, atau pesan rahasiamu secara anonim di CurhatBox. Aman, Jujur, & Tanpa Identitas.' %}">
     <meta property="og:image" content="https://img.icons8.com/bubbles/200/mailbox-closed-flag-up.png">
+    
+    <!-- Twitter Card -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="CurhatBox">
+    <meta name="twitter:description" content="{% translate 'Platform pesan anonim paling aman.' %}">
+    {% endblock %}
 </head>
 
 <body class="mesh-gradient-bg">

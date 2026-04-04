@@ -3,6 +3,24 @@
 
 {% block title %}{% blocktranslate %}Kirim pesan ke {{ target_user.username }}{% endblocktranslate %}{% endblock %}
 
+{% block extra_meta %}
+    <meta property="og:type" content="profile">
+    <meta property="og:url" content="{{ request.build_absolute_uri }}">
+    <meta property="og:title" content="{% blocktranslate %}Kirim pesan rahasia ke @{{ target_user.username }} 🚀{% endblocktranslate %}">
+    <meta property="og:description" content="{{ target_user.profile.bio|default:_('Sampaikan curhatan, kritik, atau pesan rahasiamu secara anonim di CurhatBox. Aman & Jujur.')|truncatechars:160 }}">
+    
+    {% if target_user.profile.avatar %}
+    <meta property="og:image" content="{{ request.scheme }}://{{ request.get_host }}{{ target_user.profile.avatar.url }}">
+    {% else %}
+    <meta property="og:image" content="https://img.icons8.com/bubbles/200/mailbox-closed-flag-up.png">
+    {% endif %}
+
+    <!-- Twitter Card -->
+    <meta name="twitter:card" content="summary">
+    <meta name="twitter:title" content="CurhatBox - @{{ target_user.username }}">
+    <meta name="twitter:description" content="{% translate 'Kirimkan pesan rahasia anonimmu sekarang!' %}">
+{% endblock %}
+
 {% block content %}
 <style>
 
@@ -100,10 +118,10 @@
                 </form>
 
                 <script
-                    src="https://www.google.com/recaptcha/api.js?render={{ request.resolver_match.app_name|default:''|add:'6LeIxAcTAAAAAJcZVRqyHh71UMIEGNQ_MXjiZKhI' }}"></script>
+                    src="https://www.google.com/recaptcha/api.js?render={{ recaptcha_site_key }}"></script>
                 <script>
-                    // Site key tes lokal Google
-                    const recaptchaSiteKey = '6LeIxAcTAAAAAJcZVRqyHh71UMIEGNQ_MXjiZKhI';
+                    // Site key dinamis dari backend (.env)
+                    const recaptchaSiteKey = '{{ recaptcha_site_key }}';
 
                     function submitForm(e) {
                         e.preventDefault();

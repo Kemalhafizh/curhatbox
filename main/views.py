@@ -14,6 +14,7 @@ from django.http import JsonResponse
 from django.template.loader import render_to_string
 from django.utils import timezone
 from django.utils.translation import gettext as _
+from django.conf import settings
 
 from django_ratelimit.decorators import ratelimit
 from user_agents import parse
@@ -139,7 +140,8 @@ def public_profile(request, slug):
 
     context = {
         'target_user': receiver,
-        'public_messages': public_messages
+        'public_messages': public_messages,
+        'recaptcha_site_key': getattr(settings, 'RECAPTCHA_PUBLIC_KEY', '')
     }
     return render(request, 'main/profile_public.html', context)
 
