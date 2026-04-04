@@ -1,191 +1,247 @@
 {% load humanize %}
 {% load i18n %}
-        <div id="message-card-{{ msg.id }}" data-aos="fade-down"
-            class="glass-card hover-lift shadow-sm mb-4 rounded-5 overflow-hidden position-relative smooth-transition border-0 msg-card-base {% if not msg.is_read %}msg-card-unread{% endif %}">
-            
-            {% if msg.is_disposable %}
-            <!-- Pita merah untuk pesan sekali baca -->
-            <div class="position-absolute z-1"
-                style="top: 0; right: 0; background: linear-gradient(135deg, #dc3545, #ff4d4d); color: white; padding: 4px 16px; font-size: 0.75rem; font-weight: 800; border-bottom-left-radius: 12px; box-shadow: -2px 2px 10px rgba(220,53,69,0.3);">
-                {% translate "🔥 BOM WAKTU (SEKALI BACA)" %}
+<div id="message-card-{{ msg.id }}"
+     data-aos="fade-down"
+     class="glass-card hover-lift shadow-sm mb-4 rounded-5 overflow-hidden position-relative smooth-transition border-0 msg-card-base {% if not msg.is_read %}msg-card-unread{% endif %}">
+    {% if msg.is_disposable %}
+        <!-- Pita merah untuk pesan sekali baca -->
+        <div class="position-absolute z-1"
+             style="top: 0;
+                    right: 0;
+                    background: linear-gradient(135deg, #dc3545, #ff4d4d);
+                    color: white;
+                    padding: 4px 16px;
+                    font-size: 0.75rem;
+                    font-weight: 800;
+                    border-bottom-left-radius: 12px;
+                    box-shadow: -2px 2px 10px rgba(220,53,69,0.3)">{% translate "🔥 BOM WAKTU (SEKALI BACA)" %}</div>
+    {% endif %}
+    <div class="card-body p-3 p-md-4">
+        <div class="d-flex justify-content-between align-items-center mb-3">
+            <div>
+                <span class="badge bg-body-tertiary text-secondary rounded-pill px-2 py-1 fw-normal border"
+                      style="font-size: 0.75rem">{{ msg.created_at|naturaltime }}</span>
+                {% if msg.is_favorite %}
+                    <span class="badge rounded-pill shadow-sm ms-1 px-2 py-1"
+                          style="background-color: #ffcd39;
+                                 color: #000;
+                                 font-size: 0.75rem">⭐ {% translate "Pinned" %}</span>
+                {% endif %}
+                {% if not msg.is_read %}
+                    <span class="badge rounded-pill shadow-sm animate-pulse ms-1 px-2 py-1"
+                          style="background-color: #6f42c1;
+                                 color: white;
+                                 font-size: 0.75rem">{% translate "BARU" %}</span>
+                {% endif %}
             </div>
+            {% if msg.sender_device or msg.sender_browser %}
+                <div>
+                    <span class="badge bg-transparent border border-secondary text-secondary rounded-pill px-2 py-1 fw-normal"
+                          style="font-size: 0.7rem"
+                          title="{% translate 'Hint Pengirim' %}">
+                        🕵️ {% translate "Dari:" %}
+                        {% if msg.sender_device %}<strong class="text-body">{{ msg.sender_device }}</strong>{% endif %}
+                        {% if msg.sender_device and msg.sender_browser %}・{% endif %}
+                        {% if msg.sender_browser %}<strong class="text-body">{{ msg.sender_browser }}</strong>{% endif %}
+                    </span>
+                </div>
             {% endif %}
-            <div class="card-body p-3 p-md-4">
-                <div class="d-flex justify-content-between align-items-center mb-3">
-                    <div>
-                        <span class="badge bg-body-tertiary text-secondary rounded-pill px-2 py-1 fw-normal border" style="font-size: 0.75rem;">{{ msg.created_at|naturaltime }}</span>
-                        {% if msg.is_favorite %}
-                        <span class="badge rounded-pill shadow-sm ms-1 px-2 py-1" style="background-color: #ffcd39; color: #000; font-size: 0.75rem;">⭐ {% translate "Pinned" %}</span>
-                        {% endif %}
-                        {% if not msg.is_read %}
-                        <span class="badge rounded-pill shadow-sm animate-pulse ms-1 px-2 py-1" style="background-color: #6f42c1; color: white; font-size: 0.75rem;">{% translate "BARU" %}</span>
-                        {% endif %}
-                    </div>
-                    {% if msg.sender_device or msg.sender_browser %}
-                    <div>
-                        <span class="badge bg-transparent border border-secondary text-secondary rounded-pill px-2 py-1 fw-normal" style="font-size: 0.7rem;" title="{% translate 'Hint Pengirim' %}">
-                            🕵️ {% translate "Dari:" %} 
-                            {% if msg.sender_device %}
-                            <strong class="text-body">{{ msg.sender_device }}</strong>
-                            {% endif %}
-                            {% if msg.sender_device and msg.sender_browser %}
-                            ・
-                            {% endif %}
-                            {% if msg.sender_browser %}
-                            <strong class="text-body">{{ msg.sender_browser }}</strong>
-                            {% endif %}
-                        </span>
-                    </div>
+        </div>
+        {% if msg.is_disposable %}
+            <!-- Jika pesan ini adalah pesan sekali baca (Sekret/Disposable) -->
+            <div class="p-5 text-center rounded-4 mb-3 border text-danger smooth-transition hover-lift"
+                 style="background: rgba(220, 53, 69, 0.05);
+                        border-color: rgba(220, 53, 69, 0.2) !important">
+                <div class="display-3 mb-2">🔒</div>
+                <h3 class="mb-2 fw-bold" style="font-family: 'Outfit', sans-serif;">{% translate "Pesan Rahasia Tertutup" %}</h3>
+                <p class="mb-4 text-body-secondary mx-auto"
+                   style="max-width: 400px;
+                          font-size: 0.95rem">
+                    {% translate "Pesan ini dikirim dengan mode <b>Self-Destruct</b>. Seluruh huruf dan kata di dalamnya akan langsung musnah dari sistem ketika Anda membukanya." %}
+                </p>
+                <form action="{% url 'reveal_message' msg.id %}"
+                      method="POST"
+                      target="_blank">
+                    {% csrf_token %}
+                    <button type="submit"
+                            class="btn btn-danger btn-lg rounded-pill fw-bold shadow hover-lift px-5">
+                        {% translate "Buka & Hancurkan Pesan 🔥" %}
+                    </button>
+                </form>
+            </div>
+        {% else %}
+            <!-- Render pesan normal seperti biasa -->
+            <p class="mb-3 text-body"
+               style="font-size: 1.15rem;
+                      line-height: 1.5;
+                      font-family: 'Inter', sans-serif;
+                      font-weight: 500">"{{ msg.content }}"</p>
+            <!-- Premium Quick Reactions -->
+            <div class="mb-3">
+                <small class="text-secondary d-block mb-1 fw-bolder"
+                       style="font-size: 0.65rem;
+                              letter-spacing: 0.5px;
+                              text-transform: uppercase">{% translate "Reaksi Cepat" %}</small>
+                <div class="d-flex flex-wrap gap-1 p-2 rounded-4"
+                     style="background: var(--glass-nav-footer);
+                            border: 1px dashed var(--glass-border)">
+                    {% for emoji in quick_reactions %}
+                        <a href="{% url 'set_reaction' msg.id emoji %}"
+                           class="btn btn-sm rounded-circle p-0 d-inline-flex align-items-center justify-content-center smooth-transition reaction-btn {% if msg.reaction == emoji %}shadow-lg bg-body border border-primary z-3 reaction-btn-active{% else %}btn-link text-decoration-none border-0{% endif %}"
+                           style="width: 36px;
+                                  height: 36px;
+                                  font-size: 1.3rem"
+                           title="{% translate 'Reaksi' %} {{ emoji }}">{{ emoji }}</a>
+                    {% endfor %}
+                    {% if msg.reaction %}
+                        <div class="mx-1 align-self-center rounded"
+                             style="height: 25px;
+                                    width: 1px;
+                                    background-color: rgba(0,0,0,0.1)"></div>
+                        <a href="{% url 'set_reaction' msg.id 'remove' %}"
+                           class="btn btn-light rounded-circle p-0 d-inline-flex align-items-center justify-content-center text-body-secondary hover-lift shadow-sm border"
+                           style="width: 32px;
+                                  height: 32px;
+                                  font-size: 0.8rem"
+                           title="{% translate 'Hapus Reaksi' %}">✕</a>
                     {% endif %}
                 </div>
-
-                {% if msg.is_disposable %}
-                <!-- Jika pesan ini adalah pesan sekali baca (Sekret/Disposable) -->
-                <div class="p-5 text-center rounded-4 mb-3 border text-danger smooth-transition hover-lift" style="background: rgba(220, 53, 69, 0.05); border-color: rgba(220, 53, 69, 0.2) !important;">
-                    <div class="display-3 mb-2">🔒</div>
-                    <h3 class="mb-2 fw-bold" style="font-family: 'Outfit', sans-serif;">{% translate "Pesan Rahasia Tertutup" %}</h3>
-                    <p class="mb-4 text-body-secondary mx-auto" style="max-width: 400px; font-size: 0.95rem;">{% translate "Pesan ini dikirim dengan mode <b>Self-Destruct</b>. Seluruh huruf dan kata di dalamnya akan langsung musnah dari sistem ketika Anda membukanya." %}</p>
-
-                    <form action="{% url 'reveal_message' msg.id %}" method="POST" target="_blank">
-                        {% csrf_token %}
-                        <button type="submit" class="btn btn-danger btn-lg rounded-pill fw-bold shadow hover-lift px-5">
-                            {% translate "Buka & Hancurkan Pesan 🔥" %}
-                        </button>
-                    </form>
-                </div>
-                {% else %}
-                <!-- Render pesan normal seperti biasa -->
-                <p class="mb-3 text-body" style="font-size: 1.15rem; line-height: 1.5; font-family: 'Inter', sans-serif; font-weight: 500;">"{{ msg.content }}"</p>
-
-                <!-- Premium Quick Reactions -->
-                <div class="mb-3">
-                    <small class="text-secondary d-block mb-1 fw-bolder" style="font-size: 0.65rem; letter-spacing: 0.5px; text-transform: uppercase;">{% translate "Reaksi Cepat" %}</small>
-                    <div class="d-flex flex-wrap gap-1 p-2 rounded-4" style="background: var(--glass-nav-footer); border: 1px dashed var(--glass-border);">
-                        {% for emoji in quick_reactions %}
-                        <a href="{% url 'set_reaction' msg.id emoji %}"
-                            class="btn btn-sm rounded-circle p-0 d-inline-flex align-items-center justify-content-center smooth-transition reaction-btn {% if msg.reaction == emoji %}shadow-lg bg-body border border-primary z-3 reaction-btn-active{% else %}btn-link text-decoration-none border-0{% endif %}"
-                            style="width: 36px; height: 36px; font-size: 1.3rem;"
-                            title="{% translate 'Reaksi' %} {{ emoji }}">
-                            {{ emoji }}
-                        </a>
-                        {% endfor %}
-                        
-                        {% if msg.reaction %}
-                        <div class="mx-1 align-self-center rounded" style="height: 25px; width: 1px; background-color: rgba(0,0,0,0.1);"></div>
-                        <a href="{% url 'set_reaction' msg.id 'remove' %}" 
-                            class="btn btn-light rounded-circle p-0 d-inline-flex align-items-center justify-content-center text-body-secondary hover-lift shadow-sm border" 
-                            style="width: 32px; height: 32px; font-size: 0.8rem;" 
-                            title="{% translate 'Hapus Reaksi' %}">
-                            ✕
-                        </a>
-                        {% endif %}
-                    </div>
-                </div>
-
-                {% if msg.reply_content %}
-                <div class="p-4 rounded-4 mb-3 mt-4 border-0 position-relative" style="background: linear-gradient(to right, rgba(111, 66, 193, 0.04), rgba(0, 123, 255, 0.02));">
-                    <div class="position-absolute" style="top: 0; left: 0; width: 5px; height: 100%; background: linear-gradient(to bottom, #6f42c1, #007bff); border-radius: 10px 0 0 10px;"></div>
+            </div>
+            {% if msg.reply_content %}
+                <div class="p-4 rounded-4 mb-3 mt-4 border-0 position-relative"
+                     style="background: linear-gradient(to right, rgba(111, 66, 193, 0.04), rgba(0, 123, 255, 0.02))">
+                    <div class="position-absolute"
+                         style="top: 0;
+                                left: 0;
+                                width: 5px;
+                                height: 100%;
+                                background: linear-gradient(to bottom, #6f42c1, #007bff);
+                                border-radius: 10px 0 0 10px"></div>
                     <div class="ps-3">
-                        <strong class="text-primary small fw-bolder" style="letter-spacing: 0.5px; text-transform: uppercase;">{% translate "Balasan Kamu:" %}</strong><br>
+                        <strong class="text-primary small fw-bolder"
+                                style="letter-spacing: 0.5px;
+                                       text-transform: uppercase">{% translate "Balasan Kamu:" %}</strong>
+                        <br>
                         <span class="text-body fs-5 mt-2 d-block" style="line-height: 1.5;">{{ msg.reply_content }}</span>
                     </div>
                 </div>
-                {% endif %}
-                {% endif %}
-
-                <!-- Action Button Area -->
-                <hr class="text-body-secondary opacity-10 my-3">
-                <div class="d-flex gap-2 flex-wrap align-items-center my-1">
-                    {% if not msg.is_disposable %}
-                    <button type="button" class="btn btn-light rounded-pill px-3 py-2 fw-bold hover-lift text-primary" data-bs-toggle="modal"
-                        data-bs-target="#replyModal{{ msg.id }}" style="background: rgba(13, 110, 253, 0.08); border: none; font-size: 0.85rem;">
-                        💬 {% if msg.reply_content %}{% translate "Edit" %}{% else %}{% translate "Balas" %}{% endif %}
-                    </button>
-
+            {% endif %}
+        {% endif %}
+        <!-- Action Button Area -->
+        <hr class="text-body-secondary opacity-10 my-3">
+        <div class="d-flex gap-2 flex-wrap align-items-center my-1">
+            {% if not msg.is_disposable %}
+                <button type="button"
+                        class="btn btn-light rounded-pill px-3 py-2 fw-bold hover-lift text-primary"
+                        data-bs-toggle="modal"
+                        data-bs-target="#replyModal{{ msg.id }}"
+                        style="background: rgba(13, 110, 253, 0.08);
+                               border: none;
+                               font-size: 0.85rem">
+                    💬
                     {% if msg.reply_content %}
-                    <button
-                        onclick="startHdUnlockProcess('{{ msg.content|escapejs }}', '{{ msg.reply_content|escapejs }}', '{{ user.username }}')"
-                        class="btn rounded-pill px-3 py-2 fw-bold hover-lift text-white border-0 shadow-sm" style="background: linear-gradient(45deg, #f09433 0%, #e6683c 25%, #dc2743 50%, #cc2366 75%, #bc1888 100%); font-size: 0.85rem;">
-                        {% translate "📸 Share" %}
-                    </button>
+                        {% translate "Edit" %}
+                    {% else %}
+                        {% translate "Balas" %}
                     {% endif %}
-                    {% endif %}
-
-                    <!-- Circular Icon Actions (Aligned Right) -->
-                    <div class="ms-auto d-flex gap-1">
-                        {% if not msg.is_disposable %}
-                        <form action="{% url 'toggle_favorite' msg.id %}" method="POST" class="m-0">
-                            {% csrf_token %}
-                            <button type="submit"
-                                class="btn rounded-circle d-flex align-items-center justify-content-center hover-lift smooth-transition {% if msg.is_favorite %}text-body shadow-sm btn-favorite-active{% else %}btn-light text-body-secondary btn-favorite-inactive{% endif %}"
-                                style="width: 36px; height: 36px; font-size: 1.1rem; border: none;"
-                                title="{% translate 'Pin Pesan' %}">
-                                ⭐
-                            </button>
-                        </form>
-                        {% endif %}
-
-                        <form action="{% url 'block_sender' msg.id %}" method="POST" class="m-0"
-                            onsubmit="return confirm('Yakin ingin memblokir IP pengirim ini secara permanen?')">
-                            {% csrf_token %}
-                            <button type="submit" class="btn btn-light rounded-circle text-danger hover-lift d-flex align-items-center justify-content-center smooth-transition btn-danger-glass" 
-                                style="width: 36px; height: 36px; font-size: 1rem; border: none;" title="{% translate 'Blokir IP Pengirim' %}">
-                                🚫
-                            </button>
-                        </form>
-
-                        <form action="{% url 'delete_message' msg.id %}" method="POST" class="m-0"
-                            onsubmit="return confirm('Anda yakin menghapus pesan ini selamanya?')">
-                            {% csrf_token %}
-                            <button type="submit" class="btn btn-light rounded-circle text-danger hover-lift d-flex align-items-center justify-content-center smooth-transition btn-danger-glass" 
-                                style="width: 36px; height: 36px; font-size: 1.1rem; border: none;" title="{% translate 'Hapus Pesan' %}">
-                                🗑️
-                            </button>
-                        </form>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <div class="modal fade" id="replyModal{{ msg.id }}" tabindex="-1" aria-hidden="true">
-            <div class="modal-dialog modal-dialog-centered">
-                <div class="modal-content glass-modal-content">
-                    <div class="modal-header glass-modal-header border-0">
-                        <h5 class="modal-title modal-label-elite">
-                            <i class="bi bi-chat-dots-fill text-primary me-2"></i>
-                            {% translate "Balas Pesan Rahasia" %}
-                        </h5>
-                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                    </div>
-                    <form action="{% url 'reply_message' msg.id %}" method="POST">
+                </button>
+                {% if msg.reply_content %}
+                    <button onclick="startHdUnlockProcess('{{ msg.content|escapejs }}', '{{ msg.reply_content|escapejs }}', '{{ user.username }}')"
+                            class="btn rounded-pill px-3 py-2 fw-bold hover-lift text-white border-0 shadow-sm"
+                            style="background: linear-gradient(45deg, #f09433 0%, #e6683c 25%, #dc2743 50%, #cc2366 75%, #bc1888 100%);
+                                   font-size: 0.85rem">{% translate "📸 Share" %}</button>
+                {% endif %}
+            {% endif %}
+            <!-- Circular Icon Actions (Aligned Right) -->
+            <div class="ms-auto d-flex gap-1">
+                {% if not msg.is_disposable %}
+                    <form action="{% url 'toggle_favorite' msg.id %}" method="POST" class="m-0">
                         {% csrf_token %}
-                        <div class="modal-body text-start px-4">
-                            <div class="mb-4">
-                                <label class="modal-label-elite small text-body-secondary mb-2 d-block">
-                                    <i class="bi bi-quote small text-primary"></i> {% translate "Pesan masuk:" %}
-                                </label>
-                                <div class="reply-bubble">
-                                    "{{ msg.content }}"
-                                </div>
-                            </div>
-
-                            <div class="mb-2">
-                                <label class="modal-label-elite mb-2 d-block">
-                                    <i class="bi bi-pencil-square small text-primary"></i> {% translate "Jawaban kamu:" %}
-                                </label>
-                                <textarea name="reply_content" class="form-control reply-textarea-elite" rows="5"
-                                    placeholder="{% translate 'Tulis jawaban terbaikmu di sini...' %}" required>{{ msg.reply_content|default:"" }}</textarea>
-                                <div class="text-end mt-2">
-                                    <small class="text-body-secondary opacity-50 fw-bold" style="font-size: 0.7rem;">{% translate "Publikasikan agar bisa di-share ke IG" %} 📸</small>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="modal-footer border-0 pb-4 px-4 justify-content-center">
-                            <button type="submit" class="btn btn-primary vibrant-submit-btn w-100 py-3">
-                                {% translate "Kirim & Publikasikan" %} <i class="bi bi-rocket-takeoff-fill ms-1"></i>
-                            </button>
-                        </div>
+                        <button type="submit"
+                                class="btn rounded-circle d-flex align-items-center justify-content-center hover-lift smooth-transition {% if msg.is_favorite %}text-body shadow-sm btn-favorite-active{% else %}btn-light text-body-secondary btn-favorite-inactive{% endif %}"
+                                style="width: 36px;
+                                       height: 36px;
+                                       font-size: 1.1rem;
+                                       border: none"
+                                title="{% translate 'Pin Pesan' %}">⭐</button>
                     </form>
-                </div>
+                {% endif %}
+                <form action="{% url 'block_sender' msg.id %}"
+                      method="POST"
+                      class="m-0"
+                      onsubmit="return confirm('Yakin ingin memblokir IP pengirim ini secara permanen?')">
+                    {% csrf_token %}
+                    <button type="submit"
+                            class="btn btn-light rounded-circle text-danger hover-lift d-flex align-items-center justify-content-center smooth-transition btn-danger-glass"
+                            style="width: 36px;
+                                   height: 36px;
+                                   font-size: 1rem;
+                                   border: none"
+                            title="{% translate 'Blokir IP Pengirim' %}">🚫</button>
+                </form>
+                <form action="{% url 'delete_message' msg.id %}"
+                      method="POST"
+                      class="m-0"
+                      onsubmit="return confirm('Anda yakin menghapus pesan ini selamanya?')">
+                    {% csrf_token %}
+                    <button type="submit"
+                            class="btn btn-light rounded-circle text-danger hover-lift d-flex align-items-center justify-content-center smooth-transition btn-danger-glass"
+                            style="width: 36px;
+                                   height: 36px;
+                                   font-size: 1.1rem;
+                                   border: none"
+                            title="{% translate 'Hapus Pesan' %}">🗑️</button>
+                </form>
             </div>
         </div>
+    </div>
+</div>
+<div class="modal fade"
+     id="replyModal{{ msg.id }}"
+     tabindex="-1"
+     aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content glass-modal-content">
+            <div class="modal-header glass-modal-header border-0">
+                <h5 class="modal-title modal-label-elite">
+                    <i class="bi bi-chat-dots-fill text-primary me-2"></i>
+                    {% translate "Balas Pesan Rahasia" %}
+                </h5>
+                <button type="button"
+                        class="btn-close"
+                        data-bs-dismiss="modal"
+                        aria-label="Close"></button>
+            </div>
+            <form action="{% url 'reply_message' msg.id %}" method="POST">
+                {% csrf_token %}
+                <div class="modal-body text-start px-4">
+                    <div class="mb-4">
+                        <label class="modal-label-elite small text-body-secondary mb-2 d-block">
+                            <i class="bi bi-quote small text-primary"></i> {% translate "Pesan masuk:" %}
+                        </label>
+                        <div class="reply-bubble">"{{ msg.content }}"</div>
+                    </div>
+                    <div class="mb-2">
+                        <label class="modal-label-elite mb-2 d-block">
+                            <i class="bi bi-pencil-square small text-primary"></i> {% translate "Jawaban kamu:" %}
+                        </label>
+                        <textarea name="reply_content"
+                                  class="form-control reply-textarea-elite"
+                                  rows="5"
+                                  placeholder="{% translate 'Tulis jawaban terbaikmu di sini...' %}"
+                                  required>{{ msg.reply_content|default:"" }}</textarea>
+                        <div class="text-end mt-2">
+                            <small class="text-body-secondary opacity-50 fw-bold"
+                                   style="font-size: 0.7rem">{% translate "Publikasikan agar bisa di-share ke IG" %} 📸</small>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer border-0 pb-4 px-4 justify-content-center">
+                    <button type="submit" class="btn btn-primary vibrant-submit-btn w-100 py-3">
+                        {% translate "Kirim & Publikasikan" %} <i class="bi bi-rocket-takeoff-fill ms-1"></i>
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>

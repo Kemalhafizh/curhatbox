@@ -1,22 +1,38 @@
-# Django defaults
-*.log
-*.pot
-*.pyc
-__pycache__/
-db.sqlite3
-media/
+# ==========================================
+# GITHUB IGNORE RULES (CURHATBOX)
+# ==========================================
 
-# Virtual Environment (PENTING BIAR GAK BERAT)
+# 1. Environment & Secrets (SANGAT RAHASIA)
+.env
+.env.*
+*.pem
+*.key
+*.cert
+
+# 2. Virtual Environments (FILE BESAR / LOKAL)
 venv/
 env/
+.venv/
+env.bak/
+venv.bak/
 
-# Editor config
+# 3. Media & Static Outputs (TIDAK PERLU DI PUSH)
+media/
+staticfiles/
+
+# 4. Database & Caches Lokal
+db.sqlite3
+db.sqlite3-journal
+.pytest_cache/
+__pycache__/
+*.pyc
+*.py[cod]
+*$py.class
+*.log
+*.pot
+
+# 5. OS & Editor Settings
 .vscode/
 .idea/
-
-# Environment variables (PENTING BUAT KEAMANAN)
-.env
-staticfiles/
-
-staticfiles/
-venv/
+.DS_Store
+Thumbs.db

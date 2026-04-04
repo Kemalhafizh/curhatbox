@@ -1,137 +1,157 @@
 {% extends 'main/base.html' %}
 {% load i18n %}
-
-{% block title %}{% translate "Kebijakan Privasi & Ketentuan Layanan - CurhatBox" %}{% endblock %}
-
+{% block title %}
+    {% translate "Kebijakan Privasi & Ketentuan Layanan - CurhatBox" %}
+{% endblock %}
 {% block content %}
-<div class="container-fluid position-relative py-5 z-1">
-    <div class="row justify-content-center">
-        <div class="col-md-10 col-lg-8">
-            
-            <div class="text-center mb-5" data-aos="fade-down">
-                <h1 class="display-6 fw-bold text-white mb-2" style="font-family: 'Outfit', sans-serif; text-shadow: 0 4px 15px rgba(0,0,0,0.3);">
-                    {% translate "Perjanjian Pengguna & Privasi ⚖️" %}
-                </h1>
-                <p class="text-white-50">{% translate "Transparansi penuh untuk komunitas yang sehat. Terakhir diperbarui: 7 Maret 2026" %}</p>
-            </div>
-
-            <div class="glass-card mb-5" data-aos="fade-up">
-                <div class="card-body p-4 p-md-5">
-                    
-                    <div class="alert alert-light border-start border-primary border-4 shadow-sm mb-5 text-center bg-body bg-opacity-75"
-                        role="alert" data-aos="zoom-in" data-aos-delay="100">
-                        {% blocktranslate %}<p class="mb-0 text-body" style="line-height: 1.6;">
+    <div class="container-fluid position-relative py-5 z-1">
+        <div class="row justify-content-center">
+            <div class="col-md-10 col-lg-8">
+                <div class="text-center mb-5" data-aos="fade-down">
+                    <h1 class="display-6 fw-bold text-white mb-2"
+                        style="font-family: 'Outfit', sans-serif;
+                               text-shadow: 0 4px 15px rgba(0,0,0,0.3)">
+                        {% translate "Perjanjian Pengguna & Privasi ⚖️" %}
+                    </h1>
+                    <p class="text-white-50">
+                        {% translate "Transparansi penuh untuk komunitas yang sehat. Terakhir diperbarui: 7 Maret 2026" %}
+                    </p>
+                </div>
+                <div class="glass-card mb-5" data-aos="fade-up">
+                    <div class="card-body p-4 p-md-5">
+                        <div class="alert alert-light border-start border-primary border-4 shadow-sm mb-5 text-center bg-body bg-opacity-75"
+                             role="alert"
+                             data-aos="zoom-in"
+                             data-aos-delay="100">
+                            {% blocktranslate %}<p class="mb-0 text-body" style="line-height: 1.6;">
                             Selamat datang di <strong>CurhatBox</strong>. Dokumen ini mengikat Anda dan Pengelola situs.
                             Dengan mendaftar atau menggunakan layanan kami, Anda menyetujui seluruh isi dokumen perlindungan privasi dan panduan etika di bawah ini.
                         </p>{% endblocktranslate %}
-                    </div>
-
-                    <!-- Bagian Accordion Utama dengan styling custom -->
-                    <div class="accordion custom-accordion" id="rulesAccordion" data-aos="fade-up" data-aos-delay="200">
-
-                        <!-- ITEM 1: Kebijakan Privasi -->
-                        <div class="accordion-item bg-transparent border-0 mb-3">
-                            <h2 class="accordion-header" id="headingPrivacy">
-                                <button class="accordion-button rounded-4 shadow-sm fw-bold text-body" style="background-color: rgba(255,255,255,0.85); backdrop-filter: blur(5px);"
-                                    type="button" data-bs-toggle="collapse" data-bs-target="#collapsePrivacy"
-                                    aria-expanded="true" aria-controls="collapsePrivacy">
-                                    {% translate "I. Kebijakan Privasi & Enkripsi Data" %}
-                                </button>
-                            </h2>
-                            <div id="collapsePrivacy" class="accordion-collapse collapse show mt-2"
-                                aria-labelledby="headingPrivacy" data-bs-parent="#rulesAccordion">
-                                <div class="accordion-body bg-body bg-opacity-50 rounded-4 text-body small" style="line-height: 1.7;">
-                                    <p>{% translate "Kepercayaan Anda adalah segalanya. Kami mengadopsi standar keamanan mutakhir untuk melindungi hak anonimitas dan rekam jejak Anda:" %}</p>
-
-                                    <h6 class="fw-bold mt-4">{% translate "⚙️ Fitur Keamanan Proaktif" %}</h6>
-                                    <ul class="text-body-secondary">
-                                        {% blocktranslate %}<li><strong>Identitas Super Rahasia:</strong> Nama, Email, dan informasi sensitif pengirim tidak akan pernah bocor ke layar penerima.</li>{% endblocktranslate %}
-                                        {% blocktranslate %}<li><strong>Sistem Sender Hints (Pelacakan OS):</strong> Meski nama disembunyikan, sistem kami mendeteksi tipe Perangkat/Browser (contoh: <em>Chrome on Android</em>) sebagai "petunjuk" mitigasi agar penerima tidak diteror oleh entitas asing.</li>{% endblocktranslate %}
-                                        {% blocktranslate %}<li><strong>Mode Pesan Sekali Baca (Self-Destruct):</strong> Untuk Pesan berlogo 💣, pesan tersebut akan dihapus keras dari database kami sesaat setelah dibaca. Tidak ada rekam jejak pemulihan!</li>{% endblocktranslate %}
-                                        {% blocktranslate %}<li><strong>Proteksi Anti-Spam (Rate Limiting):</strong> Kami secara agresif menolak koneksi ganda atau pengiriman pesan beruntun dari Alamat IP yang sama dalam durasi tidak wajar.</li>{% endblocktranslate %}
-                                    </ul>
-
-                                    <h6 class="fw-bold mt-4">{% translate "📜 Kepatuhan Hukum & Data Forensik" %}</h6>
-                                    {% blocktranslate %}<p class="text-body-secondary">Sistem mencatat Alamat IP pengirim murni untuk keperluan <strong>Audit Forensik</strong>. Jika terjadi kejahatan pidana berat, log data tersebut akan diserahkan secara eksklusif kepada Aparat Penegak Hukum berwenang.</p>{% endblocktranslate %}
-                                </div>
-                            </div>
                         </div>
-
-                        <!-- ITEM 2: Ketentuan Layanan (TOS) -->
-                        <div class="accordion-item bg-transparent border-0 mb-3">
-                            <h2 class="accordion-header" id="headingTOS">
-                                <button class="accordion-button collapsed rounded-4 shadow-sm fw-bold text-body" style="background-color: rgba(255,255,255,0.85); backdrop-filter: blur(5px);"
-                                    type="button" data-bs-toggle="collapse" data-bs-target="#collapseTOS"
-                                    aria-expanded="false" aria-controls="collapseTOS">
-                                    {% translate "II. Etika & Ketentuan Layanan" %}
-                                </button>
-                            </h2>
-                            <div id="collapseTOS" class="accordion-collapse collapse mt-2" aria-labelledby="headingTOS"
-                                data-bs-parent="#rulesAccordion">
-                                <div class="accordion-body bg-body bg-opacity-50 rounded-4 text-body small" style="line-height: 1.7;">
-                                    {% blocktranslate %}<p>Layanan CurhatBox dirancang khusus pengguna berusia <strong>13 tahun ke atas</strong>. Sebagai wadah publik jujur, mari jaga norma bersosial media:</p>{% endblocktranslate %}
-
-                                    <div class="bg-danger bg-opacity-10 border-start border-danger border-4 p-3 rounded mb-3">
-                                        <h6 class="fw-bold text-danger mb-2">{% translate "🚫 Toleransi Nol (Zero Tolerance) Pelanggaran Siber:" %}</h6>
-                                        <ul class="mb-0 text-danger">
-                                            <li>{% translate "Perundungan siber (*Cyberbullying*), pemerasan, atau ancaman kekerasan." %}</li>
-                                            <li>{% translate "Ujaran kebencian (*Hate Speech*), rasisme, atau provokasi massal." %}</li>
-                                            <li>{% translate "Penyebaran materi pornografi, asusila, atau konten vulgar (18+)." %}</li>
-                                            <li>{% translate "Di atas segalanya, dilarang menyebarkan privasi orang lain (*Doxing*)." %}</li>
+                        <!-- Bagian Accordion Utama dengan styling custom -->
+                        <div class="accordion custom-accordion"
+                             id="rulesAccordion"
+                             data-aos="fade-up"
+                             data-aos-delay="200">
+                            <!-- ITEM 1: Kebijakan Privasi -->
+                            <div class="accordion-item bg-transparent border-0 mb-3">
+                                <h2 class="accordion-header" id="headingPrivacy">
+                                    <button class="accordion-button rounded-4 shadow-sm fw-bold text-body"
+                                            style="background-color: rgba(255,255,255,0.85);
+                                                   backdrop-filter: blur(5px)"
+                                            type="button"
+                                            data-bs-toggle="collapse"
+                                            data-bs-target="#collapsePrivacy"
+                                            aria-expanded="true"
+                                            aria-controls="collapsePrivacy">
+                                        {% translate "I. Kebijakan Privasi & Enkripsi Data" %}
+                                    </button>
+                                </h2>
+                                <div id="collapsePrivacy"
+                                     class="accordion-collapse collapse show mt-2"
+                                     aria-labelledby="headingPrivacy"
+                                     data-bs-parent="#rulesAccordion">
+                                    <div class="accordion-body bg-body bg-opacity-50 rounded-4 text-body small"
+                                         style="line-height: 1.7">
+                                        <p>
+                                            {% translate "Kepercayaan Anda adalah segalanya. Kami mengadopsi standar keamanan mutakhir untuk melindungi hak anonimitas dan rekam jejak Anda:" %}
+                                        </p>
+                                        <h6 class="fw-bold mt-4">{% translate "⚙️ Fitur Keamanan Proaktif" %}</h6>
+                                        <ul class="text-body-secondary">
+                                            {% blocktranslate %}<li><strong>Identitas Super Rahasia:</strong> Nama, Email, dan informasi sensitif pengirim tidak akan pernah bocor ke layar penerima.</li>{% endblocktranslate %}
+                                            {% blocktranslate %}<li><strong>Sistem Sender Hints (Pelacakan OS):</strong> Meski nama disembunyikan, sistem kami mendeteksi tipe Perangkat/Browser (contoh: <em>Chrome on Android</em>) sebagai "petunjuk" mitigasi agar penerima tidak diteror oleh entitas asing.</li>{% endblocktranslate %}
+                                            {% blocktranslate %}<li><strong>Mode Pesan Sekali Baca (Self-Destruct):</strong> Untuk Pesan berlogo 💣, pesan tersebut akan dihapus keras dari database kami sesaat setelah dibaca. Tidak ada rekam jejak pemulihan!</li>{% endblocktranslate %}
+                                            {% blocktranslate %}<li><strong>Proteksi Anti-Spam (Rate Limiting):</strong> Kami secara agresif menolak koneksi ganda atau pengiriman pesan beruntun dari Alamat IP yang sama dalam durasi tidak wajar.</li>{% endblocktranslate %}
                                         </ul>
+                                        <h6 class="fw-bold mt-4">{% translate "📜 Kepatuhan Hukum & Data Forensik" %}</h6>
+                                        {% blocktranslate %}<p class="text-body-secondary">Sistem mencatat Alamat IP pengirim murni untuk keperluan <strong>Audit Forensik</strong>. Jika terjadi kejahatan pidana berat, log data tersebut akan diserahkan secara eksklusif kepada Aparat Penegak Hukum berwenang.</p>{% endblocktranslate %}
                                     </div>
-
-                                    <h6 class="fw-bold mt-4">{% translate "🔨 Mandat Moderasi & Blokir Mandiri" %}</h6>
-                                    {% blocktranslate %}<p class="text-body-secondary">Pengguna dapat langsung menggunakan fitur <strong>Blokir Permanen (Self-Ban)</strong> untuk menghentikan pesan lanjutan dari pelaku teror.</p>{% endblocktranslate %}
+                                </div>
+                            </div>
+                            <!-- ITEM 2: Ketentuan Layanan (TOS) -->
+                            <div class="accordion-item bg-transparent border-0 mb-3">
+                                <h2 class="accordion-header" id="headingTOS">
+                                    <button class="accordion-button collapsed rounded-4 shadow-sm fw-bold text-body"
+                                            style="background-color: rgba(255,255,255,0.85);
+                                                   backdrop-filter: blur(5px)"
+                                            type="button"
+                                            data-bs-toggle="collapse"
+                                            data-bs-target="#collapseTOS"
+                                            aria-expanded="false"
+                                            aria-controls="collapseTOS">
+                                        {% translate "II. Etika & Ketentuan Layanan" %}
+                                    </button>
+                                </h2>
+                                <div id="collapseTOS"
+                                     class="accordion-collapse collapse mt-2"
+                                     aria-labelledby="headingTOS"
+                                     data-bs-parent="#rulesAccordion">
+                                    <div class="accordion-body bg-body bg-opacity-50 rounded-4 text-body small"
+                                         style="line-height: 1.7">
+                                        {% blocktranslate %}<p>Layanan CurhatBox dirancang khusus pengguna berusia <strong>13 tahun ke atas</strong>. Sebagai wadah publik jujur, mari jaga norma bersosial media:</p>{% endblocktranslate %}
+                                        <div class="bg-danger bg-opacity-10 border-start border-danger border-4 p-3 rounded mb-3">
+                                            <h6 class="fw-bold text-danger mb-2">{% translate "🚫 Toleransi Nol (Zero Tolerance) Pelanggaran Siber:" %}</h6>
+                                            <ul class="mb-0 text-danger">
+                                                <li>{% translate "Perundungan siber (*Cyberbullying*), pemerasan, atau ancaman kekerasan." %}</li>
+                                                <li>{% translate "Ujaran kebencian (*Hate Speech*), rasisme, atau provokasi massal." %}</li>
+                                                <li>{% translate "Penyebaran materi pornografi, asusila, atau konten vulgar (18+)." %}</li>
+                                                <li>{% translate "Di atas segalanya, dilarang menyebarkan privasi orang lain (*Doxing*)." %}</li>
+                                            </ul>
+                                        </div>
+                                        <h6 class="fw-bold mt-4">{% translate "🔨 Mandat Moderasi & Blokir Mandiri" %}</h6>
+                                        {% blocktranslate %}<p class="text-body-secondary">Pengguna dapat langsung menggunakan fitur <strong>Blokir Permanen (Self-Ban)</strong> untuk menghentikan pesan lanjutan dari pelaku teror.</p>{% endblocktranslate %}
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- ITEM 3: Penyangkalan (Disclaimer) -->
+                            <div class="accordion-item bg-transparent border-0 mb-3">
+                                <h2 class="accordion-header" id="headingDisclaimer">
+                                    <button class="accordion-button collapsed rounded-4 shadow-sm fw-bold text-body"
+                                            style="background-color: rgba(255,255,255,0.85);
+                                                   backdrop-filter: blur(5px)"
+                                            type="button"
+                                            data-bs-toggle="collapse"
+                                            data-bs-target="#collapseDisclaimer"
+                                            aria-expanded="false"
+                                            aria-controls="collapseDisclaimer">
+                                        {% translate "III. Penyangkalan & Batas Tanggung Jawab" %}
+                                    </button>
+                                </h2>
+                                <div id="collapseDisclaimer"
+                                     class="accordion-collapse collapse mt-2"
+                                     aria-labelledby="headingDisclaimer"
+                                     data-bs-parent="#rulesAccordion">
+                                    <div class="accordion-body bg-body bg-opacity-50 rounded-4 text-body small"
+                                         style="line-height: 1.7">
+                                        {% blocktranslate %}<p>Layanan CurhatBox berstatus <em>"AS IS" (Sebagaimana Adanya)</em>. Kami merupakan medium penyedia komunikasi, bukan penanggung jawab ucapan.</p>{% endblocktranslate %}
+                                        {% blocktranslate %}<p>Kami <strong>TERBEBAS SECARA HUKUM</strong> atas segala kerugian materiil, gangguan psikis, guncangan mental, maupun reputasi tercemar yang disebabkan oleh tulisan individu di dalam platform ini. Tanggung jawab nyata bersandar pada ketikan si Pengirim sesuai koridor Undang-Undang ITE Republik Indonesia.</p>{% endblocktranslate %}
+                                    </div>
                                 </div>
                             </div>
                         </div>
-
-                        <!-- ITEM 3: Penyangkalan (Disclaimer) -->
-                        <div class="accordion-item bg-transparent border-0 mb-3">
-                            <h2 class="accordion-header" id="headingDisclaimer">
-                                <button class="accordion-button collapsed rounded-4 shadow-sm fw-bold text-body" style="background-color: rgba(255,255,255,0.85); backdrop-filter: blur(5px);"
-                                    type="button" data-bs-toggle="collapse" data-bs-target="#collapseDisclaimer"
-                                    aria-expanded="false" aria-controls="collapseDisclaimer">
-                                    {% translate "III. Penyangkalan & Batas Tanggung Jawab" %}
-                                </button>
-                            </h2>
-                            <div id="collapseDisclaimer" class="accordion-collapse collapse mt-2"
-                                aria-labelledby="headingDisclaimer" data-bs-parent="#rulesAccordion">
-                                <div class="accordion-body bg-body bg-opacity-50 rounded-4 text-body small" style="line-height: 1.7;">
-                                    {% blocktranslate %}<p>Layanan CurhatBox berstatus <em>"AS IS" (Sebagaimana Adanya)</em>. Kami merupakan medium penyedia komunikasi, bukan penanggung jawab ucapan.</p>{% endblocktranslate %}
-                                    {% blocktranslate %}<p>Kami <strong>TERBEBAS SECARA HUKUM</strong> atas segala kerugian materiil, gangguan psikis, guncangan mental, maupun reputasi tercemar yang disebabkan oleh tulisan individu di dalam platform ini. Tanggung jawab nyata bersandar pada ketikan si Pengirim sesuai koridor Undang-Undang ITE Republik Indonesia.</p>{% endblocktranslate %}
-                                </div>
-                            </div>
-                        </div>
-
+                        <!-- End Accordion -->
                     </div>
-                    <!-- End Accordion -->
-
+                </div>
+                <!-- Footer Contact -->
+                <div class="text-center mt-5" data-aos="fade-up" data-aos-delay="300">
+                    <div class="glass-card d-inline-block p-4 rounded-4">
+                        <p class="small text-white-50 mb-3">{% translate "Tim Legal atau Pertanyaan? Hubungi Meja Layanan:" %}</p>
+                        <a href="mailto:legal@curhatbox.my.id"
+                           class="fw-bold text-white text-decoration-none fs-5 d-inline-block hover-lift">
+                            <i class="bi bi-envelope-fill text-warning me-2"></i> legal@curhatbox.my.id
+                        </a>
+                    </div>
+                    <div class="mt-5">
+                        <a href="{% url 'index' %}"
+                           class="btn btn-light px-5 py-3 rounded-pill shadow hover-lift fw-bold text-primary">
+                            {% translate "Kembali ke Beranda" %}
+                        </a>
+                    </div>
                 </div>
             </div>
-
-            <!-- Footer Contact -->
-            <div class="text-center mt-5" data-aos="fade-up" data-aos-delay="300">
-                <div class="glass-card d-inline-block p-4 rounded-4">
-                    <p class="small text-white-50 mb-3">{% translate "Tim Legal atau Pertanyaan? Hubungi Meja Layanan:" %}</p>
-                    <a href="mailto:legal@curhatbox.my.id"
-                        class="fw-bold text-white text-decoration-none fs-5 d-inline-block hover-lift">
-                        <i class="bi bi-envelope-fill text-warning me-2"></i> legal@curhatbox.my.id
-                    </a>
-                </div>
-                <div class="mt-5">
-                    <a href="{% url 'index' %}" class="btn btn-light px-5 py-3 rounded-pill shadow hover-lift fw-bold text-primary">
-                        {% translate "Kembali ke Beranda" %}
-                    </a>
-                </div>
-            </div>
-
         </div>
     </div>
-</div>
-
-<style>
+    <style>
 /* Custom Accordion overrides for Glassmorphism */
 .custom-accordion .accordion-button:not(.collapsed) {
     color: #6f42c1 !important;
@@ -142,5 +162,5 @@
     border-color: #8aafff;
     box-shadow: 0 0 0 0.25rem rgba(111, 66, 193, 0.25);
 }
-</style>
+    </style>
 {% endblock %}

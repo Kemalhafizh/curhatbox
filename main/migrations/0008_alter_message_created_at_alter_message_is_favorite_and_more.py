@@ -6,23 +6,23 @@ from django.db import migrations, models
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('main', '0007_profile_preferred_language_alter_profile_theme_color'),
+        ("main", "0007_profile_preferred_language_alter_profile_theme_color"),
     ]
 
     operations = [
         migrations.AlterField(
-            model_name='message',
-            name='created_at',
+            model_name="message",
+            name="created_at",
             field=models.DateTimeField(auto_now_add=True, db_index=True),
         ),
         migrations.AlterField(
-            model_name='message',
-            name='is_favorite',
+            model_name="message",
+            name="is_favorite",
             field=models.BooleanField(db_index=True, default=False),
         ),
         migrations.AlterField(
-            model_name='message',
-            name='is_public',
+            model_name="message",
+            name="is_public",
             field=models.BooleanField(db_index=True, default=False),
         ),
     ]

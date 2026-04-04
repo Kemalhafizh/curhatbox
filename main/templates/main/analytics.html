@@ -1,160 +1,191 @@
 {% extends 'main/base.html' %}
 {% load i18n %}
-
-{% block title %}{% translate "Studio Analitik - CurhatBox" %}{% endblock %}
-
+{% block title %}
+    {% translate "Studio Analitik - CurhatBox" %}
+{% endblock %}
 {% block content %}
-<div class="container-fluid position-relative py-4 z-1">
-    
-    <!-- Header Section -->
-    <div class="row mb-5 align-items-center" data-aos="fade-down">
-        <div class="col-md-8">
-            <h1 class="fw-bold mb-2 text-white" style="font-family: 'Outfit', sans-serif; text-shadow: 0 4px 15px rgba(0,0,0,0.3);">
-                <i class="bi bi-bar-chart-line-fill text-warning me-2"></i> {% translate "Studio Analitik Penggemar" %}
-            </h1>
-            <p class="text-white-50 fs-5 mb-0" style="text-shadow: 0 2px 10px rgba(0,0,0,0.2);">{% translate "Pantau metrik interaksi, waktu terbaik, dan sentimen dari penggemar rahasiamu dalam satu layar." %}</p>
+    <div class="container-fluid position-relative py-4 z-1">
+        <!-- Header Section -->
+        <div class="row mb-5 align-items-center" data-aos="fade-down">
+            <div class="col-md-8">
+                <h1 class="fw-bold mb-2 text-white"
+                    style="font-family: 'Outfit', sans-serif;
+                           text-shadow: 0 4px 15px rgba(0,0,0,0.3)">
+                    <i class="bi bi-bar-chart-line-fill text-warning me-2"></i> {% translate "Studio Analitik Penggemar" %}
+                </h1>
+                <p class="text-white-50 fs-5 mb-0"
+                   style="text-shadow: 0 2px 10px rgba(0,0,0,0.2)">
+                    {% translate "Pantau metrik interaksi, waktu terbaik, dan sentimen dari penggemar rahasiamu dalam satu layar." %}
+                </p>
+            </div>
+            <div class="col-md-4 text-md-end mt-4 mt-md-0">
+                <a href="{% url 'dashboard' %}"
+                   class="btn btn-light rounded-pill px-4 py-2 shadow hover-lift fw-bold text-primary">
+                    {% translate "⬅ Kembali ke Dasbor" %}
+                </a>
+            </div>
         </div>
-        <div class="col-md-4 text-md-end mt-4 mt-md-0">
-            <a href="{% url 'dashboard' %}" class="btn btn-light rounded-pill px-4 py-2 shadow hover-lift fw-bold text-primary">
-                {% translate "⬅ Kembali ke Dasbor" %}
-            </a>
+        <!-- KPI Cards Grid (Glassmorphism) -->
+        <div class="row row-cols-1 row-cols-sm-2 row-cols-lg-4 g-4 mb-5">
+            <!-- KPI 1 -->
+            <div class="col" data-aos="zoom-in" data-aos-delay="0">
+                <div class="glass-card h-100 hover-lift text-white p-1 position-relative overflow-hidden"
+                     style="background: linear-gradient(135deg, #00c6ff 0%, #0072ff 100%)">
+                    <div class="position-absolute top-0 end-0 p-3 opacity-25">
+                        <i class="bi bi-envelope-paper display-1"></i>
+                    </div>
+                    <div class="card-body p-4 text-start position-relative z-1">
+                        <h6 class="text-uppercase fw-bolder text-white-50 mb-2"
+                            style="letter-spacing: 1px">{% translate "Total Pesan" %}</h6>
+                        <h2 class="display-4 fw-bold mb-0 text-white">{{ total_messages }}</h2>
+                    </div>
+                </div>
+            </div>
+            <!-- KPI 2 -->
+            <div class="col" data-aos="zoom-in" data-aos-delay="100">
+                <div class="glass-card h-100 hover-lift p-1 position-relative overflow-hidden"
+                     style="border-left: 6px solid #fca311">
+                    <div class="position-absolute top-0 end-0 p-3 opacity-10">
+                        <i class="bi bi-eye-slash display-1 text-warning"></i>
+                    </div>
+                    <div class="card-body p-4 text-start position-relative z-1">
+                        <h6 class="text-uppercase fw-bolder text-body-secondary mb-2"
+                            style="letter-spacing: 1px">{% translate "Belum Dibaca" %}</h6>
+                        <h2 class="display-4 fw-bold text-body mb-0 d-flex align-items-center gap-2">
+                            {{ unread_messages }}
+                            {% if unread_messages > 0 %}<span class="spinner-grow spinner-grow-sm text-warning" role="status"></span>{% endif %}
+                        </h2>
+                    </div>
+                </div>
+            </div>
+            <!-- KPI 3 -->
+            <div class="col" data-aos="zoom-in" data-aos-delay="200">
+                <div class="glass-card h-100 hover-lift p-1 position-relative overflow-hidden"
+                     style="border-left: 6px solid #20c997">
+                    <div class="position-absolute top-0 end-0 p-3 opacity-10">
+                        <i class="bi bi-chat-heart display-1 text-success"></i>
+                    </div>
+                    <div class="card-body p-4 text-start position-relative z-1">
+                        <h6 class="text-uppercase fw-bolder text-body-secondary mb-2"
+                            style="letter-spacing: 1px">{% translate "Tingkat Balasan" %}</h6>
+                        <h2 class="display-4 fw-bold text-body mb-0">
+                            {{ reply_rate }}<small class="fs-4 text-body-secondary">%</small>
+                        </h2>
+                    </div>
+                </div>
+            </div>
+            <!-- KPI 4 -->
+            <div class="col" data-aos="zoom-in" data-aos-delay="300">
+                <div class="glass-card h-100 hover-lift p-1 position-relative overflow-hidden"
+                     style="border-left: 6px solid #ff6b6b">
+                    <div class="position-absolute top-0 end-0 p-3 opacity-10">
+                        <i class="bi bi-share-fill display-1 text-danger"></i>
+                    </div>
+                    <div class="card-body p-4 text-start position-relative z-1">
+                        <h6 class="text-uppercase fw-bolder text-body-secondary mb-2"
+                            style="letter-spacing: 1px">{% translate "Tingkat Share (Publik)" %}</h6>
+                        <h2 class="display-4 fw-bold text-body mb-0">
+                            {{ share_rate }}<small class="fs-4 text-body-secondary">%</small>
+                        </h2>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- Utama: Tren Waktu -->
+        <div class="row mb-5" data-aos="fade-up" data-aos-delay="400">
+            <div class="col-12">
+                <div class="glass-card hover-lift">
+                    <div class="card-body p-4 p-md-5">
+                        <div class="d-flex justify-content-between align-items-center mb-4">
+                            <h5 class="fw-bold mb-0 text-body"
+                                style="font-family: 'Outfit', sans-serif">
+                                {% translate "📈 Tren Lalu Lintas Pesan (7 Hari Terakhir)" %}
+                            </h5>
+                            <span class="badge bg-body text-body shadow-sm border rounded-pill px-3 py-2">{% translate "Rekap Harian" %}</span>
+                        </div>
+                        <!-- Wrapper relative untuk Canvas agar responsif di Bootstrap -->
+                        <div style="position: relative; height:45vh; width:100%">
+                            <canvas id="trendChart"></canvas>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- Insight Lanjutan: Peak Hours & Sentimen -->
+        <div class="row g-4 mb-5">
+            <div class="col-lg-6" data-aos="fade-right" data-aos-delay="500">
+                <div class="glass-card h-100 hover-lift">
+                    <div class="card-body p-4 p-md-5 d-flex flex-column">
+                        <h5 class="fw-bold mb-1 text-center text-body"
+                            style="font-family: 'Outfit', sans-serif">{% translate "⏱ Jam Emas (Peak Hours)" %}</h5>
+                        <p class="small text-body-secondary text-center mb-4">
+                            {% translate "Waktu paling sering layar pengguna aktif (00:00 - 23:00)" %}
+                        </p>
+                        <div class="flex-grow-1 d-flex justify-content-center align-items-center"
+                             style="position: relative;
+                                    height:35vh;
+                                    width:100%">
+                            <canvas id="peakHoursChart"></canvas>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-6" data-aos="fade-left" data-aos-delay="600">
+                <div class="glass-card h-100 hover-lift">
+                    <div class="card-body p-4 p-md-5 d-flex flex-column">
+                        <h5 class="fw-bold mb-1 text-center text-body"
+                            style="font-family: 'Outfit', sans-serif">{% translate "🎭 Analisis Sentimen Emoji" %}</h5>
+                        <p class="small text-body-secondary text-center mb-4">
+                            {% translate "Distribusi emosi dari reaksi cepat pengunjung" %}
+                        </p>
+                        <div class="flex-grow-1 d-flex justify-content-center align-items-center"
+                             style="position: relative;
+                                    height:35vh;
+                                    width:100%"
+                             id="sentimentContainer">
+                            <canvas id="sentimentChart"></canvas>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- Metrik Perangkat Dasar -->
+        <div class="row g-4 mb-5" data-aos="fade-up" data-aos-delay="700">
+            <div class="col-md-6">
+                <div class="glass-card h-100 hover-lift">
+                    <div class="card-body p-4 p-md-5 d-flex flex-column">
+                        <h6 class="fw-bold text-body-secondary mb-4 text-center text-uppercase"
+                            style="letter-spacing: 1px">{% translate "📱 Perangkat Pengirim (OS)" %}</h6>
+                        <div class="flex-grow-1 d-flex justify-content-center align-items-center"
+                             style="position: relative;
+                                    height:25vh;
+                                    width:100%">
+                            <canvas id="osChart"></canvas>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="glass-card h-100 hover-lift">
+                    <div class="card-body p-4 p-md-5 d-flex flex-column">
+                        <h6 class="fw-bold text-body-secondary mb-4 text-center text-uppercase"
+                            style="letter-spacing: 1px">{% translate "🌐 Browser Favorit" %}</h6>
+                        <div class="flex-grow-1 d-flex justify-content-center align-items-center"
+                             style="position: relative;
+                                    height:25vh;
+                                    width:100%">
+                            <canvas id="browserChart"></canvas>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
-
-    <!-- KPI Cards Grid (Glassmorphism) -->
-    <div class="row row-cols-1 row-cols-sm-2 row-cols-lg-4 g-4 mb-5">
-        <!-- KPI 1 -->
-        <div class="col" data-aos="zoom-in" data-aos-delay="0">
-            <div class="glass-card h-100 hover-lift text-white p-1 position-relative overflow-hidden" style="background: linear-gradient(135deg, #00c6ff 0%, #0072ff 100%);">
-                <div class="position-absolute top-0 end-0 p-3 opacity-25">
-                    <i class="bi bi-envelope-paper display-1"></i>
-                </div>
-                <div class="card-body p-4 text-start position-relative z-1">
-                    <h6 class="text-uppercase fw-bolder text-white-50 mb-2" style="letter-spacing: 1px;">{% translate "Total Pesan" %}</h6>
-                    <h2 class="display-4 fw-bold mb-0 text-white">{{ total_messages }}</h2>
-                </div>
-            </div>
-        </div>
-        <!-- KPI 2 -->
-        <div class="col" data-aos="zoom-in" data-aos-delay="100">
-            <div class="glass-card h-100 hover-lift p-1 position-relative overflow-hidden" style="border-left: 6px solid #fca311;">
-                <div class="position-absolute top-0 end-0 p-3 opacity-10">
-                    <i class="bi bi-eye-slash display-1 text-warning"></i>
-                </div>
-                <div class="card-body p-4 text-start position-relative z-1">
-                    <h6 class="text-uppercase fw-bolder text-body-secondary mb-2" style="letter-spacing: 1px;">{% translate "Belum Dibaca" %}</h6>
-                    <h2 class="display-4 fw-bold text-body mb-0 d-flex align-items-center gap-2">
-                        {{ unread_messages }} 
-                        {% if unread_messages > 0 %}<span class="spinner-grow spinner-grow-sm text-warning" role="status"></span>{% endif %}
-                    </h2>
-                </div>
-            </div>
-        </div>
-        <!-- KPI 3 -->
-        <div class="col" data-aos="zoom-in" data-aos-delay="200">
-            <div class="glass-card h-100 hover-lift p-1 position-relative overflow-hidden" style="border-left: 6px solid #20c997;">
-                <div class="position-absolute top-0 end-0 p-3 opacity-10">
-                    <i class="bi bi-chat-heart display-1 text-success"></i>
-                </div>
-                <div class="card-body p-4 text-start position-relative z-1">
-                    <h6 class="text-uppercase fw-bolder text-body-secondary mb-2" style="letter-spacing: 1px;">{% translate "Tingkat Balasan" %}</h6>
-                    <h2 class="display-4 fw-bold text-body mb-0">{{ reply_rate }}<small class="fs-4 text-body-secondary">%</small></h2>
-                </div>
-            </div>
-        </div>
-        <!-- KPI 4 -->
-        <div class="col" data-aos="zoom-in" data-aos-delay="300">
-            <div class="glass-card h-100 hover-lift p-1 position-relative overflow-hidden" style="border-left: 6px solid #ff6b6b;">
-                <div class="position-absolute top-0 end-0 p-3 opacity-10">
-                    <i class="bi bi-share-fill display-1 text-danger"></i>
-                </div>
-                <div class="card-body p-4 text-start position-relative z-1">
-                    <h6 class="text-uppercase fw-bolder text-body-secondary mb-2" style="letter-spacing: 1px;">{% translate "Tingkat Share (Publik)" %}</h6>
-                    <h2 class="display-4 fw-bold text-body mb-0">{{ share_rate }}<small class="fs-4 text-body-secondary">%</small></h2>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <!-- Utama: Tren Waktu -->
-    <div class="row mb-5" data-aos="fade-up" data-aos-delay="400">
-        <div class="col-12">
-            <div class="glass-card hover-lift">
-                <div class="card-body p-4 p-md-5">
-                    <div class="d-flex justify-content-between align-items-center mb-4">
-                        <h5 class="fw-bold mb-0 text-body" style="font-family: 'Outfit', sans-serif;">{% translate "📈 Tren Lalu Lintas Pesan (7 Hari Terakhir)" %}</h5>
-                        <span class="badge bg-body text-body shadow-sm border rounded-pill px-3 py-2">{% translate "Rekap Harian" %}</span>
-                    </div>
-                    <!-- Wrapper relative untuk Canvas agar responsif di Bootstrap -->
-                    <div style="position: relative; height:45vh; width:100%">
-                        <canvas id="trendChart"></canvas>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <!-- Insight Lanjutan: Peak Hours & Sentimen -->
-    <div class="row g-4 mb-5">
-        <div class="col-lg-6" data-aos="fade-right" data-aos-delay="500">
-            <div class="glass-card h-100 hover-lift">
-                <div class="card-body p-4 p-md-5 d-flex flex-column">
-                    <h5 class="fw-bold mb-1 text-center text-body" style="font-family: 'Outfit', sans-serif;">{% translate "⏱ Jam Emas (Peak Hours)" %}</h5>
-                    <p class="small text-body-secondary text-center mb-4">{% translate "Waktu paling sering layar pengguna aktif (00:00 - 23:00)" %}</p>
-                    <div class="flex-grow-1 d-flex justify-content-center align-items-center"
-                        style="position: relative; height:35vh; width:100%">
-                        <canvas id="peakHoursChart"></canvas>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <div class="col-lg-6" data-aos="fade-left" data-aos-delay="600">
-            <div class="glass-card h-100 hover-lift">
-                <div class="card-body p-4 p-md-5 d-flex flex-column">
-                    <h5 class="fw-bold mb-1 text-center text-body" style="font-family: 'Outfit', sans-serif;">{% translate "🎭 Analisis Sentimen Emoji" %}</h5>
-                    <p class="small text-body-secondary text-center mb-4">{% translate "Distribusi emosi dari reaksi cepat pengunjung" %}</p>
-                    <div class="flex-grow-1 d-flex justify-content-center align-items-center"
-                        style="position: relative; height:35vh; width:100%" id="sentimentContainer">
-                        <canvas id="sentimentChart"></canvas>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <!-- Metrik Perangkat Dasar -->
-    <div class="row g-4 mb-5" data-aos="fade-up" data-aos-delay="700">
-        <div class="col-md-6">
-            <div class="glass-card h-100 hover-lift">
-                <div class="card-body p-4 p-md-5 d-flex flex-column">
-                    <h6 class="fw-bold text-body-secondary mb-4 text-center text-uppercase" style="letter-spacing: 1px;">{% translate "📱 Perangkat Pengirim (OS)" %}</h6>
-                    <div class="flex-grow-1 d-flex justify-content-center align-items-center"
-                        style="position: relative; height:25vh; width:100%">
-                        <canvas id="osChart"></canvas>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <div class="col-md-6">
-            <div class="glass-card h-100 hover-lift">
-                <div class="card-body p-4 p-md-5 d-flex flex-column">
-                    <h6 class="fw-bold text-body-secondary mb-4 text-center text-uppercase" style="letter-spacing: 1px;">{% translate "🌐 Browser Favorit" %}</h6>
-                    <div class="flex-grow-1 d-flex justify-content-center align-items-center"
-                        style="position: relative; height:25vh; width:100%">
-                        <canvas id="browserChart"></canvas>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-
-</div> <!-- Tutup Container -->
-
-<!-- Chart.js Library via CDN -->
-<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-
-<!-- Script inisiasi grafik -->
-<script>
+    <!-- Tutup Container -->
+    <!-- Chart.js Library via CDN -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <!-- Script inisiasi grafik -->
+    <script>
     // Deteksi Tema Saat Ini untuk Warna Chart
     const isDark = document.documentElement.getAttribute('data-bs-theme') === 'dark';
 
@@ -346,6 +377,5 @@
         }
     });
 
-</script>
-
+    </script>
 {% endblock %}

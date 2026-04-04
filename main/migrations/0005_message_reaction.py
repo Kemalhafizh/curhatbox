@@ -6,13 +6,15 @@ from django.db import migrations, models
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('main', '0004_message_sender_browser_message_sender_device'),
+        ("main", "0004_message_sender_browser_message_sender_device"),
     ]
 
     operations = [
         migrations.AddField(
-            model_name='message',
-            name='reaction',
-            field=models.CharField(blank=True, max_length=10, null=True, verbose_name='Reaksi Cepat'),
+            model_name="message",
+            name="reaction",
+            field=models.CharField(
+                blank=True, max_length=10, null=True, verbose_name="Reaksi Cepat"
+            ),
         ),
     ]

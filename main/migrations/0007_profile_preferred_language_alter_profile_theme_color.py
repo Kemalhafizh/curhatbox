@@ -6,18 +6,27 @@ from django.db import migrations, models
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('main', '0006_message_is_disposable'),
+        ("main", "0006_message_is_disposable"),
     ]
 
     operations = [
         migrations.AddField(
-            model_name='profile',
-            name='preferred_language',
-            field=models.CharField(choices=[('id', 'Indonesian'), ('en', 'English')], default='id', help_text='Bahasa pilihan untuk antarmuka.', max_length=5),
+            model_name="profile",
+            name="preferred_language",
+            field=models.CharField(
+                choices=[("id", "Indonesian"), ("en", "English")],
+                default="id",
+                help_text="Bahasa pilihan untuk antarmuka.",
+                max_length=5,
+            ),
         ),
         migrations.AlterField(
-            model_name='profile',
-            name='theme_color',
-            field=models.CharField(default='#6f42c1', help_text='Warna tema profil (Hex Code)', max_length=7),
+            model_name="profile",
+            name="theme_color",
+            field=models.CharField(
+                default="#6f42c1",
+                help_text="Warna tema profil (Hex Code)",
+                max_length=7,
+            ),
         ),
     ]

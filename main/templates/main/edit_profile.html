@@ -1,10 +1,10 @@
 {% extends 'main/base.html' %}
 {% load i18n %}
-
-{% block title %}{% translate "Edit Profil" %} - CurhatBox{% endblock %}
-
+{% block title %}
+    {% translate "Edit Profil" %} - CurhatBox
+{% endblock %}
 {% block content %}
-<style>
+    <style>
     .form-group-glass {
         background: rgba(255, 255, 255, 0.03);
         border: 1px solid var(--glass-border);
@@ -65,114 +65,102 @@
         transform: translateY(-2px);
         box-shadow: 0 8px 15px rgba(0,0,0,0.2) !important;
     }
-</style>
-
-<div class="container-fluid position-relative py-5 z-1" style="--user-theme-primary: {{ request.user.profile.theme_color|default:'#6f42c1' }};">
-    
-    <div class="row justify-content-center" data-aos="fade-up">
-        <div class="col-md-6 col-lg-5">
-            
-            <div class="text-center mb-3">
-                <h3 class="fw-bold text-white mb-1" style="font-family: 'Outfit', sans-serif; text-shadow: 0 4px 15px rgba(0,0,0,0.3); font-size: 1.5rem;">
-                    {% translate "⚙️ Pengaturan Profil" %}
-                </h3>
-                <p class="text-white-50 small">{% translate "Kustomisasi identitas publikmu" %}</p>
-            </div>
-
-            <div class="glass-card p-3 p-md-5">
-                <form method="POST" enctype="multipart/form-data">
-                    {% csrf_token %}
-                    
-                    <!-- Bio Field -->
-                    <div class="form-group-glass mb-4">
-                        <label for="{{ form.bio.id_for_label }}" class="form-label fw-bold text-body mb-2">
-                            <i class="bi bi-chat-quote-fill text-primary me-2"></i>{% translate "Sapaan Pengunjung (Bio)" %}
-                        </label>
-                        {{ form.bio }}
-                        {% if form.bio.help_text %}
-                            <div class="form-text mt-2">{{ form.bio.help_text }}</div>
-                        {% endif %}
-                        {% if form.bio.errors %}
-                            <div class="text-danger small mt-1">{{ form.bio.errors }}</div>
-                        {% endif %}
-                    </div>
-
-                    <!-- Avatar Field -->
-                    <div class="form-group-glass mb-4 text-center">
-                        <label class="form-label fw-bold text-body d-block mb-3 text-start">
-                            <i class="bi bi-person-circle text-primary me-2"></i>{% translate "Foto Avatar" %}
-                        </label>
-                        
-                        <!-- Live Preview Display -->
-                        <div class="avatar-preview-wrapper">
-                            {% if request.user.profile.avatar %}
-                                <img id="img-preview" src="{{ request.user.profile.avatar.url }}" alt="Preview">
-                            {% else %}
-                                <img id="img-preview" src="" alt="Preview" style="display: none;">
-                                <div id="avatar-placeholder" class="avatar-placeholder">{{ request.user.username|slice:":1"|upper }}</div>
+    </style>
+    <div class="container-fluid position-relative py-5 z-1"
+         style="--user-theme-primary: {{ request.user.profile.theme_color|default:'#6f42c1' }}">
+        <div class="row justify-content-center" data-aos="fade-up">
+            <div class="col-md-6 col-lg-5">
+                <div class="text-center mb-3">
+                    <h3 class="fw-bold text-white mb-1"
+                        style="font-family: 'Outfit', sans-serif;
+                               text-shadow: 0 4px 15px rgba(0,0,0,0.3);
+                               font-size: 1.5rem">{% translate "⚙️ Pengaturan Profil" %}</h3>
+                    <p class="text-white-50 small">{% translate "Kustomisasi identitas publikmu" %}</p>
+                </div>
+                <div class="glass-card p-3 p-md-5">
+                    <form method="POST" enctype="multipart/form-data">
+                        {% csrf_token %}
+                        <!-- Bio Field -->
+                        <div class="form-group-glass mb-4">
+                            <label for="{{ form.bio.id_for_label }}"
+                                   class="form-label fw-bold text-body mb-2">
+                                <i class="bi bi-chat-quote-fill text-primary me-2"></i>{% translate "Sapaan Pengunjung (Bio)" %}
+                            </label>
+                            {{ form.bio }}
+                            {% if form.bio.help_text %}<div class="form-text mt-2">{{ form.bio.help_text }}</div>{% endif %}
+                            {% if form.bio.errors %}<div class="text-danger small mt-1">{{ form.bio.errors }}</div>{% endif %}
+                        </div>
+                        <!-- Avatar Field -->
+                        <div class="form-group-glass mb-4 text-center">
+                            <label class="form-label fw-bold text-body d-block mb-3 text-start">
+                                <i class="bi bi-person-circle text-primary me-2"></i>{% translate "Foto Avatar" %}
+                            </label>
+                            <!-- Live Preview Display -->
+                            <div class="avatar-preview-wrapper">
+                                {% if request.user.profile.avatar %}
+                                    <img id="img-preview"
+                                         src="{{ request.user.profile.avatar.url }}"
+                                         alt="Preview">
+                                {% else %}
+                                    <img id="img-preview" src="" alt="Preview" style="display: none;">
+                                    <div id="avatar-placeholder" class="avatar-placeholder">{{ request.user.username|slice:":1"|upper }}</div>
+                                {% endif %}
+                            </div>
+                            <!-- Safely hidden native input -->
+                            <div class="django-file-widget">{{ form.avatar }}</div>
+                            <!-- Premium Custom Button -->
+                            <label for="{{ form.avatar.id_for_label }}"
+                                   class="btn btn-outline-primary rounded-pill px-4 py-2 mt-2 hover-lift fw-bold"
+                                   style="cursor: pointer">
+                                <i class="bi bi-camera me-2"></i>{% translate "Ganti Foto Profil" %}
+                            </label>
+                            <div class="form-text mt-3">
+                                <i class="bi bi-info-circle me-1"></i>{% translate "Format: JPG, PNG, GIF (Maks. 2MB)" %}
+                            </div>
+                            {% if form.avatar.errors %}<div class="text-danger small mt-2 fw-bold">{{ form.avatar.errors }}</div>{% endif %}
+                        </div>
+                        <!-- Theme Color Field -->
+                        <div class="form-group-glass mb-4">
+                            <label for="{{ form.theme_color.id_for_label }}"
+                                   class="form-label fw-bold text-body mb-2 d-block">
+                                <i class="bi bi-palette-fill text-primary me-2"></i>{% translate "Warna Tema Publik" %}
+                            </label>
+                            <div class="d-flex align-items-center gap-3 bg-body bg-opacity-50 p-3 rounded-4 border">
+                                {{ form.theme_color }}
+                                <span class="small text-body-secondary">{% translate "Klik kotak untuk memilih warna dominan profilmu." %}</span>
+                            </div>
+                            {% if form.theme_color.errors %}<div class="text-danger small mt-1">{{ form.theme_color.errors }}</div>{% endif %}
+                        </div>
+                        <!-- Language Selection Field -->
+                        <div class="form-group-glass mb-5">
+                            <label for="{{ form.preferred_language.id_for_label }}"
+                                   class="form-label fw-bold text-body mb-2">
+                                <i class="bi bi-translate text-primary me-2"></i>{% translate "Bahasa Antarmuka" %}
+                            </label>
+                            {{ form.preferred_language }}
+                            <div class="form-text mt-2">{% translate "Pilih bahasa utama yang ingin kamu gunakan di CurhatBox." %}</div>
+                            {% if form.preferred_language.errors %}
+                                <div class="text-danger small mt-1">{{ form.preferred_language.errors }}</div>
                             {% endif %}
                         </div>
-
-                        <!-- Safely hidden native input -->
-                        <div class="django-file-widget">
-                            {{ form.avatar }}
+                        <!-- Action Buttons -->
+                        <div class="d-grid gap-3 pt-2">
+                            <button type="submit"
+                                    class="btn user-theme-btn btn-lg rounded-pill shadow-lg hover-lift fw-bold border-0">
+                                {% translate "Terapkan Perubahan ✨" %}
+                            </button>
+                            <a href="{% url 'dashboard' %}"
+                               class="btn btn-light btn-lg rounded-pill border hover-lift fw-bold text-body-secondary">
+                                {% translate "Batalkan" %}
+                            </a>
                         </div>
-                        
-                        <!-- Premium Custom Button -->
-                        <label for="{{ form.avatar.id_for_label }}" class="btn btn-outline-primary rounded-pill px-4 py-2 mt-2 hover-lift fw-bold" style="cursor: pointer;">
-                            <i class="bi bi-camera me-2"></i>{% translate "Ganti Foto Profil" %}
-                        </label>
-                        
-                        <div class="form-text mt-3"><i class="bi bi-info-circle me-1"></i>{% translate "Format: JPG, PNG, GIF (Maks. 2MB)" %}</div>
-                        {% if form.avatar.errors %}
-                            <div class="text-danger small mt-2 fw-bold">{{ form.avatar.errors }}</div>
-                        {% endif %}
-                    </div>
-
-                    <!-- Theme Color Field -->
-                    <div class="form-group-glass mb-4">
-                        <label for="{{ form.theme_color.id_for_label }}" class="form-label fw-bold text-body mb-2 d-block">
-                            <i class="bi bi-palette-fill text-primary me-2"></i>{% translate "Warna Tema Publik" %}
-                        </label>
-                        <div class="d-flex align-items-center gap-3 bg-body bg-opacity-50 p-3 rounded-4 border">
-                            {{ form.theme_color }}
-                            <span class="small text-body-secondary">{% translate "Klik kotak untuk memilih warna dominan profilmu." %}</span>
-                        </div>
-                        {% if form.theme_color.errors %}
-                            <div class="text-danger small mt-1">{{ form.theme_color.errors }}</div>
-                        {% endif %}
-                    </div>
-
-                    <!-- Language Selection Field -->
-                    <div class="form-group-glass mb-5">
-                        <label for="{{ form.preferred_language.id_for_label }}" class="form-label fw-bold text-body mb-2">
-                            <i class="bi bi-translate text-primary me-2"></i>{% translate "Bahasa Antarmuka" %}
-                        </label>
-                        {{ form.preferred_language }}
-                        <div class="form-text mt-2">{% translate "Pilih bahasa utama yang ingin kamu gunakan di CurhatBox." %}</div>
-                        {% if form.preferred_language.errors %}
-                            <div class="text-danger small mt-1">{{ form.preferred_language.errors }}</div>
-                        {% endif %}
-                    </div>
-
-                    <!-- Action Buttons -->
-                    <div class="d-grid gap-3 pt-2">
-                        <button type="submit" class="btn user-theme-btn btn-lg rounded-pill shadow-lg hover-lift fw-bold border-0">
-                            {% translate "Terapkan Perubahan ✨" %}
-                        </button>
-                        <a href="{% url 'dashboard' %}" class="btn btn-light btn-lg rounded-pill border hover-lift fw-bold text-body-secondary">
-                            {% translate "Batalkan" %}
-                        </a>
-                    </div>
-                </form>
+                    </form>
+                </div>
             </div>
-            
         </div>
     </div>
-</div>
-
-<!-- Script for Avatar Live Preview -->
-<script>
+    <!-- Script for Avatar Live Preview -->
+    <script>
 document.addEventListener('DOMContentLoaded', function() {
     const fileInput = document.querySelector('.django-file-widget input[type="file"]');
     const imgPreview = document.getElementById('img-preview');
@@ -195,5 +183,5 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     }
 });
-</script>
+    </script>
 {% endblock %}

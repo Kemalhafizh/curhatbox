@@ -6,13 +6,13 @@ from django.db import migrations, models
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('main', '0005_message_reaction'),
+        ("main", "0005_message_reaction"),
     ]
 
     operations = [
         migrations.AddField(
-            model_name='message',
-            name='is_disposable',
-            field=models.BooleanField(default=False, verbose_name='Pesan Sekali Baca'),
+            model_name="message",
+            name="is_disposable",
+            field=models.BooleanField(default=False, verbose_name="Pesan Sekali Baca"),
         ),
     ]

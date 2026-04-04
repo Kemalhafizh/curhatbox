@@ -6,27 +6,36 @@ from django.db import migrations, models
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('main', '0002_blocklist'),
+        ("main", "0002_blocklist"),
     ]
 
     operations = [
         migrations.AlterModelOptions(
-            name='message',
-            options={'ordering': ['-is_favorite', '-created_at']},
+            name="message",
+            options={"ordering": ["-is_favorite", "-created_at"]},
         ),
         migrations.AddField(
-            model_name='message',
-            name='is_favorite',
+            model_name="message",
+            name="is_favorite",
             field=models.BooleanField(default=False),
         ),
         migrations.AddField(
-            model_name='profile',
-            name='avatar',
-            field=models.ImageField(blank=True, help_text='Upload foto profilmu.', null=True, upload_to='avatars/'),
+            model_name="profile",
+            name="avatar",
+            field=models.ImageField(
+                blank=True,
+                help_text="Upload foto profilmu.",
+                null=True,
+                upload_to="avatars/",
+            ),
         ),
         migrations.AddField(
-            model_name='profile',
-            name='theme_color',
-            field=models.CharField(default='#f8f9fa', help_text='Warna tema profil (Hex Code)', max_length=7),
+            model_name="profile",
+            name="theme_color",
+            field=models.CharField(
+                default="#f8f9fa",
+                help_text="Warna tema profil (Hex Code)",
+                max_length=7,
+            ),
         ),
     ]

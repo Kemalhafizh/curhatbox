@@ -1,132 +1,145 @@
 {% load static i18n %}
 <!DOCTYPE html>
 <html lang="{{ LANGUAGE_CODE }}">
+    <head>
+        <script>
 
-<head>
-    <script>
-        // Mencegah Flash of Inaccurate Theme (FOUC/FOIT) dengan membaca localStorage sebelum DOM dimuat sepenuhnya
         const savedTheme = localStorage.getItem('theme') || 'light';
         document.documentElement.setAttribute('data-bs-theme', savedTheme);
-    </script>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>{% block title %}CurhatBox{% endblock %}</title>
-
-    <meta name="description" content="{% translate 'CurhatBox adalah platform pesan anonim paling aman di Indonesia. Kirim pesan rahasia, kritik jujur, dan curhatan tanpa identitas dengan perlindungan anti-cyberbullying dan mode sekali baca.' %}">
-    <meta name="keywords" content="{% translate 'pesan anonim, curhat rahasia, kirim pesan jujur, aplikasi anonim indonesia, curhatbox, pesan rahasia instagram, link rahasia ig' %}">
-    <meta name="author" content="CurhatBox Team">
-
-    <link rel="shortcut icon" type="image/png" href="{% static 'img/favicon.png' %}">
-
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    
-    <!-- Google AdSense Verification & Auto-Ads Base Script -->
-    <meta name="google-adsense-account" content="ca-pub-5674300095923366">
-    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-5674300095923366"
-     crossorigin="anonymous"></script>
-
-    <!-- Bootstrap CSS -->
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
-    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
-
-    <link href="{% static 'css/style.css' %}?v=5.1" rel="stylesheet">
-
-    <!-- Google Fonts: Outfit (Heading) & Inter (Body) -->
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Outfit:wght@400;700;800&display=swap" rel="stylesheet">
-
-    {% block extra_meta %}
-    <!-- Default Meta Tags & OpenGraph (Can be overridden by child templates) -->
-    <meta property="og:type" content="website">
-    <meta property="og:url" content="{{ request.build_absolute_uri }}">
-    <meta property="og:title" content="{% block title_meta %}{% translate 'CurhatBox - Pesan Rahasia Anonim' %}{% endblock %}">
-    <meta property="og:description" content="{% translate 'Sampaikan curhatan, kritik, atau pesan rahasiamu secara anonim di CurhatBox. Aman, Jujur, & Tanpa Identitas.' %}">
-    <meta property="og:image" content="https://img.icons8.com/bubbles/200/mailbox-closed-flag-up.png">
-    
-    <!-- Twitter Card -->
-    <meta name="twitter:card" content="summary_large_image">
-    <meta name="twitter:title" content="CurhatBox">
-    <meta name="twitter:description" content="{% translate 'Platform pesan anonim paling aman.' %}">
-    {% endblock %}
-</head>
-
-<body class="mesh-gradient-bg">
-
-    <nav class="navbar navbar-expand-lg navbar-dark glass-navbar sticky-top">
-        <div class="container">
-            <a class="navbar-brand fw-bold text-white d-flex align-items-center gap-2" href="{% url 'index' %}">
-                <i class="bi bi-box2-heart-fill fs-4 text-warning"></i> CurhatBox
-            </a>
-
-            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
-                <span class="navbar-toggler-icon"></span>
-            </button>
-
-            <div class="collapse navbar-collapse justify-content-end" id="navbarNav">
-                <!-- Theme Toggle Switcher -->
-                <button class="btn border-0 text-white text-decoration-none me-3 opacity-75 hover-opacity-100 fs-5 smooth-transition" id="themeToggleBtn" title="{% translate 'Ganti Mode Terang/Gelap' %}">
-                    <i class="bi bi-moon-stars-fill" id="themeIcon"></i>
-                </button>
-
-                {% if user.is_authenticated %}
-                <a href="{% url 'dashboard' %}"
-                    class="btn btn-light rounded-pill btn-sm me-3 d-flex align-items-center gap-2 fw-bold px-3 shadow-sm hover-lift">
-                    {% if user.profile.avatar %}
-                    <img src="{{ user.profile.avatar.url }}" alt="Avatar"
-                        class="rounded-circle object-fit-cover shadow-sm" style="width: 24px; height: 24px;">
-                    {% else %}
-                    <div class="bg-primary text-white rounded-circle d-inline-flex align-items-center justify-content-center shadow-sm"
-                        style="width: 24px; height: 24px; font-size: 0.8rem; font-weight: bold;">
-                        {{ user.username|slice:":1"|upper }}
-                    </div>
-                    {% endif %}
-                    Dashboard
-                </a>
-
-                <form action="{% url 'logout' %}" method="post" class="d-inline">
-                    {% csrf_token %}
-                    <button type="submit" class="btn btn-link text-white text-decoration-none btn-sm opacity-75 hover-opacity-100">{% translate "Keluar" %}</button>
-                </form>
-                {% else %}
-                <a href="{% url 'login' %}" class="btn btn-link text-white text-decoration-none btn-sm me-3 opacity-75 hover-opacity-100 fw-bold">{% translate "Masuk" %}</a>
-                <a href="{% url 'register' %}" class="btn btn-light rounded-pill btn-sm text-body fw-bold px-4 shadow-sm hover-lift">{% translate "Daftar Gratis" %}</a>
-                {% endif %}
-            </div>
-        </div>
-    </nav>
-
-    <main class="container">
-        {% if messages %}
-        <div class="row justify-content-center mt-3">
-            <div class="col-md-8">
-                {% for message in messages %}
-                <div class="alert alert-{{ message.tags }} alert-dismissible fade show shadow-sm" role="alert">
-                    {{ message }}
-                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-                </div>
-                {% endfor %}
-            </div>
-        </div>
-        {% endif %}
-
-        {% block content %}
+        </script>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta http-equiv="X-UA-Compatible" content="ie=edge">
+        <title>
+            {% block title %}CurhatBox{% endblock %}
+        </title>
+        <meta name="description"
+              content="{% translate 'CurhatBox adalah platform pesan anonim paling aman di Indonesia. Kirim pesan rahasia, kritik jujur, dan curhatan tanpa identitas dengan perlindungan anti-cyberbullying dan mode sekali baca.' %}">
+        <meta name="keywords"
+              content="{% translate 'pesan anonim, curhat rahasia, kirim pesan jujur, aplikasi anonim indonesia, curhatbox, pesan rahasia instagram, link rahasia ig' %}">
+        <meta name="author" content="CurhatBox Team">
+        <link rel="shortcut icon"
+              type="image/png"
+              href="{% static 'img/favicon.png' %}">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <!-- Google AdSense Verification & Auto-Ads Base Script -->
+        <meta name="google-adsense-account" content="ca-pub-5674300095923366">
+        <script async
+                src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-5674300095923366"
+                crossorigin="anonymous"></script>
+        <!-- Bootstrap CSS -->
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css"
+              rel="stylesheet">
+        <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+        <link href="{% static 'css/style.css' %}?v=5.1" rel="stylesheet">
+        <!-- Google Fonts: Outfit (Heading) & Inter (Body) -->
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Outfit:wght@400;700;800&display=swap"
+              rel="stylesheet">
+        {% block extra_meta %}
+            <!-- Default Meta Tags & OpenGraph (Can be overridden by child templates) -->
+            <meta property="og:type" content="website">
+            <meta property="og:url" content="{{ request.build_absolute_uri }}">
+            <meta property="og:title"
+                  content="{% block title_meta %}{% translate 'CurhatBox - Pesan Rahasia Anonim' %}{% endblock %}">
+            <meta property="og:description"
+                  content="{% translate 'Sampaikan curhatan, kritik, atau pesan rahasiamu secara anonim di CurhatBox. Aman, Jujur, & Tanpa Identitas.' %}">
+            <meta property="og:image"
+                  content="https://img.icons8.com/bubbles/200/mailbox-closed-flag-up.png">
+            <!-- Twitter Card -->
+            <meta name="twitter:card" content="summary_large_image">
+            <meta name="twitter:title" content="CurhatBox">
+            <meta name="twitter:description"
+                  content="{% translate 'Platform pesan anonim paling aman.' %}">
         {% endblock %}
-    </main>
-
-
-
-    <!-- Bootstrap Icons -->
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
-    
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
-    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
-
-    <script src="{% static 'js/script.js' %}"></script>
-
-    <!-- Inisialisasi fluid scroll animation global -->
-    <script>
+    </head>
+    <body class="mesh-gradient-bg">
+        <nav class="navbar navbar-expand-lg navbar-dark glass-navbar sticky-top">
+            <div class="container">
+                <a class="navbar-brand fw-bold text-white d-flex align-items-center gap-2"
+                   href="{% url 'index' %}">
+                    <i class="bi bi-box2-heart-fill fs-4 text-warning"></i> CurhatBox
+                </a>
+                <div class="d-flex align-items-center">
+                    <!-- Liquid Theme Toggle Switcher (Mobile Friendly Position) -->
+                    <div class="liquid-toggle me-3 opacity-75 hover-opacity-100"
+                         id="themeToggleBtn"
+                         title="{% translate 'Ganti Mode Terang/Gelap' %}">
+                        <div class="liquid-toggle-knob">
+                            <i class="bi bi-sun-fill icon-sun"></i>
+                            <i class="bi bi-moon-stars-fill icon-moon"></i>
+                        </div>
+                    </div>
+                    <button class="navbar-toggler"
+                            type="button"
+                            data-bs-toggle="collapse"
+                            data-bs-target="#navbarNav">
+                        <span class="navbar-toggler-icon"></span>
+                    </button>
+                </div>
+                <div class="collapse navbar-collapse justify-content-end" id="navbarNav">
+                    {% if user.is_authenticated %}
+                        <a href="{% url 'dashboard' %}"
+                           class="btn btn-light rounded-pill btn-sm me-3 d-flex align-items-center gap-2 fw-bold px-3 shadow-sm hover-lift">
+                            {% if user.profile.avatar %}
+                                <img src="{{ user.profile.avatar.url }}"
+                                     alt="Avatar"
+                                     class="rounded-circle object-fit-cover shadow-sm"
+                                     style="width: 24px;
+                                            height: 24px">
+                            {% else %}
+                                <div class="bg-primary text-white rounded-circle d-inline-flex align-items-center justify-content-center shadow-sm"
+                                     style="width: 24px;
+                                            height: 24px;
+                                            font-size: 0.8rem;
+                                            font-weight: bold">{{ user.username|slice:":1"|upper }}</div>
+                            {% endif %}
+                            Dashboard
+                        </a>
+                        <form action="{% url 'logout' %}" method="post" class="d-inline">
+                            {% csrf_token %}
+                            <button type="submit"
+                                    class="btn btn-link text-white text-decoration-none btn-sm opacity-75 hover-opacity-100">
+                                {% translate "Keluar" %}
+                            </button>
+                        </form>
+                    {% else %}
+                        <a href="{% url 'login' %}"
+                           class="btn btn-link text-white text-decoration-none btn-sm me-3 opacity-75 hover-opacity-100 fw-bold">{% translate "Masuk" %}</a>
+                        <a href="{% url 'register' %}"
+                           class="btn btn-light rounded-pill btn-sm text-body fw-bold px-4 shadow-sm hover-lift">{% translate "Daftar Gratis" %}</a>
+                    {% endif %}
+                </div>
+            </div>
+        </nav>
+        <main class="container">
+            {% if messages %}
+                <div class="row justify-content-center mt-3">
+                    <div class="col-md-8">
+                        {% for message in messages %}
+                            <div class="alert alert-{{ message.tags }} alert-dismissible fade show shadow-sm"
+                                 role="alert">
+                                {{ message }}
+                                <button type="button"
+                                        class="btn-close"
+                                        data-bs-dismiss="alert"
+                                        aria-label="Close"></button>
+                            </div>
+                        {% endfor %}
+                    </div>
+                </div>
+            {% endif %}
+            {% block content %}{% endblock %}
+        </main>
+        <!-- Bootstrap Icons -->
+        <link rel="stylesheet"
+              href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+        <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+        <script src="{% static 'js/script.js' %}"></script>
+        <!-- Inisialisasi fluid scroll animation global -->
+        <script>
         document.addEventListener('DOMContentLoaded', function () {
             AOS.init({
                 duration: 800, // durasi animasi 0.8 detik
@@ -137,55 +150,62 @@
             
             // --- DARK MODE LOGIC ---
             const themeToggleBtn = document.getElementById('themeToggleBtn');
-            const themeIcon = document.getElementById('themeIcon');
             const htmlElement = document.documentElement;
-
-            // Inisialisasi Ikon berdasarkan tema yang sedang dimuat
-            const currentTheme = htmlElement.getAttribute('data-bs-theme');
-            if (currentTheme === 'dark') {
-                themeIcon.classList.replace('bi-moon-stars-fill', 'bi-brightness-high-fill');
-            }
 
             themeToggleBtn.addEventListener('click', () => {
                 const current = htmlElement.getAttribute('data-bs-theme');
-                if (current === 'dark') {
-                    htmlElement.setAttribute('data-bs-theme', 'light');
-                    localStorage.setItem('theme', 'light');
-                    themeIcon.classList.replace('bi-brightness-high-fill', 'bi-moon-stars-fill');
-                } else {
+                if (current === 'light' || !current) {
                     htmlElement.setAttribute('data-bs-theme', 'dark');
                     localStorage.setItem('theme', 'dark');
-                    themeIcon.classList.replace('bi-moon-stars-fill', 'bi-brightness-high-fill');
+                } else {
+                    htmlElement.setAttribute('data-bs-theme', 'light');
+                    localStorage.setItem('theme', 'light');
                 }
             });
         });
-    </script>
-    <!-- Global Footer -->
-    <footer class="mt-auto py-4" style="background: rgba(0, 0, 0, 0.2); backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px); border-top: 1px solid rgba(255, 255, 255, 0.05);">
-        <div class="container text-center">
-            <p class="mb-2 text-white-50 small">&copy; {% now "Y" %} CurhatBox. Crafted with ❤️ & Django 6. {% translate "Hak cipta dilindungi undang-undang." %}</p>
-            <div class="d-flex justify-content-center flex-wrap gap-2 gap-md-3 small mb-3">
-                <a href="{% url 'privacy' %}" class="text-white-50 text-decoration-none hover-lift">{% translate "Kebijakan Privasi" %}</a>
-                <span class="text-white-50 opacity-25">|</span>
-                <a href="{% url 'rules' %}" class="text-white-50 text-decoration-none hover-lift">{% translate "Aturan Main" %}</a>
-                <span class="text-white-50 opacity-25">|</span>
-                <a href="{% url 'about' %}" class="text-white-50 text-decoration-none hover-lift">{% translate "Tentang Kami" %}</a>
-                <span class="text-white-50 opacity-25">|</span>
-                <a href="{% url 'faq' %}" class="text-white-50 text-decoration-none hover-lift">{% translate "Pusat Bantuan (FAQ)" %}</a>
-            </div>
-            <p class="mb-0 text-white-50 small">
-                {% translate "Hubungi kami di:" %} <a href="mailto:admin@curhatbox.my.id" class="text-white text-decoration-none fw-bold">admin@curhatbox.my.id</a>
-            </p>
-                        <!-- Premium Language Switcher -->
+        </script>
+        <!-- Global Footer -->
+        <footer class="mt-auto py-4"
+                style="background: rgba(0, 0, 0, 0.2);
+                       backdrop-filter: blur(10px);
+                       -webkit-backdrop-filter: blur(10px);
+                       border-top: 1px solid rgba(255, 255, 255, 0.05)">
+            <div class="container text-center">
+                <p class="mb-2 text-white-50 small">
+                    &copy; {% now "Y" %} CurhatBox. Crafted with ❤️ & Django 6. {% translate "Hak cipta dilindungi undang-undang." %}
+                </p>
+                <div class="d-flex justify-content-center flex-wrap gap-2 gap-md-3 small mb-3">
+                    <a href="{% url 'privacy' %}"
+                       class="text-white-50 text-decoration-none hover-lift">{% translate "Kebijakan Privasi" %}</a>
+                    <span class="text-white-50 opacity-25">|</span>
+                    <a href="{% url 'rules' %}"
+                       class="text-white-50 text-decoration-none hover-lift">{% translate "Aturan Main" %}</a>
+                    <span class="text-white-50 opacity-25">|</span>
+                    <a href="{% url 'about' %}"
+                       class="text-white-50 text-decoration-none hover-lift">{% translate "Tentang Kami" %}</a>
+                    <span class="text-white-50 opacity-25">|</span>
+                    <a href="{% url 'faq' %}"
+                       class="text-white-50 text-decoration-none hover-lift">{% translate "Pusat Bantuan (FAQ)" %}</a>
+                </div>
+                <p class="mb-0 text-white-50 small">
+                    {% translate "Hubungi kami di:" %} <a href="mailto:admin@curhatbox.my.id"
+    class="text-white text-decoration-none fw-bold">admin@curhatbox.my.id</a>
+                </p>
+                <!-- Premium Language Switcher -->
                 <div class="col-12 mt-4 pt-4 border-top border-white border-opacity-10 d-flex justify-content-center">
-                    <form action="{% url 'set_language' %}" method="post" id="lang-switcher-form">
+                    <form action="{% url 'set_language' %}"
+                          method="post"
+                          id="lang-switcher-form">
                         {% csrf_token %}
                         <input name="next" type="hidden" value="{{ request.get_full_path }}">
-                        
                         <div class="dropdown">
-                            <button class="btn btn-sm btn-outline-light border-0 rounded-pill px-4 py-2 hover-lift d-flex align-items-center gap-2" 
-                                    type="button" data-bs-toggle="dropdown" aria-expanded="false" 
-                                    style="background: rgba(255,255,255,0.05); backdrop-filter: blur(10px); color: rgba(255,255,255,0.8);">
+                            <button class="btn btn-sm btn-outline-light border-0 rounded-pill px-4 py-2 hover-lift d-flex align-items-center gap-2"
+                                    type="button"
+                                    data-bs-toggle="dropdown"
+                                    aria-expanded="false"
+                                    style="background: rgba(255,255,255,0.05);
+                                           backdrop-filter: blur(10px);
+                                           color: rgba(255,255,255,0.8)">
                                 <i class="bi bi-globe2"></i>
                                 <span class="fw-medium">
                                     {% get_current_language as LANGUAGE_CODE %}
@@ -194,21 +214,25 @@
                                 </span>
                                 <i class="bi bi-chevron-down small opacity-50"></i>
                             </button>
-                            <ul class="dropdown-menu dropdown-menu-end dropdown-menu-dark rounded-4 border-0 shadow-lg mt-2 p-2" 
-                                style="background: rgba(30, 30, 45, 0.95); backdrop-filter: blur(20px); min-width: 180px;">
+                            <ul class="dropdown-menu dropdown-menu-end dropdown-menu-dark rounded-4 border-0 shadow-lg mt-2 p-2"
+                                style="background: rgba(30, 30, 45, 0.95);
+                                       backdrop-filter: blur(20px);
+                                       min-width: 180px">
                                 {% get_available_languages as LANGUAGES %}
                                 {% get_language_info_list for LANGUAGES as lang_list %}
                                 {% for lang in lang_list %}
-                                <li>
-                                    <button type="submit" name="language" value="{{ lang.code }}" 
-                                            class="dropdown-item rounded-3 py-2 px-3 d-flex justify-content-between align-items-center {% if lang.code == LANGUAGE_CODE %}active{% endif %}"
-                                            style="{% if lang.code == LANGUAGE_CODE %}background: var(--bs-primary); color: white !important;{% endif %}">
-                                        <span class="{% if lang.code != LANGUAGE_CODE %}text-white-50{% endif %}">{{ lang.name_local }}</span>
-                                        {% if lang.code == LANGUAGE_CODE %}
-                                        <i class="bi bi-check-lg"></i>
-                                        {% endif %}
-                                    </button>
-                                </li>
+                                    <li>
+                                        <button type="submit"
+                                                name="language"
+                                                value="{{ lang.code }}"
+                                                class="dropdown-item rounded-3 py-2 px-3 d-flex justify-content-between align-items-center {% if lang.code == LANGUAGE_CODE %}active{% endif %}"
+                                                style="{% if lang.code == LANGUAGE_CODE %}background: var(--bs-primary);
+                                                       color: white !important;
+                                                       {% endif %}">
+                                            <span class="{% if lang.code != LANGUAGE_CODE %}text-white-50{% endif %}">{{ lang.name_local }}</span>
+                                            {% if lang.code == LANGUAGE_CODE %}<i class="bi bi-check-lg"></i>{% endif %}
+                                        </button>
+                                    </li>
                                 {% endfor %}
                             </ul>
                         </div>
@@ -217,23 +241,41 @@
             </div>
         </div>
     </footer>
-
-
     <!-- Cookie Consent Banner -->
-    <div id="cookieConsentBanner" class="position-fixed bottom-0 start-0 w-100 p-3 p-md-4" style="z-index: 1060; display: none; transform: translateY(100%); transition: transform 0.6s cubic-bezier(0.16, 1, 0.3, 1);">
+    <div id="cookieConsentBanner"
+         class="position-fixed bottom-0 start-0 w-100 p-3 p-md-4"
+         style="z-index: 1060;
+                display: none;
+                transform: translateY(100%);
+                transition: transform 0.6s cubic-bezier(0.16, 1, 0.3, 1)">
         <div class="container">
             <div class="row justify-content-center">
                 <div class="col-12 col-lg-10">
                     <!-- Glassmorphism Card -->
-                    <div class="card border-0 shadow-lg rounded-4 overflow-hidden" style="background: rgba(255, 255, 255, 0.95); backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px); border: 1px solid rgba(255,255,255,0.4) !important;">
+                    <div class="card border-0 shadow-lg rounded-4 overflow-hidden"
+                         style="background: rgba(255, 255, 255, 0.95);
+                                backdrop-filter: blur(20px);
+                                -webkit-backdrop-filter: blur(20px);
+                                border: 1px solid rgba(255,255,255,0.4) !important">
                         <div class="card-body p-4 d-flex flex-column flex-md-row align-items-md-center gap-3">
                             <div class="flex-grow-1">
-                                <h5 class="fw-bold mb-2 text-dark" style="font-family: 'Outfit', sans-serif;"><i class="bi bi-shield-lock-fill text-warning me-2"></i>Privasi & Penggunaan Cookie</h5>
-                                <p class="text-secondary mb-0 small" style="line-height: 1.5;">Situs ini menggunakan <i>cookies</i> pihak ketiga untuk menyajikan iklan personal (AdSense) dan menganalisis trafik. Dengan menekan "Terima Semua", Anda menyetujui kebijakan pelacakan iklan kami.</p>
+                                <h5 class="fw-bold mb-2 text-dark"
+                                    style="font-family: 'Outfit', sans-serif">
+                                    <i class="bi bi-shield-lock-fill text-warning me-2"></i>Privasi & Penggunaan Cookie
+                                </h5>
+                                <p class="text-secondary mb-0 small" style="line-height: 1.5;">
+                                    Situs ini menggunakan <i>cookies</i> pihak ketiga untuk menyajikan iklan personal (AdSense) dan menganalisis trafik. Dengan menekan "Terima Semua", Anda menyetujui kebijakan pelacakan iklan kami.
+                                </p>
                             </div>
                             <div class="d-flex flex-column flex-sm-row gap-2">
-                                <button id="btnRejectCookies" class="btn btn-light border-secondary-subtle text-secondary fw-bold rounded-pill px-4 hover-lift shadow-sm">Tolak</button>
-                                <button id="btnAcceptCookies" class="btn btn-primary fw-bold rounded-pill px-4 hover-lift shadow-sm" style="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); border: none;">Terima Semua</button>
+                                <button id="btnRejectCookies"
+                                        class="btn btn-light border-secondary-subtle text-secondary fw-bold rounded-pill px-4 hover-lift shadow-sm">
+                                    Tolak
+                                </button>
+                                <button id="btnAcceptCookies"
+                                        class="btn btn-primary fw-bold rounded-pill px-4 hover-lift shadow-sm"
+                                        style="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+                                               border: none">Terima Semua</button>
                             </div>
                         </div>
                     </div>
@@ -241,7 +283,6 @@
             </div>
         </div>
     </div>
-
     <!-- Cookie Consent JS Logic -->
     <script>
         document.addEventListener("DOMContentLoaded", function () {

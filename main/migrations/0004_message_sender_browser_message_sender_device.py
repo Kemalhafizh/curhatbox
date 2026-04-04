@@ -6,18 +6,28 @@ from django.db import migrations, models
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('main', '0003_alter_message_options_message_is_favorite_and_more'),
+        ("main", "0003_alter_message_options_message_is_favorite_and_more"),
     ]
 
     operations = [
         migrations.AddField(
-            model_name='message',
-            name='sender_browser',
-            field=models.CharField(blank=True, help_text='Browser (Contoh: Chrome, Safari)', max_length=50, null=True),
+            model_name="message",
+            name="sender_browser",
+            field=models.CharField(
+                blank=True,
+                help_text="Browser (Contoh: Chrome, Safari)",
+                max_length=50,
+                null=True,
+            ),
         ),
         migrations.AddField(
-            model_name='message',
-            name='sender_device',
-            field=models.CharField(blank=True, help_text='Sistem Operasi (Contoh: Android, iOS, Windows)', max_length=50, null=True),
+            model_name="message",
+            name="sender_device",
+            field=models.CharField(
+                blank=True,
+                help_text="Sistem Operasi (Contoh: Android, iOS, Windows)",
+                max_length=50,
+                null=True,
+            ),
         ),
     ]
