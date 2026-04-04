@@ -24,6 +24,7 @@ from django.http import HttpResponse
 
 from django.contrib.auth import views as auth_views
 from main.forms import CustomAuthenticationForm
+from main import views as main_views
 
 urlpatterns = [
     path("admin/", admin.site.urls),
@@ -39,12 +40,18 @@ urlpatterns = [
     path("accounts/logout/", auth_views.LogoutView.as_view(), name="logout"),
     path(
         "accounts/password_reset/",
-        auth_views.PasswordResetView.as_view(
+        main_views.CustomPasswordResetView.as_view(
             template_name="registration/password_reset_form.html",
-            email_template_name="registration/password_reset_email.html",
+            email_template_name="registration/password_reset_email.txt",
+            html_email_template_name="registration/password_reset_email.html",
             subject_template_name="registration/password_reset_subject.txt",
         ),
         name="password_reset",
+    ),
+    path(
+        "accounts/password_reset/resend/",
+        main_views.resend_password_reset_email,
+        name="password_reset_resend",
     ),
     path(
         "accounts/password_reset/done/",
@@ -71,6 +78,25 @@ urlpatterns = [
         "accounts/", include("django.contrib.auth.urls")
     ),  # Fallback untuk sisa rute auth
     path("login/", RedirectView.as_view(url="/accounts/login/", permanent=True)),
+    path(
+        "accounts/password_change/",
+        auth_views.PasswordChangeView.as_view(
+            template_name="registration/password_change_form.html"
+        ),
+        name="password_change",
+    ),
+    path(
+        "accounts/password_change/request-reset/",
+        main_views.trigger_reset_for_current_user,
+        name="password_change_request_reset",
+    ),
+    path(
+        "accounts/password_change/done/",
+        auth_views.PasswordChangeDoneView.as_view(
+            template_name="registration/password_change_done.html"
+        ),
+        name="password_change_done",
+    ),
     path("i18n/", include("django.conf.urls.i18n")),  # Endpoint peranti bahasa
     path(
         "ads.txt",

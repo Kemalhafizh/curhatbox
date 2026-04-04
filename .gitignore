@@ -1,38 +1,43 @@
-# ==========================================
-# GITHUB IGNORE RULES (CURHATBOX)
-# ==========================================
+# CurhatBox Hardened .gitignore
 
-# 1. Environment & Secrets (SANGAT RAHASIA)
+# 🔑 Secrets & Environment
 .env
-.env.*
+secret.key
 *.pem
 *.key
-*.cert
 
-# 2. Virtual Environments (FILE BESAR / LOKAL)
-venv/
-env/
-.venv/
-env.bak/
-venv.bak/
-
-# 3. Media & Static Outputs (TIDAK PERLU DI PUSH)
-media/
-staticfiles/
-
-# 4. Database & Caches Lokal
+# 📦 Databases
 db.sqlite3
-db.sqlite3-journal
-.pytest_cache/
+*.db
+*.sqlite3-journal
+
+# 🐍 Python
 __pycache__/
-*.pyc
 *.py[cod]
 *$py.class
-*.log
-*.pot
+venv/
+.venv/
+env/
+.env/
+build/
+dist/
+*.egg-info/
 
-# 5. OS & Editor Settings
-.vscode/
+# 🌐 Django Specific
+staticfiles/
+media/
+*.log
+local_settings.py
+
+# 💻 IDEs & Editors
 .idea/
+.vscode/
+*.swp
+*.swo
 .DS_Store
 Thumbs.db
+
+# 🧪 Research & Temp
+/tmp/
+.ipynb_checkpoints/
+scripts/test_*.py

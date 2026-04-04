@@ -19,6 +19,11 @@ from django.conf import settings
 from django_ratelimit.decorators import ratelimit
 from user_agents import parse
 
+from django.contrib.auth.views import PasswordResetView
+from django.contrib.auth.forms import PasswordResetForm
+from django.core.cache import cache
+from django.urls import reverse_lazy, reverse
+
 from .forms import ProfileForm, ReplyForm, CustomUserCreationForm
 from .models import BlockList, Message
 from .utils import sensor_kata, verify_recaptcha
@@ -86,6 +91,73 @@ def register(request):
         form = CustomUserCreationForm()
 
     return render(request, "main/register.html", {"form": form})
+
+
+# --- PASSWORD RESET CUSTOMIZATIONS (dengan Fitur Resend & Cooldown) ---
+
+class CustomPasswordResetView(PasswordResetView):
+    """
+    Subclass PasswordResetView untuk menyimpan email ke session
+    agar bisa digunakan oleh fitur 'Resend Email'.
+    """
+    def form_valid(self, form):
+        # Simpan email ke session untuk fitur resend
+        self.request.session['password_reset_email'] = form.cleaned_data['email']
+        return super().form_valid(form)
+
+
+def resend_password_reset_email(request):
+    """
+    View untuk menangani pengiriman ulang email reset password
+    dengan pembatasan cooldown 60 detik via Redis.
+    """
+    email = request.session.get('password_reset_email')
+    
+    if not email:
+        messages.error(request, _("Sesi berakhir. Silakan masukkan email Anda kembali."))
+        return redirect('password_reset')
+
+    # Cek Cooldown di Cache (Redis)
+    cache_key = f"password_reset_resend_cooldown_{email}"
+    cooldown = cache.get(cache_key)
+    
+    if cooldown:
+        messages.warning(request, _("Mohon tunggu sebentar sebelum mengirim ulang email."))
+        return redirect('password_reset_done')
+
+    # Trigger pengiriman email menggunakan form asli Django
+    form = PasswordResetForm(data={'email': email})
+    if form.is_valid():
+        form.save(
+            request=request,
+            email_template_name="registration/password_reset_email.txt",
+            html_email_template_name="registration/password_reset_email.html",
+            subject_template_name="registration/password_reset_subject.txt",
+            from_email=settings.DEFAULT_FROM_EMAIL,
+        )
+        # Set Cooldown selama 60 detik
+        cache.set(cache_key, True, 60)
+        messages.success(request, _("Email baru telah dikirimkan ke kotak masuk Anda."))
+    else:
+        messages.error(request, _("Gagal mengirim ulang email. Pastikan format email benar."))
+
+    return redirect('password_reset_done')
+
+
+@login_required
+def trigger_reset_for_current_user(request):
+    """
+    Memungkinkan user yang login untuk langsung mengirim link reset 
+    ke email terdaftar mereka jika lupa password lama.
+    """
+    email = request.user.email
+    if not email:
+        messages.error(request, _("Akun Anda tidak memiliki email yang terdaftar."))
+        return redirect('edit_profile')
+
+    # Gunakan logika resend yang sudah ada dengan menset session email
+    request.session['password_reset_email'] = email
+    return resend_password_reset_email(request)
 
 
 @ratelimit(key="ip", rate="3/m", method="POST", block=True)
