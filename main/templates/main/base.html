@@ -22,6 +22,8 @@
               type="image/png"
               href="{% static 'img/favicon.png' %}">
         <meta name="viewport" content="width=device-width, initial-scale=1">
+        <!-- Google Search Console Verification -->
+        <meta name="google-site-verification" content="ejv9TLODICCbcW8QfmEyMrwfC6n8P0o71HMoTTbQqVk" />
         <!-- Google AdSense Verification & Auto-Ads Base Script -->
         <meta name="google-adsense-account" content="ca-pub-5674300095923366">
         <script async
@@ -137,7 +139,8 @@
               href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
         <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
-        <script src="{% static 'js/script.js' %}"></script>
+        <script src="{% static 'js/script.js' %}?v=5.2"></script>
+        {% block extra_js %}{% endblock %}
         <!-- Inisialisasi fluid scroll animation global -->
         <script>
         document.addEventListener('DOMContentLoaded', function () {
@@ -225,10 +228,7 @@
                                         <button type="submit"
                                                 name="language"
                                                 value="{{ lang.code }}"
-                                                class="dropdown-item rounded-3 py-2 px-3 d-flex justify-content-between align-items-center {% if lang.code == LANGUAGE_CODE %}active{% endif %}"
-                                                style="{% if lang.code == LANGUAGE_CODE %}background: var(--bs-primary);
-                                                       color: white !important;
-                                                       {% endif %}">
+                                                class="dropdown-item rounded-3 py-2 px-3 d-flex justify-content-between align-items-center {% if lang.code == LANGUAGE_CODE %}active bg-primary text-white{% endif %}">
                                             <span class="{% if lang.code != LANGUAGE_CODE %}text-white-50{% endif %}">{{ lang.name_local }}</span>
                                             {% if lang.code == LANGUAGE_CODE %}<i class="bi bi-check-lg"></i>{% endif %}
                                         </button>
@@ -239,9 +239,8 @@
                     </form>
                 </div>
             </div>
-        </div>
-    </footer>
-    <!-- Cookie Consent Banner -->
+        </footer>
+        <!-- Cookie Consent Banner -->
     <div id="cookieConsentBanner"
          class="position-fixed bottom-0 start-0 w-100 p-3 p-md-4"
          style="z-index: 1060;
@@ -332,5 +331,6 @@
             }
         });
     </script>
+    {% block extra_body %}{% endblock %}
 </body>
 </html>

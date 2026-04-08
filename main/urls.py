@@ -32,5 +32,17 @@ urlpatterns = [
         "message/delete/<int:message_id>/", views.delete_message, name="delete_message"
     ),
     path("message/reply/<int:message_id>/", views.reply_message, name="reply_message"),
+    path("dashboard/qna/create/", views.create_qna_session, name="create_qna"),
+    path(
+        "dashboard/qna/toggle/<int:qna_id>/",
+        views.toggle_qna_status,
+        name="toggle_qna",
+    ),
+    path(
+        "dashboard/qna/delete/<int:qna_id>/",
+        views.delete_qna_session,
+        name="delete_qna",
+    ),
     path("<slug:slug>/", views.public_profile, name="public_profile"),
+    path("<slug:slug>/q/<str:qna_slug>/", views.public_profile, name="public_profile_qna"),
 ]

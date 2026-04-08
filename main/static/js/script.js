@@ -96,10 +96,32 @@ function generateStory(question, answer, username) {
                 width: 1080,
                 height: 1920
             }).then(canvas => {
-                const link = document.createElement('a');
-                link.download = 'CurhatBox-Story-' + Date.now() + '.png';
-                link.href = canvas.toDataURL('image/png', 1.0);
-                link.click();
+                const imgData = canvas.toDataURL('image/png', 1.0);
+                
+                // Deteksi Mobile vs Desktop
+                const isMobile = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
+                
+                if (isMobile) {
+                    // DI HP: Tampilkan Preview Modal agar user bisa "Long Press to Save"
+                    const previewModalElem = document.getElementById('storyPreviewModal');
+                    const previewImg = document.getElementById('storyPreviewImage');
+                    
+                    if (previewModalElem && previewImg) {
+                        previewImg.src = imgData;
+                        const previewModal = new bootstrap.Modal(previewModalElem);
+                        previewModal.show();
+                    } else {
+                        // Fallback jika modal tidak ditemukan (buka di tab baru)
+                        const newTab = window.open();
+                        newTab.document.write('<img src="' + imgData + '" style="width:100%">');
+                    }
+                } else {
+                    // DI DESKTOP: Langsung Download Otomatis
+                    const link = document.createElement('a');
+                    link.download = 'CurhatBox-Story-' + Date.now() + '.png';
+                    link.href = imgData;
+                    link.click();
+                }
             }).catch(err => {
                 console.error("Gagal membuat gambar:", err);
                 alert("Gagal membuat gambar :( Coba lagi.");

@@ -2,6 +2,11 @@ from django.db import models
 from django.utils.translation import gettext_lazy as _
 from django.contrib.auth.models import User
 from django.utils.text import slugify
+from django.utils.crypto import get_random_string
+
+
+def generate_qna_slug():
+    return get_random_string(length=6)
 
 
 # --- MODEL 1: PROFILE ---
@@ -43,6 +48,23 @@ class Profile(models.Model):
         return f"Profil: {self.user.username}"
 
 
+# --- MODEL 1.5: QnA SESSION (Ask Me Anything) ---
+class QnASession(models.Model):
+    user = models.ForeignKey(
+        User, on_delete=models.CASCADE, related_name="qna_sessions"
+    )
+    title = models.CharField(max_length=200, verbose_name=_("Topik / Pertanyaan"))
+    slug = models.CharField(max_length=20, unique=True, default=generate_qna_slug)
+    is_active = models.BooleanField(default=True)
+    created_at = models.DateTimeField(auto_now_add=True)
+
+    class Meta:
+        ordering = ["-created_at"]
+
+    def __str__(self):
+        return f"QnA [{self.user.username}]: {self.title}"
+
+
 # --- MODEL 2: MESSAGE ---
 class Message(models.Model):
     recipient = models.ForeignKey(
@@ -63,6 +85,11 @@ class Message(models.Model):
     replied_at = models.DateTimeField(blank=True, null=True)
 
     sender_ip = models.GenericIPAddressField(null=True, blank=True)
+
+    # --- QnA Link ---
+    qna_session = models.ForeignKey(
+        QnASession, on_delete=models.SET_NULL, null=True, blank=True, related_name="messages"
+    )
 
     # --- Self Destruct ---
     is_disposable = models.BooleanField(

@@ -9,23 +9,23 @@
                     letter-spacing: 2px;
                     text-transform: uppercase;
                     font-weight: 800;
-                    color: var(--text-muted-custom)">
+                    color: var(--text-muted-custom);">
             <i class="bi bi-badge-ad me-1 text-primary"></i>{% translate "Sponsor CurhatBox" %}
         </div>
         <div style="height: 1px; width: 40px; background: var(--glass-border);"></div>
     </div>
     <!-- Glassmorphism Container with Dynamic Min-Height -->
     <div class="glass-card adsense-placeholder d-flex align-items-center justify-content-center overflow-hidden position-relative"
-         style="min-height: {{ min_height|default:'280px' }};
-                background: rgba(255,255,255,0.02);
+         style="background: rgba(255,255,255,0.02);
                 border: 1px solid var(--glass-border);
-                border-radius: 20px">
+                border-radius: 20px;
+                min-height: {{ min_height|default:'280px' }};">
         <!-- Google AdSense Code -->
         <ins class="adsbygoogle"
-             style="display:block;
+             style="display: block;
                     width: 100%;
                     border-radius: 12px;
-                    overflow: hidden"
+                    overflow: hidden;"
              data-ad-client="ca-pub-5674300095923366"
              data-ad-slot="{{ ad_slot|default:'1234567890' }}"
              data-ad-format="{{ ad_format|default:'auto' }}"
@@ -34,7 +34,7 @@
         <!-- Aesthetic Empty Fallback (Visible only if AD doesn't load/blocked) -->
         <div class="ads-empty-fallback position-absolute text-center text-body-secondary opacity-10"
              style="pointer-events: none;
-                    z-index: -1">
+                    z-index: -1;">
             <i class="bi bi-stars fs-1 mb-2"></i>
             <br>
             <span style="letter-spacing: 1px; font-weight: 600; font-size: 0.7rem;">CurhatBox Premium Ads</span>

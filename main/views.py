@@ -25,7 +25,7 @@ from django.core.cache import cache
 from django.urls import reverse_lazy, reverse
 
 from .forms import ProfileForm, ReplyForm, CustomUserCreationForm
-from .models import BlockList, Message
+from .models import BlockList, Message, QnASession
 from .utils import sensor_kata, verify_recaptcha
 
 # Daftar emoji lengkap yang anti terpecah (hindari pemecahan byte Unicode di Template HTML)
@@ -161,13 +161,21 @@ def trigger_reset_for_current_user(request):
 
 
 @ratelimit(key="ip", rate="3/m", method="POST", block=True)
-def public_profile(request, slug):
+def public_profile(request, slug, qna_slug=None):
     """
     Menampilkan profil publik pengguna dan menangani pengiriman pesan rahasia.
     Dilengkapi dengan proteksi Rate Limit, reCAPTCHA v3, dan Filter Kata.
     """
     receiver = get_object_or_404(User, profile__slug=slug)
     public_messages = Message.objects.filter(recipient=receiver, is_public=True)
+    
+    qna_session = None
+    if qna_slug:
+        qna_session = get_object_or_404(QnASession, user=receiver, slug=qna_slug)
+        if not qna_session.is_active:
+            messages.warning(request, _("Sesi QnA / Pertanyaan ini sudah ditutup oleh pengguna."))
+            return redirect("public_profile", slug=slug)
+
 
     if request.method == "POST":
         content = request.POST.get("pesan")
@@ -216,6 +224,7 @@ def public_profile(request, slug):
                 sender_device=device_os,
                 sender_browser=browser,
                 is_disposable=is_disposable,
+                qna_session=qna_session,
             )
 
             # --- BROADCAST WEBSOCKET (REAL-TIME) ---
@@ -241,6 +250,7 @@ def public_profile(request, slug):
         "target_user": receiver,
         "public_messages": public_messages,
         "recaptcha_site_key": getattr(settings, "RECAPTCHA_PUBLIC_KEY", ""),
+        "qna_session": qna_session,
     }
     return render(request, "main/profile_public.html", context)
 
@@ -253,11 +263,19 @@ def public_profile(request, slug):
 @login_required
 def dashboard(request):
     """Menampilkan kotak masuk (Inbox) pengguna dengan fitur paginasi."""
+    qna_filter_id = request.GET.get('qna')
+    message_qs = Message.objects.filter(recipient=request.user)
+    
+    if qna_filter_id:
+        message_qs = message_qs.filter(qna_session_id=qna_filter_id)
+
     message_list = (
-        Message.objects.filter(recipient=request.user)
-        .select_related("recipient")
+        message_qs
+        .select_related("recipient", "qna_session")
         .order_by("-created_at")
     )
+    
+    qna_sessions = QnASession.objects.filter(user=request.user).order_by('-created_at')
 
     # Notifikasi pesan baru
     new_messages_count = message_list.filter(is_read=False).count()
@@ -280,6 +298,8 @@ def dashboard(request):
         "page_obj": page_obj,
         "inbox_messages": message_list,
         "quick_reactions": QUICK_REACTIONS,
+        "qna_sessions": qna_sessions,
+        "current_qna_filter": int(qna_filter_id) if qna_filter_id and qna_filter_id.isdigit() else None,
     }
     return render(request, "main/dashboard.html", context)
 
@@ -596,3 +616,38 @@ def csrf_failure(request, reason=""):
 def privacy_page(request):
     """Menampilkan halaman statis Kebijakan Privasi (Syarat AdSense)."""
     return render(request, "main/privacy.html")
+
+
+@login_required
+def create_qna_session(request):
+    """Membuat Sesi QnA baru."""
+    if request.method == "POST":
+        title = request.POST.get("title", "").strip()
+        if title:
+            QnASession.objects.create(user=request.user, title=title)
+            messages.success(request, _("Tautan QnA Spesifik berhasil dibuat! 🚀"))
+        else:
+            messages.error(request, _("Topik pertanyaan tidak boleh kosong."))
+    return redirect("dashboard")
+
+
+@login_required
+def toggle_qna_status(request, qna_id):
+    """Mengubah status aktif Sesi QnA."""
+    qna = get_object_or_404(QnASession, id=qna_id, user=request.user)
+    if request.method == "POST":
+        qna.is_active = not qna.is_active
+        qna.save()
+        status = _("Diaktifkan") if qna.is_active else _("Ditutup")
+        messages.success(request, _("Tautan QnA berhasil %s.") % status)
+    return redirect("dashboard")
+
+
+@login_required
+def delete_qna_session(request, qna_id):
+    """Menghapus Sesi QnA."""
+    qna = get_object_or_404(QnASession, id=qna_id, user=request.user)
+    if request.method == "POST":
+        qna.delete()
+        messages.success(request, _("Tautan QnA dihapus secara permanen."))
+    return redirect("dashboard")

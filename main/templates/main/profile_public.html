@@ -1,13 +1,17 @@
 {% extends 'main/base.html' %}
 {% load i18n %}
 {% block title %}
-    {% blocktranslate %}Kirim pesan ke {{ target_user.username }}{% endblocktranslate %}
+    {% if qna_session %}
+        Q&A: {{ target_user.username }}
+    {% else %}
+        {% blocktranslate with name=target_user.username %}Kirim pesan ke {{ name }}{% endblocktranslate %}
+    {% endif %}
 {% endblock %}
 {% block extra_meta %}
     <meta property="og:type" content="profile">
     <meta property="og:url" content="{{ request.build_absolute_uri }}">
     <meta property="og:title"
-          content="{% blocktranslate %}Kirim pesan rahasia ke @{{ target_user.username }} 🚀{% endblocktranslate %}">
+          content="{% blocktranslate with name=target_user.username %}Kirim pesan rahasia ke @{{ name }} 🚀{% endblocktranslate %}">
     <meta property="og:description"
           content="{{ target_user.profile.bio|default:_("Sampaikan curhatan, kritik, atau pesan rahasiamu secara anonim di CurhatBox. Aman & Jujur.") |truncatechars:160 }}">
     {% if target_user.profile.avatar %}
@@ -89,7 +93,10 @@
             </div>
             <h2 class="fw-bold text-white mb-1" style="font-size: 1.6rem;">{{ target_user.username }}</h2>
             <p class="text-white-50 small mb-0 px-3">
-                {% if target_user.profile.bio %}
+                {% if qna_session %}
+                    <span class="d-inline-flex align-items-center badge bg-light text-dark rounded-pill shadow-sm px-3 py-2 mb-2 mt-2" style="font-size: 0.70rem;"><i class="bi bi-tag-fill text-primary me-2"></i> Ask Me Anything</span>
+                    <span class="fs-5 fs-md-4 fw-bold text-white lh-base d-block mb-3 mt-1" style="font-family: 'Outfit', sans-serif;">"{{ qna_session.title }}"</span>
+                {% elif target_user.profile.bio %}
                     {{ target_user.profile.bio }}
                 {% else %}
                     {% translate "Kirimkan saya pesan rahasia!" %}
@@ -110,7 +117,7 @@
                                   style="min-height: 100px;
                                          font-size: 1rem;
                                          resize: none"
-                                  placeholder="{% translate 'Sampaikan apa saja, saya tidak tahu siapa kamu...' %}"
+                                  placeholder="{% if qna_session %}{% translate 'Ketik jawaban rahasiamu di sini...' %}{% else %}{% translate 'Sampaikan apa saja, saya tidak tahu siapa kamu...' %}{% endif %}"
                                   required></textarea>
                         <div class="form-check form-switch text-start mb-3">
                             <input class="form-check-input bg-danger border-danger"

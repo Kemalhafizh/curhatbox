@@ -20,7 +20,8 @@ from django.urls import path, include
 from django.conf import settings
 from django.conf.urls.static import static
 from django.views.generic import RedirectView
-from django.http import HttpResponse
+from django.http import HttpResponse, FileResponse
+import os
 
 from django.contrib.auth import views as auth_views
 from main.forms import CustomAuthenticationForm
@@ -100,8 +101,33 @@ urlpatterns = [
     path("i18n/", include("django.conf.urls.i18n")),  # Endpoint peranti bahasa
     path(
         "ads.txt",
+        lambda r: FileResponse(
+            open(os.path.join(settings.BASE_DIR, "ads.txt"), "rb"), content_type="text/plain"
+        ),
+    ),
+    path(
+        "robots.txt",
+        lambda r: FileResponse(
+            open(os.path.join(settings.BASE_DIR, "robots.txt"), "rb"), content_type="text/plain"
+        ),
+    ),
+    path(
+        "sitemap.xml",
+        lambda r: FileResponse(
+            open(os.path.join(settings.BASE_DIR, "sitemap.xml"), "rb"), content_type="text/xml"
+        ),
+    ),
+    path(
+        "googleejv9TLODICCbcW8QfmEyMrwfC6n8P0o71HMoTTbQqVk.html",
         lambda r: HttpResponse(
-            "google.com, pub-5674300095923366, DIRECT, f08c47fec0942fa0",
+            "google-site-verification: googleejv9TLODICCbcW8QfmEyMrwfC6n8P0o71HMoTTbQqVk.html",
+            content_type="text/html",
+        ),
+    ),
+    path(
+        "google-site-verification=ejv9TLODICCbcW8QfmEyMrwfC6n8P0o71HMoTTbQqVk",
+        lambda r: HttpResponse(
+            "google-site-verification: ejv9TLODICCbcW8QfmEyMrwfC6n8P0o71HMoTTbQqVk",
             content_type="text/plain",
         ),
     ),

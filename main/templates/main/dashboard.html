@@ -1,12 +1,14 @@
 {% extends 'main/base.html' %}
 {% load humanize %}
 {% load i18n %}
+
 {% block title %}
     {% translate "Dashboard Pesan" %}
 {% endblock %}
+
 {% block content %}
-    <script src="https://html2canvas.hertzen.com/dist/html2canvas.min.js"></script>
     <div class="row">
+        <!-- Kolom Kiri: Profil & Manajemen Sesi -->
         <div class="col-md-4 mb-4" data-aos="fade-right">
             <div class="glass-card shadow-lg border-0 rounded-5 overflow-hidden">
                 <div class="card-body text-center p-3 p-md-4">
@@ -32,11 +34,12 @@
                         </div>
                     </div>
                     <h5 class="fw-bold mb-1" style="font-family: 'Outfit', sans-serif;">
-                        {% blocktranslate %}Hallo, {{ user.username }}!{% endblocktranslate %}
+                        {% blocktranslate with name=user.username %}Hallo, {{ name }}!{% endblocktranslate %}
                     </h5>
                     <p class="text-body-secondary small mb-3" style="font-size: 0.75rem;">
                         {% translate "Bagikan link ini untuk menerima pesan anonim" %}
                     </p>
+                    
                     <!-- Aesthetic Input Group -->
                     <div class="d-flex align-items-center bg-body-tertiary rounded-pill p-1 shadow-sm mb-2 border border-light">
                         <input type="text"
@@ -54,12 +57,22 @@
                                        border: none;
                                        font-size: 0.8rem">{% translate "Salin" %}</button>
                     </div>
+
                     <div class="text-start mb-3 bg-light-purple p-2 rounded-4">
                         <div class="d-flex align-items-center text-secondary small">
                             <span class="fs-5 me-2">🔒</span>
                             <span style="font-size: 0.65rem; line-height: 1.3;">{% translate "Profil ini privat. Hanya yang punya URL bisa kirim pesan." %}</span>
                         </div>
                     </div>
+
+                    <div class="d-grid gap-2 mb-3">
+                        <button class="btn rounded-pill border-0 text-white shadow-sm fw-bold py-2 hover-lift"
+                                data-bs-toggle="modal" data-bs-target="#createQnaModal"
+                                style="background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%); font-size: 0.85rem">
+                            <i class="bi bi-stars"></i> {% translate "Buat Tautan Q&A Klasik" %}
+                        </button>
+                    </div>
+
                     <div class="d-grid gap-2">
                         <a href="{% url 'analytics_dashboard' %}"
                            class="btn rounded-pill text-body hover-lift shadow border-0 py-2"
@@ -72,11 +85,51 @@
                     </div>
                 </div>
             </div>
+            
+            {% if qna_sessions %}
+            <div class="glass-card shadow-lg border-0 rounded-4 overflow-hidden mt-4" data-aos="fade-up">
+                <div class="card-body p-3">
+                    <h6 class="fw-bold mb-3 d-flex align-items-center gap-2">
+                        <i class="bi bi-tags-fill text-primary"></i> {% translate "Sesi Q&A Aktif" %}
+                    </h6>
+                    <div class="list-group list-group-flush gap-2">
+                        {% for qna in qna_sessions %}
+                        <div class="list-group-item bg-transparent border rounded-3 p-2 d-flex flex-column gap-2 shadow-sm {% if current_qna_filter == qna.id %}border-primary{% endif %}">
+                            <div class="d-flex justify-content-between align-items-center">
+                                <strong style="font-size: 0.85rem;" class="text-truncate w-75">{{ qna.title }}</strong>
+                                <span class="badge {% if qna.is_active %}bg-success{% else %}bg-secondary{% endif %}">{% if qna.is_active %}{% translate "Aktif" %}{% else %}{% translate "Tutup" %}{% endif %}</span>
+                            </div>
+                            <div class="d-flex flex-wrap gap-1 w-100">
+                                <a href="?qna={{ qna.id }}" class="btn btn-sm {% if current_qna_filter == qna.id %}btn-primary{% else %}btn-light border{% endif %} flex-grow-1" style="font-size: 0.70rem; min-width: 60px;">Inbox</a>
+                                <button onclick="copyQnaLink('{{ request.scheme }}://{{ request.get_host }}/{{ user.profile.slug }}/q/{{ qna.slug }}/')" class="btn btn-sm btn-outline-primary flex-grow-1 hover-lift" style="font-size: 0.70rem; min-width: 80px;">{% translate "Salin Link" %}</button>
+                                <form action="{% url 'toggle_qna' qna.id %}" method="post" class="d-inline m-0 flex-grow-1 flex-sm-grow-0">
+                                    {% csrf_token %}
+                                    <button class="btn btn-sm w-100 btn-outline-warning border-0 px-2" type="submit" title="{% translate 'Tutup/Buka Sesi' %}"><i class="bi bi-power"></i></button>
+                                </form>
+                                <form action="{% url 'delete_qna' qna.id %}" method="post" class="d-inline m-0 flex-grow-1 flex-sm-grow-0" onsubmit="return confirm('{% translate 'Hapus permanen sesi ini?' %}')">
+                                    {% csrf_token %}
+                                    <button class="btn btn-sm w-100 btn-outline-danger border-0 px-2" type="submit" title="{% translate 'Hapus' %}"><i class="bi bi-trash"></i></button>
+                                </form>
+                            </div>
+                        </div>
+                        {% endfor %}
+                        {% if current_qna_filter %}
+                        <div class="d-grid mt-2">
+                            <a href="{% url 'dashboard' %}" class="btn btn-sm rounded-pill btn-secondary text-white w-100 fw-bold">{% translate "Tampilkan Semua Pesan" %}</a>
+                        </div>
+                        {% endif %}
+                    </div>
+                </div>
+            </div>
+            {% endif %}
         </div>
+
+        <!-- Kolom Kanan: Daftar Pesan -->
         <div class="col-md-8">
             <h3 class="fw-bold mb-4 text-white">
-                {% blocktranslate %}Pesan Masuk ({{ inbox_messages.count }}){% endblocktranslate %}
+                {% blocktranslate with count=inbox_messages.count %}Pesan Masuk ({{ count }}){% endblocktranslate %}
             </h3>
+            
             {% if not inbox_messages %}
                 <div class="alert alert-secondary border border-secondary text-center py-5 rounded-4">
                     <p class="text-body-secondary mb-0">{% translate "Belum ada pesan masuk. Sebar link kamu di sosial media!" %}</p>
@@ -85,13 +138,12 @@
                 <div id="message-feed-container">
                     {% for msg in page_obj %}
                         {% include 'main/partials/message_card.html' with msg=msg quick_reactions=quick_reactions %}
-                        <!-- AdSense In-Feed Ad Slot (Every 4 messages) -->
                         {% if forloop.counter|divisibleby:4 and not forloop.last %}
                             <div class="col-12">{% include 'main/partials/adsense_slot.html' with ad_slot='DASHBOARD_FEED_SLOT' %}</div>
                         {% endif %}
                     {% endfor %}
                 </div>
-                <!-- Navigasi Paginasi -->
+
                 {% if page_obj.has_other_pages %}
                     <nav aria-label="Page navigation" class="mt-4 mb-5">
                         <ul class="pagination justify-content-center">
@@ -101,18 +153,14 @@
                                 </li>
                             {% else %}
                                 <li class="page-item disabled">
-                                    <a class="page-link">Sebelumnya</a>
+                                    <a class="page-link">{% translate "Sebelumnya" %}</a>
                                 </li>
                             {% endif %}
                             {% for num in page_obj.paginator.page_range %}
                                 {% if page_obj.number == num %}
-                                    <li class="page-item active">
-                                        <a class="page-link">{{ num }}</a>
-                                    </li>
+                                    <li class="page-item active"><a class="page-link">{{ num }}</a></li>
                                 {% else %}
-                                    <li class="page-item">
-                                        <a class="page-link" href="?page={{ num }}">{{ num }}</a>
-                                    </li>
+                                    <li class="page-item"><a class="page-link" href="?page={{ num }}">{{ num }}</a></li>
                                 {% endif %}
                             {% endfor %}
                             {% if page_obj.has_next %}
@@ -121,17 +169,19 @@
                                 </li>
                             {% else %}
                                 <li class="page-item disabled">
-                                    <a class="page-link">Selanjutnya</a>
+                                    <a class="page-link">{% translate "Selanjutnya" %}</a>
                                 </li>
                             {% endif %}
                         </ul>
                     </nav>
                 {% endif %}
+
                 <div class="mt-2 mb-5">
                     {% include 'main/partials/adsense_slot.html' with ad_slot='DASHBOARD_FOOTER_BANNER' min_height='100px' %}
                 </div>
             {% endif %}
-            <!-- DASHBOARD CONTENT BOOST (FOR ADSENSE) -->
+
+            <!-- Tips & Keamanan -->
             <div class="mt-5 pt-4" data-aos="fade-up">
                 <div class="glass-card p-4 p-md-5 border border-light border-opacity-10 rounded-4 mb-5 shadow-lg">
                     <h4 class="fw-bold mb-4 text-warning">
@@ -141,25 +191,25 @@
                         <div class="col-md-6 text-start">
                             <h6 class="fw-bold text-body">{% translate "Gunakan Link Secara Bijak" %}</h6>
                             <p class="text-body-secondary small mb-0 lh-lg">
-                                {% translate "Bagikan link profilmu hanya di platform terpercaya seperti Instagram Story atau Bio TikTok untuk mendapatkan interaksi dari orang-orang yang kamu kenal di dunia nyata." %}
+                                {% translate "Bagikan link profilmu hanya di platform terpercaya seperti Instagram Story atau Bio TikTok." %}
                             </p>
                         </div>
                         <div class="col-md-6 text-start">
                             <h6 class="fw-bold text-body">{% translate "Moderasi Pesan Aktif" %}</h6>
                             <p class="text-body-secondary small mb-0 lh-lg">
-                                {% translate "Jangan ragu untuk menggunakan fitur blokir jika menerima pesan yang tidak pantas. CurhatBox mendukung lingkungan yang positif dan bebas toksisitas digital." %}
+                                {% translate "Jangan ragu untuk menggunakan fitur blokir jika menerima pesan yang tidak pantas." %}
                             </p>
                         </div>
                         <div class="col-md-6 text-start">
                             <h6 class="fw-bold text-body">{% translate "Warna Tema Kustom" %}</h6>
                             <p class="text-body-secondary small mb-0 lh-lg">
-                                {% translate "Kamu bisa mengubah warna tema profilmu di pengaturan agar feed pesan terlihat lebih estetik sesuai kepribadianmu dan mood saat ini." %}
+                                {% translate "Kamu bisa mengubah warna tema profilmu di pengaturan agar feed pesan terlihat lebih estetik." %}
                             </p>
                         </div>
                         <div class="col-md-6 text-start">
                             <h6 class="fw-bold text-body">{% translate "Mode Sekali Baca (SND)" %}</h6>
                             <p class="text-body-secondary small mb-0 lh-lg">
-                                {% translate "Aktifkan mode Self-Destruct jika ingin mengirim rahasia yang benar-benar privat. Pesan akan langsung musnah setelah dibaca oleh penerima." %}
+                                {% translate "Aktifkan mode Self-Destruct jika ingin mengirim rahasia yang benar-benar privat." %}
                             </p>
                         </div>
                     </div>
@@ -167,80 +217,141 @@
             </div>
         </div>
     </div>
+{% endblock %}
+
+{% block extra_body %}
+    <!-- HIDDEN CAPTURE AREA (For IG Story Generator) -->
     <div id="hidden-capture-area">
-        <!-- Inject theme color dynamically via CSS Variable -->
-        <div class="ig-card"
-             style="--story-theme: {{ user.profile.theme_color|default:'#6f42c1' }}">
-            <!-- Premium Abstract Background Blobs -->
+        <div class="ig-card" style="--story-theme: {{ user.profile.theme_color|default:'#6f42c1' }}">
             <div class="ig-premium-bg-shape1"></div>
             <div class="ig-premium-bg-shape2"></div>
-            <!-- Sender's Secret Message Box (Premium iOS Style) -->
             <div class="ig-question-bubble">
-                <!-- Context Badge -->
                 <div class="ig-context-badge">
                     <span>🕵️‍♀️</span> <span>{% translate "Pesan Anonim" %}</span>
                 </div>
-                <p id="capture-question">Pesan rahasia di sini...</p>
+                <p id="capture-question">{% translate "Pesan rahasia di sini..." %}</p>
             </div>
-            <!-- Receiver's Reply Box (Elite Glass Mode) -->
             <div class="ig-answer-glass">
                 <div class="ig-reply-header">
-                    <!-- Real Avatar Integration -->
-                    <div class="ig-avatar-ring"
-                         id="capture-avatar-ring"
+                    <div class="ig-avatar-ring" id="capture-avatar-ring"
                          style="background-image: url('{% if user.profile.avatar %}{{ user.profile.avatar.url }}{% else %}https://ui-avatars.com/api/?name={{ user.username }}&background=6f42c1&color=fff{% endif %}')">
                     </div>
-                    <div style="display: flex;
-                                flex-direction: column;
-                                justify-content: center">
-                        <h3 id="capture-username">
-                            @<span id="capture-username-inner">{{ user.username }}</span>
-                        </h3>
+                    <div style="display: flex; flex-direction: column; justify-content: center">
+                        <h3 id="capture-username">@<span id="capture-username-inner">{{ user.username }}</span></h3>
                         <p class="ig-membalas-text">{% translate "membalas:" %}</p>
                     </div>
                 </div>
-                <p id="capture-answer">Balasan kamu di sini...</p>
+                <p id="capture-answer">{% translate "Balasan kamu di sini..." %}</p>
             </div>
-            <!-- Elite Watermark Footer -->
             <div class="ig-watermark-footer">
                 <h2>CurhatBox ✨</h2>
-                <p>
-                    {% translate "Kirim pesan rahasia di" %} <span style="font-weight: 800; color: #ffeb3b;">curhatbox.my.id</span>
-                </p>
+                <p>{% translate "Kirim pesan rahasia di" %} <span style="font-weight: 800; color: #ffeb3b;">curhatbox.my.id</span></p>
             </div>
         </div>
     </div>
-    <!-- LIVE UPDATE COMPONENTS -->
-    <!-- Audio Notification (Free Mixkit POP Sound) -->
-    <audio id="notification-sound"
-           src="https://assets.mixkit.co/active_storage/sfx/2869/2869-preview.mp3"
-           preload="auto"></audio>
-    <!-- Bootstrap Toast Notification Container -->
-    <div class="toast-container position-fixed bottom-0 end-0 p-3"
-         style="z-index: 1055">
-        <div id="new-message-toast"
-             class="toast hover-lift border-0 shadow-lg rounded-4"
-             role="alert"
-             aria-live="assertive"
-             aria-atomic="true"
-             style="background: rgba(255,255,255,0.95);
-                    backdrop-filter: blur(10px)">
-            <div class="toast-header border-0 rounded-top-4 text-white"
-                 style="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%)">
+
+    <!-- NOTIFICATIONS -->
+    <audio id="notification-sound" src="https://assets.mixkit.co/active_storage/sfx/2869/2869-preview.mp3" preload="auto"></audio>
+    <div class="toast-container position-fixed bottom-0 end-0 p-3" style="z-index: 1055">
+        <div id="new-message-toast" class="toast hover-lift border-0 shadow-lg rounded-4" role="alert" aria-live="assertive" aria-atomic="true" style="background: rgba(255,255,255,0.95); backdrop-filter: blur(10px)">
+            <div class="toast-header border-0 rounded-top-4 text-white" style="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%)">
                 <i class="bi bi-bell-fill me-2"></i>
                 <strong class="me-auto fs-6">{% translate "Notifikasi Baru" %}</strong>
                 <small class="text-white-50">{% translate "Baru Saja" %}</small>
-                <button type="button"
-                        class="btn-close btn-close-white"
-                        data-bs-dismiss="toast"
-                        aria-label="Close"></button>
+                <button type="button" class="btn-close btn-close-white" data-bs-dismiss="toast" aria-label="Close"></button>
             </div>
             <div class="toast-body fs-5 text-body">🎉 {% translate "Hore! Seseorang baru saja mengirimkanmu pesan rahasia!" %}</div>
         </div>
     </div>
-    <!-- WebSocket Script for Real-Time Notification -->
+
+    <!-- MODALS -->
+    <div class="modal fade" id="hdUnlockModal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content border-0 rounded-5 shadow-lg overflow-hidden" style="background: rgba(var(--bs-body-bg-rgb), 0.9); backdrop-filter: blur(20px)">
+                <div class="modal-header border-0 pb-0 pt-4 px-4 text-center d-block">
+                    <div class="d-inline-flex align-items-center justify-content-center bg-primary bg-opacity-10 rounded-circle mb-3 shadow-sm" style="width: 60px; height: 60px">
+                        <i class="bi bi-hd-fill fs-2 text-primary"></i>
+                    </div>
+                    <h4 class="fw-bold mb-1" style="font-family: 'Outfit', sans-serif;">{% translate "Menyiapkan Kualitas 1080p FHD" %}</h4>
+                    <p class="text-body-secondary small mb-0 px-3">{% translate "Mohon tunggu 15 detik untuk mendukung CurhatBox tetap gratis." %}</p>
+                </div>
+                <div class="modal-body p-4 text-center">
+                    <div class="mb-4">
+                        <div class="progress rounded-pill bg-body-tertiary shadow-inner mb-2" style="height: 12px; overflow: hidden">
+                            <div id="hdProgressBar" class="progress-bar progress-bar-striped progress-bar-animated bg-primary" role="progressbar" style="width: 0%; transition: width 1s linear"></div>
+                        </div>
+                        <div class="d-flex justify-content-between align-items-center px-1">
+                            <span class="badge bg-primary bg-opacity-10 text-primary rounded-pill fw-bold" id="hdTimerText">15s</span>
+                            <span class="small text-body-secondary fw-bold" id="hdPercentText">0%</span>
+                        </div>
+                    </div>
+                    <div class="ad-container-unlock my-3 p-2 rounded-4 border border-dashed border-primary border-opacity-25" style="background: rgba(255,255,255,0.02); min-height: 250px">
+                        {% include 'main/partials/adsense_slot.html' with ad_slot='DASHBOARD_STORY_UNLOCK' min_height='250px' %}
+                    </div>
+                    <div id="hdUnlockActions" class="d-none mt-4 animate-bounce-in">
+                        <button id="btnDownloadHD" class="btn btn-primary btn-lg w-100 rounded-pill fw-bold shadow-lg hover-lift border-0" style="background: linear-gradient(45deg, #f09433 0%, #e6683c 25%, #dc2743 50%, #cc2366 75%, #bc1888 100%)">🚀 {% translate "Unduh Gambar FHD Sekarang" %}</button>
+                    </div>
+                    <button type="button" class="btn btn-link text-decoration-none text-body-secondary small mt-3 opacity-50 hover-opacity-100" data-bs-dismiss="modal" id="btnCancelHD">{% translate "Batalkan & Kembali" %}</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- PREVIEW MODAL FOR MOBILE (Long Press to Save) -->
+    <div class="modal fade" id="storyPreviewModal" tabindex="-1" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered modal-lg">
+            <div class="modal-content border-0 rounded-5 shadow-lg bg-dark overflow-hidden">
+                <div class="modal-header border-0 text-white pb-0">
+                    <h5 class="modal-title fw-bold"><i class="bi bi-check-circle-fill text-success me-2"></i>{% translate "Gambar Story Siap!" %}</h5>
+                    <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body p-4 text-center">
+                    <div class="alert alert-info border-0 rounded-4 small mb-3 text-start shadow-sm" style="background: rgba(13, 202, 240, 0.1); color: #0dcaf0">
+                        <i class="bi bi-info-circle-fill me-2"></i>
+                        {% translate "Browser mobile memblokir download otomatis. <b>Tekan lama pada gambar</b> di bawah, lalu pilih <b>'Simpan Gambar'</b> untuk membagikan ke IG Story." %}
+                    </div>
+                    <div class="preview-img-container rounded-4 mb-3 shadow-lg border border-secondary border-opacity-25" style="max-height: 60vh; overflow-y: auto;">
+                        <img id="storyPreviewImage" src="" alt="IG Story Preview" class="img-fluid rounded-4 w-100">
+                    </div>
+                    <button type="button" class="btn btn-outline-light rounded-pill w-100 fw-bold border-opacity-25 mt-2" data-bs-dismiss="modal">{% translate "Tutup & Kembali" %}</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <div class="modal fade" id="createQnaModal" tabindex="-1" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content rounded-4 border-light shadow-lg" style="background: rgba(255,255,255,0.9); backdrop-filter: blur(15px);">
+                <div class="modal-header border-bottom border-secondary border-opacity-10">
+                    <h5 class="modal-title fw-bold"><i class="bi bi-magic text-primary me-2"></i>{% translate "Buat Tautan Q&A Spesifik" %}</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <form action="{% url 'create_qna' %}" method="post">
+                    {% csrf_token %}
+                    <div class="modal-body p-4">
+                        <p class="small text-body-secondary mb-4">{% translate "Buat tautan rahasia dengan pertanyaan khusus agar teman-temanmu menjawab secara spesifik." %}</p>
+                        <div class="mb-3">
+                            <label class="form-label fw-bold text-dark small">{% translate "Topik Pertanyaan / Pancingan" %}</label>
+                            <input type="text" name="title" class="form-control rounded-3" placeholder="{% translate "Contoh: Jujur, apa kesan pertamamu?" %}" required maxlength="200" style="background: rgba(0,0,0,0.02)">
+                            <div class="form-text mt-2"><i class="bi bi-info-circle"></i> {% translate "Tautan khusus acak akan dibuat secara otomatis." %}</div>
+                        </div>
+                    </div>
+                    <div class="modal-footer border-0 pb-4 pt-0 justify-content-end">
+                        <button type="button" class="btn text-secondary" data-bs-dismiss="modal">{% translate "Batal" %}</button>
+                        <button type="submit" class="btn btn-primary rounded-pill px-4 fw-bold hover-lift shadow-sm" style="background: linear-gradient(135deg, #667eea, #764ba2); border: none;">{% translate "Generate Link" %}</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+{% endblock %}
+
+{% block extra_js %}
+    <script src="https://html2canvas.hertzen.com/dist/html2canvas.min.js"></script>
     <script>
     document.addEventListener("DOMContentLoaded", function() {
+        // WebSocket setup for Real-Time Notification
         const protocol = window.location.protocol === 'https:' ? 'wss:' : 'ws:';
         const wsUrl = protocol + '//' + window.location.host + '/ws/dashboard/';
         const dashboardSocket = new WebSocket(wsUrl);
@@ -250,108 +361,37 @@
             const messageHtml = data.data;
 
             if (messageHtml) {
-                // 1. Putar Suara Notifikasi
                 const audio = document.getElementById('notification-sound');
-                audio.play().catch(e => console.log('Autoplay audio ditolak browser sebelum interaksi pengguna'));
+                audio.play().catch(e => console.log('Autoplay audio ditolak browser'));
                 
-                // 2. Tampilkan Toast (Pop-up sudut layar)
                 const toastEl = document.getElementById('new-message-toast');
                 const toast = new bootstrap.Toast(toastEl, { delay: 5000 });
                 toast.show();
                 
-                // 3. Suntikkan HTML ke Feed jika sedang di Halaman 1
                 const urlParams = new URLSearchParams(window.location.search);
                 const page = urlParams.get('page');
                 
                 if (!page || page === '1') {
                     const feedContainer = document.getElementById('message-feed-container');
                     if (feedContainer) {
-                        // Masukkan elemen ke paling atas struktur
                         feedContainer.insertAdjacentHTML('afterbegin', messageHtml);
-                        
-                        // (Opsional) mere-inisialisasi efek AOS animasi di elemen anak yang baru terinsert.
-                        if (typeof AOS !== 'undefined') {
-                            AOS.refreshHard();
-                        }
+                        if (typeof AOS !== 'undefined') { AOS.refreshHard(); }
                     } else {
-                        // Jika sebelumnya sedang "Tidak ada pesan", refresh untuk me-load UI normal.
                         window.location.reload();
                     }
                 }
             }
         };
 
-        dashboardSocket.onclose = function(e) {
-            console.error('Dashboard socket closed unexpectedly');
-            // Opsional: Logika Reconnect bisa ditambahkan di sini
-        };
+        dashboardSocket.onclose = function(e) { console.error('Dashboard socket closed unexpectedly'); };
     });
+
+    function copyQnaLink(linkUrl) {
+        navigator.clipboard.writeText(linkUrl).then(() => {
+            alert("{% translate "Tautan Sesi Q&A Klasik berhasil disalin!" %}\n" + linkUrl);
+        }).catch(() => {
+            prompt("{% translate "Salin secara manual:" %}", linkUrl);
+        });
+    }
     </script>
-    <!-- =========================================
-         MODAL: HD UNLOCK (15s AD WAIT)
-         ========================================= -->
-    <div class="modal fade"
-         id="hdUnlockModal"
-         data-bs-backdrop="static"
-         data-bs-keyboard="false"
-         tabindex="-1"
-         aria-hidden="true">
-        <div class="modal-dialog modal-dialog-centered">
-            <div class="modal-content border-0 rounded-5 shadow-lg overflow-hidden"
-                 style="background: rgba(var(--bs-body-bg-rgb), 0.9);
-                        backdrop-filter: blur(20px)">
-                <!-- Premium Header -->
-                <div class="modal-header border-0 pb-0 pt-4 px-4 text-center d-block">
-                    <div class="d-inline-flex align-items-center justify-content-center bg-primary bg-opacity-10 rounded-circle mb-3 shadow-sm"
-                         style="width: 60px;
-                                height: 60px">
-                        <i class="bi bi-hd-fill fs-2 text-primary"></i>
-                    </div>
-                    <h4 class="fw-bold mb-1" style="font-family: 'Outfit', sans-serif;">
-                        {% translate "Menyiapkan Kualitas 1080p FHD" %}
-                    </h4>
-                    <p class="text-body-secondary small mb-0 px-3">
-                        {% translate "Mohon tunggu 15 detik untuk mendukung CurhatBox tetap gratis & berkualitas tinggi." %}
-                    </p>
-                </div>
-                <div class="modal-body p-4 text-center">
-                    <!-- Progress Section -->
-                    <div class="mb-4">
-                        <div class="progress rounded-pill bg-body-tertiary shadow-inner mb-2"
-                             style="height: 12px;
-                                    overflow: hidden">
-                            <div id="hdProgressBar"
-                                 class="progress-bar progress-bar-striped progress-bar-animated bg-primary"
-                                 role="progressbar"
-                                 style="width: 0%;
-                                        transition: width 1s linear"></div>
-                        </div>
-                        <div class="d-flex justify-content-between align-items-center px-1">
-                            <span class="badge bg-primary bg-opacity-10 text-primary rounded-pill fw-bold"
-                                  id="hdTimerText">15s</span>
-                            <span class="small text-body-secondary fw-bold" id="hdPercentText">0%</span>
-                        </div>
-                    </div>
-                    <!-- PREMIUM AD SLOT (High Engagement) -->
-                    <div class="ad-container-unlock my-3 p-2 rounded-4 border border-dashed border-primary border-opacity-25"
-                         style="background: rgba(255,255,255,0.02);
-                                min-height: 250px">
-                        {% include 'main/partials/adsense_slot.html' with ad_slot='DASHBOARD_STORY_UNLOCK' min_height='250px' %}
-                    </div>
-                    <!-- Hidden but Accessible Download Action -->
-                    <div id="hdUnlockActions" class="d-none mt-4 animate-bounce-in">
-                        <button id="btnDownloadHD"
-                                class="btn btn-primary btn-lg w-100 rounded-pill fw-bold shadow-lg hover-lift border-0"
-                                style="background: linear-gradient(45deg, #f09433 0%, #e6683c 25%, #dc2743 50%, #cc2366 75%, #bc1888 100%)">
-                            🚀 {% translate "Unduh Gambar FHD Sekarang" %}
-                        </button>
-                    </div>
-                    <button type="button"
-                            class="btn btn-link text-decoration-none text-body-secondary small mt-3 opacity-50 hover-opacity-100"
-                            data-bs-dismiss="modal"
-                            id="btnCancelHD">{% translate "Batalkan & Kembali" %}</button>
-                </div>
-            </div>
-        </div>
-    </div>
 {% endblock %}
