@@ -11,7 +11,18 @@ def generate_qna_slug():
 
 # --- MODEL 1: PROFILE ---
 class Profile(models.Model):
-    user = models.OneToOneField(User, on_delete=models.CASCADE, related_name="profile")
+    """
+    Model untuk profil tambahan pengguna.
+    
+    Menyimpan informasi kustomasi seperti avatar, warna tema, bio, 
+    dan preferensi bahasa antarmuka.
+    """
+    user = models.OneToOneField(
+        User, 
+        on_delete=models.CASCADE, 
+        related_name="profile",
+        verbose_name=_("Pengguna")
+    )
 
     slug = models.SlugField(unique=True, blank=True)
 
@@ -50,8 +61,17 @@ class Profile(models.Model):
 
 # --- MODEL 1.5: QnA SESSION (Ask Me Anything) ---
 class QnASession(models.Model):
+    """
+    Representasi sesi 'Ask Me Anything' (QnA).
+    
+    Memungkinkan pengguna untuk mengelompokkan pesan/pertanyaan
+    berdasarkan topik tertentu yang bisa diaktifkan/dinonaktifkan.
+    """
     user = models.ForeignKey(
-        User, on_delete=models.CASCADE, related_name="qna_sessions"
+        User, 
+        on_delete=models.CASCADE, 
+        related_name="qna_sessions",
+        verbose_name=_("Pengguna")
     )
     title = models.CharField(max_length=200, verbose_name=_("Topik / Pertanyaan"))
     slug = models.CharField(max_length=20, unique=True, default=generate_qna_slug)
@@ -67,8 +87,17 @@ class QnASession(models.Model):
 
 # --- MODEL 2: MESSAGE ---
 class Message(models.Model):
+    """
+    Model inti untuk menyimpan pesan anonim (curhatan).
+    
+    Menangani status keterbacaan, publikasi (untuk profil publik),
+    balasan, serta tracking metadata pengirim (IP & Device).
+    """
     recipient = models.ForeignKey(
-        User, on_delete=models.CASCADE, related_name="messages"
+        User, 
+        on_delete=models.CASCADE, 
+        related_name="messages",
+        verbose_name=_("Penerima")
     )
 
     content = models.TextField(verbose_name=_("Isi Curhatan"))

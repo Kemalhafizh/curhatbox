@@ -1,29 +1,27 @@
 import json
-
+from django.conf import settings
 from django.contrib import messages
 from django.contrib.auth import login
 from django.contrib.auth.decorators import login_required
-from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.models import User
+from django.contrib.auth.views import PasswordResetView
+from django.core.cache import cache
 from django.core.exceptions import PermissionDenied
 from django.core.paginator import Paginator
 from django.db.models import Count
 from django.db.models.functions import ExtractHour, TruncDate
+from django.http import JsonResponse, HttpResponse
 from django.shortcuts import get_object_or_404, redirect, render
-from django.http import JsonResponse
 from django.template.loader import render_to_string
+from django.urls import reverse_lazy, reverse
 from django.utils import timezone
 from django.utils.translation import gettext as _
-from django.conf import settings
 
+# Third-party imports
 from django_ratelimit.decorators import ratelimit
 from user_agents import parse
 
-from django.contrib.auth.views import PasswordResetView
-from django.contrib.auth.forms import PasswordResetForm
-from django.core.cache import cache
-from django.urls import reverse_lazy, reverse
-
+# Local app imports
 from .forms import ProfileForm, ReplyForm, CustomUserCreationForm
 from .models import BlockList, Message, QnASession
 from .utils import sensor_kata, verify_recaptcha
@@ -56,7 +54,11 @@ QUICK_REACTIONS = [
 
 
 def index(request):
-    """Menampilkan halaman utama (Landing Page)."""
+    """
+    Menampilkan halaman utama (Landing Page).
+    
+    Halaman ini merupakan pintu masuk utama bagi pengunjung non-login.
+    """
     return render(request, "main/index.html")
 
 
@@ -76,7 +78,12 @@ def rules_page(request):
 
 
 def register(request):
-    """Menangani pendaftaran pengguna baru."""
+    """
+    Menangani pendaftaran pengguna baru.
+    
+    Mengarahkan pengguna ke dashboard jika sudah login. Validasi form
+    pendaftaran dilakukan secara server-side dengan reCAPTCHA di backend (opsional).
+    """
     if request.user.is_authenticated:
         return redirect("dashboard")
 
@@ -97,8 +104,10 @@ def register(request):
 
 class CustomPasswordResetView(PasswordResetView):
     """
-    Subclass PasswordResetView untuk menyimpan email ke session
-    agar bisa digunakan oleh fitur 'Resend Email'.
+    Subclass PasswordResetView untuk menangani alur reset password secara kustom.
+    
+    Menyimpan email ke session agar dapat digunakan kembali oleh fitur 'Resend Email'
+    tanpa meminta pengguna memasukkan email berulang kali.
     """
     def form_valid(self, form):
         # Simpan email ke session untuk fitur resend
@@ -163,8 +172,13 @@ def trigger_reset_for_current_user(request):
 @ratelimit(key="ip", rate="3/m", method="POST", block=True)
 def public_profile(request, slug, qna_slug=None):
     """
-    Menampilkan profil publik pengguna dan menangani pengiriman pesan rahasia.
-    Dilengkapi dengan proteksi Rate Limit, reCAPTCHA v3, dan Filter Kata.
+    Menampilkan profil publik pengguna dan memproses pengiriman pesan anonim.
+    
+    Dilengkapi dengan fitur:
+    - Proteksi Rate Limit (3 pesan per menit per IP).
+    - Verifikasi reCAPTCHA v3 untuk mencegah bot.
+    - Filter kata sensor (bad words filtering).
+    - Dukungan sesi QnA spesifik.
     """
     receiver = get_object_or_404(User, profile__slug=slug)
     public_messages = Message.objects.filter(recipient=receiver, is_public=True)
@@ -262,7 +276,15 @@ def public_profile(request, slug, qna_slug=None):
 
 @login_required
 def dashboard(request):
-    """Menampilkan kotak masuk (Inbox) pengguna dengan fitur paginasi."""
+    """
+    Menampilkan halaman Dashboard (Kotak Masuk) utama pengguna.
+    
+    Menangani:
+    - Filter pesan berdasarkan sesi QnA.
+    - Paginasi daftar pesan (15 pesan per halaman).
+    - Notifikasi real-time untuk pesan baru yang belum dibaca.
+    - Penandaan status 'read' secara otomatis saat halaman dibuka.
+    """
     qna_filter_id = request.GET.get('qna')
     message_qs = Message.objects.filter(recipient=request.user)
     

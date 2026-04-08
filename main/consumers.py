@@ -3,6 +3,12 @@ from channels.generic.websocket import AsyncWebsocketConsumer
 
 
 class DashboardConsumer(AsyncWebsocketConsumer):
+    """
+    Consumer WebSocket untuk menangani notifikasi real-time di Dashboard.
+    
+    Menghubungkan pengguna ke channel group unik berdasarkan ID mereka
+    untuk menerima broadcast pesan baru tanpa refresh halaman.
+    """
     async def connect(self):
         if self.scope["user"].is_anonymous:
             # Tolak koneksi dari pengguna yang tidak login

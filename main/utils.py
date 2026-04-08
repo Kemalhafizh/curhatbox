@@ -7,8 +7,13 @@ from django.conf import settings
 
 def sensor_kata(teks):
     """
-    Mengganti kata-kata kasar dengan tanda bintang (*).
-    Mendukung Case Insensitive (Huruf besar/kecil tetap kena).
+    Melakukan filtrasi dan penyensoran kata-kata kasar (profanity filtering).
+    
+    Mengganti kata yang terdaftar dalam daftar hitam (blacklist) dengan tanda bintang (*)
+    sesuai dengan panjang kata tersebut. Proses dilakukan secara Case-Insensitive.
+    
+    @param teks: String yang akan diperiksa.
+    @return: String yang telah disensor.
     """
     if not teks:
         return teks

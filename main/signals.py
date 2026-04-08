@@ -6,15 +6,25 @@ from asgiref.sync import async_to_sync
 from channels.layers import get_channel_layer
 from .models import Profile, Message
 
+# ==============================================================================
+# CURHATBOX SIGNALS
+# Handling automated events (Profile creation, Real-time notifications)
+# ==============================================================================
 
 @receiver(post_save, sender=User)
 def create_profile(sender, instance, created, **kwargs):
+    """
+    Otomatis membuat objek Profile saat user baru terdaftar.
+    """
     if created:
         Profile.objects.create(user=instance)
 
 
 @receiver(post_save, sender=User)
 def save_profile(sender, instance, **kwargs):
+    """
+    Memastikan data Profile ikut tersimpan saat objek User diupdate.
+    """
     instance.profile.save()
 
 

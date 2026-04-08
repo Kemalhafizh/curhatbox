@@ -7,6 +7,12 @@ from .models import Message, Profile
 
 
 class CustomUserCreationForm(UserCreationForm):
+    """
+    Form pendaftaran pengguna kustom dengan tambahan field Email.
+    
+    Email diatur sebagai field wajib untuk mendukung fitur pemulihan akun
+    di masa mendatang.
+    """
     email = forms.EmailField(
         required=True,
         help_text=_(
@@ -28,6 +34,11 @@ class CustomUserCreationForm(UserCreationForm):
 
 
 class CustomAuthenticationForm(AuthenticationForm):
+    """
+    Form login kustom yang mendukung penggunaan Email atau Username.
+    
+    Field dikustomisasi dengan widget Bootstrap dan placeholder modern.
+    """
     username = forms.CharField(
         label=_("Email / Username"),
         widget=forms.TextInput(
