@@ -1,5 +1,5 @@
 {% extends 'main/base.html' %}
-{% load i18n %}
+{% load i18n socialaccount %}
 {% block title %}
     {% translate "Daftar Akun Baru" %}
 {% endblock %}
@@ -37,6 +37,16 @@
                             {% translate "Buat Akun Sekarang" %} <i class="bi bi-rocket-takeoff ms-1"></i>
                         </button>
                     </form>
+                    
+                    <!-- Google Social Login Button -->
+                    <div class="position-relative my-4">
+                        <hr class="text-body opacity-25">
+                        <span class="position-absolute top-50 start-50 translate-middle px-3 small text-body opacity-50" style="background-color: var(--bs-body-bg);">{% translate "Atau daftar super cepat" %}</span>
+                    </div>
+                    <a href="{% provider_login_url 'google' %}" class="btn btn-light w-100 py-3 fw-bold rounded-pill shadow-sm hover-lift d-flex align-items-center justify-content-center text-dark border-1 border-secondary border-opacity-25" style="border-width: 2px;">
+                        <img src="https://upload.wikimedia.org/wikipedia/commons/c/c1/Google_%22G%22_logo.svg" alt="Google" width="22" class="me-2">
+                        {% translate "Lanjutkan dengan Google" %}
+                    </a>
                     <div class="text-center mt-4">
                         <p class="small text-body opacity-75 mb-0">
                             {% url 'login' as login_url %}{% blocktranslate %}Sudah punya akun? <a href="{{ login_url }}" class="fw-bold text-primary text-decoration-none">Masuk di sini</a>{% endblocktranslate %}

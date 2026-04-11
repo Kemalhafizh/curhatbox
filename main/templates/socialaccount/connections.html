@@ -1,0 +1,78 @@
+{% extends "main/base.html" %}
+{% load i18n socialaccount %}
+
+{% block title %}{% translate "Koneksi Akun Sosial" %}{% endblock %}
+
+{% block content %}
+<div class="row justify-content-center align-items-center min-vh-75 py-5 my-md-5" data-aos="zoom-in-up">
+    <div class="col-md-6 col-lg-5">
+        <div class="text-center mb-4">
+            <h3 class="fw-bold text-white mb-1" style="font-family: 'Outfit', sans-serif; text-shadow: 0 4px 15px rgba(0,0,0,0.3); font-size: 1.5rem">
+                {% translate "🔗 Koneksi Akun" %}
+            </h3>
+            <p class="text-white-50 small">{% translate "Kelola daftar akun sosial pihak ketiga yang terhubung." %}</p>
+        </div>
+        
+        <div class="glass-card border-0 shadow-lg p-4 p-md-5">
+            
+            {% if form.accounts %}
+                <h6 class="fw-bold text-body opacity-75 mb-3">{% translate "Akun yang Terhubung:" %}</h6>
+                <form method="post" action="{% url 'socialaccount_connections' %}" class="auth-input">
+                    {% csrf_token %}
+                    
+                    <div class="d-flex flex-column gap-3 mb-4">
+                        {% for base_account in form.accounts %}
+                            {% with base_account.get_provider_account as account %}
+                            <label class="d-flex align-items-center justify-content-between p-3 bg-white bg-opacity-10 rounded-4 border border-white border-opacity-25 shadow-sm" style="cursor: pointer;">
+                                <div class="d-flex align-items-center gap-3">
+                                    <input type="radio" name="account" value="{{ base_account.id }}" class="form-check-input mt-0" required>
+                                    <div>
+                                        <div class="d-flex align-items-center mb-1">
+                                            {% if account.get_brand.id == "google" %}
+                                                <img src="https://upload.wikimedia.org/wikipedia/commons/c/c1/Google_%22G%22_logo.svg" alt="Google" width="16" class="me-2">
+                                            {% else %}
+                                                <i class="bi bi-box-fill text-primary me-2"></i>
+                                            {% endif %}
+                                            <span class="badge bg-success rounded-pill" style="font-size: 0.65rem;">{{ account.get_brand.name }}</span>
+                                        </div>
+                                        <span class="small text-body fw-bold d-block">{{ account }}</span>
+                                    </div>
+                                </div>
+                            </label>
+                            {% endwith %}
+                        {% endfor %}
+                    </div>
+                    
+                    <button type="submit" class="btn btn-outline-danger w-100 py-3 fw-bold rounded-pill hover-lift tracking-wide mb-4">
+                        <i class="bi bi-trash3-fill me-2"></i>{% translate "Hapus Akses Terpilih" %}
+                    </button>
+                </form>
+            {% else %}
+                <div class="text-center py-4 mb-4 bg-white bg-opacity-10 rounded-4 border border-white border-opacity-25">
+                    <i class="bi bi-link-45deg fs-1 text-white opacity-50 mb-2 d-block"></i>
+                    <p class="text-body opacity-75 small mb-0">{% translate "Belum ada akun pihak ketiga yang terhubung." %}</p>
+                </div>
+            {% endif %}
+
+            <hr class="text-body opacity-25 my-4">
+
+            <div class="text-center">
+                <h6 class="fw-bold text-body opacity-75 mb-3">{% translate "Tambahkan Akun Lain:" %}</h6>
+                <div class="d-grid">
+                    <a href="{% provider_login_url 'google' process='connect' %}" class="btn btn-light w-100 py-3 fw-bold rounded-pill shadow-sm hover-lift d-flex align-items-center justify-content-center text-dark border-1 border-secondary border-opacity-25" style="border-width: 2px;">
+                        <img src="https://upload.wikimedia.org/wikipedia/commons/c/c1/Google_%22G%22_logo.svg" alt="Google" width="22" class="me-2">
+                        {% translate "Tambahkan Akses Google" %}
+                    </a>
+                </div>
+            </div>
+            
+            <div class="text-center mt-5">
+                <a href="{% url 'edit_profile' %}" class="btn btn-sm btn-link text-body fw-bold text-decoration-none">
+                    <i class="bi bi-arrow-left-short fs-5 align-middle"></i> {% translate "Kembali ke Pengaturan Profil" %}
+                </a>
+            </div>
+
+        </div>
+    </div>
+</div>
+{% endblock %}

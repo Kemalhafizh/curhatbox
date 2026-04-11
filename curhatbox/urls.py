@@ -19,12 +19,12 @@ from django.contrib import admin
 from django.urls import path, include
 from django.conf import settings
 from django.conf.urls.static import static
-from django.views.generic import RedirectView
+from django.views.generic import RedirectView, TemplateView
 from django.http import HttpResponse, FileResponse
 import os
 
 from django.contrib.auth import views as auth_views
-from main.forms import CustomAuthenticationForm
+from main.forms import CustomAuthenticationForm, AsyncPasswordResetForm
 from main import views as main_views
 
 urlpatterns = [
@@ -46,6 +46,7 @@ urlpatterns = [
             email_template_name="registration/password_reset_email.txt",
             html_email_template_name="registration/password_reset_email.html",
             subject_template_name="registration/password_reset_subject.txt",
+            form_class=AsyncPasswordResetForm,
         ),
         name="password_reset",
     ),
@@ -78,6 +79,7 @@ urlpatterns = [
     path(
         "accounts/", include("django.contrib.auth.urls")
     ),  # Fallback untuk sisa rute auth
+    path("accounts/", include("allauth.urls")), # Rute Khusus untuk endpoint Google Oauth2
     path("login/", RedirectView.as_view(url="/accounts/login/", permanent=True)),
     path(
         "accounts/password_change/",
@@ -132,6 +134,26 @@ urlpatterns = [
         ),
     ),
     path("", include("main.urls")),
+    # --- PWA URLs ---
+    path(
+        "manifest.json",
+        TemplateView.as_view(
+            template_name="main/manifest.json", content_type="application/json"
+        ),
+        name="manifest_json",
+    ),
+    path(
+        "serviceworker.js",
+        TemplateView.as_view(
+            template_name="main/serviceworker.js", content_type="application/javascript"
+        ),
+        name="serviceworker_js",
+    ),
+    path(
+        "offline/",
+        TemplateView.as_view(template_name="main/offline.html"),
+        name="offline",
+    ),
 ]
 
 if settings.DEBUG:

@@ -67,9 +67,17 @@ INSTALLED_APPS = [
     "django.contrib.auth",
     "django.contrib.contenttypes",
     "django.contrib.sessions",
+    "django.contrib.sites",  # Required by allauth
     "django.contrib.messages",
     "django.contrib.staticfiles",
     "django.contrib.humanize",
+    "django_celery_beat",
+    
+    # Allauth & Provider
+    "allauth",
+    "allauth.account",
+    "allauth.socialaccount",
+    "allauth.socialaccount.providers.google",
 ]
 
 MIDDLEWARE = [
@@ -83,6 +91,7 @@ MIDDLEWARE = [
     "main.middleware.LanguageSyncMiddleware",  # Sinkronisasi Bahasa & Profil
     "django.contrib.messages.middleware.MessageMiddleware",
     "django.middleware.clickjacking.XFrameOptionsMiddleware",
+    "allauth.account.middleware.AccountMiddleware", # Required by allauth
 ]
 
 ROOT_URLCONF = "curhatbox.urls"
@@ -223,6 +232,7 @@ EMAIL_SUBJECT_PREFIX = "[CurhatBox] "
 AUTHENTICATION_BACKENDS = [
     "curhatbox.backends.EmailBackend",
     "django.contrib.auth.backends.ModelBackend",
+    "allauth.account.auth_backends.AuthenticationBackend",
 ]
 
 CHANNEL_LAYERS = {
@@ -233,3 +243,31 @@ CHANNEL_LAYERS = {
         },
     },
 }
+
+# --- CELERY & BACKGROUND TASKS ---
+CELERY_BROKER_URL = os.environ.get("REDIS_URL", "redis://127.0.0.1:6379/1") # Sama dengan target Caching
+CELERY_ACCEPT_CONTENT = ['json']
+CELERY_TASK_SERIALIZER = 'json'
+CELERY_TIMEZONE = 'Asia/Jakarta'
+CELERY_RESULT_BACKEND = CELERY_BROKER_URL
+
+# --- GOOGLE SOCIAL LOGIN (ALLAUTH) ---
+SITE_ID = 1
+SOCIALACCOUNT_PROVIDERS = {
+    "google": {
+        "APP": {
+            "client_id": os.environ.get("GOOGLE_CLIENT_ID", ""),
+            "secret": os.environ.get("GOOGLE_CLIENT_SECRET", ""),
+            "key": ""
+        },
+        "SCOPE": ["profile", "email"],
+        "AUTH_PARAMS": {"access_type": "online"},
+    }
+}
+ACCOUNT_EMAIL_REQUIRED = True
+ACCOUNT_USERNAME_REQUIRED = False
+ACCOUNT_AUTHENTICATION_METHOD = "email"
+ACCOUNT_EMAIL_VERIFICATION = "none" # Supaya tidak bertabrakan dengan logic kustom
+SOCIALACCOUNT_LOGIN_ON_GET = True # User bypass form konfirmasi
+SOCIALACCOUNT_AUTO_SIGNUP = True # Otomatis buat akun baru tanpa register form
+LOGIN_REDIRECT_URL = "/"

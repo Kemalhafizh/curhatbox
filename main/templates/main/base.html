@@ -29,6 +29,15 @@
               type="image/png"
               href="{% static 'img/favicon.png' %}">
         <meta name="viewport" content="width=device-width, initial-scale=1">
+        
+        <!-- PWA Meta Tags -->
+        <link rel="manifest" href="/manifest.json">
+        <meta name="theme-color" content="#6f42c1">
+        <meta name="apple-mobile-web-app-capable" content="yes">
+        <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+        <meta name="apple-mobile-web-app-title" content="CurhatBox">
+        <link rel="apple-touch-icon" href="/static/img/favicon.png">
+
         <!-- Google Search Console Verification -->
         <meta name="google-site-verification" content="ejv9TLODICCbcW8QfmEyMrwfC6n8P0o71HMoTTbQqVk" />
         <!-- Google AdSense Verification & Auto-Ads Base Script -->
@@ -341,5 +350,15 @@
         });
     </script>
     {% block extra_body %}{% endblock %}
+    <!-- PWA Service Worker Registration -->
+    <script>
+      if ('serviceWorker' in navigator) {
+        window.addEventListener('load', () => {
+          navigator.serviceWorker.register('/serviceworker.js')
+            .then(reg => console.log('Service Worker registered!', reg))
+            .catch(err => console.log('Service Worker registration failed: ', err));
+        });
+      }
+    </script>
 </body>
 </html>

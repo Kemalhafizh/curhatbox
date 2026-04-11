@@ -1,5 +1,5 @@
 {% extends 'main/base.html' %}
-{% load i18n %}
+{% load i18n socialaccount %}
 {% block title %}
     {% translate "Edit Profil" %} - CurhatBox
 {% endblock %}
@@ -141,6 +141,40 @@
                             <div class="form-text mt-2">{% translate "Pilih bahasa utama yang ingin kamu gunakan di CurhatBox." %}</div>
                             {% if form.preferred_language.errors %}
                                 <div class="text-danger small mt-1">{{ form.preferred_language.errors }}</div>
+                            {% endif %}
+                        </div>
+
+                        <!-- Social Account Connection -->
+                        {% get_social_accounts request.user as accounts %}
+                        <div class="form-group-glass mb-4 border-info border-opacity-25" style="background: rgba(13, 202, 240, 0.05);">
+                            <label class="form-label fw-bold text-body mb-3">
+                                <i class="bi bi-google text-info me-2"></i>{% translate "Koneksi Akun Sosial" %}
+                            </label>
+                            
+                            {% if accounts.google %}
+                                <div class="d-flex align-items-center justify-content-between p-3 bg-white bg-opacity-10 rounded-pill border border-white border-opacity-25 shadow-sm">
+                                    <div class="d-flex align-items-center">
+                                        <img src="https://upload.wikimedia.org/wikipedia/commons/c/c1/Google_%22G%22_logo.svg" alt="Google" width="20" class="me-2">
+                                        <span class="small text-body fw-medium">{% translate "Terhubung dengan Google" %}</span>
+                                    </div>
+                                    <span class="badge bg-success rounded-pill px-3 py-2"><i class="bi bi-check-circle-fill me-1"></i> Connected</span>
+                                </div>
+                                <div class="form-text mt-3 text-center opacity-75">
+                                    <i class="bi bi-info-circle-fill me-1"></i>{% translate "Anda dapat menggunakan 1-click login untuk masuk sebagai " %}{{ accounts.google.0.extra_data.email }}
+                                </div>
+                            {% else %}
+                                <div class="d-flex align-items-center justify-content-between p-3 bg-white bg-opacity-10 rounded-pill border border-white border-opacity-25 shadow-sm">
+                                    <div class="d-flex align-items-center">
+                                        <img src="https://upload.wikimedia.org/wikipedia/commons/c/c1/Google_%22G%22_logo.svg" alt="Google" width="20" class="me-2 opacity-50" style="filter: grayscale(1);">
+                                        <span class="small text-body fw-medium opacity-75">{% translate "Google Belum Terhubung" %}</span>
+                                    </div>
+                                    <a href="{% provider_login_url 'google' process='connect' %}" class="btn btn-sm btn-outline-info rounded-pill px-3 py-2 hover-lift fw-bold border-2">
+                                        <i class="bi bi-link-45deg me-1"></i> {% translate "Hubungkan" %}
+                                    </a>
+                                </div>
+                                <div class="form-text mt-3 text-center opacity-75">
+                                    <i class="bi bi-info-circle-fill me-1"></i>{% translate "Hubungkan akun Google agar bisa masuk ke CurhatBox tanpa perlu mengetik password lagi." %}
+                                </div>
                             {% endif %}
                         </div>
 

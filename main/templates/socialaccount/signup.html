@@ -1,0 +1,58 @@
+{% extends "main/base.html" %}
+{% load i18n %}
+
+{% block title %}{% translate "Daftar dengan Google" %}{% endblock %}
+
+{% block content %}
+<div class="row justify-content-center align-items-center min-vh-75 py-5 my-md-5" data-aos="zoom-in-up">
+    <div class="col-md-5">
+        <div class="glass-card border-0 shadow-lg">
+            <div class="card-body p-4 p-md-5 text-center">
+                <div class="mb-4">
+                    <div class="d-inline-flex align-items-center justify-content-center bg-body bg-opacity-25 rounded-circle mb-3" style="width: 60px; height: 60px">
+                        <img src="https://upload.wikimedia.org/wikipedia/commons/c/c1/Google_%22G%22_logo.svg" alt="Google" width="30">
+                    </div>
+                </div>
+                <h2 class="fw-bold mb-3 text-body">{% translate "Satu Langkah Lagi" %}</h2>
+                <p class="text-body opacity-75 small mb-4">
+                    {% blocktranslate %}
+                    Anda hampir berhasil masuk. Silakan konfirmasi detail pendaftaran Anda di bawah ini untuk menghubungkan akun Google.
+                    {% endblocktranslate %}
+                </p>
+
+                <form class="auth-input text-start" id="signup_form" method="post" action="{% url 'socialaccount_signup' %}">
+                    {% csrf_token %}
+                    {% for field in form %}
+                        <div class="mb-3">
+                            <label class="form-label fw-bold small text-body opacity-75">{{ field.label }}</label>
+                            
+                            <!-- Injecting bootstrap classes manually since allauth forms might not have them -->
+                            <input type="{{ field.field.widget.input_type }}" 
+                                   name="{{ field.html_name }}" 
+                                   value="{{ field.value|default_if_none:'' }}" 
+                                   class="form-control" 
+                                   id="{{ field.auto_id }}" 
+                                   {% if field.field.required %}required{% endif %}>
+                            
+                            {% if field.help_text %}
+                                <div class="form-text small text-body opacity-75 mt-1" style="font-size: 0.75rem">{{ field.help_text|safe }}</div>
+                            {% endif %}
+                            {% for error in field.errors %}
+                                <div class="text-danger small mt-1 fw-bold">{{ error }}</div>
+                            {% endfor %}
+                        </div>
+                    {% endfor %}
+
+                    {% if redirect_field_value %}
+                    <input type="hidden" name="{{ redirect_field_name }}" value="{{ redirect_field_value }}" />
+                    {% endif %}
+                    
+                    <button type="submit" class="btn btn-primary w-100 py-3 mt-2 fw-bold rounded-pill shadow-sm hover-lift">
+                        {% translate "Selesaikan Koneksi Google" %} <i class="bi bi-box-arrow-in-right ms-1"></i>
+                    </button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

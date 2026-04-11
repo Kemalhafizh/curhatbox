@@ -134,8 +134,10 @@ def resend_password_reset_email(request):
         messages.warning(request, _("Mohon tunggu sebentar sebelum mengirim ulang email."))
         return redirect('password_reset_done')
 
-    # Trigger pengiriman email menggunakan form asli Django
-    form = PasswordResetForm(data={'email': email})
+    from main.forms import AsyncPasswordResetForm
+    
+    # Trigger pengiriman email menggunakan form Asinkron Celery
+    form = AsyncPasswordResetForm(data={'email': email})
     if form.is_valid():
         form.save(
             request=request,

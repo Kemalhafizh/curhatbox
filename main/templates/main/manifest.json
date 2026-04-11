@@ -1,0 +1,22 @@
+{
+  "name": "CurhatBox - Pesan Rahasia Anonim",
+  "short_name": "CurhatBox",
+  "description": "Platform pesan anonim paling aman di Indonesia. Kirim curhatan tanpa identitas.",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#0f011d",
+  "theme_color": "#6f42c1",
+  "orientation": "portrait",
+  "icons": [
+    {
+      "src": "/static/img/favicon.png",
+      "sizes": "192x192",
+      "type": "image/png"
+    },
+    {
+      "src": "/static/img/favicon.png",
+      "sizes": "512x512",
+      "type": "image/png"
+    }
+  ]
+}
