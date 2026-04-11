@@ -1,0 +1,43 @@
+{% extends 'main/base.html' %}
+{% load static i18n %}
+
+{% block title %}500 - {% translate "Server Sedang Pusing" %} 🤯{% endblock %}
+
+{% block content %}
+<div class="row min-vh-75 align-items-center justify-content-center text-center py-5">
+    <div class="col-md-8 col-lg-6" data-aos="fade-down" data-aos-duration="800">
+        <!-- Floating Illustration/Emoji -->
+        <div class="mb-4 position-relative float-animation" style="font-size: 8rem; line-height: 1; text-shadow: 0 10px 30px rgba(0,0,0,0.3);">
+            🔥
+        </div>
+        
+        <div class="glass-card shadow-lg border-light border-opacity-25 rounded-5 p-4 p-md-5 position-relative overflow-hidden">
+            <!-- Decorative Background Glow -->
+            <div class="position-absolute top-0 start-50 translate-middle-x bg-danger rounded-circle blur-bg" style="width: 250px; height: 250px; opacity: 0.15; filter: blur(60px); pointer-events: none;"></div>
+            
+            <h1 class="display-3 fw-bold mb-3" style="background: linear-gradient(135deg, #ff0844 0%, #ffb199 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent;">
+                500
+            </h1>
+            <h3 class="fw-bold text-white mb-3" style="font-family: 'Outfit', sans-serif;">{% translate "Server Sedang Kepanasan!" %}</h3>
+            
+            <p class="text-body-secondary mb-4 px-md-3">
+                {% translate "Oops! Terjadi kesalahan internal pada mesin CurhatBox. Terlalu banyak pesan rahasia yang masuk atau database sedang istirahat." %}
+                <br><br>
+                <span class="text-warning fw-bold"><i class="bi bi-tools me-1"></i>{% translate "Tim teknis ninja kami sedang memperbaikinya. Tunggu sebentar ya!" %}</span>
+            </p>
+            
+            <div class="d-flex flex-column flex-sm-row justify-content-center gap-3 mt-4">
+                <button onclick="window.location.reload()" class="btn btn-primary rounded-pill fw-bold hover-lift px-5 py-2 shadow-lg border-0" style="background: linear-gradient(135deg, #ff0844 0%, #ffb199 100%);">
+                    <i class="bi bi-arrow-clockwise me-2"></i>{% translate "Muat Ulang Halaman" %}
+                </button>
+            </div>
+            
+            <div class="mt-4 pt-3 border-top border-secondary border-opacity-25">
+                <a href="{% url 'index' %}" class="text-decoration-none text-body-secondary small hover-opacity-100">
+                    🏠 {% translate "Kembali ke Beranda Coba URL Lain" %}
+                </a>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

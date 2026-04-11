@@ -619,15 +619,22 @@ def api_check_new_messages(request):
 
 
 def ratelimit_error_handler(request, exception=None):
-    """Menangkap error 403 Rate Limit dan mengembalikan pesan ramah ke user."""
-    referer = request.META.get("HTTP_REFERER", "/")
-    messages.error(
-        request,
-        _(
-            "Tunggu sebentar! Kamu mengirim pesan terlalu cepat. Silakan coba lagi dalam 1 menit."
-        ),
-    )
-    return redirect(referer)
+    """
+    Menangkap error 403. Jika dari Rate Limit, kembalikan flash message.
+    Jika error 403 generik (Akses Ditolak), tampilkan halaman 403 Premium.
+    """
+    if exception and exception.__class__.__name__ == 'Ratelimited':
+        referer = request.META.get("HTTP_REFERER", "/")
+        messages.error(
+            request,
+            _(
+                "Tunggu sebentar! Kamu mengakses fitur ini terlalu cepat. Silakan coba lagi dalam 1 menit."
+            ),
+        )
+        return redirect(referer)
+    
+    # Jika bukan dari ratelimit, tampilkan halaman 403 standar
+    return render(request, "403.html", status=403)
 
 
 def csrf_failure(request, reason=""):
