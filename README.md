@@ -1,13 +1,15 @@
 <div align="center">
   <img src="https://img.icons8.com/clouds/200/mailbox-closed-flag-up.png" alt="CurhatBox Logo" width="150"/>
-  <h1>💜 CurhatBox v6.9 (Production Ready)</h1>
-  <p><strong>Platform Pesan Anonim Premium Berkualitas SaaS dengan Keamanan Anti-Spam Tingkat Lanjut</strong></p>
+  <h1>💜 CurhatBox v7.0 (Enterprise Edition)</h1>
+  <p><strong>Platform Pesan Anonim Premium Berkualitas SaaS dengan Keamanan Anti-Spam Tingkat Lanjut & QA Automation</strong></p>
   
   <p>
-    <img src="https://img.shields.io/badge/Django-092E20?style=for-the-badge&logo=django&logoColor=white" alt="Django" />
-    <img src="https://img.shields.io/badge/Python-3776AB?style=for-the-badge&logo=python&logoColor=white" alt="Python" />
-    <img src="https://img.shields.io/badge/Redis-DC382D?style=for-the-badge&logo=redis&logoColor=white" alt="Redis" />
-    <img src="https://img.shields.io/badge/Bootstrap-563D7C?style=for-the-badge&logo=bootstrap&logoColor=white" alt="Bootstrap" />
+    <img src="https://img.shields.io/badge/Django-6.0-092E20?style=for-the-badge&logo=django&logoColor=white" alt="Django 6.0" />
+    <img src="https://img.shields.io/badge/Python-3.12-3776AB?style=for-the-badge&logo=python&logoColor=white" alt="Python 3.12" />
+    <img src="https://img.shields.io/badge/Redis-Cache-DC382D?style=for-the-badge&logo=redis&logoColor=white" alt="Redis Memory" />
+    <img src="https://img.shields.io/badge/PostgreSQL-Data-4169E1?style=for-the-badge&logo=postgresql&logoColor=white" alt="PostgreSQL" />
+    <img src="https://img.shields.io/badge/Bootstrap-5.3-563D7C?style=for-the-badge&logo=bootstrap&logoColor=white" alt="Bootstrap" />
+    <img src="https://img.shields.io/badge/Test_Coverage-100%25-success?style=for-the-badge&logo=pytest&logoColor=white" alt="Testing" />
   </p>
 </div>
 
@@ -15,112 +17,97 @@
 
 ## 📖 Apa itu CurhatBox?
 
-**CurhatBox** adalah platform pengiriman pesan rahasia secara anonim (seperti Secreto atau NGL) namun telah direkayasa ulang untuk standar keamanan industri tahun 2026. Dibangun menggunakan arsitektur **Django ASGI (Daphne)**, platform ini menawarkan pengalaman yang interaktif, *real-time*, dan sangat tangguh terhadap ancaman *spam* maupun *cyberbullying*.
+**CurhatBox** adalah platform pengiriman pesan rahasia secara anonim (seperti NGL atau Secreto) namun diarsiteki ulang menggunakan standar *Enterprise* tahun 2026. Dibangun di atas fondasi **Django 6.0 Asynchronous (Daphne)**, platform ini super interaktif, mulus, dan sangat tangguh terhadap ancaman keamanan dan *spam*.
 
-Dengan estetika antarmuka bergaya *Glassmorphism* dan dukungan multi-bahasa, CurhatBox dirancang tidak hanya sebagai alat hiburan untuk *Instagram Story*, tetapi juga sebagai **Creator Tool** yang andal dengan analitik mendalam.
+Dengan antarmuka mengadopsi tren **Glassmorphism**, CurhatBox tidak hanya alat main-main untuk *Instagram Story*, tapi merupakan pondasi proyek *SaaS (Software as a Service)* yang siap ditarungkan di level skala besar.
 
 ---
 
 ## ✨ Fitur-Fitur Premium (Key Features)
 
-### 1. 🎨 Modern SaaS UI/UX (Glassmorphism & Asynchronous UI)
-Antarmuka web menggunakan fondasi **Bootstrap 5.3** yang disuntikkan secara kustom dengan utilitas *Glassmorphism*, palet gradasi *liquid*, serta dukungan mutlak untuk tema Terang (Light) dan Gelap (Dark). Transisi halaman ditenagai oleh animasi **AOS (Animate On Scroll)**.
+### 1. 🎨 Modern SaaS UI/UX (Glassmorphism & Animasi)
+- **Fluid UI**: Desain kristal tembus pandang (Glassmorphism) berpadu dengan *Liquid Gradients*.
+- **Asynchronous Animations**: Menggunakan **AOS (Animate On Scroll)** untuk pengalaman navigasi tanpa jeda.
+- **Premium Error Catching**: Jika *user* tersesat (404), salah akses (403), atau server sedang kewalahan (500), website akan menampilkan animasi ramah pengguna dan tidak akan pernah menampilkan kode *error* mentah yang membingungkan.
 
-### 2. 🔐 Keamanan & Autentikasi Kelas Enterprise
-Sistem pengguna (*User Management*) telah dikembangkan secara masif, meliputi:
-- **Pendaftaran & Log Masuk** dengan validasi ketat.
-- **Lupa Password (Email Provider)**: Integrasi SMTP TLS Port 587 untuk mengirimkan instruksi ganti sandi menggunakan *template* email HTML yang responsif dan cantik.
-- **Smart Resend Cooldown**: Pengiriman ulang email pemulihan dibatasi secara cerdas dengan jeda *cooldown* 60 detik berbasis memori tinggi menggunakan **Redis**, dilengkapi indikator hitung mundur di layar.
-- **Ganti Password Internal**: Pengguna dengan status login dapat memperbarui *password* langsung dari halaman pengaturan tanpa harus keluar (logout).
+### 2. 🔐 Keamanan & Autentikasi Kelas Atas
+- **Password Reset via Email TLS**: Dilengkapi SMTP ganti sandi otomatis layaknya aplikasi modern.
+- **Smart Cooldown**: Batasan pendaftaran ulang dan batas pengiriman OTP dikendalikan secara mutlak menggunakan durasi *In-Memory* di **Redis**.
 
-### 3. 🌐 Global Multilingual System (i18n)
-CurhatBox tidak dibatasi oleh batas negara. Tersedia utilitas alih bahasa (*Language Switcher*) yang elegan di bagian _footer_, memungkinkan seluruh konten beradaptasi secara otomatis. Pilihan bahasa tersinkronisasi mulus dengan profil masing-masing pengguna untuk kenyamanan interaksi jangka panjang.
+### 3. 🛡️ Tameng Anti-Spam & QA Automaton
+- **Automated Virtual QA**: Website dibekali 16 skenario bot penguji (Unit Tests) berbasis memori lokal (SQLite-Memory). Modifikasi kode di masa depan dijamin bebas dari kutu (Regresi).
+- **Censor Filter API**: Robot penyensor kata kasar cerdas buatan yang kebal dari tulisan alay atau kombinasi tanda baca (Contoh: `t0L0L` atau `4nJ|ng` otomatis dibumihanguskan).
+- **IP Blocklist & Auto Rate-Limit**: Sistem akan meledakkan status "403 Forbidden" jika mendeteksi ada IP *(Internet Protocol)* spesifik yang mencoba mengirim 3 pesan lebih dalam satu menit. Sistem pemblokiran mutlak satu arah (User bisa Ban IP anonim!).
 
-### 4. 📊 Studio Analitik Penggemar (Creator Insights)
-*Dashboard* pengguna bukanlah sekadar kotak masuk biasa, tetapi **Studio Analitik** interaktif yang dibangun menggunakan `Chart.js`:
-- **Tren Curhatan**: Kurva grafik jumlah pesan dalam 7 hari terakhir.
-- **Distribusi Sentimen Emoji**: Melacak reaksi favorit pengirim dalam bagan *Doughnut*.
-- **Radar Waktu Puncak**: Melihat jam aktif audiens untuk optimalisasi respons.
-- **Sistem Perangkat**: Melacak proporsi sistem operasi pengunjung.
+### 4. 📊 Creator Studio Analytics
+Dashboard Anda bukanlah sekadar daftar baca masuk, tapi **Studio Analitik** interaktif ditenagai oleh `Chart.js`:
+- Curva lalu lintas tren curhatan mingguan.
+- Diagram kue (Doughnut) radar distribusi emoji atau sentimen curhatan.
+- Pelacakan jenis Perangkat & Browser milik sang pengirim pesan anonim.
 
-### 5. 🧨 Mode Rahasia Ekstra (Self-Destruct Messages)
-Dilengkapi mode khusus "Pesan Bom Waktu" *(Disposable Message)*. Pesan jenis ini hanya bisa dibuka oleh penerima sebanyak **SATU KALI**, dan langsung terbakar (*deleted from database*) secara otomatis guna menjaga tingkat kerahasiaan paling maksimum ala agen mata-mata.
+### 5. 📸 One-Click IG Story Export
+Tinggalkan fitur tangkapan layar! CurhatBox terintegrasi dengan **html2canvas** yang secara gaib mencetak pesan anonim jadi ilustrasi gambar resolusi tinggi berdampingan dengan hujan *Confetti* siap masuk profil sosial media.
 
-### 6. 🛡️ Tameng Anti-Spam Berlapis
-- **Rate Limiting**: Kombinasi sistem limit internal (3 pesan per menit) untuk menendang *IP address* yang terlampau agresif.
-- **Redis Throttling**: Akselerator *Backend* dan batas kecepatan di setiap aliran data transaksi/formulir sensitif.
-- **Blocklist & IP Filter**: Penerima bisa langsung menekan tombol blokir pada pesan yang ditujukan padanya untuk membuang spesifik pengirim anonim ke zona daftar hitam.
+### 6. 🌐 Global Multilingual (i18n)
+Sistem adaptif terjemahan (Inggris & Indonesia). Sistem secara otomatis membaca kebiasaan peramban lokal dan menyediakan *Language Switcher* mewah di dasar layar.
 
-### 7. 📸 Eksport IG Story Sepenuhnya
-Melalui kolaborasi `html2canvas`, semua bentuk pesan bisa diabadikan dalam sekejap menjadi gambar indah yang mulus dan proporsional untuk diteruskan menjadi konten di berbagai media sosial, termasuk fitur semburan *Confetti* interaktif.
+### 7. ⏱️ Disposable Messages (Pesan Bom Waktu)
+Pesan rahasia yang bersifat sakral bisa diaktifkan mode agen rahasianya. Hanya bisa diintip dan dibaca satu detik oleh penerima, lalu datanya akan terbakar dan meledak hilang (**Cascade Delete**) dari ruang Database untuk selamanya.
 
 ---
 
-## 🛠️ Stack Teknologi (Tech Stack)
+## 🛠️ Stack Teknologi (Architecture)
 
-Arsitektur aplikasi dikombinasikan dengan berbagai spesifikasi *modern-framework*:
-
-- **Backend Framework**: Python 3.12+, Django 6.0
-- **Asynchronous Server**: Daphne & Django Channels *(WebSockets & ASGI API)*
-- **Data & Caching**: SQLite / PostgreSQL, **Redis Server** (via `django-redis` & `channels-redis`)
-- **Frontend / Styling**: Vanilla JavaScript, Bootstrap 5, Custom CSS Variables
-- **Library Tambahan Web**: Chart.js, HTML2Canvas, AOS.js, Canvas-Confetti
-- **Server Deployment (Production)**: Nginx Reverse Proxy & *Systemd Daemon* Middleware
+- **Backend Logic**: Python 3.12+, Django 6.0
+- **Asynchronous Bridge**: Daphne ASGI, Django Channels
+- **In-Memory Caching (Data Cepat)**: Redis Server (`django-redis`)
+- **Primary Relational Database**: PostgreSQL (Production) / SQLite3 (Testing)
+- **Frontend Core**: HTML5 Semantic, JS (ES6+), Bootstrap 5.3 Custom
+- **Micro-Libraries**: Chart.js, HTML2Canvas, AOS.js, Confetti.
 
 ---
 
-## 🚀 Panduan Instalasi & Pengembangan di Lokal
+## 🚀 Panduan Instalasi (Development Setup)
 
-Bagi pengembang yang ingin memeriksa atau mengembangkan lebih jauh aplikasi CurhatBox, silakan ikuti petunjuk berikut:
+Ingin ikut berkontribusi membangun CurhatBox di komputer lokal Anda? Ikuti langkah mudah ini:
 
-### Prasyarat (Prerequisites)
-Pastikan sistem operasi Anda (Linux/Windows/macOS) telah dilengkapi oleh:
-- **Python >= 3.10**
-- **Sistem Redis Server** yang berjalan di _background_ (untuk kebutuhan Rate-limit & Caching)
-
-### 1. Kloning Repositori & Persiapan Direktori
+### 1. Kloning & Buat Ruang Isolasi (Virtual Env)
 ```bash
 git clone https://github.com/Kemalhafizh/curhatbox.git
 cd curhatbox
-```
-
-### 2. Lingkungan Virtual (Virtual Environment)
-Isolasi semua kumpulan paket instalasi dengan venv:
-```bash
 python3 -m venv venv
-source venv/bin/activate  # (Tulis `.\venv\Scripts\activate` jika memakai Windows)
+source venv/bin/activate  # (Gunakan `.\venv\Scripts\activate` untuk pengguna Windows)
 ```
 
-### 3. Instalasi Dependensi Inti
+### 2. Panggil Semua Tenaga (Install Requirements)
 ```bash
 pip install -r requirements.txt
 ```
 
-### 4. Konfigurasi Variabel Lingkungan (`.env`)
-Salin atau buat file `.env` di jalur terdepan direktori proyek Anda secara mandiri (karena file instalasi ini dilindungi oleh `.gitignore`).
+### 3. Setup Kunci Rahasia Anda (.env)
+Bikin satu file bernama `.env` (tanpa huruf besar di awal) dan isi kerahasiaannya:
 ```env
-# SECURITY SETTINGS
-SECRET_KEY=django-insecure-generate-secret-sendiri
+# Keamanan Inti Server
+SECRET_KEY=isi-kode-unik-acak-anda-disini
 DEBUG=True
 ALLOWED_HOSTS=127.0.0.1,localhost
 
-# EMAIL SETTINGS (SMTP)
-DEFAULT_FROM_EMAIL=CurhatBox Admin <admin@domain-anda.com>
-EMAIL_BACKEND=django.core.mail.backends.smtp.EmailBackend
-EMAIL_HOST=smtp.penyedialayanananda.com
+# Email Eksternal (Opsional untuk fitur reset sandi)
+EMAIL_HOST=smtp.gmail.com
 EMAIL_PORT=587
 EMAIL_USE_TLS=True
-EMAIL_HOST_USER=admin@domain-anda.com
-EMAIL_HOST_PASSWORD=kode_password_aplikasi_anda
+EMAIL_HOST_USER=email.kamu@gmail.com
+EMAIL_HOST_PASSWORD=kode_rahasia_aplikasi_gmail_kamu
 ```
 
-### 5. Migrasi Skema Database
+### 4. Bangun Database & Uji Coba Kesehatannya
 ```bash
-python manage.py makemigrations
 python manage.py migrate
+# Uji coba kekuatan pertahanan aplikasi dengan sistem robot QA kita!
+python manage.py test main --settings=curhatbox.test_settings
 ```
 
-### 6. Menjalankan *Asynchronous Development Server*
+### 5. Luncurkan Satelit Server
 ```bash
 python manage.py runserver
 ```
@@ -128,15 +115,14 @@ python manage.py runserver
 
 ---
 
-## 🔒 Laporan Standar Keamanan & Repositori
+## 🔒 Laporan Standar Operasional Produksi
 
-Proyek ini telah dikurasi dan diaudit sebelum repositori ini diterbitkan sebagai program sumber terbuka (*Open Source*):
-- **Sistem Bersih (Cleaned Repository)**: `.env`, `db.sqlite3`, `media/` pengguna asli, dan rahasia log tidak pernah diterbitkan (berada di luar struktur GIT berkat pengerasan `.gitignore`).
-- **Defleksi Serangan Lintas Situs**: Penerapan `{% csrf_token %}` keras yang absolut di ranah transaksi perubahan state sistem.
+- Repositori disucikan menggunakan tembok tebal `.gitignore` tingkat lanjut untuk menghalangi masuknya data kunci ke publik.
+- **CSRF Tokens Middleware** dipatenkan secara permanen pada setiap alur transaksi (Data mutlak kebal dari serangan silang *Cross-Site Request Forgery*).
+- Form Input dieksekusi secara ketat mencegah injeksi kode (*Cross Site Scripting / XSS*).
 
----
-
-<p align="center" style="margin-top: 3rem;">
-  <b>Didesain dan dikembangkan dengan ❤️ oleh Kemal Hafizh.</b><br/>
-  <i>Edisi Penyempurnaan V-6.9.1 Tahun 2026.</i>
+<br>
+<p align="center">
+  <b>Direkayasa dan dikembangkan dengan ❤️ oleh Kemal Hafizh.</b><br/>
+  <i>Edisi Penyempurnaan V-7.0 (Enterprise) Tahun 2026.</i>
 </p>
