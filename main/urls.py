@@ -17,6 +17,7 @@ urlpatterns = [
     path("privacy/", views.privacy_page, name="privacy"),
     path("about/", views.about_page, name="about"),
     path("faq/", views.faq_page, name="faq"),
+    path("install/", views.install_app, name="install_app"),
     path("edit-profile/", views.edit_profile, name="edit_profile"),
     path("block/<int:message_id>/", views.block_sender, name="block_sender"),
     path(

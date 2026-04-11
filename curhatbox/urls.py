@@ -126,14 +126,6 @@ urlpatterns = [
             content_type="text/html",
         ),
     ),
-    path(
-        "google-site-verification=ejv9TLODICCbcW8QfmEyMrwfC6n8P0o71HMoTTbQqVk",
-        lambda r: HttpResponse(
-            "google-site-verification: ejv9TLODICCbcW8QfmEyMrwfC6n8P0o71HMoTTbQqVk",
-            content_type="text/plain",
-        ),
-    ),
-    path("", include("main.urls")),
     # --- PWA URLs ---
     path(
         "manifest.json",
@@ -154,6 +146,14 @@ urlpatterns = [
         TemplateView.as_view(template_name="main/offline.html"),
         name="offline",
     ),
+    path(
+        "google-site-verification=ejv9TLODICCbcW8QfmEyMrwfC6n8P0o71HMoTTbQqVk",
+        lambda r: HttpResponse(
+            "google-site-verification: ejv9TLODICCbcW8QfmEyMrwfC6n8P0o71HMoTTbQqVk",
+            content_type="text/plain",
+        ),
+    ),
+    path("", include("main.urls")),
 ]
 
 if settings.DEBUG:

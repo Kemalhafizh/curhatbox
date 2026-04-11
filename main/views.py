@@ -77,6 +77,11 @@ def rules_page(request):
     return render(request, "main/rules.html")
 
 
+def install_app(request):
+    """Halaman instruksi khusus untuk instalasi PWA (Aplikasi Mobile)."""
+    return render(request, "main/install.html")
+
+
 def register(request):
     """
     Menangani pendaftaran pengguna baru.

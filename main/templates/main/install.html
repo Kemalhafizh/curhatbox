@@ -1,0 +1,119 @@
+{% extends "main/base.html" %}
+{% load i18n %}
+
+{% block title %}{% translate "Unduh Aplikasi" %} - CurhatBox{% endblock %}
+
+{% block content %}
+<div class="container py-5">
+    <div class="row justify-content-center" data-aos="fade-up">
+        <div class="col-lg-8 text-center">
+            <div class="mb-4">
+                <i class="bi bi-cloud-arrow-down-fill text-primary" style="font-size: 4rem;"></i>
+            </div>
+            <h1 class="display-5 fw-bold text-white mb-3" style="font-family: 'Outfit', sans-serif;">
+                {% translate "Bawa CurhatBox ke Layar HP-mu" %}
+            </h1>
+            <p class="lead text-white-50 mb-5">
+                {% translate "Nikmati pengalaman kirim pesan anonim yang lebih cepat, stabil, dan premium dengan menginstal aplikasi CurhatBox langsung tanpa lewat Play Store." %}
+            </p>
+
+            <!-- Install Button (Hidden by default, shown by JS on supported browsers) -->
+            <div id="install-btn-container" style="display: none;" class="mb-5 py-4 bg-body bg-opacity-10 rounded-5 border border-white border-opacity-25 shadow-lg">
+                <h4 class="text-white fw-bold mb-3">{% translate "Siap Pasang Sekarang?" %}</h4>
+                <button id="pwa-install-btn" class="btn btn-primary btn-lg rounded-pill px-5 py-3 fw-bold shadow-lg hover-lift border-0">
+                    <i class="bi bi-download me-2"></i> {% translate "Instal CurhatBox App" %}
+                </button>
+            </div>
+
+            <div class="row g-4 text-start">
+                <!-- Android / Chrome -->
+                <div class="col-md-4">
+                    <div class="glass-card h-100 p-4 border-0 shadow-sm border-top border-4 border-primary">
+                        <div class="d-flex align-items-center mb-3">
+                            <i class="bi bi-google-play fs-3 text-primary me-2"></i>
+                            <h5 class="fw-bold m-0">Android</h5>
+                        </div>
+                        <ol class="small text-body opacity-75 ps-3">
+                            <li>{% translate "Buka CurhatBox di <b>Chrome</b>." %}</li>
+                            <li>{% translate "Klik tombol <b>Install</b> di atas atau klik titik tiga (⋮) di pojok kanan." %}</li>
+                            <li>{% translate "Pilih <b>Install App</b> (Pasang Aplikasi)." %}</li>
+                        </ol>
+                    </div>
+                </div>
+                
+                <!-- iOS / Safari -->
+                <div class="col-md-4">
+                    <div class="glass-card h-100 p-4 border-0 shadow-sm border-top border-4 border-info">
+                        <div class="d-flex align-items-center mb-3">
+                            <i class="bi bi-apple fs-3 text-info me-2"></i>
+                            <h5 class="fw-bold m-0">iPhone / iOS</h5>
+                        </div>
+                        <ol class="small text-body opacity-75 ps-3">
+                            <li>{% translate "Buka CurhatBox di <b>Safari</b>." %}</li>
+                            <li>{% translate "Klik tombol <b>Share</b> (kotak dengan panah ke atas)." %}</li>
+                            <li>{% translate "Geser ke bawah dan pilih <b>Add to Home Screen</b>." %}</li>
+                        </ol>
+                    </div>
+                </div>
+
+                <!-- Desktop / PC -->
+                <div class="col-md-4">
+                    <div class="glass-card h-100 p-4 border-0 shadow-sm border-top border-4 border-warning">
+                        <div class="d-flex align-items-center mb-3">
+                            <i class="bi bi-laptop fs-3 text-warning me-2"></i>
+                            <h5 class="fw-bold m-0">Komputer (PC)</h5>
+                        </div>
+                        <ol class="small text-body opacity-75 ps-3">
+                            <li>{% translate "Gunakan <b>Google Chrome</b> atau <b>Edge</b>." %}</li>
+                            <li>{% translate "Klik ikon monitor dengan panah bawah di sebelah bintang (Address Bar)." %}</li>
+                            <li>{% translate "Klik <b>Install</b>." %}</li>
+                        </ol>
+                    </div>
+                </div>
+            </div>
+
+            <div class="mt-5 pt-3">
+                <a href="{% url 'dashboard' %}" class="text-white-50 text-decoration-none small hover-opacity">
+                    <i class="bi bi-arrow-left me-1"></i> {% translate "Kembali ke Beranda" %}
+                </a>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    let deferredPrompt;
+    const installBtnContainer = document.getElementById('install-btn-container');
+    const pwaInstallBtn = document.getElementById('pwa-install-btn');
+
+    window.addEventListener('beforeinstallprompt', (e) => {
+        // Prevent Chrome 67 and earlier from automatically showing the prompt
+        e.preventDefault();
+        // Stash the event so it can be triggered later.
+        deferredPrompt = e;
+        // Update UI notify the user they can install the PWA
+        installBtnContainer.style.display = 'block';
+    });
+
+    pwaInstallBtn.addEventListener('click', (e) => {
+        // hide our install button
+        installBtnContainer.style.display = 'none';
+        // Show the prompt
+        deferredPrompt.prompt();
+        // Wait for the user to respond to the prompt
+        deferredPrompt.userChoice.then((choiceResult) => {
+            if (choiceResult.outcome === 'accepted') {
+                console.log('User accepted the install prompt');
+            } else {
+                console.log('User dismissed the install prompt');
+            }
+            deferredPrompt = null;
+        });
+    });
+
+    window.addEventListener('appinstalled', (evt) => {
+        installBtnContainer.style.display = 'none';
+        console.log('App was installed.');
+    });
+</script>
+{% endblock %}
