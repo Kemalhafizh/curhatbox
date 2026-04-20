@@ -10,8 +10,9 @@ For the full list of settings and their values, see
 https://docs.djangoproject.com/en/6.0/ref/settings/
 """
 
-from pathlib import Path
 import os
+from pathlib import Path
+
 from dotenv import load_dotenv
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
@@ -72,7 +73,6 @@ INSTALLED_APPS = [
     "django.contrib.staticfiles",
     "django.contrib.humanize",
     "django_celery_beat",
-    
     # Allauth & Provider
     "allauth",
     "allauth.account",
@@ -90,7 +90,7 @@ MIDDLEWARE = [
     "django.contrib.auth.middleware.AuthenticationMiddleware",
     "django.contrib.messages.middleware.MessageMiddleware",
     "django.middleware.clickjacking.XFrameOptionsMiddleware",
-    "allauth.account.middleware.AccountMiddleware", # Required by allauth
+    "allauth.account.middleware.AccountMiddleware",  # Required by allauth
 ]
 
 ROOT_URLCONF = "curhatbox.urls"
@@ -244,10 +244,12 @@ CHANNEL_LAYERS = {
 }
 
 # --- CELERY & BACKGROUND TASKS ---
-CELERY_BROKER_URL = os.environ.get("REDIS_URL", "redis://127.0.0.1:6379/1") # Sama dengan target Caching
-CELERY_ACCEPT_CONTENT = ['json']
-CELERY_TASK_SERIALIZER = 'json'
-CELERY_TIMEZONE = 'Asia/Jakarta'
+CELERY_BROKER_URL = os.environ.get(
+    "REDIS_URL", "redis://127.0.0.1:6379/1"
+)  # Sama dengan target Caching
+CELERY_ACCEPT_CONTENT = ["json"]
+CELERY_TASK_SERIALIZER = "json"
+CELERY_TIMEZONE = "Asia/Jakarta"
 CELERY_RESULT_BACKEND = CELERY_BROKER_URL
 
 # --- GOOGLE SOCIAL LOGIN (ALLAUTH) ---
@@ -257,7 +259,7 @@ SOCIALACCOUNT_PROVIDERS = {
         "APP": {
             "client_id": os.environ.get("GOOGLE_CLIENT_ID", ""),
             "secret": os.environ.get("GOOGLE_CLIENT_SECRET", ""),
-            "key": ""
+            "key": "",
         },
         "SCOPE": ["profile", "email"],
         "AUTH_PARAMS": {"access_type": "online"},
@@ -266,7 +268,7 @@ SOCIALACCOUNT_PROVIDERS = {
 ACCOUNT_EMAIL_REQUIRED = True
 ACCOUNT_USERNAME_REQUIRED = False
 ACCOUNT_AUTHENTICATION_METHOD = "email"
-ACCOUNT_EMAIL_VERIFICATION = "none" # Supaya tidak bertabrakan dengan logic kustom
-SOCIALACCOUNT_LOGIN_ON_GET = True # User bypass form konfirmasi
-SOCIALACCOUNT_AUTO_SIGNUP = True # Otomatis buat akun baru tanpa register form
+ACCOUNT_EMAIL_VERIFICATION = "none"  # Supaya tidak bertabrakan dengan logic kustom
+SOCIALACCOUNT_LOGIN_ON_GET = True  # User bypass form konfirmasi
+SOCIALACCOUNT_AUTO_SIGNUP = True  # Otomatis buat akun baru tanpa register form
 LOGIN_REDIRECT_URL = "/"

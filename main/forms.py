@@ -1,7 +1,7 @@
 from django import forms
-from django.utils.translation import gettext_lazy as _
-from django.contrib.auth.forms import UserCreationForm, AuthenticationForm
+from django.contrib.auth.forms import AuthenticationForm, UserCreationForm
 from django.contrib.auth.models import User
+from django.utils.translation import gettext_lazy as _
 
 from .models import Message, Profile
 
@@ -9,10 +9,11 @@ from .models import Message, Profile
 class CustomUserCreationForm(UserCreationForm):
     """
     Form pendaftaran pengguna kustom dengan tambahan field Email.
-    
+
     Email diatur sebagai field wajib untuk mendukung fitur pemulihan akun
     di masa mendatang.
     """
+
     email = forms.EmailField(
         required=True,
         help_text=_(
@@ -36,9 +37,10 @@ class CustomUserCreationForm(UserCreationForm):
 class CustomAuthenticationForm(AuthenticationForm):
     """
     Form login kustom yang mendukung penggunaan Email atau Username.
-    
+
     Field dikustomisasi dengan widget Bootstrap dan placeholder modern.
     """
+
     username = forms.CharField(
         label=_("Email / Username"),
         widget=forms.TextInput(
@@ -97,9 +99,12 @@ class ProfileForm(forms.ModelForm):
             "preferred_language": forms.Select(attrs={"class": "form-select"}),
         }
 
+
 from django.contrib.auth.forms import PasswordResetForm
 from django.template.loader import render_to_string
+
 from main.tasks import send_email_task
+
 
 class AsyncPasswordResetForm(PasswordResetForm):
     """
@@ -107,6 +112,7 @@ class AsyncPasswordResetForm(PasswordResetForm):
     Seluruh isi HTML/Text di-render di awal, lalu diteruskan ke Celery Worker
     agar pengunjung tidak perlu menunggu proses komunikasi SMTP.
     """
+
     def send_mail(
         self,
         subject_template_name,

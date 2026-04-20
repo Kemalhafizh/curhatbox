@@ -1,3 +1,15 @@
+"""
+Core Views Module for CurhatBox
+===============================
+
+This module handles the primary business logic and HTTP request routing for the application.
+It includes authentication flows, real-time message broadcasting via WebSockets/Celery, 
+analytical dashboard rendering, and public-facing profile logic.
+
+Author: Kemal & CurhatBox Engineering
+License: MIT Open Source
+"""
+
 import json
 from django.conf import settings
 from django.contrib import messages
@@ -10,19 +22,18 @@ from django.core.exceptions import PermissionDenied
 from django.core.paginator import Paginator
 from django.db.models import Count
 from django.db.models.functions import ExtractHour, TruncDate
-from django.http import JsonResponse, HttpResponse
+from django.http import HttpResponse, JsonResponse
 from django.shortcuts import get_object_or_404, redirect, render
 from django.template.loader import render_to_string
-from django.urls import reverse_lazy, reverse
+from django.urls import reverse, reverse_lazy
 from django.utils import timezone
 from django.utils.translation import gettext as _
-
 # Third-party imports
 from django_ratelimit.decorators import ratelimit
 from user_agents import parse
 
 # Local app imports
-from .forms import ProfileForm, ReplyForm, CustomUserCreationForm
+from .forms import CustomUserCreationForm, ProfileForm, ReplyForm
 from .models import BlockList, Message, QnASession
 from .utils import sensor_kata, verify_recaptcha
 
@@ -56,7 +67,7 @@ QUICK_REACTIONS = [
 def index(request):
     """
     Menampilkan halaman utama (Landing Page).
-    
+
     Halaman ini merupakan pintu masuk utama bagi pengunjung non-login.
     """
     return render(request, "main/index.html")
@@ -85,7 +96,7 @@ def install_app(request):
 def register(request):
     """
     Menangani pendaftaran pengguna baru.
-    
+
     Mengarahkan pengguna ke dashboard jika sudah login. Validasi form
     pendaftaran dilakukan secara server-side dengan reCAPTCHA di backend (opsional).
     """
@@ -107,16 +118,18 @@ def register(request):
 
 # --- PASSWORD RESET CUSTOMIZATIONS (dengan Fitur Resend & Cooldown) ---
 
+
 class CustomPasswordResetView(PasswordResetView):
     """
     Subclass PasswordResetView untuk menangani alur reset password secara kustom.
-    
+
     Menyimpan email ke session agar dapat digunakan kembali oleh fitur 'Resend Email'
     tanpa meminta pengguna memasukkan email berulang kali.
     """
+
     def form_valid(self, form):
         # Simpan email ke session untuk fitur resend
-        self.request.session['password_reset_email'] = form.cleaned_data['email']
+        self.request.session["password_reset_email"] = form.cleaned_data["email"]
         return super().form_valid(form)
 
 
@@ -125,24 +138,28 @@ def resend_password_reset_email(request):
     View untuk menangani pengiriman ulang email reset password
     dengan pembatasan cooldown 60 detik via Redis.
     """
-    email = request.session.get('password_reset_email')
-    
+    email = request.session.get("password_reset_email")
+
     if not email:
-        messages.error(request, _("Sesi berakhir. Silakan masukkan email Anda kembali."))
-        return redirect('password_reset')
+        messages.error(
+            request, _("Sesi berakhir. Silakan masukkan email Anda kembali.")
+        )
+        return redirect("password_reset")
 
     # Cek Cooldown di Cache (Redis)
     cache_key = f"password_reset_resend_cooldown_{email}"
     cooldown = cache.get(cache_key)
-    
+
     if cooldown:
-        messages.warning(request, _("Mohon tunggu sebentar sebelum mengirim ulang email."))
-        return redirect('password_reset_done')
+        messages.warning(
+            request, _("Mohon tunggu sebentar sebelum mengirim ulang email.")
+        )
+        return redirect("password_reset_done")
 
     from main.forms import AsyncPasswordResetForm
-    
+
     # Trigger pengiriman email menggunakan form Asinkron Celery
-    form = AsyncPasswordResetForm(data={'email': email})
+    form = AsyncPasswordResetForm(data={"email": email})
     if form.is_valid():
         form.save(
             request=request,
@@ -155,24 +172,26 @@ def resend_password_reset_email(request):
         cache.set(cache_key, True, 60)
         messages.success(request, _("Email baru telah dikirimkan ke kotak masuk Anda."))
     else:
-        messages.error(request, _("Gagal mengirim ulang email. Pastikan format email benar."))
+        messages.error(
+            request, _("Gagal mengirim ulang email. Pastikan format email benar.")
+        )
 
-    return redirect('password_reset_done')
+    return redirect("password_reset_done")
 
 
 @login_required
 def trigger_reset_for_current_user(request):
     """
-    Memungkinkan user yang login untuk langsung mengirim link reset 
+    Memungkinkan user yang login untuk langsung mengirim link reset
     ke email terdaftar mereka jika lupa password lama.
     """
     email = request.user.email
     if not email:
         messages.error(request, _("Akun Anda tidak memiliki email yang terdaftar."))
-        return redirect('edit_profile')
+        return redirect("edit_profile")
 
     # Gunakan logika resend yang sudah ada dengan menset session email
-    request.session['password_reset_email'] = email
+    request.session["password_reset_email"] = email
     return resend_password_reset_email(request)
 
 
@@ -180,7 +199,7 @@ def trigger_reset_for_current_user(request):
 def public_profile(request, slug, qna_slug=None):
     """
     Menampilkan profil publik pengguna dan memproses pengiriman pesan anonim.
-    
+
     Dilengkapi dengan fitur:
     - Proteksi Rate Limit (3 pesan per menit per IP).
     - Verifikasi reCAPTCHA v3 untuk mencegah bot.
@@ -189,14 +208,15 @@ def public_profile(request, slug, qna_slug=None):
     """
     receiver = get_object_or_404(User, profile__slug=slug)
     public_messages = Message.objects.filter(recipient=receiver, is_public=True)
-    
+
     qna_session = None
     if qna_slug:
         qna_session = get_object_or_404(QnASession, user=receiver, slug=qna_slug)
         if not qna_session.is_active:
-            messages.warning(request, _("Sesi QnA / Pertanyaan ini sudah ditutup oleh pengguna."))
+            messages.warning(
+                request, _("Sesi QnA / Pertanyaan ini sudah ditutup oleh pengguna.")
+            )
             return redirect("public_profile", slug=slug)
-
 
     if request.method == "POST":
         content = request.POST.get("pesan")
@@ -249,8 +269,8 @@ def public_profile(request, slug, qna_slug=None):
             )
 
             # --- BROADCAST WEBSOCKET (REAL-TIME) ---
-            from channels.layers import get_channel_layer
             from asgiref.sync import async_to_sync
+            from channels.layers import get_channel_layer
             from django.template.loader import render_to_string
 
             channel_layer = get_channel_layer()
@@ -285,26 +305,24 @@ def public_profile(request, slug, qna_slug=None):
 def dashboard(request):
     """
     Menampilkan halaman Dashboard (Kotak Masuk) utama pengguna.
-    
+
     Menangani:
     - Filter pesan berdasarkan sesi QnA.
     - Paginasi daftar pesan (15 pesan per halaman).
     - Notifikasi real-time untuk pesan baru yang belum dibaca.
     - Penandaan status 'read' secara otomatis saat halaman dibuka.
     """
-    qna_filter_id = request.GET.get('qna')
+    qna_filter_id = request.GET.get("qna")
     message_qs = Message.objects.filter(recipient=request.user)
-    
+
     if qna_filter_id:
         message_qs = message_qs.filter(qna_session_id=qna_filter_id)
 
-    message_list = (
-        message_qs
-        .select_related("recipient", "qna_session")
-        .order_by("-created_at")
+    message_list = message_qs.select_related("recipient", "qna_session").order_by(
+        "-created_at"
     )
-    
-    qna_sessions = QnASession.objects.filter(user=request.user).order_by('-created_at')
+
+    qna_sessions = QnASession.objects.filter(user=request.user).order_by("-created_at")
 
     # Notifikasi pesan baru
     new_messages_count = message_list.filter(is_read=False).count()
@@ -328,7 +346,9 @@ def dashboard(request):
         "inbox_messages": message_list,
         "quick_reactions": QUICK_REACTIONS,
         "qna_sessions": qna_sessions,
-        "current_qna_filter": int(qna_filter_id) if qna_filter_id and qna_filter_id.isdigit() else None,
+        "current_qna_filter": (
+            int(qna_filter_id) if qna_filter_id and qna_filter_id.isdigit() else None
+        ),
     }
     return render(request, "main/dashboard.html", context)
 
@@ -630,7 +650,7 @@ def ratelimit_error_handler(request, exception=None):
     Menangkap error 403. Jika dari Rate Limit, kembalikan flash message.
     Jika error 403 generik (Akses Ditolak), tampilkan halaman 403 Premium.
     """
-    if exception and exception.__class__.__name__ == 'Ratelimited':
+    if exception and exception.__class__.__name__ == "Ratelimited":
         referer = request.META.get("HTTP_REFERER", "/")
         messages.error(
             request,
@@ -639,7 +659,7 @@ def ratelimit_error_handler(request, exception=None):
             ),
         )
         return redirect(referer)
-    
+
     # Jika bukan dari ratelimit, tampilkan halaman 403 standar
     return render(request, "403.html", status=403)
 

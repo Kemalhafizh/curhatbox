@@ -1,5 +1,6 @@
 from django.contrib import admin
-from .models import Profile, Message
+
+from .models import Message, Profile
 
 
 # 1. Modifikasi tampilan Tabel Pesan (IP Pengirim terlihat)

@@ -1,8 +1,8 @@
-from django.db import models
-from django.utils.translation import gettext_lazy as _
 from django.contrib.auth.models import User
-from django.utils.text import slugify
+from django.db import models
 from django.utils.crypto import get_random_string
+from django.utils.text import slugify
+from django.utils.translation import gettext_lazy as _
 
 
 def generate_qna_slug():
@@ -13,15 +13,16 @@ def generate_qna_slug():
 class Profile(models.Model):
     """
     Model untuk profil tambahan pengguna.
-    
-    Menyimpan informasi kustomasi seperti avatar, warna tema, bio, 
+
+    Menyimpan informasi kustomasi seperti avatar, warna tema, bio,
     dan preferensi bahasa antarmuka.
     """
+
     user = models.OneToOneField(
-        User, 
-        on_delete=models.CASCADE, 
+        User,
+        on_delete=models.CASCADE,
         related_name="profile",
-        verbose_name=_("Pengguna")
+        verbose_name=_("Pengguna"),
     )
 
     slug = models.SlugField(unique=True, blank=True)
@@ -63,15 +64,16 @@ class Profile(models.Model):
 class QnASession(models.Model):
     """
     Representasi sesi 'Ask Me Anything' (QnA).
-    
+
     Memungkinkan pengguna untuk mengelompokkan pesan/pertanyaan
     berdasarkan topik tertentu yang bisa diaktifkan/dinonaktifkan.
     """
+
     user = models.ForeignKey(
-        User, 
-        on_delete=models.CASCADE, 
+        User,
+        on_delete=models.CASCADE,
         related_name="qna_sessions",
-        verbose_name=_("Pengguna")
+        verbose_name=_("Pengguna"),
     )
     title = models.CharField(max_length=200, verbose_name=_("Topik / Pertanyaan"))
     slug = models.CharField(max_length=20, unique=True, default=generate_qna_slug)
@@ -89,15 +91,16 @@ class QnASession(models.Model):
 class Message(models.Model):
     """
     Model inti untuk menyimpan pesan anonim (curhatan).
-    
+
     Menangani status keterbacaan, publikasi (untuk profil publik),
     balasan, serta tracking metadata pengirim (IP & Device).
     """
+
     recipient = models.ForeignKey(
-        User, 
-        on_delete=models.CASCADE, 
+        User,
+        on_delete=models.CASCADE,
         related_name="messages",
-        verbose_name=_("Penerima")
+        verbose_name=_("Penerima"),
     )
 
     content = models.TextField(verbose_name=_("Isi Curhatan"))
@@ -117,7 +120,11 @@ class Message(models.Model):
 
     # --- QnA Link ---
     qna_session = models.ForeignKey(
-        QnASession, on_delete=models.SET_NULL, null=True, blank=True, related_name="messages"
+        QnASession,
+        on_delete=models.SET_NULL,
+        null=True,
+        blank=True,
+        related_name="messages",
     )
 
     # --- Self Destruct ---

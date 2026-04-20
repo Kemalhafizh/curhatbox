@@ -1,4 +1,5 @@
 from django.urls import path
+
 from . import views
 
 # ==============================================================================
@@ -51,5 +52,7 @@ urlpatterns = [
         name="delete_qna",
     ),
     path("<slug:slug>/", views.public_profile, name="public_profile"),
-    path("<slug:slug>/q/<str:qna_slug>/", views.public_profile, name="public_profile_qna"),
+    path(
+        "<slug:slug>/q/<str:qna_slug>/", views.public_profile, name="public_profile_qna"
+    ),
 ]

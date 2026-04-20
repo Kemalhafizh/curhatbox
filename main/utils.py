@@ -1,6 +1,6 @@
-import re
 import json
-from urllib import request, parse
+import re
+from urllib import parse, request
 
 from django.conf import settings
 
@@ -8,10 +8,10 @@ from django.conf import settings
 def sensor_kata(teks):
     """
     Melakukan filtrasi dan penyensoran kata-kata kasar (profanity filtering).
-    
+
     Mengganti kata yang terdaftar dalam daftar hitam (blacklist) dengan tanda bintang (*)
     sesuai dengan panjang kata tersebut. Proses dilakukan secara Case-Insensitive.
-    
+
     @param teks: String yang akan diperiksa.
     @return: String yang telah disensor.
     """
@@ -117,7 +117,6 @@ def verify_recaptcha(token):
     """
     if not token:
         return False
-
 
     # reCAPTCHA v3 test keys don't always return a score in some environments.
     # We bypass if the public key is the standard Google Test Key.

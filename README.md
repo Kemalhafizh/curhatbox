@@ -10,6 +10,7 @@
     <img src="https://img.shields.io/badge/PostgreSQL-Data-4169E1?style=for-the-badge&logo=postgresql&logoColor=white" alt="PostgreSQL" />
     <img src="https://img.shields.io/badge/Bootstrap-5.3-563D7C?style=for-the-badge&logo=bootstrap&logoColor=white" alt="Bootstrap" />
     <img src="https://img.shields.io/badge/Test_Coverage-100%25-success?style=for-the-badge&logo=pytest&logoColor=white" alt="Testing" />
+    <a href="https://github.com/psf/black"><img src="https://img.shields.io/badge/code%20style-black-000000.svg?style=for-the-badge" alt="Code style: black" /></a>
   </p>
 </div>
 
@@ -85,7 +86,11 @@ pip install -r requirements.txt
 ```
 
 ### 3. Setup Kunci Rahasia Anda (.env)
-Bikin satu file bernama `.env` (tanpa huruf besar di awal) dan isi kerahasiaannya:
+Bikin satu file bernama `.env` bawaan reaktor rahasia. Caranya gampang:
+```bash
+cp .env.example .env
+```
+Lalu buka file `.env` tersebut dan isi kerahasiaannya sesuai panduan:
 ```env
 # Keamanan Inti Server
 SECRET_KEY=isi-kode-unik-acak-anda-disini
@@ -100,7 +105,13 @@ EMAIL_HOST_USER=email.kamu@gmail.com
 EMAIL_HOST_PASSWORD=kode_rahasia_aplikasi_gmail_kamu
 ```
 
-### 4. Bangun Database & Uji Coba Kesehatannya
+### 4. Aktivasi Redis (Untuk Real-time WebSockets)
+Pastikan mesin Anda memiliki Redis Server yang berjalan di *background*.
+```bash
+redis-server --daemonize yes
+```
+
+### 5. Bangun Database & Uji Coba Kesehatannya
 ```bash
 python manage.py migrate
 # Uji coba kekuatan pertahanan aplikasi dengan sistem robot QA kita!

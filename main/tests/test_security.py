@@ -1,9 +1,12 @@
-from django.test import TestCase, Client
-from django.urls import reverse
-from django.contrib.auth.models import User
-from main.models import BlockList, Profile, Message
-from django.core.cache import cache
 from unittest.mock import patch
+
+from django.contrib.auth.models import User
+from django.core.cache import cache
+from django.test import Client, TestCase
+from django.urls import reverse
+
+from main.models import BlockList, Message, Profile
+
 
 class SecurityTestCase(TestCase):
     """
@@ -13,9 +16,11 @@ class SecurityTestCase(TestCase):
 
     def setUp(self):
         # 1. Buat User Target
-        self.target_user = User.objects.create_user(username="target", email="tgt@mail.com", password="pwd")
+        self.target_user = User.objects.create_user(
+            username="target", email="tgt@mail.com", password="pwd"
+        )
         self.profile = self.target_user.profile
-        
+
         # 2. Setup Client Browser Virtual
         self.client = Client()
         self.public_url = reverse("public_profile", kwargs={"slug": self.profile.slug})
@@ -23,11 +28,11 @@ class SecurityTestCase(TestCase):
         # Bersihkan Redis Cache sebelum test agar Rate Limit reset
         cache.clear()
 
-    @patch('main.views.verify_recaptcha', return_value=True)
+    @patch("main.views.verify_recaptcha", return_value=True)
     def test_ip_blocklist_enforcement(self, mock_recaptcha):
         """Memastikan fitur Block IP bekerja secara mutlak (HTTP 302 dengan Error Message)."""
         bad_ip = "192.168.99.99"
-        
+
         # Tambahkan IP jahat ke daftar blokir milik Target User
         BlockList.objects.create(user=self.target_user, ip_address=bad_ip)
 
@@ -35,7 +40,7 @@ class SecurityTestCase(TestCase):
         response = self.client.post(
             self.public_url,
             {"pesan": "Ini pesan spam", "g-recaptcha-response": "bypass"},
-            HTTP_X_REAL_IP=bad_ip  # Inject Spoofed IP (sesuai setting Nginx)
+            HTTP_X_REAL_IP=bad_ip,  # Inject Spoofed IP (sesuai setting Nginx)
         )
 
         # Harus dialihkan ulang (Redirect 302) dan dilarang masuk database

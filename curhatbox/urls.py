@@ -15,17 +15,18 @@ Including another URLconf
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
 
-from django.contrib import admin
-from django.urls import path, include
-from django.conf import settings
-from django.conf.urls.static import static
-from django.views.generic import RedirectView, TemplateView
-from django.http import HttpResponse, FileResponse
 import os
 
+from django.conf import settings
+from django.conf.urls.static import static
+from django.contrib import admin
 from django.contrib.auth import views as auth_views
-from main.forms import CustomAuthenticationForm, AsyncPasswordResetForm
+from django.http import FileResponse, HttpResponse
+from django.urls import include, path
+from django.views.generic import RedirectView, TemplateView
+
 from main import views as main_views
+from main.forms import AsyncPasswordResetForm, CustomAuthenticationForm
 
 urlpatterns = [
     path("admin/", admin.site.urls),
@@ -79,7 +80,9 @@ urlpatterns = [
     path(
         "accounts/", include("django.contrib.auth.urls")
     ),  # Fallback untuk sisa rute auth
-    path("accounts/", include("allauth.urls")), # Rute Khusus untuk endpoint Google Oauth2
+    path(
+        "accounts/", include("allauth.urls")
+    ),  # Rute Khusus untuk endpoint Google Oauth2
     path("login/", RedirectView.as_view(url="/accounts/login/", permanent=True)),
     path(
         "accounts/password_change/",
@@ -104,19 +107,22 @@ urlpatterns = [
     path(
         "ads.txt",
         lambda r: FileResponse(
-            open(os.path.join(settings.BASE_DIR, "ads.txt"), "rb"), content_type="text/plain"
+            open(os.path.join(settings.BASE_DIR, "ads.txt"), "rb"),
+            content_type="text/plain",
         ),
     ),
     path(
         "robots.txt",
         lambda r: FileResponse(
-            open(os.path.join(settings.BASE_DIR, "robots.txt"), "rb"), content_type="text/plain"
+            open(os.path.join(settings.BASE_DIR, "robots.txt"), "rb"),
+            content_type="text/plain",
         ),
     ),
     path(
         "sitemap.xml",
         lambda r: FileResponse(
-            open(os.path.join(settings.BASE_DIR, "sitemap.xml"), "rb"), content_type="text/xml"
+            open(os.path.join(settings.BASE_DIR, "sitemap.xml"), "rb"),
+            content_type="text/xml",
         ),
     ),
     path(

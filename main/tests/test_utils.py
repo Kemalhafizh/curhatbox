@@ -1,6 +1,8 @@
-from django.test import TestCase
-from main.utils import sensor_kata, verify_recaptcha
 from django.conf import settings
+from django.test import TestCase
+
+from main.utils import sensor_kata, verify_recaptcha
+
 
 class UtilsTestCase(TestCase):
     """
@@ -38,7 +40,9 @@ class UtilsTestCase(TestCase):
         (Test Key asli selalu lolos bypass bypass di utils.py)
         """
         # Dalam settings.py, RECAPTCHA_PUBLIC_KEY diset ke Test Key
-        with self.settings(RECAPTCHA_PUBLIC_KEY="6LeIxAcTAAAAAJcZVRqyHh71UMIEGNQ_MXjiZKhI"):
+        with self.settings(
+            RECAPTCHA_PUBLIC_KEY="6LeIxAcTAAAAAJcZVRqyHh71UMIEGNQ_MXjiZKhI"
+        ):
             result = verify_recaptcha("dummy_token_karena_bypass")
             self.assertTrue(result)
 

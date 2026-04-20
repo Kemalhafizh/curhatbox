@@ -1,4 +1,5 @@
 import os
+
 from celery import Celery
 
 # Set konfigurasi default Django untuk program command-line Celery.
@@ -13,6 +14,7 @@ app.config_from_object("django.conf:settings", namespace="CELERY")
 # Cari semua file tasks.py di dalam semua aplikasi yang ada di INSTALLED_APPS otomatis.
 app.autodiscover_tasks()
 
+
 @app.task(bind=True, ignore_result=True)
 def debug_task(self):
-    print(f'Celery Request: {self.request!r}')
+    print(f"Celery Request: {self.request!r}")
