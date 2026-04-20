@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-03-30 22:27+0700\n"
+"POT-Creation-Date: 2026-04-13 20:28+0700\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -17,72 +17,206 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
+#: curhatbox/settings.py:180 main/models.py:41
 msgid "Indonesian"
 msgstr "Indonesian"
 
+#: curhatbox/settings.py:181 main/models.py:41
 msgid "English"
 msgstr "English"
 
+#: main/forms.py:19
 msgid "Wajib diisi. Email ini diperlukan jika suatu saat kamu lupa password."
 msgstr "Required. This email is needed if you ever forget your password."
 
+#: main/forms.py:31
 msgid "Email ini sudah terdaftar. Silakan gunakan email lain."
 msgstr "This email is already registered. Please use another email."
 
+#: main/forms.py:43 main/templates/registration/login.html:29
 msgid "Email / Username"
 msgstr "Email / Username"
 
+#: main/forms.py:47
 msgid "Email atau Username"
 msgstr "Email or Username"
 
+#: main/forms.py:52 main/templates/registration/login.html:34
 msgid "Password"
 msgstr "Password"
 
+#: main/forms.py:70
 msgid "Tulis balasanmu di sini..."
 msgstr "Write your reply here..."
 
+#: main/forms.py:85
 msgid "Tulis kata sambutan untuk profilmu..."
 msgstr "Write a welcome message for your profile..."
 
+#: main/forms.py:93
 msgid "Pilih warna tema"
 msgstr "Choose theme color"
 
+#: main/models.py:24 main/models.py:74
+#| msgid "Pengaturan"
+msgid "Pengguna"
+msgstr "[EN] Settings"
+
+#: main/models.py:33
 msgid "Upload foto profilmu."
 msgstr "Upload your profile picture."
 
+#: main/models.py:36
 msgid "Warna tema profil (Hex Code)"
 msgstr "Profile theme color (Hex Code)"
 
+#: main/models.py:42
 msgid "Bahasa pilihan untuk antarmuka."
 msgstr "Preferred language for the interface."
 
+#: main/models.py:48
 msgid "Tulis sapaan untuk pengunjung profilmu."
 msgstr "Write a greeting for your profile visitors."
 
+#: main/models.py:76
+msgid "Topik / Pertanyaan"
+msgstr "[EN] Topik / Pertanyaan"
+
+#: main/models.py:100
+msgid "Penerima"
+msgstr "[EN] Penerima"
+
+#: main/models.py:103
 msgid "Isi Curhatan"
 msgstr "Message Content"
 
+#: main/models.py:112
 msgid "Balasan Kamu"
 msgstr "Your Reply"
 
+#: main/models.py:125
 msgid "Pesan Sekali Baca"
 msgstr "One-Time Read Message"
 
+#: main/models.py:133
 msgid "Sistem Operasi (Contoh: Android, iOS, Windows)"
 msgstr "Operating System (e.g. Android, iOS, Windows)"
 
+#: main/models.py:139
 msgid "Browser (Contoh: Chrome, Safari)"
 msgstr "Browser (e.g. Chrome, Safari)"
 
+#: main/models.py:144 main/templates/main/partials/message_card.html:84
 msgid "Reaksi Cepat"
 msgstr "Quick Reactions"
 
+#: main/templates/400.html:4
+msgid "Permintaan Ditolak"
+msgstr "[EN] Permintaan Ditolak"
+
+#: main/templates/400.html:21
+msgid "Wah, Ada yang Salah!"
+msgstr "[EN] Wah, Ada yang Salah!"
+
+#: main/templates/400.html:24
+msgid ""
+"Server kami kebingungan membaca permintaanmu. Mungkin link yang kamu ketik "
+"salah format atau data yang dikirim tidak sesuai."
+msgstr ""
+"[EN] Server kami kebingungan membaca permintaanmu. Mungkin link yang kamu "
+"ketik salah format atau data yang dikirim tidak sesuai."
+
+#: main/templates/400.html:29 main/templates/404.html:31
+#| msgid "membalas:"
+msgid "Kembali"
+msgstr "[EN] replied:"
+
+#: main/templates/400.html:32 main/templates/403.html:32
+#: main/templates/404.html:34
+#| msgid "Kembali ke Beranda"
+msgid "Ke Beranda"
+msgstr "[EN] Back to Home"
+
+#: main/templates/403.html:4
+msgid "Akses Ditolak"
+msgstr "[EN] Akses Ditolak"
+
+#: main/templates/403.html:21
+msgid "Hsst! Akses Ditolak"
+msgstr "[EN] Hsst! Akses Ditolak"
+
+#: main/templates/403.html:24
+msgid ""
+"Kamu tidak memiliki izin untuk melihat halaman ini atau melakukan aksi "
+"tersebut. Mungkin kamu harus login dulu?"
+msgstr ""
+"[EN] Kamu tidak memiliki izin untuk melihat halaman ini atau melakukan aksi "
+"tersebut. Mungkin kamu harus login dulu?"
+
+#: main/templates/403.html:29
+#| msgid "Masuk Sekarang"
+msgid "Login Sekarang"
+msgstr "[EN] Login Now"
+
+#: main/templates/404.html:4
+msgid "Halaman Tidak Ditemukan"
+msgstr "[EN] Halaman Tidak Ditemukan"
+
+#: main/templates/404.html:21
+msgid "Waduh! Kamu Nyasar Ya?"
+msgstr "[EN] Waduh! Kamu Nyasar Ya?"
+
+#: main/templates/404.html:24
+msgid ""
+"Sepertinya kamu memaksa mengakses link rahasia atau halaman yang kamu tuju "
+"sudah dihapus oleh pemiliknya."
+msgstr ""
+"[EN] Sepertinya kamu memaksa mengakses link rahasia atau halaman yang kamu "
+"tuju sudah dihapus oleh pemiliknya."
+
+#: main/templates/404.html:26
+msgid "Daripada bingung, mending kamu mulai kirim pesan anonim yang seru!"
+msgstr ""
+"[EN] Daripada bingung, mending kamu mulai kirim pesan anonim yang seru!"
+
+#: main/templates/500.html:4
+msgid "Server Sedang Pusing"
+msgstr "[EN] Server Sedang Pusing"
+
+#: main/templates/500.html:21
+msgid "Server Sedang Kepanasan!"
+msgstr "[EN] Server Sedang Kepanasan!"
+
+#: main/templates/500.html:24
+msgid ""
+"Oops! Terjadi kesalahan internal pada mesin CurhatBox. Terlalu banyak pesan "
+"rahasia yang masuk atau database sedang istirahat."
+msgstr ""
+"[EN] Oops! Terjadi kesalahan internal pada mesin CurhatBox. Terlalu banyak "
+"pesan rahasia yang masuk atau database sedang istirahat."
+
+#: main/templates/500.html:26
+msgid "Tim teknis ninja kami sedang memperbaikinya. Tunggu sebentar ya!"
+msgstr "[EN] Tim teknis ninja kami sedang memperbaikinya. Tunggu sebentar ya!"
+
+#: main/templates/500.html:31
+msgid "Muat Ulang Halaman"
+msgstr "[EN] Muat Ulang Halaman"
+
+#: main/templates/500.html:37
+#| msgid "Kembali ke Beranda"
+msgid "Kembali ke Beranda Coba URL Lain"
+msgstr "[EN] Back to Home"
+
+#: main/templates/main/about.html:5
 msgid "Tentang CurhatBox - Misi Kami"
 msgstr "About CurhatBox - Our Mission"
 
+#: main/templates/main/about.html:20
 msgid "Lebih dari Sekadar Pesan Anonim"
 msgstr "More than Just Anonymous Messages"
 
+#: main/templates/main/about.html:25
 msgid ""
 "CurhatBox dirancang menggunakan teknologi Web terkini untuk menghadirkan pengalaman komunikasi jujur\n"
 "                    yang <strong class=\"text-white\">Aman</strong>, <strong class=\"text-white\">Estetik</strong>, dan <strong class=\"text-white\">Penuh Kendali</strong>."
@@ -92,9 +226,11 @@ msgstr ""
 "white\">Secure</strong>, <strong class=\"text-white\">Aesthetic</strong>, "
 "and <strong class=\"text-white\">Full of Control</strong>."
 
+#: main/templates/main/about.html:46
 msgid "Format IG Story Instan"
 msgstr "Instant IG Story Format"
 
+#: main/templates/main/about.html:49
 msgid ""
 "Ubah pesan jujur dan balasanmu menjadi gambar estetik beresolusi tinggi yang"
 " siap dipamerkan di Instagram Story hanya dengan satu klik."
@@ -102,9 +238,11 @@ msgstr ""
 "Change your honest messages and replies into high-resolution aesthetic "
 "images ready to be showcased on Instagram Story with just one click."
 
+#: main/templates/main/about.html:65
 msgid "Analitik Penggemar"
 msgstr "Fan Analytics"
 
+#: main/templates/main/about.html:67
 msgid ""
 "Pantau performa profilmu dengan dasbor analitik visual. Lihat grafik tren "
 "pesan harian, jam sibuk, dan analisis sentimen emoji audiens."
@@ -113,9 +251,11 @@ msgstr ""
 "graphs of daily message trends, busy hours, and audience emoji sentiment "
 "analysis."
 
+#: main/templates/main/about.html:84
 msgid "Kustomisasi Premium"
 msgstr "Premium Customization"
 
+#: main/templates/main/about.html:87
 msgid ""
 "Ekspresikan dirimu sesungguhnya! Unggah foto Avatar dan pilih warna Tema "
 "sesuka hati untuk menghiasi halaman publikmu."
@@ -123,12 +263,11 @@ msgstr ""
 "Express your true self! Upload an Avatar photo and choose a Theme color as "
 "you like to decorate your public page."
 
+#: main/templates/main/about.html:103
 msgid "Mode Anti-Jejak (Self-Destruct)"
 msgstr "Anti-Trace Mode (Self-Destruct)"
 
-#| msgid ""
-#| "Takut rahasia terbongkar? Kirim pesan dengan Mode Sekali Baca. Pesan akan dihapus secara\n"
-#| "                                permanen dari server <strong class=\"text-white\">sesaat setelah penerima membukanya</strong>. Bebas jejak digital seutuhnya."
+#: main/templates/main/about.html:106
 msgid ""
 "Takut rahasia terbongkar? Kirim pesan dengan Mode Sekali Baca. Pesan akan dihapus secara\n"
 "                                permanen dari server <strong class=\"text-body\">sesaat setelah penerima membukanya</strong>. Bebas jejak digital seutuhnya."
@@ -138,9 +277,11 @@ msgstr ""
 "body\">as soon as the recipient opens it</strong>. Fully free from digital "
 "traces."
 
+#: main/templates/main/about.html:123
 msgid "Keamanan Siber Proaktif"
 msgstr "Proactive Cyber Security"
 
+#: main/templates/main/about.html:125
 msgid ""
 "Anti perundungan! CurhatBox mendeteksi kata-kata kasar dan mencatat <strong "
 "class=\"text-body\">Petunjuk Lingkungan Pengirim (Browser/OS)</strong>. "
@@ -151,9 +292,11 @@ msgstr ""
 "class=\"text-body\">Sender Environment Hints (Browser/OS)</strong>. As a "
 "recipient, you have full control to block attackers forever."
 
+#: main/templates/main/about.html:135
 msgid "Filosofi Kejujuran Digital"
 msgstr "Digital Honesty Philosophy"
 
+#: main/templates/main/about.html:138
 msgid ""
 "CurhatBox lahir dari sebuah keresahan sederhana: di dunia yang semakin "
 "terkoneksi secara digital, ruang untuk berbicara jujur tanpa penghakiman "
@@ -165,6 +308,7 @@ msgstr ""
 "they can receive pure feedback, criticism, or appreciation without being "
 "limited by social identity boundaries."
 
+#: main/templates/main/about.html:141
 msgid ""
 "Namun, kejujuran tidak boleh menjadi alasan untuk kebencian. Itulah sebabnya"
 " CurhatBox tidak hanya sekadar menyediakan fitur anonimitas, tetapi juga "
@@ -178,9 +322,11 @@ msgstr ""
 "negative content and give full control to profile owners for self-"
 "moderation."
 
+#: main/templates/main/about.html:143
 msgid "Visi & Misi Kami"
 msgstr "Our Vision & Mission"
 
+#: main/templates/main/about.html:145
 msgid ""
 "Visi kami adalah menjadi platform komunikasi anonim nomor satu yang paling "
 "dipercaya dan aman di Indonesia. Kami ingin menghapus stigma bahwa "
@@ -188,7 +334,13 @@ msgid ""
 "moderasi yang tepat, kami percaya anonimitas dapat menjadi katalisator bagi "
 "pertumbuhan diri dan perbaikan hubungan sosial."
 msgstr ""
+"[EN] Visi kami adalah menjadi platform komunikasi anonim nomor satu yang "
+"paling dipercaya dan aman di Indonesia. Kami ingin menghapus stigma bahwa "
+"anonimitas selalu berujung pada hal negatif. Dengan fitur edukasi dan "
+"moderasi yang tepat, kami percaya anonimitas dapat menjadi katalisator bagi "
+"pertumbuhan diri dan perbaikan hubungan sosial."
 
+#: main/templates/main/about.html:148
 msgid ""
 "Misi kami mencakup tiga pilar utama: Keamanan Data, Kenyamanan Pengguna, dan"
 " Inovasi Fitur. Kami terus berusaha untuk melakukan enkripsi data yang lebih"
@@ -201,10 +353,11 @@ msgstr ""
 "more intuitive interface, and fun features like message analytics and social"
 " media integration that make it easier for users to share their happiness."
 
-#| msgid "Kebijakan Privasi - CurhatBox"
+#: main/templates/main/about.html:150
 msgid "Kenapa Harus CurhatBox?"
 msgstr "Why Choose CurhatBox?"
 
+#: main/templates/main/about.html:152
 msgid ""
 "Berbeda dengan platform pesan anonim lainnya yang seringkali menjadi sarang "
 "spam dan kebencian, CurhatBox menyeimbangkan antara privasi pengirim dan "
@@ -219,9 +372,11 @@ msgstr ""
 "recipient to recognize the context of the message without uncovering the "
 "sender's identity. This is the middle ground we created for mutual comfort."
 
+#: main/templates/main/about.html:156
 msgid "Teknologi di Balik Layar"
 msgstr "Technology Behind the Scenes"
 
+#: main/templates/main/about.html:159
 msgid ""
 "Untuk menghadirkan pengalaman yang mulus dan cepat, CurhatBox dibangun di "
 "atas tumpukan teknologi modern yang tangguh:"
@@ -229,6 +384,7 @@ msgstr ""
 "To deliver a seamless and fast experience, CurhatBox is built on a robust "
 "stack of modern technology:"
 
+#: main/templates/main/about.html:162
 msgid ""
 "<li><strong>Python & Django:</strong> Framework web tingkat tinggi yang "
 "menjamin keamanan data dan kecepatan pengembangan.</li>"
@@ -236,6 +392,7 @@ msgstr ""
 "<li><strong>Python & Django:</strong> High-level web framework that ensures "
 "data security and development speed.</li>"
 
+#: main/templates/main/about.html:163
 msgid ""
 "<li><strong>Daphne & WebSockets:</strong> Memungkinkan pengiriman pesan "
 "secara real-time tanpa perlu memuat ulang halaman.</li>"
@@ -243,6 +400,7 @@ msgstr ""
 "<li><strong>Daphne & WebSockets:</strong> Enables real-time message delivery"
 " without the need to reload the page.</li>"
 
+#: main/templates/main/about.html:164
 msgid ""
 "<li><strong>PostgreSQL:</strong> Sistem manajemen basis data relasional yang"
 " memastikan integritas dan keamanan data ceritamu.</li>"
@@ -250,6 +408,7 @@ msgstr ""
 "<li><strong>PostgreSQL:</strong> Relational database management system that "
 "ensures the integrity and security of your story data.</li>"
 
+#: main/templates/main/about.html:165
 msgid ""
 "<li><strong>Redis:</strong> Digunakan untuk menangani antrean data dan "
 "caching agar performa situs tetap responsif meski dalam trafik tinggi.</li>"
@@ -257,21 +416,26 @@ msgstr ""
 "<li><strong>Redis:</strong> Used to handle data queues and caching so that "
 "site performance remains responsive even in high traffic.</li>"
 
+#: main/templates/main/about.html:182
 msgid "Butuh Bantuan Resmi?"
 msgstr "Need Official Help?"
 
+#: main/templates/main/about.html:185
 msgid ""
 "Tim kami siap menangani laporan, kerja sama, dan masalah teknis akun Anda."
 msgstr ""
 "Our team is ready to handle reports, cooperation, and technical issues with "
 "your account."
 
+#: main/templates/main/about.html:191 main/templates/main/faq.html:157
 msgid "Hubungi Tim Support"
 msgstr "Contact Support Team"
 
+#: main/templates/main/about.html:199
 msgid "Siap Jadi Pusat Perhatian?"
 msgstr "Ready to Be the Center of Attention?"
 
+#: main/templates/main/about.html:202
 msgid ""
 "Diciptakan dengan visi memberantas <em>Cyberbullying</em> tanpa membunuh "
 "kebebasan berekspresi."
@@ -279,15 +443,19 @@ msgstr ""
 "Created with a vision to eradicate <em>Cyberbullying</em> without killing "
 "freedom of expression."
 
+#: main/templates/main/about.html:206
 msgid "Mulai Perjalananmu Secara Gratis 🚀"
 msgstr "Start Your Journey for Free 🚀"
 
+#: main/templates/main/analytics.html:4
 msgid "Studio Analitik - CurhatBox"
 msgstr "Analytics Studio - CurhatBox"
 
+#: main/templates/main/analytics.html:14
 msgid "Studio Analitik Penggemar"
 msgstr "Fan Analytics Studio"
 
+#: main/templates/main/analytics.html:18
 msgid ""
 "Pantau metrik interaksi, waktu terbaik, dan sentimen dari penggemar "
 "rahasiamu dalam satu layar."
@@ -295,51 +463,67 @@ msgstr ""
 "Monitor interaction metrics, best times, and sentiment from your secret fans"
 " in one screen."
 
+#: main/templates/main/analytics.html:24
 msgid "⬅ Kembali ke Dasbor"
 msgstr "⬅ Back to Dashboard"
 
+#: main/templates/main/analytics.html:39
 msgid "Total Pesan"
 msgstr "Total Messages"
 
+#: main/templates/main/analytics.html:53
 msgid "Belum Dibaca"
 msgstr "Unread"
 
+#: main/templates/main/analytics.html:70
 msgid "Tingkat Balasan"
 msgstr "Reply Rate"
 
+#: main/templates/main/analytics.html:86
 msgid "Tingkat Share (Publik)"
 msgstr "Share Rate (Public)"
 
+#: main/templates/main/analytics.html:102
 msgid "📈 Tren Lalu Lintas Pesan (7 Hari Terakhir)"
 msgstr "📈 Message Traffic Trend (Last 7 Days)"
 
+#: main/templates/main/analytics.html:104
 msgid "Rekap Harian"
 msgstr "Daily Recap"
 
+#: main/templates/main/analytics.html:120
 msgid "⏱ Jam Emas (Peak Hours)"
 msgstr "⏱ Golden Hours (Peak Hours)"
 
+#: main/templates/main/analytics.html:122
 msgid "Waktu paling sering layar pengguna aktif (00:00 - 23:00)"
 msgstr "Most frequent time user screens are active (00:00 - 23:00)"
 
+#: main/templates/main/analytics.html:137
 msgid "🎭 Analisis Sentimen Emoji"
 msgstr "🎭 Emoji Sentiment Analysis"
 
+#: main/templates/main/analytics.html:139
 msgid "Distribusi emosi dari reaksi cepat pengunjung"
 msgstr "Distribution of emotions from visitors' quick reactions"
 
+#: main/templates/main/analytics.html:158
 msgid "📱 Perangkat Pengirim (OS)"
 msgstr "📱 Sender Device (OS)"
 
+#: main/templates/main/analytics.html:172
 msgid "🌐 Browser Favorit"
 msgstr "🌐 Favorite Browser"
 
+#: main/templates/main/analytics.html:216
 msgid "Interaksi Pesan"
 msgstr "Message Interactions"
 
+#: main/templates/main/analytics.html:269
 msgid "Aktivitas Penggemar"
 msgstr "Fan Activity"
 
+#: main/templates/main/analytics.html:301
 msgid ""
 "Belum ada grafik reaksi yang tercatat.<br>Kumpulkan lebih banyak reaksi dari"
 " dasbormu!"
@@ -347,9 +531,11 @@ msgstr ""
 "No reaction charts recorded yet.<br>Collect more reactions from your "
 "dashboard!"
 
+#: main/templates/main/analytics.html:334
 msgid "reaksi"
 msgstr "reactions"
 
+#: main/templates/main/base.html:24
 msgid ""
 "CurhatBox adalah platform pesan anonim paling aman di Indonesia. Kirim pesan"
 " rahasia, kritik jujur, dan curhatan tanpa identitas dengan perlindungan "
@@ -359,6 +545,7 @@ msgstr ""
 "secret messages, honest criticism, and identity-free curhatan with anti-"
 "cyberbullying protection and one-time read mode."
 
+#: main/templates/main/base.html:26
 msgid ""
 "pesan anonim, curhat rahasia, kirim pesan jujur, aplikasi anonim indonesia, "
 "curhatbox, pesan rahasia instagram, link rahasia ig"
@@ -366,211 +553,455 @@ msgstr ""
 "anonymous messages, secret curhat, send honest messages, anonymous "
 "application indonesia, curhatbox, instagram secret messages, ig secret link"
 
-#, python-format
-msgid "Kirim Pesan Rahasia ke %(target_user.username|default:'Seseorang')s! 💜"
-msgstr ""
-"Send a Secret Message to %(target_user.username|default:'Seseorang')s! 💜"
+#: main/templates/main/base.html:63
+#| msgid "CurhatBox - Kirim Pesan Rahasia Secara Anonim"
+msgid "CurhatBox - Pesan Rahasia Anonim"
+msgstr "[EN] CurhatBox - Send Secret Messages Anonymously"
 
+#: main/templates/main/base.html:65
+#| msgid ""
+#| "Sampaikan curhatan, kritik, atau pesan rahasiamu secara anonim di CurhatBox."
+#| " Aman & Jujur."
 msgid ""
 "Sampaikan curhatan, kritik, atau pesan rahasiamu secara anonim di CurhatBox."
-" Aman & Jujur."
+" Aman, Jujur, & Tanpa Identitas."
 msgstr ""
-"Send your curhatan, criticism, or secret messages anonymously on CurhatBox. "
-"Safe & Honest."
+"[EN] Send your curhatan, criticism, or secret messages anonymously on "
+"CurhatBox. Safe & Honest."
 
+#: main/templates/main/base.html:72
+msgid "Platform pesan anonim paling aman."
+msgstr "[EN] Platform pesan anonim paling aman."
+
+#: main/templates/main/base.html:87
 msgid "Ganti Mode Terang/Gelap"
 msgstr "Switch Light/Dark Mode"
 
+#: main/templates/main/base.html:123
 msgid "Keluar"
 msgstr "Logout"
 
+#: main/templates/main/base.html:128 main/templates/main/index.html:33
 msgid "Masuk"
 msgstr "Login"
 
+#: main/templates/main/base.html:130
 msgid "Daftar Gratis"
 msgstr "Register for Free"
 
+#: main/templates/main/base.html:196
 msgid "Hak cipta dilindungi undang-undang."
 msgstr "All rights reserved."
 
+#: main/templates/main/base.html:200 main/templates/main/privacy.html:11
 msgid "Kebijakan Privasi"
 msgstr "Privacy Policy"
 
+#: main/templates/main/base.html:203
 msgid "Aturan Main"
 msgstr "Terms of Service"
 
+#: main/templates/main/base.html:206
 msgid "Tentang Kami"
 msgstr "About Us"
 
+#: main/templates/main/base.html:209
 msgid "Pusat Bantuan (FAQ)"
 msgstr "Help Center (FAQ)"
 
+#: main/templates/main/base.html:212
 msgid "Hubungi kami di:"
 msgstr "Contact us at:"
 
+#: main/templates/main/dashboard.html:12
 msgid "Dashboard Pesan"
 msgstr "Message Dashboard"
 
-#, python-format
-msgid "Hallo, %(user.username)s!"
-msgstr "Hello, %(user.username)s!"
+#: main/templates/main/dashboard.html:24
+msgid "CurhatBox di Layar HP?"
+msgstr "[EN] CurhatBox di Layar HP?"
 
+#: main/templates/main/dashboard.html:25
+msgid "Instal aplikasi untuk akses instan dan mode offline."
+msgstr "[EN] Instal aplikasi untuk akses instan dan mode offline."
+
+#: main/templates/main/dashboard.html:29
+#| msgid "Masuk Sekarang"
+msgid "Instal Sekarang"
+msgstr "[EN] Login Now"
+
+#: main/templates/main/dashboard.html:61
+#, python-format
+#| msgid "Hallo, %(user.username)s!"
+msgid "Hallo, %(name)s!"
+msgstr "[EN] Hallo, %(name)s!"
+
+#: main/templates/main/dashboard.html:64
 msgid "Bagikan link ini untuk menerima pesan anonim"
 msgstr "Share this link to receive anonymous messages"
 
+#: main/templates/main/dashboard.html:82
 msgid "Salin"
 msgstr "Copy"
 
+#: main/templates/main/dashboard.html:88
 msgid "Profil ini privat. Hanya yang punya URL bisa kirim pesan."
 msgstr "This profile is private. Only those with the URL can send messages."
 
-#| msgid "📊 Buka Analitik Studio"
+#: main/templates/main/dashboard.html:96
+msgid "Buat Tautan Q&A Klasik"
+msgstr "[EN] Buat Tautan Q&A Klasik"
+
+#: main/templates/main/dashboard.html:105
 msgid "Buka Analitik"
 msgstr "📊 Open Analytics Studio"
 
+#: main/templates/main/dashboard.html:108
 msgid "Pengaturan"
 msgstr "Settings"
 
-#, python-format
-msgid "Pesan Masuk (%(inbox_messages.count)s)"
-msgstr "Incoming Messages (%(inbox_messages.count)s)"
+#: main/templates/main/dashboard.html:117
+msgid "Sesi Q&A Aktif"
+msgstr "[EN] Sesi Q&A Aktif"
 
+#: main/templates/main/dashboard.html:124
+msgid "Aktif"
+msgstr "[EN] Aktif"
+
+#: main/templates/main/dashboard.html:124
+msgid "Tutup"
+msgstr "[EN] Tutup"
+
+#: main/templates/main/dashboard.html:128
+#| msgid "Salin"
+msgid "Salin Link"
+msgstr "[EN] Copy"
+
+#: main/templates/main/dashboard.html:131
+msgid "Tutup/Buka Sesi"
+msgstr "[EN] Tutup/Buka Sesi"
+
+#: main/templates/main/dashboard.html:133
+msgid "Hapus permanen sesi ini?"
+msgstr "[EN] Hapus permanen sesi ini?"
+
+#: main/templates/main/dashboard.html:135
+#| msgid "Hapus Pesan"
+msgid "Hapus"
+msgstr "[EN] Delete Message"
+
+#: main/templates/main/dashboard.html:142
+msgid "Tampilkan Semua Pesan"
+msgstr "[EN] Tampilkan Semua Pesan"
+
+#: main/templates/main/dashboard.html:154
+#, python-format
+#| msgid "Pesan Masuk (%(inbox_messages.count)s)"
+msgid "Pesan Masuk (%(count)s)"
+msgstr "[EN] Pesan Masuk (%(count)s)"
+
+#: main/templates/main/dashboard.html:159
 msgid "Belum ada pesan masuk. Sebar link kamu di sosial media!"
 msgstr "No incoming messages yet. Share your link on social media!"
 
+#: main/templates/main/dashboard.html:176
+#: main/templates/main/dashboard.html:180
 msgid "Sebelumnya"
 msgstr "Previous"
 
+#: main/templates/main/dashboard.html:192
+#: main/templates/main/dashboard.html:196
 msgid "Selanjutnya"
 msgstr "Next"
 
+#: main/templates/main/dashboard.html:212
 msgid "Tips Keamanan & Keseruan CurhatBox"
 msgstr "Security Tips & Fun with CurhatBox"
 
+#: main/templates/main/dashboard.html:216
 msgid "Gunakan Link Secara Bijak"
 msgstr "Use Links Wisely"
 
+#: main/templates/main/dashboard.html:218
+#| msgid ""
+#| "Bagikan link profilmu hanya di platform terpercaya seperti Instagram Story "
+#| "atau Bio TikTok untuk mendapatkan interaksi dari orang-orang yang kamu kenal"
+#| " di dunia nyata."
 msgid ""
 "Bagikan link profilmu hanya di platform terpercaya seperti Instagram Story "
-"atau Bio TikTok untuk mendapatkan interaksi dari orang-orang yang kamu kenal"
-" di dunia nyata."
+"atau Bio TikTok."
 msgstr ""
-"Share your profile link only on trusted platforms like Instagram Stories or "
-"TikTok Bio to get interactions from people you know in the real world."
+"[EN] Share your profile link only on trusted platforms like Instagram "
+"Stories or TikTok Bio to get interactions from people you know in the real "
+"world."
 
+#: main/templates/main/dashboard.html:222
 msgid "Moderasi Pesan Aktif"
 msgstr "Active Message Moderation"
 
+#: main/templates/main/dashboard.html:224
+#| msgid ""
+#| "Jangan ragu untuk menggunakan fitur blokir jika menerima pesan yang tidak "
+#| "pantas. CurhatBox mendukung lingkungan yang positif dan bebas toksisitas "
+#| "digital."
 msgid ""
 "Jangan ragu untuk menggunakan fitur blokir jika menerima pesan yang tidak "
-"pantas. CurhatBox mendukung lingkungan yang positif dan bebas toksisitas "
-"digital."
+"pantas."
 msgstr ""
-"Don't hesitate to use the block feature if you receive inappropriate "
+"[EN] Don't hesitate to use the block feature if you receive inappropriate "
 "messages. CurhatBox supports a positive environment free of digital "
 "toxicity."
 
+#: main/templates/main/dashboard.html:228
 msgid "Warna Tema Kustom"
 msgstr "Custom Theme Colors"
 
+#: main/templates/main/dashboard.html:230
+#| msgid ""
+#| "Kamu bisa mengubah warna tema profilmu di pengaturan agar feed pesan "
+#| "terlihat lebih estetik sesuai kepribadianmu dan mood saat ini."
 msgid ""
 "Kamu bisa mengubah warna tema profilmu di pengaturan agar feed pesan "
-"terlihat lebih estetik sesuai kepribadianmu dan mood saat ini."
+"terlihat lebih estetik."
 msgstr ""
-"You can change your profile theme color in settings to make your message "
-"feed look more aesthetic according to your personality and current mood."
+"[EN] You can change your profile theme color in settings to make your "
+"message feed look more aesthetic according to your personality and current "
+"mood."
 
+#: main/templates/main/dashboard.html:234
 msgid "Mode Sekali Baca (SND)"
 msgstr "One-Time Read Mode (SND)"
 
+#: main/templates/main/dashboard.html:236
+#| msgid ""
+#| "Aktifkan mode Self-Destruct jika ingin mengirim rahasia yang benar-benar "
+#| "privat. Pesan akan langsung musnah setelah dibaca oleh penerima."
 msgid ""
 "Aktifkan mode Self-Destruct jika ingin mengirim rahasia yang benar-benar "
-"privat. Pesan akan langsung musnah setelah dibaca oleh penerima."
+"privat."
 msgstr ""
-"Activate Self-Destruct mode if you want to send truly private secrets. The "
-"message will be destroyed immediately after being read by the recipient."
+"[EN] Activate Self-Destruct mode if you want to send truly private secrets. "
+"The message will be destroyed immediately after being read by the recipient."
 
+#: main/templates/main/dashboard.html:256
 msgid "Pesan Anonim"
 msgstr "Anonymous Message"
 
+#: main/templates/main/dashboard.html:258
+#| msgid "Terima pesan rahasia hari ini."
+msgid "Pesan rahasia di sini..."
+msgstr "[EN] Join and receive secret messages today."
+
+#: main/templates/main/dashboard.html:267
 msgid "membalas:"
 msgstr "replied:"
 
+#: main/templates/main/dashboard.html:270
+#| msgid "Tulis balasanmu di sini..."
+msgid "Balasan kamu di sini..."
+msgstr "[EN] Write your reply here..."
+
+#: main/templates/main/dashboard.html:274
 msgid "Kirim pesan rahasia di"
 msgstr "Send secret messages at"
 
+#: main/templates/main/dashboard.html:285
 msgid "Notifikasi Baru"
 msgstr "New Notification"
 
+#: main/templates/main/dashboard.html:286
 msgid "Baru Saja"
 msgstr "Just Now"
 
+#: main/templates/main/dashboard.html:289
 msgid "Hore! Seseorang baru saja mengirimkanmu pesan rahasia!"
 msgstr "Hooray! Someone just sent you a secret message!"
 
+#: main/templates/main/dashboard.html:301
 msgid "Menyiapkan Kualitas 1080p FHD"
 msgstr "Preparing 1080p FHD Quality"
 
-msgid ""
-"Mohon tunggu 15 detik untuk mendukung CurhatBox tetap gratis & berkualitas "
-"tinggi."
-msgstr ""
+#: main/templates/main/dashboard.html:302
+msgid "Mohon tunggu 15 detik untuk mendukung CurhatBox tetap gratis."
+msgstr "[EN] Mohon tunggu 15 detik untuk mendukung CurhatBox tetap gratis."
 
+#: main/templates/main/dashboard.html:318
 msgid "Unduh Gambar FHD Sekarang"
 msgstr "Download FHD Image Now"
 
-#| msgid "Batalkan"
+#: main/templates/main/dashboard.html:320
 msgid "Batalkan & Kembali"
 msgstr "Cancel"
 
+#: main/templates/main/dashboard.html:331
+msgid "Gambar Story Siap!"
+msgstr "[EN] Gambar Story Siap!"
+
+#: main/templates/main/dashboard.html:337
+msgid ""
+"Browser mobile memblokir download otomatis. <b>Tekan lama pada gambar</b> di"
+" bawah, lalu pilih <b>'Simpan Gambar'</b> untuk membagikan ke IG Story."
+msgstr ""
+"[EN] Browser mobile memblokir download otomatis. <b>Tekan lama pada "
+"gambar</b> di bawah, lalu pilih <b>'Simpan Gambar'</b> untuk membagikan ke "
+"IG Story."
+
+#: main/templates/main/dashboard.html:342
+#| msgid "Batalkan & Kembali"
+msgid "Tutup & Kembali"
+msgstr "[EN] Cancel"
+
+#: main/templates/main/dashboard.html:353
+msgid "Buat Tautan Q&A Spesifik"
+msgstr "[EN] Buat Tautan Q&A Spesifik"
+
+#: main/templates/main/dashboard.html:359
+msgid ""
+"Buat tautan rahasia dengan pertanyaan khusus agar teman-temanmu menjawab "
+"secara spesifik."
+msgstr ""
+"[EN] Buat tautan rahasia dengan pertanyaan khusus agar teman-temanmu "
+"menjawab secara spesifik."
+
+#: main/templates/main/dashboard.html:361
+msgid "Topik Pertanyaan / Pancingan"
+msgstr "[EN] Topik Pertanyaan / Pancingan"
+
+#: main/templates/main/dashboard.html:362
+msgid "Contoh: Jujur, apa kesan pertamamu?"
+msgstr "[EN] Contoh: Jujur, apa kesan pertamamu?"
+
+#: main/templates/main/dashboard.html:363
+msgid "Tautan khusus acak akan dibuat secara otomatis."
+msgstr "[EN] Tautan khusus acak akan dibuat secara otomatis."
+
+#: main/templates/main/dashboard.html:367
+#: main/templates/registration/password_change_form.html:57
+#| msgid "Batalkan"
+msgid "Batal"
+msgstr "[EN] Cancel"
+
+#: main/templates/main/dashboard.html:368
+msgid "Generate Link"
+msgstr "[EN] Generate Link"
+
+#: main/templates/main/dashboard.html:417
+msgid "Tautan Sesi Q&A Klasik berhasil disalin!"
+msgstr "[EN] Tautan Sesi Q&A Klasik berhasil disalin!"
+
+#: main/templates/main/dashboard.html:419
+msgid "Salin secara manual:"
+msgstr "[EN] Salin secara manual:"
+
+#: main/templates/main/edit_profile.html:4
 msgid "Edit Profil"
 msgstr "Edit Profile"
 
+#: main/templates/main/edit_profile.html:77
 msgid "⚙️ Pengaturan Profil"
 msgstr "⚙️ Profile Settings"
 
-#| msgid "Kustomisasi identitas publikmu di CurhatBox"
+#: main/templates/main/edit_profile.html:78
 msgid "Kustomisasi identitas publikmu"
 msgstr "Customize your public identity on CurhatBox"
 
+#: main/templates/main/edit_profile.html:87
 msgid "Sapaan Pengunjung (Bio)"
 msgstr "Visitor Greeting (Bio)"
 
+#: main/templates/main/edit_profile.html:96
 msgid "Foto Avatar"
 msgstr "Avatar Photo"
 
-#| msgid "Edit Profil"
+#: main/templates/main/edit_profile.html:115
 msgid "Ganti Foto Profil"
 msgstr "Edit Profile"
 
+#: main/templates/main/edit_profile.html:118
 msgid "Format: JPG, PNG, GIF (Maks. 2MB)"
 msgstr "Format: JPG, PNG, GIF (Max. 2MB)"
 
+#: main/templates/main/edit_profile.html:126
 msgid "Warna Tema Publik"
 msgstr "Public Theme Color"
 
+#: main/templates/main/edit_profile.html:130
 msgid "Klik kotak untuk memilih warna dominan profilmu."
 msgstr "Click the box to choose your profile's dominant color."
 
+#: main/templates/main/edit_profile.html:138
 msgid "Bahasa Antarmuka"
 msgstr "Interface Language"
 
+#: main/templates/main/edit_profile.html:141
 msgid "Pilih bahasa utama yang ingin kamu gunakan di CurhatBox."
 msgstr "Select the primary language you want to use in CurhatBox."
 
+#: main/templates/main/edit_profile.html:151
+#: main/templates/socialaccount/connections.html:4
+#| msgid "Lingkup Sosial"
+msgid "Koneksi Akun Sosial"
+msgstr "[EN] Social Scope"
+
+#: main/templates/main/edit_profile.html:158
+msgid "Terhubung dengan Google"
+msgstr "[EN] Terhubung dengan Google"
+
+#: main/templates/main/edit_profile.html:163
+msgid "Anda dapat menggunakan 1-click login untuk masuk sebagai "
+msgstr "[EN] Anda dapat menggunakan 1-click login untuk masuk sebagai "
+
+#: main/templates/main/edit_profile.html:169
+msgid "Google Belum Terhubung"
+msgstr "[EN] Google Belum Terhubung"
+
+#: main/templates/main/edit_profile.html:172
+#| msgid "Hubungi kami di:"
+msgid "Hubungkan"
+msgstr "[EN] Contact us at:"
+
+#: main/templates/main/edit_profile.html:176
+msgid ""
+"Hubungkan akun Google agar bisa masuk ke CurhatBox tanpa perlu mengetik "
+"password lagi."
+msgstr ""
+"[EN] Hubungkan akun Google agar bisa masuk ke CurhatBox tanpa perlu mengetik"
+" password lagi."
+
+#: main/templates/main/edit_profile.html:184
+msgid "🔐 Keamanan Akun"
+msgstr "[EN] 🔐 Keamanan Akun"
+
+#: main/templates/main/edit_profile.html:187
+msgid "Kata Sandi Akun"
+msgstr "[EN] Kata Sandi Akun"
+
+#: main/templates/main/edit_profile.html:189
+#| msgid "Password"
+msgid "Ubah Password"
+msgstr "[EN] Password"
+
+#: main/templates/main/edit_profile.html:193
+msgid "Ganti password secara berkala untuk menjaga akunmu tetap aman."
+msgstr "[EN] Ganti password secara berkala untuk menjaga akunmu tetap aman."
+
+#: main/templates/main/edit_profile.html:201
 msgid "Terapkan Perubahan ✨"
 msgstr "Apply Changes ✨"
 
+#: main/templates/main/edit_profile.html:205
 msgid "Batalkan"
 msgstr "Cancel"
 
-#| msgid "Pesan Terbuka | CurhatBox"
+#: main/templates/main/faq.html:4
 msgid "Pusat Bantuan & FAQ - CurhatBox"
 msgstr "Help Center & FAQ - CurhatBox"
 
+#: main/templates/main/faq.html:14
 msgid "Pusat Bantuan & FAQ"
 msgstr "Help Center & FAQ"
 
+#: main/templates/main/faq.html:16
 msgid ""
 "Semua hal yang perlu Anda ketahui tentang keamanan, privasi, dan fitur-fitur"
 " di CurhatBox."
@@ -578,14 +1009,15 @@ msgstr ""
 "Everything you need to know about security, privacy, and features at "
 "CurhatBox."
 
-#| msgid "Kebijakan Privasi"
+#: main/templates/main/faq.html:27
 msgid "I. Keamanan & Privasi"
 msgstr "I. Security & Privacy"
 
-#| msgid "Apakah CurhatBox benar-benar anonim?"
+#: main/templates/main/faq.html:35
 msgid "Apakah data saya benar-benar aman dan terenkripsi?"
 msgstr "Is my data truly secure and encrypted?"
 
+#: main/templates/main/faq.html:42
 msgid ""
 "Keamanan adalah fondasi utama CurhatBox. Kami menggunakan protokol enkripsi "
 "tingkat lanjut untuk memastikan bahwa pesan Anda hanya bisa dibaca oleh "
@@ -601,9 +1033,11 @@ msgstr ""
 "system abuse (spam) and will be deleted automatically within a certain "
 "period."
 
+#: main/templates/main/faq.html:52
 msgid "Bisakah penerima mengetahui lokasi atau identitas saya?"
 msgstr "Can the recipient know my location or identity?"
 
+#: main/templates/main/faq.html:59
 msgid ""
 "Tidak. Lokasi geografis presisi Anda tidak akan pernah dibagikan. Penerima "
 "hanya akan melihat 'Sender Hints' berupa tipe perangkat dan browser (misal: "
@@ -615,12 +1049,15 @@ msgstr ""
 "iPhone, Safari) to provide basic context without endangering your privacy. "
 "Your true identity is locked tight in our internal system."
 
+#: main/templates/main/faq.html:70
 msgid "II. Fitur Pesan Sekali Baca (Self-Destruct)"
 msgstr "II. Self-Destruct Message Feature"
 
+#: main/templates/main/faq.html:77
 msgid "Apa itu mode Self-Destruct?"
 msgstr "What is Self-Destruct mode?"
 
+#: main/templates/main/faq.html:83
 msgid ""
 "Mode Self-Destruct atau 'Bom Waktu' adalah fitur premium yang memungkinkan "
 "Anda mengirim pesan rahasia yang akan langsung terhapus dari database kami "
@@ -634,9 +1071,11 @@ msgstr ""
 "destroyed, there is no way (even by our technical team) to recover it. This "
 "is a guarantee of absolute privacy for you."
 
+#: main/templates/main/faq.html:93
 msgid "Apakah penerima masih bisa melakukan screenshot pesan?"
 msgstr "Can the recipient still take a screenshot of the message?"
 
+#: main/templates/main/faq.html:100
 msgid ""
 "Meskipun kami mencegah perekaman layar melalui sistem web di beberapa "
 "browser, fungsi screenshot bawaan perangkat masih dimungkinkan. Oleh karena "
@@ -648,12 +1087,15 @@ msgstr ""
 "advise you to remain wise in sending very sensitive information even when "
 "using single-read mode."
 
+#: main/templates/main/faq.html:110
 msgid "III. Layanan & Pengelolaan Akun"
 msgstr "III. Service & Account Management"
 
+#: main/templates/main/faq.html:117
 msgid "Berapa biaya penggunaan CurhatBox?"
 msgstr "How much does it cost to use CurhatBox?"
 
+#: main/templates/main/faq.html:124
 msgid ""
 "Layanan dasar CurhatBox adalah GRATIS selamanya. Kami didukung oleh iklan "
 "untuk menjaga server tetap menyala. Di masa depan, kami mungkin akan "
@@ -665,10 +1107,11 @@ msgstr ""
 "features for advanced customization, but the main messaging feature will "
 "always be free for everyone."
 
-#| msgid "Bagaimana jika saya menerima pesan kasar?"
+#: main/templates/main/faq.html:134
 msgid "Bagaimana jika saya lupa password?"
 msgstr "What if I forget my password?"
 
+#: main/templates/main/faq.html:141
 msgid ""
 "Kami menyediakan fitur pemulihan akun melalui alamat email yang Anda "
 "daftarkan. Pastikan untuk selalu menggunakan email yang aktif agar Anda "
@@ -678,9 +1121,11 @@ msgstr ""
 "Ensure you always use an active email so you do not lose access to your "
 "message dashboard."
 
+#: main/templates/main/faq.html:151
 msgid "Punya pertanyaan lain?"
 msgstr "Have other questions?"
 
+#: main/templates/main/faq.html:153
 msgid ""
 "Jika Anda tidak menemukan jawaban yang dicari, tim kami siap membantu "
 "melalui email resmi."
@@ -688,12 +1133,15 @@ msgstr ""
 "If you do not find the answer you are looking for, our team is ready to help"
 " via official email."
 
+#: main/templates/main/index.html:5
 msgid "CurhatBox - Kirim Pesan Rahasia Secara Anonim"
 msgstr "CurhatBox - Send Secret Messages Anonymously"
 
+#: main/templates/main/index.html:16
 msgid "Pesan Rahasia Generasi Baru 🎉"
 msgstr "Next Generation Secret Messages 🎉"
 
+#: main/templates/main/index.html:19
 msgid ""
 "Dapatkan Pesan <span class=\"gradient-text-light\">Jujur</span> dari "
 "Temanmu! 🤫"
@@ -701,6 +1149,7 @@ msgstr ""
 "Get <span class=\"gradient-text-light\">Honest</span> Messages from Your "
 "Friends! 🤫"
 
+#: main/templates/main/index.html:22
 msgid ""
 "Buat profil, bagikan link ke IG Story, dan terima pesan anonim rahasia, "
 "seru, atau kritikan pedas—tanpa pernah tahu siapa pengirimnya."
@@ -709,34 +1158,45 @@ msgstr ""
 "anonymous messages or sharp criticism—without ever knowing who the sender "
 "is."
 
+#: main/templates/main/index.html:30
 msgid "Mulai Gratis 🚀"
 msgstr "Start for Free 🚀"
 
+#: main/templates/main/index.html:37
 msgid "Buka Dasbor Saya ✨"
 msgstr "Open My Dashboard ✨"
 
+#: main/templates/main/index.html:59
 msgid "Pengirim Misterius"
 msgstr "Mysterious Sender"
 
+#: main/templates/main/index.html:60
 msgid "Baru saja"
 msgstr "Just now"
 
+#: main/templates/main/index.html:64
 msgid "\"Jujur, senyum lu manis banget pas nongkrong kemarin! 😊\""
 msgstr "\"Honestly, your smile was so sweet while hanging out yesterday! 😊\""
 
+#: main/templates/main/index.html:67
 msgid "Suka"
 msgstr "Like"
 
+#: main/templates/main/index.html:71
+#: main/templates/main/partials/message_card.html:145
 msgid "Balas"
 msgstr "Reply"
 
+#: main/templates/main/index.html:72
 msgid "Share IG"
 msgstr "Share to IG"
 
+#: main/templates/main/index.html:108
 #, python-format
 msgid "100%% Aman"
 msgstr "100%% Safe"
 
+#: main/templates/main/index.html:110
 msgid ""
 "Sistem mendeteksi spam & IP bermasalah. Identitas pengirim dikunci rapat "
 "dengan lapisan enkripsi solid."
@@ -744,9 +1204,11 @@ msgstr ""
 "The system detects spam & problematic IPs. Sender identity is tightly locked"
 " with a solid encryption layer."
 
+#: main/templates/main/index.html:123
 msgid "Sangat Cepat"
 msgstr "Very Fast"
 
+#: main/templates/main/index.html:125
 msgid ""
 "Cukup salin link pribadimu, tempel di Instagram Story atau Bio TikTok, dan "
 "rasakan keajaibannya seketika."
@@ -754,9 +1216,11 @@ msgstr ""
 "Just copy your private link, paste it in Instagram Stories or TikTok Bio, "
 "and feel the magic instantly."
 
+#: main/templates/main/index.html:138
 msgid "Respons Real-time"
 msgstr "Real-time Response"
 
+#: main/templates/main/index.html:140
 msgid ""
 "Dapatkan notifikasi instan begitu pesan rahasia masuk. Balas dan bagikan ke "
 "media sosial dengan desain estetik."
@@ -764,9 +1228,11 @@ msgstr ""
 "Get instant notifications as soon as secret messages arrive. Reply and share"
 " to social media with aesthetic designs."
 
+#: main/templates/main/index.html:151
 msgid "Mengapa Kita Membutuhkan Anonimitas di Era Digital?"
 msgstr "Why Do We Need Anonymity in the Digital Era?"
 
+#: main/templates/main/index.html:155
 msgid ""
 "Di era media sosial yang serba terbuka, di mana setiap unggahan dan komentar"
 " selalu dihakimi berdasarkan nama dan identitas fisik, manusia seringkali "
@@ -779,6 +1245,7 @@ msgstr ""
 " their purest thoughts or praises. This phenomenon creates a culture of fear"
 " of social judgment (<em>Social Judgment Fear</em>)."
 
+#: main/templates/main/index.html:158
 msgid ""
 "CurhatBox hadir sebagai antitesis terhadap tekanan tersebut. Dengan "
 "menghilangkan identitas pengirim, kita menormalisasi pertukaran kritik yang "
@@ -794,6 +1261,7 @@ msgstr ""
 "image, making communication much more authentic, honest, and not based on "
 "the sender's social status bias."
 
+#: main/templates/main/index.html:161
 msgid ""
 "Namun, kebebasan tanpa batas dapat memicu toksisitas. Itulah sebabnya "
 "CurhatBox secara eksklusif menggabungkan sistem perlindungan identitas "
@@ -806,12 +1274,15 @@ msgstr ""
 "Filter</em> algorithm to create an empowering, not degrading, <em>Safe "
 "Space</em>."
 
+#: main/templates/main/index.html:175
 msgid "Ekspresi jujur bebas dari validasi eksternal."
 msgstr "Honest expression free from external validation."
 
+#: main/templates/main/index.html:185
 msgid "Bagaimana CurhatBox Bekerja?"
 msgstr "How CurhatBox Works?"
 
+#: main/templates/main/index.html:187
 msgid ""
 "Kami membangun sistem perpesanan anonim yang paling transparan dan aman di "
 "Indonesia."
@@ -819,13 +1290,11 @@ msgstr ""
 "We build the most transparent and secure anonymous messaging system in "
 "Indonesia."
 
+#: main/templates/main/index.html:198
 msgid "Registrasi Akun Cepat"
 msgstr "Fast Account Registration"
 
-#| msgid ""
-#| "Daftarkan dirimu hanya dalam hitungan detik. Kami hanya membutuhkan username"
-#| " unik dan email valid untuk memastikan kamu memiliki kendali penuh atas "
-#| "kotak masukmu."
+#: main/templates/main/index.html:200
 msgid ""
 "Daftarkan dirimu hanya dalam hitungan detik. Kami hanya membutuhkan username"
 " unik untuk kendali penuh."
@@ -833,13 +1302,11 @@ msgstr ""
 "Register yourself in just seconds. We only need a unique username and a "
 "valid email to ensure you have full control over your inbox."
 
+#: main/templates/main/index.html:210
 msgid "Bagikan Link Kustom"
 msgstr "Share Custom Link"
 
-#| msgid ""
-#| "Dapatkan tautan unik seperti <code>curhatbox.my.id/username</code>. Bagikan "
-#| "tautan ini ke Instagram Story, Bio TikTok, atau status WhatsApp untuk "
-#| "mengundang teman-temanmu memberikan opini jujur."
+#: main/templates/main/index.html:212
 msgid ""
 "Dapatkan tautan unik. Bagikan ke Instagram Story, Bio TikTok, atau WhatsApp "
 "untuk mengundang opini jujur."
@@ -848,23 +1315,23 @@ msgstr ""
 "link to Instagram Stories, TikTok Bio, or WhatsApp status to invite your "
 "friends to give honest opinions."
 
+#: main/templates/main/index.html:222
 msgid "Terima Pesan Anonim"
 msgstr "Receive Anonymous Messages"
 
+#: main/templates/main/index.html:224
 msgid ""
 "Terima pesan real-time. Balas dengan emoji, atau bagikan screenshot estetik "
 "ke media sosial."
 msgstr ""
+"[EN] Terima pesan real-time. Balas dengan emoji, atau bagikan screenshot "
+"estetik ke media sosial."
 
+#: main/templates/main/index.html:231
 msgid "Misi Keamanan Kami"
 msgstr "Our Security Mission"
 
-#| msgid ""
-#| "Di CurhatBox, kami percaya bahwa kebebasan berpendapat tidak boleh "
-#| "mengorbankan kesehatan mental. Itulah sebabnya kami menerapkan algoritma "
-#| "penyaringan kata-kata kasar secara otomatis. Setiap pesan yang masuk "
-#| "melewati filter ketat untuk memastikan tidak ada perundungan (cyberbullying)"
-#| " yang terjadi di platform kami."
+#: main/templates/main/index.html:233
 msgid ""
 "Di CurhatBox, kami percaya bahwa kebebasan berpendapat tidak boleh "
 "mengorbankan kesehatan mental. Itulah sebabnya kami menerapkan algoritma "
@@ -875,6 +1342,7 @@ msgstr ""
 "algorithm. Every incoming message passes through strict filters to ensure no"
 " cyberbullying occurs on our platform."
 
+#: main/templates/main/index.html:236
 msgid ""
 "Gunakan fitur <strong>Blokir IP</strong> untuk menghentikan oknum yang "
 "menyalahgunakan anonimitas secara permanen."
@@ -882,10 +1350,173 @@ msgstr ""
 "Use the <strong>IP Block</strong> feature to permanently stop individuals "
 "who abuse anonymity."
 
-#| msgid "1 Platform, Ribuan Skenario Penggunaan"
+#: main/templates/main/index.html:248
+#| msgid "Berapa biaya penggunaan CurhatBox?"
+msgid "Apa Kata Mereka Tentang CurhatBox?"
+msgstr "[EN] How much does it cost to use CurhatBox?"
+
+#: main/templates/main/index.html:251
+msgid ""
+"Mulai dari influencer, pelajar, hingga pekerja korporat, jutaan pesan telah "
+"berhasil menyatukan perasaan yang selama ini terpendam. Kami percaya bahwa "
+"setiap narasi anonim memiliki kekuatan untuk mengubah hidup seseorang "
+"menjadi lebih damai dan bahagia."
+msgstr ""
+"[EN] Mulai dari influencer, pelajar, hingga pekerja korporat, jutaan pesan "
+"telah berhasil menyatukan perasaan yang selama ini terpendam. Kami percaya "
+"bahwa setiap narasi anonim memiliki kekuatan untuk mengubah hidup seseorang "
+"menjadi lebih damai dan bahagia."
+
+#: main/templates/main/index.html:267
+msgid ""
+"\"Awalnya saya hanya iseng memasang tautan CurhatBox di bio profil Instagram"
+" saya saat sedang merasa sangat terpuruk dan kehilangan motivasi. Tanpa saya"
+" duga, puluhan teman lama mengirimkan pesan dukungan anonim yang sangat "
+"tulus. Membaca pesan-pesan tersebut tanpa menghakimi siapa yang mengirimnya "
+"benar-benar menyembuhkan luka batin saya. Antarmuka penggunanya sangat "
+"cantik dan mode gelapnya sangat nyaman di mata, tidak seperti platform "
+"anonim lain yang sering error.\""
+msgstr ""
+"[EN] \"Awalnya saya hanya iseng memasang tautan CurhatBox di bio profil "
+"Instagram saya saat sedang merasa sangat terpuruk dan kehilangan motivasi. "
+"Tanpa saya duga, puluhan teman lama mengirimkan pesan dukungan anonim yang "
+"sangat tulus. Membaca pesan-pesan tersebut tanpa menghakimi siapa yang "
+"mengirimnya benar-benar menyembuhkan luka batin saya. Antarmuka penggunanya "
+"sangat cantik dan mode gelapnya sangat nyaman di mata, tidak seperti "
+"platform anonim lain yang sering error.\""
+
+#: main/templates/main/index.html:283
+msgid ""
+"\"Sebagai seorang pembuat konten YouTube, saya sangat membutuhkan kritikan "
+"objektif dari para penonton tanpa mereka merasa sungkan atau takut "
+"menyinggung perasaan saya secara publik. Fitur Sesi Pertanyaan Terbuka (QnA "
+"Session) dari platform ini sungguh menyelamatkan karier digital saya. Yang "
+"paling saya suka adalah sistem penyaring kata kotor otomatisnya. Saya tidak "
+"perlu sakit hati membaca makian, karena robot sistem ini langsung "
+"memblokirnya sebelum masuk ke dasbor pribadi saya. Solusi mutakhir untuk "
+"kreator!\""
+msgstr ""
+"[EN] \"Sebagai seorang pembuat konten YouTube, saya sangat membutuhkan "
+"kritikan objektif dari para penonton tanpa mereka merasa sungkan atau takut "
+"menyinggung perasaan saya secara publik. Fitur Sesi Pertanyaan Terbuka (QnA "
+"Session) dari platform ini sungguh menyelamatkan karier digital saya. Yang "
+"paling saya suka adalah sistem penyaring kata kotor otomatisnya. Saya tidak "
+"perlu sakit hati membaca makian, karena robot sistem ini langsung "
+"memblokirnya sebelum masuk ke dasbor pribadi saya. Solusi mutakhir untuk "
+"kreator!\""
+
+#: main/templates/main/index.html:299
+msgid ""
+"\"Privasi adalah segalanya bagi saya di era kebocoran data saat ini. Saya "
+"jatuh cinta dengan komitmen CurhatBox pada anonimitas absolut. Fakta bahwa "
+"mereka menyertakan opsi 'Pesan Sekali Baca'—di mana pesannya langsung musnah"
+" selamanya setelah dibuka satu kali—membuat pertukaran rahasia menjadi "
+"sangat mendebarkan layaknya agen mata-mata. Ditambah lagi, website ini bisa "
+"langsung diinstall di layar HP tanpa perlu menghabiskan ruang penyimpanan "
+"berkat integrasi teknologi Progressive Web App (PWA) miliknya.\""
+msgstr ""
+"[EN] \"Privasi adalah segalanya bagi saya di era kebocoran data saat ini. "
+"Saya jatuh cinta dengan komitmen CurhatBox pada anonimitas absolut. Fakta "
+"bahwa mereka menyertakan opsi 'Pesan Sekali Baca'—di mana pesannya langsung "
+"musnah selamanya setelah dibuka satu kali—membuat pertukaran rahasia menjadi"
+" sangat mendebarkan layaknya agen mata-mata. Ditambah lagi, website ini bisa"
+" langsung diinstall di layar HP tanpa perlu menghabiskan ruang penyimpanan "
+"berkat integrasi teknologi Progressive Web App (PWA) miliknya.\""
+
+#: main/templates/main/index.html:310
+msgid "Arsitektur Enkripsi & Jaring Laba-laba Perlindungan Privasi"
+msgstr "[EN] Arsitektur Enkripsi & Jaring Laba-laba Perlindungan Privasi"
+
+#: main/templates/main/index.html:314
+msgid ""
+"Keamanan informasi bukanlah sekadar opsi kosmetik bagi kami; ini adalah "
+"protokol absolut yang diintegrasikan ke dalam setiap lapisan kode "
+"pemrograman platform ini. Kami secara proaktif menggunakan arsitektur "
+"enkripsi tingkat tinggi berlapis ganda, didukung oleh lalu lintas komunikasi"
+" berbasis protokol Transport Layer Security (TLS 1.3) yang telah "
+"disertifikasi secara ketat. Ketika seorang pengirim menekan tombol luncurkan"
+" pesan, lalu lintas paket data tersebut otomatis terbungkus dalam algoritma "
+"kriptografi yang mencegah intersepsi data oleh peretas atau penyerang "
+"berbentuk serangan Man-in-the-Middle (MitM)."
+msgstr ""
+"[EN] Keamanan informasi bukanlah sekadar opsi kosmetik bagi kami; ini adalah"
+" protokol absolut yang diintegrasikan ke dalam setiap lapisan kode "
+"pemrograman platform ini. Kami secara proaktif menggunakan arsitektur "
+"enkripsi tingkat tinggi berlapis ganda, didukung oleh lalu lintas komunikasi"
+" berbasis protokol Transport Layer Security (TLS 1.3) yang telah "
+"disertifikasi secara ketat. Ketika seorang pengirim menekan tombol luncurkan"
+" pesan, lalu lintas paket data tersebut otomatis terbungkus dalam algoritma "
+"kriptografi yang mencegah intersepsi data oleh peretas atau penyerang "
+"berbentuk serangan Man-in-the-Middle (MitM)."
+
+#: main/templates/main/index.html:318
+msgid "Anomalisasi Lalu Lintas Database"
+msgstr "[EN] Anomalisasi Lalu Lintas Database"
+
+#: main/templates/main/index.html:320
+msgid ""
+"Kami tidak memanen data identifikasi personal pengirim. Meskipun sistem "
+"melakukan rekam jejak protokol alamat Internet (IP Address), angka mentah "
+"tersebut langsung di-obfuscate dan hanya digunakan sementara oleh mesin "
+"Anti-Spam kami (seperti Google reCAPTCHA v3) untuk memastikan perlindungan "
+"Denial-of-Service (DDoS) dari gerombolan bot internet. Semua data IP "
+"bersifat sementara dan tidak pernah diasosiasikan dengan histori psikometrik"
+" pengguna."
+msgstr ""
+"[EN] Kami tidak memanen data identifikasi personal pengirim. Meskipun sistem"
+" melakukan rekam jejak protokol alamat Internet (IP Address), angka mentah "
+"tersebut langsung di-obfuscate dan hanya digunakan sementara oleh mesin "
+"Anti-Spam kami (seperti Google reCAPTCHA v3) untuk memastikan perlindungan "
+"Denial-of-Service (DDoS) dari gerombolan bot internet. Semua data IP "
+"bersifat sementara dan tidak pernah diasosiasikan dengan histori psikometrik"
+" pengguna."
+
+#: main/templates/main/index.html:324
+msgid "Penyaringan Semantik Bertenaga Artifisial"
+msgstr "[EN] Penyaringan Semantik Bertenaga Artifisial"
+
+#: main/templates/main/index.html:326
+msgid ""
+"Tim rekayasa perangkat lunak (Software Engineering) kami juga mendesain "
+"tumpukan mesin pengurai tata bahasa yang berjalan mulus di belakang layar "
+"(Back-End Daemons). Mesin penganalisis teks ini secara otonom membedah tata "
+"bahasa dari tiap pesan yang masuk. Jika terdeteksi adanya terminologi "
+"radikal, rasialis, ujaran kebencian persisten (Hate Speech), maupun ancaman "
+"yang mencederai stabilitas mental sosial, pesan tersebut akan digugurkan "
+"sebelum menyentuh soket jaringan penerima."
+msgstr ""
+"[EN] Tim rekayasa perangkat lunak (Software Engineering) kami juga mendesain"
+" tumpukan mesin pengurai tata bahasa yang berjalan mulus di belakang layar "
+"(Back-End Daemons). Mesin penganalisis teks ini secara otonom membedah tata "
+"bahasa dari tiap pesan yang masuk. Jika terdeteksi adanya terminologi "
+"radikal, rasialis, ujaran kebencian persisten (Hate Speech), maupun ancaman "
+"yang mencederai stabilitas mental sosial, pesan tersebut akan digugurkan "
+"sebelum menyentuh soket jaringan penerima."
+
+#: main/templates/main/index.html:331
+#| msgid "I. Keamanan & Privasi"
+msgid "Deklarasi Kemandirian Privasi"
+msgstr "[EN] I. Security & Privacy"
+
+#: main/templates/main/index.html:333
+msgid ""
+"Kami menegaskan secara hukum dan teknis: identitas pengirim tidak dapat "
+"dibeli, diretas, atau diminta oleh pengguna mana pun dengan alasan apa pun. "
+"Hal ini merupakan perwujudan dari Piagam Komunitas CurhatBox untuk membangun"
+" arena komunikasi global yang adil, jujur, dan beradab. Komitmen privasi ini"
+" dijaga konstan 24 jam sehari, 7 hari seminggu."
+msgstr ""
+"[EN] Kami menegaskan secara hukum dan teknis: identitas pengirim tidak dapat"
+" dibeli, diretas, atau diminta oleh pengguna mana pun dengan alasan apa pun."
+" Hal ini merupakan perwujudan dari Piagam Komunitas CurhatBox untuk "
+"membangun arena komunikasi global yang adil, jujur, dan beradab. Komitmen "
+"privasi ini dijaga konstan 24 jam sehari, 7 hari seminggu."
+
+#: main/templates/main/index.html:344
 msgid "1 Platform, Ribuan Skenario"
 msgstr "1 Platform, Thousands of Scenarios"
 
+#: main/templates/main/index.html:346
 msgid ""
 "Dari konten hiburan di media sosial hingga instrumen evaluasi kinerja "
 "profesional. Temukan bagaimana berbagai kalangan di seluruh dunia "
@@ -895,10 +1526,11 @@ msgstr ""
 "evaluation instruments. Discover how various people around the world utilize"
 " this anonymous message box."
 
-#| msgid "Kreator Konten (Sesi Q&A)"
+#: main/templates/main/index.html:354
 msgid "Kreator Konten"
 msgstr "Content Creators"
 
+#: main/templates/main/index.html:357
 msgid ""
 "Sempurna untuk sesi Q&A di <em>IG Stories</em> atau <em>TikTok</em>. "
 "Memungkinkan audiens bertanya hal-hal pribadi atau memberikan pujian secara "
@@ -908,10 +1540,11 @@ msgstr ""
 "the audience to ask personal questions or give secret compliments to "
 "increase interaction."
 
-#| msgid "Dunia Kerja & StartUp"
+#: main/templates/main/index.html:365
 msgid "Dunia Kerja"
 msgstr "Corporate World & StartUps"
 
+#: main/templates/main/index.html:368
 msgid ""
 "Gunakan untuk <em>Peer Review</em> jujur tanpa rasa sungkan. HRD bisa "
 "menyerap umpan balik radikal terkait kepemimpinan atau kritik produk secara "
@@ -920,9 +1553,11 @@ msgstr ""
 "Use for honest <em>Peer Review</em> without hesitation. HR can absorb "
 "radical feedback regarding leadership or product criticism safely."
 
+#: main/templates/main/index.html:376
 msgid "Lingkup Sosial"
 msgstr "Social Scope"
 
+#: main/templates/main/index.html:379
 msgid ""
 "Kirim surat cinta rahasia, ledek gaya pakaian teman secara cerdas, atau "
 "sampaikan keluhan tanpa merusak ikatan silaturahmi sosial."
@@ -930,9 +1565,11 @@ msgstr ""
 "Send secret love letters, intelligently tease friends style, or convey "
 "complaints without damaging social ties."
 
+#: main/templates/main/index.html:389
 msgid "Apa Kata Fakta di Lapangan?"
 msgstr "What do the Facts on the Ground Say?"
 
+#: main/templates/main/index.html:391
 msgid ""
 "Efek langsung yang dirasakan oleh pengguna setelah mengadopsi transparansi "
 "komunikasi secara rahasia."
@@ -940,6 +1577,7 @@ msgstr ""
 "Immediate effects felt by users after adopting confidential communication "
 "transparency."
 
+#: main/templates/main/index.html:401
 msgid ""
 "\"Sungguh pengalaman sosial eksperimental yang memukau. Awalnya kepanitiaan "
 "bem kami itu super kaku karena anggota sungkan kepada angkatan yang lebih "
@@ -954,9 +1592,11 @@ msgstr ""
 "bluntly, yet amazingly the language remained polite thanks to the profanity "
 "filter.\""
 
+#: main/templates/main/index.html:409
 msgid "Presiden Eksekutif BEM"
 msgstr "Executive President of Student Union"
 
+#: main/templates/main/index.html:420
 msgid ""
 "\"Dari segi keamanan aplikasi ini harus diacungi jempol. Gue pernah dapet "
 "spam hatespeech norak bertubi-tubi jam dua pagi saat lagi rilis laguku. "
@@ -970,9 +1610,11 @@ msgstr ""
 "stopped completely from any point on earth. Feeling absolute control over "
 "one's private space is liberating.\""
 
+#: main/templates/main/index.html:428
 msgid "Musisi Indie & Influencer"
 msgstr "Indie Musician & Influencer"
 
+#: main/templates/main/index.html:439
 msgid ""
 "\"Awalnya iseng masang link beginian di Bio IG pribadi cuma buat seru-seruan"
 " bareng lingkar pertemanan warkop. Eh malah suatu hari ada yang ngasih tahu "
@@ -985,13 +1627,15 @@ msgstr ""
 "dark secret through this box! My favorite feature is the Self-Destruct "
 "Message, which vanishes as soon as it's closed. Truly leak-proof.\""
 
+#: main/templates/main/index.html:447
 msgid "Gamer Esports Amatir"
 msgstr "Amateur Esports Gamer"
 
-#| msgid "Keamanan Utama"
+#: main/templates/main/index.html:465
 msgid "Keamanan & Etika Digital"
 msgstr "Security & Digital Ethics"
 
+#: main/templates/main/index.html:469
 msgid ""
 "Di CurhatBox, kami berkomitmen untuk menciptakan ruang yang aman bagi "
 "ekspresi diri yang jujur. Namun, kebebasan berekspresi secara anonim "
@@ -1004,9 +1648,11 @@ msgstr ""
 "harmful actions. That is why we have compiled these guidelines to ensure "
 "every interaction remains positive and empowering."
 
+#: main/templates/main/index.html:471
 msgid "1. Menghargai Batasan Pribadi"
 msgstr "1. Respecting Personal Boundaries"
 
+#: main/templates/main/index.html:473
 msgid ""
 "Gunakan anonimitas untuk memberikan apresiasi, kritik membangun, atau "
 "pertanyaan menarik. Jangan gunakan fitur ini untuk mengintimidasi, merundung"
@@ -1018,9 +1664,11 @@ msgstr ""
 "(cyberbullying), or perform verbal sexual harassment. Remember that behind "
 "every profile is a human with real feelings."
 
+#: main/templates/main/index.html:475
 msgid "2. Melindungi Privasi Anda Sendiri"
 msgstr "2. Protecting Your Own Privacy"
 
+#: main/templates/main/index.html:477
 msgid ""
 "Meskipun kami menjamin kerahasiaan identitas pengirim, kami menyarankan Anda"
 " untuk tidak membagikan informasi pribadi yang sensitif seperti alamat "
@@ -1032,9 +1680,11 @@ msgstr ""
 "addresses, account numbers, or passwords in anonymous messages. Digital "
 "security starts with personal awareness in sharing information."
 
+#: main/templates/main/index.html:479
 msgid "3. Melawan Toksisitas"
 msgstr "3. Fighting Toxicity"
 
+#: main/templates/main/index.html:481
 msgid ""
 "Kami telah menyediakan fitur Blokir IP yang sangat mudah diakses. Jika Anda "
 "adalah pemilik profil dan menerima pesan yang tidak pantas, jangan ragu "
@@ -1046,9 +1696,11 @@ msgstr ""
 "them permanently. Your firm action help keep the CurhatBox community clean "
 "from irresponsible individuals."
 
+#: main/templates/main/index.html:483
 msgid "4. Transparansi Algoritma"
 msgstr "4. Algorithmic Transparency"
 
+#: main/templates/main/index.html:485
 msgid ""
 "Sistem kami secara otomatis memfilter kata-kata kasar dan diskriminatif. "
 "Pesan yang terdeteksi mengandung unsur SARA atau ujaran kebencian mungkin "
@@ -1060,9 +1712,11 @@ msgstr ""
 "recipient's inbox. We continue to update our forbidden word database to "
 "follow current language trends."
 
+#: main/templates/main/index.html:494
 msgid "Keamanan Anda adalah prioritas nomor satu kami."
 msgstr "Your security is our number one priority."
 
+#: main/templates/main/index.html:497
 msgid ""
 "Data Anda dienkripsi dan kami mematuhi standar privasi data internasional "
 "untuk menjaga anonimitas mutlak."
@@ -1070,12 +1724,15 @@ msgstr ""
 "Your data is encrypted and we comply with international data privacy "
 "standards to ensure absolute anonymity."
 
+#: main/templates/main/index.html:509
 msgid "Pertanyaan yang Sering Diajukan (FAQ)"
 msgstr "Frequently Asked Questions (FAQ)"
 
+#: main/templates/main/index.html:514
 msgid "Apakah CurhatBox benar-benar anonim?"
 msgstr "Is CurhatBox truly anonymous?"
 
+#: main/templates/main/index.html:517
 #, python-format
 msgid ""
 "Ya, 100%%. Kami tidak menyimpan data pribadi pengirim selain alamat IP untuk"
@@ -1086,9 +1743,11 @@ msgstr ""
 "IP address for security purposes (anti-spam). The recipient will never know "
 "who the sender is unless the sender tells them."
 
+#: main/templates/main/index.html:522
 msgid "Bagaimana cara kerja fitur Pesan Sekali Baca?"
 msgstr "How does the Self-Destruct Message feature work?"
 
+#: main/templates/main/index.html:525
 msgid ""
 "Mode <em>Self-Destruct</em> memastikan pesan akan terhapus dari server "
 "segera setelah penerima membukanya untuk pertama kalinya. Ini adalah "
@@ -1098,9 +1757,11 @@ msgstr ""
 "the server immediately after the recipient opens it for the first time. This"
 " is high-level privacy protection from us."
 
+#: main/templates/main/index.html:532
 msgid "Bagaimana cara membagikan link ke Instagram?"
 msgstr "How to share the link to Instagram?"
 
+#: main/templates/main/index.html:535
 msgid ""
 "Buka dasbor Anda, salin link profil, lalu gunakan fitur 'Stiker Tautan' di "
 "Instagram Story. Tempelkan link Anda di sana dan tunggu pesan masuk!"
@@ -1109,9 +1770,11 @@ msgstr ""
 "feature on Instagram Stories. Paste your link there and wait for messages to"
 " come in!"
 
+#: main/templates/main/index.html:540
 msgid "Bagaimana jika saya menerima pesan kasar?"
 msgstr "What if I receive a rude message?"
 
+#: main/templates/main/index.html:543
 msgid ""
 "Anda bisa langsung memblokir pengirim tersebut menggunakan fitur 'Blokir IP'"
 " yang ada di bawah setiap pesan yang Anda terima."
@@ -1119,27 +1782,130 @@ msgstr ""
 "You can directly block that sender using the 'Block IP' feature located "
 "under every message you receive."
 
+#: main/templates/main/install.html:4
+msgid "Unduh Aplikasi"
+msgstr "[EN] Unduh Aplikasi"
+
+#: main/templates/main/install.html:14
+msgid "Bawa CurhatBox ke Layar HP-mu"
+msgstr "[EN] Bawa CurhatBox ke Layar HP-mu"
+
+#: main/templates/main/install.html:17
+msgid ""
+"Nikmati pengalaman kirim pesan anonim yang lebih cepat, stabil, dan premium "
+"dengan menginstal aplikasi CurhatBox langsung tanpa lewat Play Store."
+msgstr ""
+"[EN] Nikmati pengalaman kirim pesan anonim yang lebih cepat, stabil, dan "
+"premium dengan menginstal aplikasi CurhatBox langsung tanpa lewat Play "
+"Store."
+
+#: main/templates/main/install.html:22
+#| msgid "Masuk Sekarang"
+msgid "Siap Pasang Sekarang?"
+msgstr "[EN] Login Now"
+
+#: main/templates/main/install.html:24
+#| msgid "Sponsor CurhatBox"
+msgid "Instal CurhatBox App"
+msgstr "[EN] CurhatBox Sponsor"
+
+#: main/templates/main/install.html:37
+msgid "Buka CurhatBox di <b>Chrome</b>."
+msgstr "[EN] Buka CurhatBox di <b>Chrome</b>."
+
+#: main/templates/main/install.html:38
+msgid ""
+"Klik tombol <b>Install</b> di atas atau klik titik tiga (⋮) di pojok kanan."
+msgstr ""
+"[EN] Klik tombol <b>Install</b> di atas atau klik titik tiga (⋮) di pojok "
+"kanan."
+
+#: main/templates/main/install.html:39
+msgid "Pilih <b>Install App</b> (Pasang Aplikasi)."
+msgstr "[EN] Pilih <b>Install App</b> (Pasang Aplikasi)."
+
+#: main/templates/main/install.html:52
+msgid "Buka CurhatBox di <b>Safari</b>."
+msgstr "[EN] Buka CurhatBox di <b>Safari</b>."
+
+#: main/templates/main/install.html:53
+msgid "Klik tombol <b>Share</b> (kotak dengan panah ke atas)."
+msgstr "[EN] Klik tombol <b>Share</b> (kotak dengan panah ke atas)."
+
+#: main/templates/main/install.html:54
+msgid "Geser ke bawah dan pilih <b>Add to Home Screen</b>."
+msgstr "[EN] Geser ke bawah dan pilih <b>Add to Home Screen</b>."
+
+#: main/templates/main/install.html:67
+msgid "Gunakan <b>Google Chrome</b> atau <b>Edge</b>."
+msgstr "[EN] Gunakan <b>Google Chrome</b> atau <b>Edge</b>."
+
+#: main/templates/main/install.html:68
+msgid "Klik ikon monitor dengan panah bawah di sebelah bintang (Address Bar)."
+msgstr ""
+"[EN] Klik ikon monitor dengan panah bawah di sebelah bintang (Address Bar)."
+
+#: main/templates/main/install.html:69
+msgid "Klik <b>Install</b>."
+msgstr "[EN] Klik <b>Install</b>."
+
+#: main/templates/main/install.html:77 main/templates/main/privacy.html:52
+#: main/templates/main/rules.html:147
+msgid "Kembali ke Beranda"
+msgstr "Back to Home"
+
+#: main/templates/main/offline.html:4
+msgid "Sedang Offline"
+msgstr "[EN] Sedang Offline"
+
+#: main/templates/main/offline.html:13
+msgid "Kamu Sedang Offline"
+msgstr "[EN] Kamu Sedang Offline"
+
+#: main/templates/main/offline.html:15
+msgid ""
+"Oops! Sepertinya koneksi internetmu terputus. Jangan khawatir, kamu masih "
+"bisa membuka aplikasi CurhatBox, tapi kami belum bisa mengirim atau menerima"
+" pesan baru sampai kamu kembali online."
+msgstr ""
+"[EN] Oops! Sepertinya koneksi internetmu terputus. Jangan khawatir, kamu "
+"masih bisa membuka aplikasi CurhatBox, tapi kami belum bisa mengirim atau "
+"menerima pesan baru sampai kamu kembali online."
+
+#: main/templates/main/offline.html:19
+#| msgid "Batalkan & Kembali"
+msgid "Coba Hubungkan Kembali"
+msgstr "[EN] Cancel"
+
+#: main/templates/main/partials/adsense_slot.html:13
 msgid "Sponsor CurhatBox"
 msgstr "CurhatBox Sponsor"
 
+#: main/templates/main/partials/message_card.html:17
 msgid "🔥 BOM WAKTU (SEKALI BACA)"
 msgstr "🔥 TIME BOMB (ONE-TIME READ)"
 
+#: main/templates/main/partials/message_card.html:28
 msgid "Pinned"
 msgstr "Pinned"
 
+#: main/templates/main/partials/message_card.html:34
 msgid "BARU"
 msgstr "NEW"
 
+#: main/templates/main/partials/message_card.html:41
 msgid "Hint Pengirim"
 msgstr "Sender Hint"
 
+#: main/templates/main/partials/message_card.html:42
 msgid "Dari:"
 msgstr "From:"
 
+#: main/templates/main/partials/message_card.html:56
 msgid "Pesan Rahasia Tertutup"
 msgstr "Closed Secret Message"
 
+#: main/templates/main/partials/message_card.html:60
 msgid ""
 "Pesan ini dikirim dengan mode <b>Self-Destruct</b>. Seluruh huruf dan kata "
 "di dalamnya akan langsung musnah dari sistem ketika Anda membukanya."
@@ -1147,60 +1913,75 @@ msgstr ""
 "This message was sent with <b>Self-Destruct</b> mode. All letters and words "
 "inside it will immediately vanish from the system when you open it."
 
+#: main/templates/main/partials/message_card.html:68
 msgid "Buka & Hancurkan Pesan 🔥"
 msgstr "Open & Destroy Message 🔥"
 
+#: main/templates/main/partials/message_card.html:94
 msgid "Reaksi"
 msgstr "Reaction"
 
+#: main/templates/main/partials/message_card.html:106
 msgid "Hapus Reaksi"
 msgstr "Remove Reaction"
 
+#: main/templates/main/partials/message_card.html:123
 msgid "Balasan Kamu:"
 msgstr "Your Reply:"
 
+#: main/templates/main/partials/message_card.html:143
 msgid "Edit"
 msgstr "Edit"
 
-#| msgid "📸 Share ke IG Story"
+#: main/templates/main/partials/message_card.html:152
 msgid "📸 Share"
 msgstr "📸 Share to IG Story"
 
+#: main/templates/main/partials/message_card.html:166
 msgid "Pin Pesan"
 msgstr "Pin Message"
 
+#: main/templates/main/partials/message_card.html:180
 msgid "Blokir IP Pengirim"
 msgstr "Block Sender IP"
 
+#: main/templates/main/partials/message_card.html:193
 msgid "Hapus Pesan"
 msgstr "Delete Message"
 
+#: main/templates/main/partials/message_card.html:208
 msgid "Balas Pesan Rahasia"
 msgstr "Reply Secret Message"
 
+#: main/templates/main/partials/message_card.html:220
 msgid "Pesan masuk:"
 msgstr "Incoming message:"
 
+#: main/templates/main/partials/message_card.html:226
 msgid "Jawaban kamu:"
 msgstr "Your answer:"
 
-#| msgid "Tulis balasanmu di sini..."
+#: main/templates/main/partials/message_card.html:231
 msgid "Tulis jawaban terbaikmu di sini..."
 msgstr "Write your reply here..."
 
+#: main/templates/main/partials/message_card.html:235
 msgid "Publikasikan agar bisa di-share ke IG"
 msgstr "Publish so it can be shared to IG"
 
-#| msgid "Kirim & Publikasikan 🚀"
+#: main/templates/main/partials/message_card.html:241
 msgid "Kirim & Publikasikan"
 msgstr "Send & Publish 🚀"
 
+#: main/templates/main/privacy.html:4
 msgid "Kebijakan Privasi - CurhatBox"
 msgstr "Privacy Policy - CurhatBox"
 
+#: main/templates/main/privacy.html:12
 msgid "Terakhir Diperbarui: 21 Maret 2026"
 msgstr "Last Updated: March 21, 2026"
 
+#: main/templates/main/privacy.html:16
 msgid ""
 "<p>Di <strong>CurhatBox</strong> (selanjutnya disebut sebagai \"Situs\", "
 "\"Kami\", atau \"Layanan\"), dapat diakses dari curhatbox.my.id, salah satu "
@@ -1214,6 +1995,7 @@ msgstr ""
 "contains types of information collected and recorded by CurhatBox and how we"
 " use it.</p>"
 
+#: main/templates/main/privacy.html:18
 msgid ""
 "Jika Anda memiliki pertanyaan tambahan atau memerlukan informasi lebih "
 "lanjut tentang Kebijakan Privasi kami, jangan ragu untuk menghubungi kami."
@@ -1221,9 +2003,11 @@ msgstr ""
 "If you have additional questions or require more information about our "
 "Privacy Policy, do not hesitate to contact us."
 
+#: main/templates/main/privacy.html:21
 msgid "1. File Log"
 msgstr "1. Log Files"
 
+#: main/templates/main/privacy.html:22
 msgid ""
 "<p>CurhatBox mengikuti prosedur standar menggunakan file log. File-file ini "
 "mencatat pengunjung ketika mereka mengunjungi situs web. Semua perusahaan "
@@ -1245,9 +2029,11 @@ msgstr ""
 "administering the site, tracking users' movement on the website, and "
 "gathering demographic information.</p>"
 
+#: main/templates/main/privacy.html:24
 msgid "2. Cookies dan Web Beacons"
 msgstr "2. Cookies and Web Beacons"
 
+#: main/templates/main/privacy.html:26
 msgid ""
 "<p>Seperti situs web lainnya, CurhatBox menggunakan 'cookies'. Cookies ini "
 "digunakan untuk menyimpan informasi termasuk preferensi pengunjung, dan "
@@ -1267,6 +2053,7 @@ msgstr ""
 "the users' experience by customizing our web page content based on visitors'"
 " browser type and/or other information.</p>"
 
+#: main/templates/main/privacy.html:27
 msgid ""
 "<p>Anda dapat memilih untuk menonaktifkan cookie melalui pengaturan browser "
 "individual Anda. Mengetahui informasi lebih rinci tentang manajemen cookie "
@@ -1277,9 +2064,11 @@ msgstr ""
 "options. To know more detailed information about cookie management with "
 "specific web browsers at the browsers' respective websites can be found.</p>"
 
+#: main/templates/main/privacy.html:29
 msgid "3. Google DoubleClick DART Cookie"
 msgstr "3. Google DoubleClick DART Cookie"
 
+#: main/templates/main/privacy.html:31
 msgid ""
 "<p>Google adalah salah satu vendor pihak ketiga di situs kami. Google juga "
 "menggunakan cookie, yang dikenal as DART cookie, untuk menayangkan iklan "
@@ -1290,6 +2079,7 @@ msgstr ""
 "cookies, known as DART cookies, to serve ads to our site visitors based on "
 "their visit to www.curhatbox.my.id and other sites on the internet.</p>"
 
+#: main/templates/main/privacy.html:32
 msgid ""
 "<p>Namun, pengunjung dapat memilih untuk menolak penggunaan DART cookie "
 "dengan mengunjungi Kebijakan Privasi jaringan iklan dan konten Google di URL"
@@ -1305,9 +2095,11 @@ msgstr ""
 "text-decoration-none hover-"
 "lift\">https://policies.google.com/technologies/ads</a></p>"
 
+#: main/templates/main/privacy.html:34
 msgid "4. Mitra Periklanan Kami (Google AdSense)"
 msgstr "4. Our Advertising Partners (Google AdSense)"
 
+#: main/templates/main/privacy.html:36
 msgid ""
 "<p>Beberapa pengiklan di situs kami mungkin menggunakan cookie dan web "
 "beacon. Mitra periklanan kami tercantum di bawah ini. Masing-masing mitra "
@@ -1320,6 +2112,7 @@ msgstr ""
 "their own Privacy Policy for their policies on user data. For easier access,"
 " we link to their Privacy Policies above.</p>"
 
+#: main/templates/main/privacy.html:37
 msgid ""
 "<p>Server iklan atau jaringan iklan pihak ketiga menggunakan teknologi "
 "seperti cookies, JavaScript, atau Web Beacons yang digunakan dalam iklan dan"
@@ -1337,6 +2130,7 @@ msgstr ""
 "campaigns and/or to personalize the advertising content that you see on "
 "websites that you visit.</p>"
 
+#: main/templates/main/privacy.html:38
 msgid ""
 "<p>Situs kami <strong>CurhatBox</strong> tidak memiliki akses ke atau "
 "kontrol atas cookie ini yang digunakan oleh pengiklan pihak ketiga.</p>"
@@ -1344,9 +2138,11 @@ msgstr ""
 "<p>Our site <strong>CurhatBox</strong> has no access to or control over "
 "these cookies that are used by third-party advertisers.</p>"
 
+#: main/templates/main/privacy.html:39
 msgid "5. Informasi Anak"
 msgstr "5. Children's Information"
 
+#: main/templates/main/privacy.html:40
 msgid ""
 "<p>Bagian lain dari prioritas kami adalah menambahkan perlindungan untuk "
 "anak-anak saat menggunakan internet. Kami mendorong orang tua dan wali untuk"
@@ -1357,6 +2153,7 @@ msgstr ""
 "using the internet. We encourage parents and guardians to observe, "
 "participate in, and/or monitor and guide their online activity.</p>"
 
+#: main/templates/main/privacy.html:41
 msgid ""
 "<p>CurhatBox tidak secara sadar mengumpulkan Informasi Identifikasi Pribadi "
 "apa pun dari anak-anak di bawah usia 13 tahun. Jika Anda merasa bahwa anak "
@@ -1371,9 +2168,11 @@ msgstr ""
 "to contact us immediately and we will do our best efforts to promptly remove"
 " such information from our records.</p>"
 
+#: main/templates/main/privacy.html:43
 msgid "6. Kebijakan Privasi Online Saja"
 msgstr "6. Online Privacy Policy Only"
 
+#: main/templates/main/privacy.html:45
 msgid ""
 "<p>Kebijakan Privasi ini hanya berlaku untuk aktivitas online kami dan "
 "berlaku bagi pengunjung halaman situs web kami sehubungan dengan informasi "
@@ -1386,9 +2185,11 @@ msgstr ""
 " and/or collect in CurhatBox. This policy is not applicable to any "
 "information collected offline or via channels other than this website.</p>"
 
+#: main/templates/main/privacy.html:46
 msgid "7. Persetujuan"
 msgstr "7. Consent"
 
+#: main/templates/main/privacy.html:47
 msgid ""
 "<p>Dengan menggunakan situs web kami, Anda dengan ini menyetujui Kebijakan "
 "Privasi kami dan menyetujui Syarat dan Ketentuannya.</p>"
@@ -1396,37 +2197,61 @@ msgstr ""
 "<p>By using our website, you hereby consent to our Privacy Policy and agree "
 "to its Terms and Conditions.</p>"
 
-msgid "Kembali ke Beranda"
-msgstr "Back to Home"
-
+#: main/templates/main/profile_public.html:7
 #, python-format
-msgid "Kirim pesan ke %(target_user.username)s"
-msgstr "Send a message to %(target_user.username)s"
+#| msgid "Kirim pesan ke"
+msgid "Kirim pesan ke %(name)s"
+msgstr "[EN] Kirim pesan ke %(name)s"
 
+#: main/templates/main/profile_public.html:14
+#, python-format
+#| msgid "Kirim pesan rahasia di"
+msgid "Kirim pesan rahasia ke @%(name)s 🚀"
+msgstr "[EN] Kirim pesan rahasia ke @%(name)s 🚀"
+
+#: main/templates/main/profile_public.html:16
+msgid ""
+"Sampaikan curhatan, kritik, atau pesan rahasiamu secara anonim di CurhatBox."
+" Aman & Jujur."
+msgstr ""
+"Send your curhatan, criticism, or secret messages anonymously on CurhatBox. "
+"Safe & Honest."
+
+#: main/templates/main/profile_public.html:29
+#| msgid "Kirimkan saya pesan rahasia!"
+msgid "Kirimkan pesan rahasia anonimmu sekarang!"
+msgstr "[EN] Send me a secret message!"
+
+#: main/templates/main/profile_public.html:102
 msgid "Kirimkan saya pesan rahasia!"
 msgstr "Send me a secret message!"
 
-#| msgid "Tulis pesan rahasiamu di sini:"
+#: main/templates/main/profile_public.html:113
 msgid "Tulis pesan rahasiamu:"
 msgstr "Write your secret message:"
 
-#| msgid ""
-#| "Jangan ragu, sampaikan apa yang ada di pikiranmu. Saya tidak akan pernah "
-#| "tahu siapa kamu..."
+#: main/templates/main/profile_public.html:120
+#| msgid "Tulis jawaban terbaikmu di sini..."
+msgid "Ketik jawaban rahasiamu di sini..."
+msgstr "[EN] Write your reply here..."
+
+#: main/templates/main/profile_public.html:120
 msgid "Sampaikan apa saja, saya tidak tahu siapa kamu..."
 msgstr "Say anything, I don't know who you are..."
 
-#| msgid "Mode Sekali Baca (SND)"
+#: main/templates/main/profile_public.html:131
 msgid "Mode Sekali Baca"
 msgstr "Self-Destruct Mode"
 
-#| msgid "Kirim Pesan Rahasia 🚀"
+#: main/templates/main/profile_public.html:137
 msgid "Kirim Anonim 🚀"
 msgstr "Send Anonymously 🚀"
 
+#: main/templates/main/profile_public.html:249
 msgid "Tips Kirim Pesan yang Berkesan"
 msgstr "Tips for Sending Memorable Messages"
 
+#: main/templates/main/profile_public.html:253
 msgid ""
 "Mengirim pesan anonim adalah seni dalam berkomunikasi secara jujur. Agar "
 "pesanmu mendapat balasan yang seru dari pemilik profil, cobalah untuk "
@@ -1437,27 +2262,34 @@ msgstr ""
 "message to get an exciting response from the profile owner, try using polite"
 " and engaging language. Avoid offensive or harmful words."
 
+#: main/templates/main/profile_public.html:256
 msgid "Berikan pujian yang tulus tentang kepribadian atau karya mereka."
 msgstr "Give sincere praise about their personality or work."
 
+#: main/templates/main/profile_public.html:257
 msgid "Tanyakan pertanyaan 'Deep Talk' yang memancing pemikiran mendalam."
 msgstr "Ask 'Deep Talk' questions that provoke deep thinking."
 
+#: main/templates/main/profile_public.html:258
 msgid ""
 "Gunakan emoji untuk mengekspresikan nada bicaramu agar tidak salah paham."
 msgstr "Use emojis to express your tone so there are no misunderstandings."
 
+#: main/templates/main/profile_public.html:265
 msgid "Tentang Komunitas CurhatBox"
 msgstr "About CurhatBox Community"
 
+#: main/templates/main/profile_public.html:267
 msgid ""
 "Bergabunglah dengan ribuan pengguna yang saling berbagi kejujuran setiap "
 "hari."
 msgstr "Join thousands of users sharing honesty every day."
 
+#: main/templates/main/profile_public.html:273
 msgid "Bebas Berekspresi"
 msgstr "Freedom of Expression"
 
+#: main/templates/main/profile_public.html:275
 msgid ""
 "Sampaikan apresiasi, kritik membangun, atau rahasia yang terpendam tanpa "
 "takut dihakimi."
@@ -1465,9 +2297,11 @@ msgstr ""
 "Convey appreciation, constructive criticism, or buried secrets without fear "
 "of judgment."
 
+#: main/templates/main/profile_public.html:282
 msgid "Keamanan Utama"
 msgstr "Top Security"
 
+#: main/templates/main/profile_public.html:284
 msgid ""
 "Kami menggunakan filter kata otomatis dan perlindungan IP untuk menjaga "
 "komunitas tetap sehat."
@@ -1475,16 +2309,28 @@ msgstr ""
 "We use automatic word filters and IP protection to keep the community "
 "healthy."
 
+#: main/templates/main/register.html:4 main/templates/main/register.html:18
 msgid "Daftar Akun Baru"
 msgstr "Register New Account"
 
-#| msgid "Bergabunglah dan terima pesan rahasia hari ini."
+#: main/templates/main/register.html:19
 msgid "Terima pesan rahasia hari ini."
 msgstr "Join and receive secret messages today."
 
+#: main/templates/main/register.html:37
 msgid "Buat Akun Sekarang"
 msgstr "Create Account Now"
 
+#: main/templates/main/register.html:44
+msgid "Atau daftar super cepat"
+msgstr "[EN] Atau daftar super cepat"
+
+#: main/templates/main/register.html:48
+#: main/templates/registration/login.html:53
+msgid "Lanjutkan dengan Google"
+msgstr "[EN] Lanjutkan dengan Google"
+
+#: main/templates/main/register.html:52
 #, python-format
 msgid ""
 "Sudah punya akun? <a href=\"%(login_url)s\" class=\"fw-bold text-primary "
@@ -1493,36 +2339,46 @@ msgstr ""
 "Already have an account? <a href=\"%(login_url)s\" class=\"fw-bold text-"
 "primary text-decoration-none\">Login here</a>"
 
+#: main/templates/main/reveal_message.html:4
 msgid "Pesan Terbuka | CurhatBox"
 msgstr "Open Message | CurhatBox"
 
+#: main/templates/main/reveal_message.html:10
 msgid "BOM WAKTU AKTIF 💣"
 msgstr "TIME BOMB ACTIVE 💣"
 
+#: main/templates/main/reveal_message.html:12
 msgid ""
 "Satu-satunya kesempatanmu membaca pesan ini.<br>Setelah ini ditutup, sistem "
 "menghapusnya permanen."
 msgstr ""
+"[EN] Satu-satunya kesempatanmu membaca pesan ini.<br>Setelah ini ditutup, "
+"sistem menghapusnya permanen."
 
+#: main/templates/main/reveal_message.html:18
 msgid "Dikirim:"
 msgstr "Sent:"
 
-#| msgid "Tutup & Hancurkan Selamanya 🧨"
+#: main/templates/main/reveal_message.html:32
 msgid "Tutup & Hancurkan 🧨"
 msgstr "Close & Destroy Forever 🧨"
 
+#: main/templates/main/rules.html:4
 msgid "Kebijakan Privasi & Ketentuan Layanan - CurhatBox"
 msgstr "Privacy Policy & Terms of Service - CurhatBox"
 
+#: main/templates/main/rules.html:14
 msgid "Perjanjian Pengguna & Privasi ⚖️"
 msgstr "User Agreement & Privacy ⚖️"
 
+#: main/templates/main/rules.html:17
 msgid ""
 "Transparansi penuh untuk komunitas yang sehat. Terakhir diperbarui: 7 Maret "
 "2026"
 msgstr ""
 "Full transparency for a healthy community. Last updated: March 7, 2026"
 
+#: main/templates/main/rules.html:26
 msgid ""
 "<p class=\"mb-0 text-body\" style=\"line-height: 1.6;\">\n"
 "                            Selamat datang di <strong>CurhatBox</strong>. Dokumen ini mengikat Anda dan Pengelola situs.\n"
@@ -1534,9 +2390,11 @@ msgstr ""
 "                            By registering or using our services, you agree to the entire contents of the privacy protection document and ethics guide below.\n"
 "                        </p>"
 
+#: main/templates/main/rules.html:47
 msgid "I. Kebijakan Privasi & Enkripsi Data"
 msgstr "I. Privacy Policy & Data Encryption"
 
+#: main/templates/main/rules.html:57
 msgid ""
 "Kepercayaan Anda adalah segalanya. Kami mengadopsi standar keamanan mutakhir"
 " untuk melindungi hak anonimitas dan rekam jejak Anda:"
@@ -1544,9 +2402,11 @@ msgstr ""
 "Your trust is everything. We adopt cutting-edge security standards to "
 "protect your anonymity rights and track record:"
 
+#: main/templates/main/rules.html:59
 msgid "⚙️ Fitur Keamanan Proaktif"
 msgstr "⚙️ Proactive Security Features"
 
+#: main/templates/main/rules.html:61
 msgid ""
 "<li><strong>Identitas Super Rahasia:</strong> Nama, Email, dan informasi "
 "sensitif pengirim tidak akan pernah bocor ke layar penerima.</li>"
@@ -1554,6 +2414,7 @@ msgstr ""
 "<li><strong>Super Secret Identity:</strong> The sender's Name, Email, and "
 "sensitive information will never leak to the recipient's screen.</li>"
 
+#: main/templates/main/rules.html:62
 msgid ""
 "<li><strong>Sistem Sender Hints (Pelacakan OS):</strong> Meski nama "
 "disembunyikan, sistem kami mendeteksi tipe Perangkat/Browser (contoh: "
@@ -1565,6 +2426,7 @@ msgstr ""
 "Android</em>) as a mitigation \"hint\" so that recipients are not terrorized"
 " by foreign entities.</li>"
 
+#: main/templates/main/rules.html:63
 msgid ""
 "<li><strong>Mode Pesan Sekali Baca (Self-Destruct):</strong> Untuk Pesan "
 "berlogo 💣, pesan tersebut akan dihapus keras dari database kami sesaat "
@@ -1574,6 +2436,7 @@ msgstr ""
 "the 💣 logo, the message will be hard deleted from our database immediately "
 "after being read. No recovery record!</li>"
 
+#: main/templates/main/rules.html:64
 msgid ""
 "<li><strong>Proteksi Anti-Spam (Rate Limiting):</strong> Kami secara agresif"
 " menolak koneksi ganda atau pengiriman pesan beruntun dari Alamat IP yang "
@@ -1583,9 +2446,11 @@ msgstr ""
 "reject multiple connections or sequential message sending from the same IP "
 "Address within an unreasonable duration.</li>"
 
+#: main/templates/main/rules.html:66
 msgid "📜 Kepatuhan Hukum & Data Forensik"
 msgstr "📜 Legal Compliance & Forensic Data"
 
+#: main/templates/main/rules.html:67
 msgid ""
 "<p class=\"text-body-secondary\">Sistem mencatat Alamat IP pengirim murni "
 "untuk keperluan <strong>Audit Forensik</strong>. Jika terjadi kejahatan "
@@ -1597,9 +2462,11 @@ msgstr ""
 "criminal offense, the log data will be submitted exclusively to authorized "
 "Law Enforcement Officers.</p>"
 
+#: main/templates/main/rules.html:82
 msgid "II. Etika & Ketentuan Layanan"
 msgstr "II. Ethics & Terms of Service"
 
+#: main/templates/main/rules.html:91
 msgid ""
 "<p>Layanan CurhatBox dirancang khusus pengguna berusia <strong>13 tahun ke "
 "atas</strong>. Sebagai wadah publik jujur, mari jaga norma bersosial "
@@ -1609,25 +2476,32 @@ msgstr ""
 "or older</strong>. As an honest public forum, let's maintain social media "
 "norms:</p>"
 
+#: main/templates/main/rules.html:93
 msgid "🚫 Toleransi Nol (Zero Tolerance) Pelanggaran Siber:"
 msgstr "🚫 Zero Tolerance for Cyber Violations:"
 
+#: main/templates/main/rules.html:95
 msgid ""
 "Perundungan siber (*Cyberbullying*), pemerasan, atau ancaman kekerasan."
 msgstr "Cyberbullying, extortion, or threats of violence."
 
+#: main/templates/main/rules.html:96
 msgid "Ujaran kebencian (*Hate Speech*), rasisme, atau provokasi massal."
 msgstr "Hate speech, racism, or mass provocation."
 
+#: main/templates/main/rules.html:97
 msgid "Penyebaran materi pornografi, asusila, atau konten vulgar (18+)."
 msgstr "Spread of pornographic, immoral, or vulgar content (18+)."
 
+#: main/templates/main/rules.html:98
 msgid "Di atas segalanya, dilarang menyebarkan privasi orang lain (*Doxing*)."
 msgstr "Above all, it is forbidden to spread other people's privacy (Doxing)."
 
+#: main/templates/main/rules.html:101
 msgid "🔨 Mandat Moderasi & Blokir Mandiri"
 msgstr "🔨 Moderation Mandate & Self-Block"
 
+#: main/templates/main/rules.html:102
 msgid ""
 "<p class=\"text-body-secondary\">Pengguna dapat langsung menggunakan fitur "
 "<strong>Blokir Permanen (Self-Ban)</strong> untuk menghentikan pesan "
@@ -1637,9 +2511,11 @@ msgstr ""
 "<strong>Permanent Block (Self-Ban)</strong> feature to stop further messages"
 " from harassers.</p>"
 
+#: main/templates/main/rules.html:117
 msgid "III. Penyangkalan & Batas Tanggung Jawab"
 msgstr "III. Disclaimer & Limitation of Liability"
 
+#: main/templates/main/rules.html:126
 msgid ""
 "<p>Layanan CurhatBox berstatus <em>\"AS IS\" (Sebagaimana Adanya)</em>. Kami"
 " merupakan medium penyedia komunikasi, bukan penanggung jawab ucapan.</p>"
@@ -1647,6 +2523,7 @@ msgstr ""
 "<p>The CurhatBox service is provided <em>\"AS IS\"</em>. We are a medium for"
 " communication, not responsible for speech.</p>"
 
+#: main/templates/main/rules.html:127
 msgid ""
 "<p>Kami <strong>TERBEBAS SECARA HUKUM</strong> atas segala kerugian "
 "materiil, gangguan psikis, guncangan mental, maupun reputasi tercemar yang "
@@ -1660,212 +2537,466 @@ msgstr ""
 " Sender's typing according to the corridors of the Republic of Indonesia ITE"
 " Law.</p>"
 
+#: main/templates/main/rules.html:138
 msgid "Tim Legal atau Pertanyaan? Hubungi Meja Layanan:"
 msgstr "Legal Team or Questions? Contact Service Desk:"
 
+#: main/templates/registration/login.html:4
+msgid "Masuk ke CurhatBox"
+msgstr "Login to CurhatBox"
+
+#: main/templates/registration/login.html:19
+msgid "Selamat Datang Lagi!"
+msgstr "Welcome Back!"
+
+#: main/templates/registration/login.html:20
+msgid "Silakan masuk untuk melihat pesan rahasiamu."
+msgstr "Please login to see your secret messages."
+
+#: main/templates/registration/login.html:23
+msgid "Username atau password salah."
+msgstr "Invalid username or password."
+
+#: main/templates/registration/login.html:36
+#: main/templates/registration/password_reset_form.html:19
+msgid "Lupa Password?"
+msgstr "Forgot Password?"
+
+#: main/templates/registration/login.html:42
+msgid "Masuk Sekarang"
+msgstr "Login Now"
+
+#: main/templates/registration/login.html:49
+msgid "Atau masuk dengan"
+msgstr "[EN] Atau masuk dengan"
+
+#: main/templates/registration/login.html:57
+msgid "Belum punya akun?"
+msgstr "Don't have an account?"
+
+#: main/templates/registration/login.html:58
+msgid "Daftar di sini"
+msgstr "Register here"
+
+#: main/templates/registration/password_change_done.html:5
+#| msgid "Password Berhasil Diubah - CurhatBox"
+msgid "Password Berhasil Diubah"
+msgstr "[EN] Password Changed Successfully - CurhatBox"
+
+#: main/templates/registration/password_change_done.html:20
+msgid "Berhasil! ✨"
+msgstr "[EN] Berhasil! ✨"
+
+#: main/templates/registration/password_change_done.html:22
+msgid ""
+"Kata sandi akun Anda telah berhasil diperbarui. Sekarang Anda lebih aman "
+"dari sebelumnya."
+msgstr ""
+"[EN] Kata sandi akun Anda telah berhasil diperbarui. Sekarang Anda lebih "
+"aman dari sebelumnya."
+
+#: main/templates/registration/password_change_done.html:28
+#| msgid "Kembali ke Beranda"
+msgid "Kembali ke Pengaturan ⚙️"
+msgstr "[EN] Back to Home"
+
+#: main/templates/registration/password_change_form.html:5
+msgid "Ganti Kata Sandi"
+msgstr "[EN] Ganti Kata Sandi"
+
+#: main/templates/registration/password_change_form.html:15
+msgid "🔐 Perbarui Kata Sandi"
+msgstr "[EN] 🔐 Perbarui Kata Sandi"
+
+#: main/templates/registration/password_change_form.html:17
+msgid "Gunakan kombinasi yang kuat untuk keamanan akunmu."
+msgstr "[EN] Gunakan kombinasi yang kuat untuk keamanan akunmu."
+
+#: main/templates/registration/password_change_form.html:46
+msgid "Lupa kata sandi lama? Kirim link reset ke email"
+msgstr "[EN] Lupa kata sandi lama? Kirim link reset ke email"
+
+#: main/templates/registration/password_change_form.html:53
+msgid "Simpan Kata Sandi Baru ✨"
+msgstr "[EN] Simpan Kata Sandi Baru ✨"
+
+#: main/templates/registration/password_reset_complete.html:5
 msgid "Password Berhasil Diubah - CurhatBox"
 msgstr "Password Changed Successfully - CurhatBox"
 
+#: main/templates/registration/password_reset_complete.html:20
 msgid "Password Diperbarui! ✅"
 msgstr "Password Updated! ✅"
 
+#: main/templates/registration/password_reset_complete.html:22
 msgid ""
 "Kata sandi Anda telah berhasil diperbarui secara permanen. Kini Anda bisa "
 "menggunakan data login terbaru untuk mengakses dashboard."
 msgstr ""
+"[EN] Kata sandi Anda telah berhasil diperbarui secara permanen. Kini Anda "
+"bisa menggunakan data login terbaru untuk mengakses dashboard."
 
+#: main/templates/registration/password_reset_complete.html:28
 msgid "Masuk Sekarang 🚪"
 msgstr "Login Now 🚪"
 
+#: main/templates/registration/password_reset_complete.html:31
 msgid "Selamat curhat kembali dengan aman di CurhatBox!"
 msgstr "Welcome back to sharing safely on CurhatBox!"
 
+#: main/templates/registration/password_reset_confirm.html:5
 msgid "Buat Password Baru - CurhatBox"
 msgstr "Create New Password - CurhatBox"
 
+#: main/templates/registration/password_reset_confirm.html:21
 msgid "Atur Password Baru"
 msgstr "Set New Password"
 
+#: main/templates/registration/password_reset_confirm.html:23
 msgid ""
 "Demi alasan keamanan, silakan pilih kombinasi password yang kuat dan mudah "
 "diingat."
 msgstr ""
+"[EN] Demi alasan keamanan, silakan pilih kombinasi password yang kuat dan "
+"mudah diingat."
 
+#: main/templates/registration/password_reset_confirm.html:41
 msgid "Ubah Password Sekarang 🗝️"
 msgstr "Change Password Now 🗝️"
 
+#: main/templates/registration/password_reset_confirm.html:52
 msgid "Tautan Tidak Valid"
 msgstr "Invalid Link"
 
+#: main/templates/registration/password_reset_confirm.html:54
 msgid ""
 "Mohon maaf, tautan pemulihan ini tidak lagi berlaku atau sudah digunakan "
 "sebelumnya."
 msgstr ""
+"[EN] Mohon maaf, tautan pemulihan ini tidak lagi berlaku atau sudah "
+"digunakan sebelumnya."
 
+#: main/templates/registration/password_reset_confirm.html:59
 msgid "Minta Link Baru"
 msgstr "Request New Link"
 
-#| msgid "Pesan Terbuka | CurhatBox"
+#: main/templates/registration/password_reset_done.html:5
 msgid "Email Terkirim - CurhatBox"
 msgstr "Open Message | CurhatBox"
 
-#| msgid "Pesan rahasiamu terkirim! 🚀"
+#: main/templates/registration/password_reset_done.html:20
 msgid "Email Terkirim! 🚀"
 msgstr "Your secret message has been sent! 🚀"
 
+#: main/templates/registration/password_reset_done.html:22
 msgid ""
 "Kami telah mengirimkan instruksi pemulihan ke alamat email Anda. Jika tidak "
 "muncul dalam hitungan menit, silakan cek folder **Spam**."
 msgstr ""
+"[EN] Kami telah mengirimkan instruksi pemulihan ke alamat email Anda. Jika "
+"tidak muncul dalam hitungan menit, silakan cek folder **Spam**."
 
-#| msgid "⬅ Kembali ke Dasbor"
+#: main/templates/registration/password_reset_done.html:28
 msgid "Ok, Kembali ke Login"
 msgstr "⬅ Back to Dashboard"
 
+#: main/templates/registration/password_reset_done.html:34
+msgid "Belum terima email? Kirim Ulang"
+msgstr "[EN] Belum terima email? Kirim Ulang"
+
+#: main/templates/registration/password_reset_done.html:48
+#| msgid "Kirim pesan rahasia di"
+msgid "Kirim ulang tersedia dalam"
+msgstr "[EN] Send secret messages at"
+
+#: main/templates/registration/password_reset_done.html:63
 msgid "Masih butuh bantuan? Hubungi kami di admin@curhatbox.my.id"
 msgstr "Still need help? Contact us at admin@curhatbox.my.id"
 
+#: main/templates/registration/password_reset_email.txt:2
+msgid "Halo,"
+msgstr "[EN] Halo,"
+
+#: main/templates/registration/password_reset_email.txt:4
+msgid ""
+"Kami menerima permintaan untuk mereset kata sandi akun CurhatBox Anda. Jika "
+"ini benar Anda, silakan salin dan buka tautan di bawah ini di browser Anda "
+"untuk mengatur kata sandi baru:"
+msgstr ""
+"[EN] Kami menerima permintaan untuk mereset kata sandi akun CurhatBox Anda. "
+"Jika ini benar Anda, silakan salin dan buka tautan di bawah ini di browser "
+"Anda untuk mengatur kata sandi baru:"
+
+#: main/templates/registration/password_reset_email.txt:8
+msgid ""
+"Tautan ini hanya akan berlaku selama 48 jam. Jika Anda tidak merasa "
+"melakukan permintaan ini, mohon abaikan email ini."
+msgstr ""
+"[EN] Tautan ini hanya akan berlaku selama 48 jam. Jika Anda tidak merasa "
+"melakukan permintaan ini, mohon abaikan email ini."
+
+#: main/templates/registration/password_reset_email.txt:10
+msgid "Terima kasih,"
+msgstr "[EN] Terima kasih,"
+
+#: main/templates/registration/password_reset_email.txt:11
 #| msgid "Sponsor CurhatBox"
+msgid "Tim CurhatBox"
+msgstr "[EN] CurhatBox Sponsor"
+
+#: main/templates/registration/password_reset_form.html:5
 msgid "Lupa Password - CurhatBox"
 msgstr "Forgot Password - CurhatBox"
 
-msgid "Lupa Password?"
-msgstr "Forgot Password?"
-
+#: main/templates/registration/password_reset_form.html:21
 msgid ""
 "Jangan panik! Masukkan email Anda di bawah ini dan kami akan mengirimkan "
 "link pemulihan."
 msgstr ""
 "Don't panic! Enter your email below and we will send you a recovery link."
 
+#: main/templates/registration/password_reset_form.html:27
 msgid "Alamat Email"
 msgstr "Email Address"
 
+#: main/templates/registration/password_reset_form.html:34
 msgid "Silakan masukkan alamat email yang valid."
 msgstr "Please enter a valid email address."
 
-#| msgid "Kirim & Publikasikan 🚀"
+#: main/templates/registration/password_reset_form.html:39
 msgid "Kirim Link Pemulihan 🚀"
 msgstr "Send Recovery Link 🚀"
 
-#| msgid "Kembali ke Beranda"
+#: main/templates/registration/password_reset_form.html:43
 msgid "Kembali ke Login"
 msgstr "Back to Login"
 
+#: main/templates/socialaccount/connections.html:11
+msgid "🔗 Koneksi Akun"
+msgstr "[EN] 🔗 Koneksi Akun"
+
+#: main/templates/socialaccount/connections.html:13
+msgid "Kelola daftar akun sosial pihak ketiga yang terhubung."
+msgstr "[EN] Kelola daftar akun sosial pihak ketiga yang terhubung."
+
+#: main/templates/socialaccount/connections.html:19
+msgid "Akun yang Terhubung:"
+msgstr "[EN] Akun yang Terhubung:"
+
+#: main/templates/socialaccount/connections.html:47
+msgid "Hapus Akses Terpilih"
+msgstr "[EN] Hapus Akses Terpilih"
+
+#: main/templates/socialaccount/connections.html:53
+msgid "Belum ada akun pihak ketiga yang terhubung."
+msgstr "[EN] Belum ada akun pihak ketiga yang terhubung."
+
+#: main/templates/socialaccount/connections.html:60
+msgid "Tambahkan Akun Lain:"
+msgstr "[EN] Tambahkan Akun Lain:"
+
+#: main/templates/socialaccount/connections.html:64
+msgid "Tambahkan Akses Google"
+msgstr "[EN] Tambahkan Akses Google"
+
+#: main/templates/socialaccount/connections.html:71
+#| msgid "⚙️ Pengaturan Profil"
+msgid "Kembali ke Pengaturan Profil"
+msgstr "[EN] ⚙️ Profile Settings"
+
+#: main/templates/socialaccount/signup.html:4
+msgid "Daftar dengan Google"
+msgstr "[EN] Daftar dengan Google"
+
+#: main/templates/socialaccount/signup.html:16
+#| msgid "Selamat Datang Lagi!"
+msgid "Satu Langkah Lagi"
+msgstr "[EN] Welcome Back!"
+
+#: main/templates/socialaccount/signup.html:18
+msgid ""
+"\n"
+"                    Anda hampir berhasil masuk. Silakan konfirmasi detail pendaftaran Anda di bawah ini untuk menghubungkan akun Google.\n"
+"                    "
+msgstr ""
+"\n"
+"                    [EN] Anda hampir berhasil masuk. Silakan konfirmasi detail pendaftaran Anda di bawah ini untuk menghubungkan akun Google.\n"
+"                    "
+
+#: main/templates/socialaccount/signup.html:51
+msgid "Selesaikan Koneksi Google"
+msgstr "[EN] Selesaikan Koneksi Google"
+
+#: main/views.py:100
 msgid "Selamat datang! Akun berhasil dibuat."
 msgstr "Welcome! Account successfully created."
 
+#: main/views.py:131
+#| msgid "Silakan masukkan alamat email yang valid."
+msgid "Sesi berakhir. Silakan masukkan email Anda kembali."
+msgstr "[EN] Please enter a valid email address."
+
+#: main/views.py:139
+msgid "Mohon tunggu sebentar sebelum mengirim ulang email."
+msgstr "[EN] Mohon tunggu sebentar sebelum mengirim ulang email."
+
+#: main/views.py:156
+msgid "Email baru telah dikirimkan ke kotak masuk Anda."
+msgstr "[EN] Email baru telah dikirimkan ke kotak masuk Anda."
+
+#: main/views.py:158
+msgid "Gagal mengirim ulang email. Pastikan format email benar."
+msgstr "[EN] Gagal mengirim ulang email. Pastikan format email benar."
+
+#: main/views.py:171
+msgid "Akun Anda tidak memiliki email yang terdaftar."
+msgstr "[EN] Akun Anda tidak memiliki email yang terdaftar."
+
+#: main/views.py:197
+msgid "Sesi QnA / Pertanyaan ini sudah ditutup oleh pengguna."
+msgstr "[EN] Sesi QnA / Pertanyaan ini sudah ditutup oleh pengguna."
+
+#: main/views.py:220
 msgid "Gagal mengirim pesan. Sistem mendeteksi aktivitas mencurigakan (Bot)."
 msgstr "Failed to send message. System detected suspicious activity (Bot)."
 
+#: main/views.py:232
 msgid "Akses ditolak. Anda tidak dapat mengirim pesan ke pengguna ini."
 msgstr "Access denied. You cannot send messages to this user."
 
+#: main/views.py:267
 msgid "Pesan rahasiamu terkirim! 🚀"
 msgstr "Your secret message has been sent! 🚀"
 
+#: main/views.py:314
 #, python-format
 msgid "Hore! Kamu memiliki %(count)d pesan rahasia baru yang belum dibaca! ✨"
 msgstr "Hooray! You have %(count)d new unread secret messages! ✨"
 
+#: main/views.py:349
 msgid "Balasan terkirim."
 msgstr "Reply sent."
 
+#: main/views.py:360
 msgid "Pesan dihapus."
 msgstr "Message deleted."
 
+#: main/views.py:370
 msgid "Gunakan tombol resmi untuk membuka pesan sekali baca."
 msgstr "Use the official button to open a one-time read message."
 
+#: main/views.py:398
 msgid "Pengirim telah diblokir."
 msgstr "Sender has been blocked."
 
+#: main/views.py:400
 msgid "Gagal memblokir: IP tidak ditemukan."
 msgstr "Failed to block: IP not found."
 
+#: main/views.py:413
 msgid "dipin"
 msgstr "pinned"
 
+#: main/views.py:413
 msgid "dilepas"
 msgstr "unpinned"
 
+#: main/views.py:415
 #, python-format
 msgid "Pesan berhasil %(status)s."
 msgstr "Message successfully %(status)s."
 
+#: main/views.py:428
 msgid "Reaksi dihapus."
 msgstr "Reaction removed."
 
+#: main/views.py:435
 #, python-format
 msgid "Kamu bereaksi %(emoji)s pada pesan rahasia."
 msgstr "You reacted %(emoji)s to a secret message."
 
+#: main/views.py:458
 msgid "Profil diperbarui."
 msgstr "Profile updated."
 
+#: main/views.py:638
+#| msgid ""
+#| "Tunggu sebentar! Kamu mengirim pesan terlalu cepat. Silakan coba lagi dalam "
+#| "1 menit."
 msgid ""
-"Tunggu sebentar! Kamu mengirim pesan terlalu cepat. Silakan coba lagi dalam "
-"1 menit."
+"Tunggu sebentar! Kamu mengakses fitur ini terlalu cepat. Silakan coba lagi "
+"dalam 1 menit."
 msgstr ""
-"Wait a minute! You are sending messages too fast. Please try again in 1 "
-"minute."
+"[EN] Wait a minute! You are sending messages too fast. Please try again in 1"
+" minute."
 
-msgid "Masuk ke CurhatBox"
-msgstr "Login to CurhatBox"
+#: main/views.py:664
+msgid "Tautan QnA Spesifik berhasil dibuat! 🚀"
+msgstr "[EN] Tautan QnA Spesifik berhasil dibuat! 🚀"
 
-msgid "Selamat Datang Lagi!"
-msgstr "Welcome Back!"
+#: main/views.py:666
+msgid "Topik pertanyaan tidak boleh kosong."
+msgstr "[EN] Topik pertanyaan tidak boleh kosong."
 
-msgid "Silakan masuk untuk melihat pesan rahasiamu."
-msgstr "Please login to see your secret messages."
+#: main/views.py:677
+msgid "Diaktifkan"
+msgstr "[EN] Diaktifkan"
 
-msgid "Username atau password salah."
-msgstr "Invalid username or password."
+#: main/views.py:677
+msgid "Ditutup"
+msgstr "[EN] Ditutup"
 
-msgid "Masuk Sekarang"
-msgstr "Login Now"
+#: main/views.py:678
+#, python-format
+#| msgid "Pesan berhasil %(status)s."
+msgid "Tautan QnA berhasil %s."
+msgstr "[EN] Tautan QnA berhasil %s."
 
-msgid "Belum punya akun?"
-msgstr "Don't have an account?"
+#: main/views.py:688
+msgid "Tautan QnA dihapus secara permanen."
+msgstr "[EN] Tautan QnA dihapus secara permanen."
 
-msgid "Daftar di sini"
-msgstr "Register here"
+#, python-format
+#~ msgid "Kirim Pesan Rahasia ke %(target_user.username|default:'Seseorang')s! 💜"
+#~ msgstr ""
+#~ "Send a Secret Message to %(target_user.username|default:'Seseorang')s! 💜"
 
-msgid "Aman & Anonim. Penerima tidak akan tahu siapa pengirimnya."
-msgstr "Secure & Anonymous. The recipient will never know who the sender is."
+#, python-format
+#~ msgid "Kirim pesan ke %(target_user.username)s"
+#~ msgstr "Send a message to %(target_user.username)s"
 
-msgid "💜 Cerita yang Terjawab"
-msgstr "💜 Answered Stories"
+#~ msgid "Aman & Anonim. Penerima tidak akan tahu siapa pengirimnya."
+#~ msgstr "Secure & Anonymous. The recipient will never know who the sender is."
 
-msgid "Seseorang anonim bertanya:"
-msgstr "An anonymous person asks:"
+#~ msgid "💜 Cerita yang Terjawab"
+#~ msgstr "💜 Answered Stories"
 
-msgid "Telah dibalas dengan sebuah reaksi"
-msgstr "Answered with a reaction"
+#~ msgid "Seseorang anonim bertanya:"
+#~ msgstr "An anonymous person asks:"
 
-msgid "Share ke WA 📲"
-msgstr "Share to WA 📲"
+#~ msgid "Telah dibalas dengan sebuah reaksi"
+#~ msgstr "Answered with a reaction"
 
-msgid "Belum Ada Cerita yang Dibagikan"
-msgstr "No Stories Shared Yet"
+#~ msgid "Share ke WA 📲"
+#~ msgstr "Share to WA 📲"
 
-msgid "100% Anonim"
-msgstr "100% Anonymous"
+#~ msgid "Belum Ada Cerita yang Dibagikan"
+#~ msgstr "No Stories Shared Yet"
 
-msgid "Aman & Terenkripsi"
-msgstr "Secure & Encrypted"
+#~ msgid "100% Anonim"
+#~ msgstr "100% Anonymous"
 
-msgid "Hindari SARA, kebencian, perundungan siber."
-msgstr "Avoid SARA, hatred, cyberbullying."
+#~ msgid "Aman & Terenkripsi"
+#~ msgstr "Secure & Encrypted"
 
-msgid "Pengen punya kotak pesan rahasia kayak gini juga?"
-msgstr "Want to have a secret message box like this too?"
+#~ msgid "Hindari SARA, kebencian, perundungan siber."
+#~ msgstr "Avoid SARA, hatred, cyberbullying."
 
-msgid "Daftar Gratis Sekarang"
-msgstr "Register for Free Now"
+#~ msgid "Pengen punya kotak pesan rahasia kayak gini juga?"
+#~ msgstr "Want to have a secret message box like this too?"
 
-msgid "Sedang mengirim..."
-msgstr "Sending..."
+#~ msgid "Daftar Gratis Sekarang"
+#~ msgstr "Register for Free Now"
 
-msgid "Kirim pesan ke"
-msgstr "Send message to"
+#~ msgid "Sedang mengirim..."
+#~ msgstr "Sending..."
